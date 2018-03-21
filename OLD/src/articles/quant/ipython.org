@@ -1,0 +1,170 @@
+* IPython 的好处
+
+简单的介绍ipython：
+ipython是一个强大而交互式运算架构：
+(1).强大的交互式shell（终端运行）;
+(2).一个基于浏览器的notbook，支持代码、文本、数学运算、内嵌plots等;
+(3).支持交互式的数据可视化和GUI工具包的使用;
+(4).灵活、内嵌的解释器加载到自己的项目;
+(5).支持并行运算.¶
+
+
+from IPython.external.mathjax import install_mathjax
+install_mathjax()
+Downloading mathjax source from https://github.com/mathjax/MathJax/archive/2.4.0.tar.gz
+Extracting to /Users/holbrook/.ipython/nbextensions/mathjax
+
+
+- 载入代码
+
+  %load http://matplotlib.sourceforge.net/mpl_examples/pylab_examples/integral_demo.py
+
+- 输出数据时的可读性更佳（pretty printed）
+- 支持自动补全（Tab Completion）
+- 可以直接运行bash
+
+  ls
+  pwd
+
+- 可以嵌入bash脚本
+
+  %%bash
+  echo 'Hello'
+  date
+
+- 中断脚本运行
+
+  C-m i
+
+- 获取帮助
+
+  C-m h
+
+
+- 支持 %命令
+  比如，
+  In [550]: % ipython_script_test.py   #运行
+
+- 魔术命令 （Magic Command）
+  Ipython里特有的一些命令，以%开头作为标志
+
+  + 保留格式的粘帖 %cpaste
+
+    In [7]: %cpaste    # 有时候要复制一大段代码到shell里而直接粘帖会破坏换行格式，这时%cpaste就派用场了。
+    Pasting code; enter '--' alone on the line to stop or use Ctrl-D. #右键，粘帖
+    :--                # 结束的时候打‘--’
+
+  + 计时 %timeit
+
+    In [554]: a = np.random.randn(100, 100)
+    In [555]: %timeit np.dot(a, a)
+    10000 loops, best of 3: 69.1 us per loop
+
+  + 重置 %reset
+    In [1]: %reset?      # ?是内省（Introspection）功能，可以看到reset的细节
+    Resets the namespace by removing all names defined by the user.
+    Parameters
+    ----------
+  -f : force reset without asking for confirmation.                 # 两种不同的reset
+  -s : 'Soft' reset: Only clears your namespace, leaving history intact.
+  References to objects may be kept. By default (without this option),
+  we do a 'hard' reset, giving you a new session and removing all
+  references to objects from the current session.
+  Examples
+  --------
+  In [6]: a = 1
+  In [7]: a
+  Out[7]: 1
+  In [8]: 'a' in _ip.user_ns
+  Out[8]: True
+  In [9]: %reset -f
+  In [1]: 'a' in _ip.user_ns
+  Out[1]: False
+
+  总结一些Magic Command，有待大家自己去尝试
+  %quickref                Display the IPython Quick Reference Card
+  %magic                   Display detailed documentation for all of the available magic commands
+  %debug                   Enter the interactive debugger at the bottom of the last exception traceback
+  %hist                    Print command input (and optionally output) history
+  %pdb                     Automatically enter debugger after any exception
+  %paste                   Execute pre-formatted Python code from clipboard
+  %cpaste                  Open a special prompt for manually pasting Python code to be executed
+  %reset                   Delete all variables / names defined in interactive namespace
+  %page                    OBJECT Pretty print the object and display it through a pager
+  % script.py            a Python script inside IPython
+  %p                    statement Execute statement with cProfile and report the profiler output
+  %time                    statement Report the execution time of single statement
+  %timeit                  statement  a statement multiple times to compute an emsemble average execution time. Useful for timing code with very short execution time
+  %who, %who_ls, %whos     Display variables defined in interactive namespace, with varying levels of information / verbosity
+  %xdel variable           Delete a variable and attempt to clear any references to the object in the IPython internals
+
+
+* IPython Notebook
+
+甚至有人为IPython Notebook[[http://asc.2dark.org/taxonomy/term/70][定制精简的浏览器]]。
+（新建一个firefox的profile，修改ipython配置文件~/.config/ipython/profile_default/ipython_notebook_config.py
+添加或修改c.NotebookApp.browser为）
+
+转成html页面。
+ipython nbconvert --to html Advance.ipynb
+
+Notebook 为将代码执行与实时计算文档的创建组合起来的交互式计算提供了工作环境。这些 Notebook 文件可以包含任意文本、数学公式、输入代码、结果、图形、视频以及新型 Web 浏览器能够显示的任何其他种类的媒体。
+个人体会： 可以修改已经执行过得语句，重新的到结果（像Mathematica），这让修改变得很方便。
+
+
+notebook是web based IPython封装，但是可以展现富文本，使得整个工作可以以笔记的形式展现、存储，对于交互编程、学习非常方便。
+
+
+- 嵌入图片
+  Image(filename='/home/chaofan/Desktop/help.png')
+  Image(url='http://ww1.sinaimg.cn/mw600/6a77a719jw1dyx581xf1cj.jpg')
+
+%pylab inline #在html中内嵌图表
+
+
+远程访问notebook
+如果需要远程访问，就稍微麻烦一点：
+
+首先，需要建立一个server的config，通过在命令行键入：
+
+
+ipython profile create nbserver
+然后，修改新建的profile，即ipython_notebook_config.py（命令行会有输出，告诉你生成的文件在哪里），默认的config文件都是被注释掉的，你需要至少修改如下的项：
+
+
+c = get_config()
+
+# Kernel config
+c.IPKernelApp.pylab = 'inline'  # if you want plotting support always
+
+# Notebook config
+c.NotebookApp.certfile = u'/absolute/path/to/your/certificate/mycert.pem'
+c.NotebookApp.ip = '*'
+c.NotebookApp.open_browser = False
+c.NotebookApp.password = u'sha1:bcd259ccf...your hashed password here'
+# It's a good idea to put it on a known, fixed port
+c.NotebookApp.port = 9999
+但是，你需要注意的是，我们还没有mycert.pem，这个也很简单，使用openssl生成一个就行，如果你手头有linux机器的话就极其简单了：
+
+
+$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+再接着，需要生成一串哈希后的密钥，随便开一个IPython的shell键入：
+
+
+
+In [1]: from IPython.lib import passwd
+In [2]: passwd()
+设定你的密码即可（现在0.13版还不支持多人的notebook，因此只能单用户使用，只支持一个密码罢了，多用户功能处在开发中）。
+
+好了，现在启动你的public的IPython notebook吧：
+
+ipython notebook --profile=nbserver
+
+然后你就可以在浏览器里远程访问你的IPython notebook了。
+
+
+* 参考资料
+1. IPython: Python at your fingertips .  http://phylab.fudan.edu.cn/lib/exe/fetch.php?media=course:python:1203_ipython_pycon.pdf
+2. gallery of IPython Notebooks. https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks
+3. another gallery: http://nbviewer.ipython.org/
+4. 参考网站 http://ipython.org/notebook.html

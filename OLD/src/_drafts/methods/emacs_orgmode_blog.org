@@ -1,0 +1,176 @@
+#+TITLE: 用org-mode写github博客
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: [2014-02-17]
+#+YAML/LAYOUT: post
+#+YAML/CATEGORIES: test
+#+YAML/TAGS: emacs; org-mode; Jekyll
+#+OPTIONS: H:4 toc:t
+
+* Jekyll的主要功能
+
+
+#+Begin_src Plantuml :file gtd.png
+@startuml
+
+class Page
+class Post
+class Templage
+
+Page <|-- Post
+Templage -- Template
+
+@enduml
+
+#+end_src
+
+
+
+* Jekyll+GithubPage的问题
+
+用Jekyll在github建立blog，似乎已经成为独立技术博客的主流。这种方式有着各种各样的光环：
+
+- 静态站点
+- Markdown
+- 自动编译
+- 版本管理
+- ……
+
+但是，这种方式也存在着一些问题。主要体现在：Markdown不适合编辑文章
+
+尽管现在Markdown以其简单易用的特点，在各种文档编写中大行其道，但Markdown还不足以作为“文章”编辑语言：
+
+- Markdown不能处理多个文档之间的关系
+- Markdown对于表格、公式等的支持有点麻烦
+- 格式转换和输出需要pandoc的支持，而pandoc需要自己的Markdown方言才能支持更多的特性
+- 对于目录、脚注、题注等支持不够好
+
+而老牌的org-mode则完全没有这些问题。不仅如此，org-mode还可以在编辑时预览图片，
+甚至在文档中运行程序片段，嵌入其运行结果（即“文学编程(Bable)”）。
+
+这些问题有些来自Github Page，有些来自Markdown本身。
+
+* 使用本地编译
+
+前面提到的不便之处，有一部分原因来自Github Page编译功能的不足。由于Github Page上面软件的版本比较低，
+而且不能使用比较复杂的Jekyll插件(比如pandoc)，于是有人使用本地编译的结果代替Github Page的编译。
+Octpress就是这样的工具。
+
+* 使用org-mode
+
+尽管已经用markdown写了近百篇博客文章和各种开发文档，但还是觉得markdown不适合写严肃的文章。
+
+引用
+脚注
+题注
+TODO状态
+多文档
+
+
+* 发布为Jekyll格式
+
+思路是用org-mode生成html的正文并嵌入Jekyll数据，再利用Jekyll的生成blog结构的页面。比如，layout等
+
+比如[[https://github.com/jsuper/org-jekyll-mode][org-jekyll-mode]]。
+
+
+其要点是：
+
+设置org-mode只导出html的body部分：
+
+| :body-only t
+
+并增加Jekyll元数据：
+
+| #+YAML/LAYOUT: post
+| #+YAML/CATEGORIES: test
+| #+YAML/TAGS: emacs; org-mode; Jekyll
+
+好用！包括自动添加日期，生成graphviz图片：
+
+M-x org-jekyll/publish-project
+
+* 使用org-mode的publish功能
+
+作为超级写作利器，org-mode自身就支持发布功能。比如xorg就是很好的例子。使用org-mode的发布功能，能够生成整个blog站点。这种方式的好处是不受Github Page的限制，可以发布在任何
+支持静态页面的地方，比如[[http://yuyang.farbox.com/org-mode-dropbox-blog.html][发布到Dropbox]]。
+
+但是要自己解决Jekyll支持的功能：
+
+- archieves
+- catelog
+- tags list
+- rss
+- ……
+
+
+
+
+** 一些工具
+
+
+# org-mode blog tools
+
+http://orgmode.org/worg/org-blog-wiki.html
+
+
+
+# org mode export
+
+http://orgmode.org/manual/Exporting.html
+
+参考 [worg](http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html)
+写出我的发布配置：
+(require 'org-publish)
+(setq org-publish-project-alist
+      '(
+        ("blog-notes"
+         :base-directory "~/org/blog/"
+         :base-extension "org"
+         :publishing-directory "~/org/dayigu.github.com/"
+         :recursive t
+         :publishing-function org-publish-org-to-html
+         :headline-levels 4
+         :section-numbers nil
+         :auto-preamble t
+         :auto-sitemap t                ; Generate sitemap.org automagically...
+         :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
+         :sitemap-title "Sitemap"         ; ... with title 'Sitemap'.
+         :author "dayigu"
+         :email "dayigu at gmail dot com"
+         :style    "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/worg.css\"/>"
+         )
+        ("blog-static"
+         :base-directory "~/org/blog/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/org/dayigu.github.com/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ("blog" :components ("blog-notes" "blog-static"))
+        ;;
+        ))
+
+
+评论直接采用 disqus, 将 disqus 给出的评论代码设置给 html-postamble 。
+写的blog post 都放在 ~/org/blog 下，以 ".org" 为文件后缀，图片放在 img 目录下。运行 M-x org-publish-projects, blog, 生成的 html 文件都输出到 ~/org/dayigu.github.com/ 下。
+首先要 建立一个 index, 它会生成 blog 的首页，所有的 post list 也放在这里面。post 的链接形式为：
+[[file:WhyUseOrgModeToWriteBlog][为什么用 org-mode 写blog？]］
+另外直接偷懒用了 worg 的 css .
+发布到 github 上，也就是 add、commit 再 push
+git add .
+git commit -m 'org blog commit'
+git push -u origin master
+
+
+
+
+
+## template
+
+http://github.com/capitaomorte/yasnippet
+YASnippet is a template system for Emacs. It allows you to type an abbreviation and automatically expand it into function templates. Bundled language templates includes: C, C++, C#, Perl, Python, Ruby, SQL, LaTeX, HTML, CSS and more. The snippet syntax is inspired from TextMate's syntax, you can even import most TextMate templates to YASnippet. Watch a demo at YouTube.
+
+​Documentation has moved here!!!
+Report any issues in github's issue tracker!!!
+Discussion continues to be hosted by google yasnippet here
+I will keep all the downloads and other stuff here for a while! Thanks google it's been great but it's time to move on!

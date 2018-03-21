@@ -1,0 +1,28 @@
+* jekyll
+
+
+#+begin_src plantuml :file jekyll.png
+@startuml
+class Template
+
+class Page {
+ + title
+}
+
+class Post {
+ + description
+ + categories
+ + tags
+ + date
+}
+
+Template "*" -- "0..1" Template : parent >
+Page "*" -- "1" Template : layout >
+
+
+Page <|-- Post
+
+
+@enduml
+
+#+end_src

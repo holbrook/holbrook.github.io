@@ -1,0 +1,15 @@
+#+YAML/TITLE: 用Karaf feature打包OSGi应用
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: <2014-03-06 四>
+#+YAML/LAYOUT: post
+#+YAML/TAGS: OSGi;Maven;Karaf
+#+OPTIONS: toc:t
+
+#+BEGIN_QUOTE
+为了简化OSGi应用的部署，Karaf定义了feature，用于描述OSGi应用的部署信息[fn:1]
+#+END_QUOTE
+
+
+* 参考资料
+
+[fn:1] [[http://thinkinside.tk/2014/02/20/apache_karaf.html][Apache Karaf：OSGi中间件]]

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="问题跟踪系统" />
+  <title>Atlassian Jira</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Atlassian Jira</h1>
+    <h2 class="author">问题跟踪系统</h2>
+    <h3 class="date"><br/><br/>王海阔 <span class="citation" data-cites="hysec.com">@hysec.com</span>, 2014</h3>
+</section>
+
+<section><section id="项目中的问题" class="titleslide slide level1"><h1>项目中的“问题”</h1></section><section id="issues不是problems" class="slide level2">
+<h1>issues不是problems</h1>
+<figure>
+<img src="images/jira/project-issues.jpg" />
+</figure>
+<ul>
+<li>任何需要开展行动的事情</li>
+<li>Jira汉化版中翻译为“事件”</li>
+</ul>
+<aside class="notes">
+有影响，需要处理的事情 缺陷，新需求，改进，新特性，任务和子任务，其他任何事情 常见的有以下几种（Jira中内置的）
+</aside>
+</section><section id="bugs" class="slide level2">
+<h1>bugs</h1>
+<figure>
+<img src="images/jira/bug.jpg" />
+</figure>
+<aside class="notes">
+<p>bug(缺陷)：软件中存在的导致软件产品在某种程度上不能满足用户的需要的错误。产生原因： 1）设计不合理; 2）功能未实现； 3）与需求不一致; 5）用户不能接受的其他问题，如存取时间过长、界面不美观; 6）甚至，软件实现了需求未提到的功能。</p>
+一般分成几个级别：致命的(Fatal)，严重的(Critical)，一般的(Major)，微小的(Minor),建议(Enhancemental)
+</aside>
+</section><section class="slide level2">
+
+<h3 id="fatal致命的">Fatal(致命的)</h3>
+<ul>
+<li>阻塞开发或测试的工作</li>
+<li>影响系统无法运行的错误 <br/></li>
+</ul>
+<h3 id="critical严重的">Critical（严重的）</h3>
+<ul>
+<li>系统崩溃、丢失数据或内存溢出等严重错误</li>
+<li>必需完成的任务 <br/></li>
+</ul>
+<h3 id="major一般的">Major（一般的）</h3>
+<ul>
+<li>主要的功能无效</li>
+<li>新增功能建议 <br/></li>
+</ul>
+<h3 id="minor微小的">Minor（微小的）</h3>
+<ul>
+<li>功能部分无效</li>
+<li>现有系统的改进 <br/></li>
+</ul>
+<h3 id="trivial建议性">Trivial（建议性）</h3>
+<ul>
+<li>拼写错误、文本未对齐等</li>
+</ul>
+</section><section id="new-requirement" class="slide level2">
+<h1>New Requirement</h1>
+<figure>
+<img src="images/jira/Requirements.jpeg" />
+</figure>
+<aside class="notes">
+<p>项目之痛 新需求，需求变更 软件为了达到目标所要具备的条件或能力。（多种定义）</p>
+新需求：非计划中的新功能
+</aside>
+</section><section id="improvement" class="slide level2">
+<h1>Improvement</h1>
+<figure>
+<img src="images/jira/Improvement.jpeg" />
+</figure>
+<aside class="notes">
+<p>对已实现的特性的改善或提高 我们真的很努力</p>
+新特性：计划中的未实现功能
+</aside>
+</section><section id="new-feature" class="slide level2">
+<h1>New Feature</h1>
+<figure>
+<img src="images/jira/ideas.jpg" />
+</figure>
+<aside class="notes">
+<p>新提出的、尚未实现的特性 改进：已实现特性的更好的做法</p>
+</aside>
+</section><section id="task-and-sub-task" class="slide level2">
+<h1>Task and Sub-Task</h1>
+<figure>
+<img src="images/jira/daily_tasks.jpg" />
+</figure>
+<div class="notes">
+项目的进度和任务可以在jira中管理 任务、子任务：需要做的事情
+<div>
+
+</section><section id="anything-else..." class="slide level2">
+<h1>ANYTHING else...</h1>
+<figure>
+<img src="images/jira/issues1.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>可扩展</li>
+<li>完全可以自己定制</li>
+<li>比如: Jira最新版，help-desk</li>
+</ul>
+</aside>
+</section></section>
+<section><section id="如何应对" class="titleslide slide level1"><h1>如何应对</h1></section><section id="争论和扯皮" class="slide level2">
+<h1>争论和扯皮？</h1>
+<figure>
+<img src="images/jira/arguments.jpg" />
+</figure>
+<aside class="notes">
+一个故事，email
+</aside>
+</section><section id="救火队员" class="slide level2">
+<h1>救火队员？</h1>
+<figure>
+<img src="images/jira/fireman.jpg" />
+</figure>
+</section><section id="沟通和协调" class="slide level2">
+<h1>沟通和协调？</h1>
+<figure>
+<img src="images/jira/images.jpeg" />
+</figure>
+</section><section id="自我管理" class="slide level2">
+<h1>自我管理？</h1>
+<figure>
+<img src="images/jira/tasks.jpeg" />
+</figure>
+</section><section id="作为一个团队" class="slide level2">
+<h1>作为一个团队</h1>
+<figure>
+<img src="images/jira/team.jpeg" />
+</figure>
+</section><section id="需要的是流程化" class="slide level2">
+<h1>需要的是流程化</h1>
+<figure>
+<img src="images/jira/to.jpg" />
+</figure>
+</section><section id="基本流程" class="slide level2">
+<h1>基本流程</h1>
+<figure>
+<img src="images/jira/basic_workflow.png" />
+</figure>
+<aside class="notes">
+如何处理？很简单！ 一般过程：4个步骤 提出问题，分析/分配问题，解决问题，验证问题 也就是，用户或测试/负责人/开发人员/测试人员
+</aside>
+</section><section id="其他问题" class="slide level2">
+<h1>其他问题</h1>
+<ul>
+<li>如何保证所有事件都按照既定流程处理？</li>
+<li>如何在大量事件中找到特定的事件并了解其状态？</li>
+<li>如何保证事件的最新进展被大家所知？</li>
+<li>如何统计项目或模块的状况？</li>
+</ul>
+<aside class="notes">
+流程的保证：ticket（传票系统）
+</aside>
+</section></section>
+<section><section id="jira介绍" class="titleslide slide level1"><h1>Jira介绍</h1></section><section id="全球知名小公司高富帅的ceo" class="slide level2">
+<h1>全球知名小公司</br>“高富帅”的CEO</h1>
+<figure>
+<img src="images/jira/atlassian.png" />
+</figure>
+<aside class="notes">
+<p>Jira， confluence，crowd：项目管理三剑客 出自Atlassian [ætlɑʒen]，澳大利亚, “全球知名小公司” 创立于2002年，启动资金为1万美元 信用卡贷款 第一年起便已经实现盈利, 2010财年收入5900万美元 大名鼎鼎的产品： bitbucket：分布式配置管理平台，sourceforge, git的强力竞争者 JIRA：需求、缺陷管理 confluence：企业级wiki，知识管理平台 crowd：基于 Web 的单点登录系统</p>
+<p>创始人兼CEO：Mike Cannon-Brookes，年轻，帅，有才--》 开源社区OpenSymphony的创始人 《Java Open source Programming》的合著者</p>
+Opensymphony 2010年11月份关闭 诞生的高质量项目：（java） WebWork：MVC框架，后来被纳入struts2的核心 Quartz ：任务调度 OSWorkflow：工作流引擎
+</aside>
+</section><section id="jira的定位" class="slide level2">
+<h1>JIRA的定位</h1>
+<ul>
+<li>问题跟踪系统(Issue Tracker)</li>
+<li>协同各角色的工作(workflow)</li>
+<li>促进交流和反馈(Notify and Subscribe)</li>
+</ul>
+</section><section id="事件的分类" class="slide level2">
+<h1>事件的分类</h1>
+<figure>
+<img src="images/jira/issue_types.png" />
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/jira/issue_create.png" />
+</figure>
+</section><section id="事件的属性" class="slide level2">
+<h1>事件的属性</h1>
+<figure>
+<img src="images/jira/issue_attributes.png" />
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/jira/issue_attribute_create.png" />
+</figure>
+</section><section id="针对事件的行动" class="slide level2">
+<h1>针对事件的行动</h1>
+<figure>
+<img src="images/jira/actions.png" />
+</figure>
+<aside class="notes">
+<p>很容易想到，用状态机来管理事件的状态变迁 核心的四个状态，对应前面的四个核心步骤</p>
+<p>增加直接的通路：松散控制 增加回路和reopened状态：适应现实的复杂性</p>
+<p>很多缺陷/需求处理流程都是这个状态机的子集</p>
+<p>Jira lets you prioritise, assign, track, report and audit your 'issues'</p>
+<ul>
+<li>create an issue(types)</li>
+<li>after creating(details)</li>
+<li>add comments</li>
+</ul>
+</aside>
+</section><section id="ticket" class="slide level2">
+<h1>Ticket</h1>
+<figure>
+<img src="images/jira/ticket.jpg" />
+</figure>
+<p>Ticket，用于跟踪</p>
+<p>在项目开发过程中出现的任何事件，都可以用一个Ticket来标识，例如Bug，项目计划，功能改进，项目建议，Todo等等，都可以写成一个Ticket，开发人员通过访问查看Ticket系统，可以及时的了解到项目进度，有待解决的地方等等 每个Ticket都可以被修改和说明（Description属性），并说明这个Ticket是Bug还是项目建议还是其他什么（Type属性），指派由哪个人对这个Ticket负责（Assigned to/Owner属性），设定Ticket的优先级（Priority属性），设定Ticket的最终完成时间（Milestone属性），设定这个Ticket属于哪个模块（Component属性）。</p>
+</section><section id="项目状态" class="slide level2">
+<h1>项目状态</h1>
+<figure>
+<img src="images/jira/project1.png" />
+</figure>
+<aside class="notes">
+<p>以上是针对单个事件 整个项目，图表统计 30天汇总, 已创建 vs 已解决</p>
+reporting and statistics 支持图形和图表的个性化的报表，可以监控所有issues的进程
+</aside>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/jira/project_pie.png" />
+</figure>
+<aside class="notes">
+项目事件状态
+</aside>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/jira/project2.png" />
+</figure>
+<aside class="notes">
+按各种指标分类汇总
+</aside>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/jira/project_others.png" />
+</figure>
+</section><section id="portal" class="slide level2">
+<h1>portal</h1>
+<figure>
+<img src="images/jira/portal1.png" />
+</figure>
+<aside class="notes">
+上面报表的集成 可定义，可分享
+</aside>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/jira/portal2.png" />
+</figure>
+</section><section id="邮件通知" class="slide level2">
+<h1>邮件通知</h1>
+<figure>
+<img src="images/jira/notify_settings.png" />
+</figure>
+</section><section id="订阅项目活动" class="slide level2">
+<h1>订阅项目活动</h1>
+<figure>
+<img src="images/jira/rss.png" />
+</figure>
+</section><section id="小结基本概念" class="slide level2">
+<h1>小结：基本概念</h1>
+<figure>
+<img src="images/jira/JIRA_Hierarchy.png" />
+</figure>
+</section><section id="小结jira的用途" class="slide level2">
+<h1>小结：Jira的用途</h1>
+<p>can use as</p>
+<ul>
+<li>bugs/changes requests tracking</li>
+<li>help-desk/support/customer service</li>
+<li>project management</li>
+<li>task tracking</li>
+<li>requirements managment</li>
+<li>workflow/process mgnt</li>
+</ul>
+</section><section id="jira的特点" class="slide level2">
+<h1>JIRA的特点</h1>
+<ul>
+<li>基于Web</li>
+<li>开源，不免费</li>
+<li>多种“事件”类型</li>
+<li>自定义事件字段</li>
+<li>可定义的工作流</li>
+<li>更强大的权限管理</li>
+<li>时效管理</li>
+<li>自定义dashboard</li>
+<li>上传附件</li>
+<li>和cvs/svn的集成</li>
+</ul>
+</section></section>
+<section><section id="demo" class="titleslide slide level1"><h1>Demo</h1></section><section id="section" class="slide level2">
+<h1></h1>
+<ul>
+<li>创建issue</li>
+<li>操作issue (comment ⋅ assign ⋅ watch ⋅ workflow)</li>
+<li>子任务</li>
+<li>导航和搜索</li>
+<li>过滤器 (创建 ⋅ 分享)</li>
+<li>报告(report)</li>
+<li>Dashboard( 自定义 ⋅ 分享)</li>
+<li>通知和订阅</li>
+</ul>
+</section></section>
+<section><section id="powered-by" class="titleslide slide level1"><h1>Powered by</h1></section><section id="section-1" class="slide level2">
+<h1></h1>
+<ul>
+<li>Markdown</li>
+<li>reveal.js</li>
+<li>github</li>
+</ul>
+<aside class="notes">
+关于轻量级presentation
+</aside>
+</section></section>
+<section><section id="qa" class="titleslide slide level1"><h1>Q&amp;A</h1></section></section>
+<section><section id="深入jira" class="titleslide slide level1"><h1>深入Jira</h1></section><section id="项目和事件" class="slide level2">
+<h1>项目和事件</h1>
+<figure>
+<img src="images/jira/uml_prject_and_issue.png" />
+</figure>
+</section><section id="工作流" class="slide level2">
+<h1>工作流</h1>
+<figure>
+<img src="images/jira/uml_workflow.png" />
+</figure>
+<aside class="notes">
+<p>工作流适合多人改变单一事物的状态</p>
+<p>环节，可以改变或不改变状态 环节可以链接到状态 环节由有权限的人处理</p>
+<p>跳转：环节直接的路径 项目和工作流之间通过 工作流方案 解耦 主体通过执行环节，改变事件的状态</p>
+JIRA默认工作流？ 可配置成xx样子？
+</aside>
+</section><section id="权限系统" class="slide level2">
+<h1>权限系统</h1>
+<figure>
+<img src="images/jira/uml_rbac.png" />
+</figure>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'moon', // available themes are in /css/theme
+        transition: 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>

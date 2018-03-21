@@ -1,0 +1,177 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/holbrook/Dropbox/org-works/org/1.journal.org
+
+* 2014年1月
+** 第1周工作周报(12月30日至1月3日)
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2014-02-24 Mon 15:11
+   :ARCHIVE_FILE: ~/Dropbox/org-works/1.journal.org
+   :ARCHIVE_OLPATH: 工作/Archive
+   :ARCHIVE_CATEGORY: 1.journal
+   :ARCHIVE_ITAGS: ARCHIVE
+   :END:
+
+*** DONE 梳理及确认现有的T2接口
+    CLOSED: [2014-01-03 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+*** DONE 支持债券系统BD调研
+    CLOSED: [2014-01-03 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+*** DONE 外汇中心用户技术联络机制反馈
+    CLOSED: [2014-01-03 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+*** DONE Drools CEP研究
+    CLOSED: [2014-01-03 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+** 第2周工作周报(1月6日至1月10日)
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2014-02-24 Mon 15:11
+   :ARCHIVE_FILE: ~/Dropbox/org-works/1.journal.org
+   :ARCHIVE_OLPATH: 工作/Archive
+   :ARCHIVE_CATEGORY: 1.journal
+   :ARCHIVE_ITAGS: ARCHIVE
+   :END:
+*** DONE 衡泰系统系统管理工作梳理及运维保障交流
+    CLOSED: [2014-01-10 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+*** DONE 债销部所有客户端程序调研
+    CLOSED: [2014-01-10 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+*** DONE 整理ESB开发环境拓扑
+    CLOSED: [2014-01-10 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+*** DONE Jboss FUSE研究: OSGi框架
+    CLOSED: [2014-01-10 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+** 第3周工作周报(1月13日至1月17日)
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2014-02-24 Mon 15:12
+   :ARCHIVE_FILE: ~/Dropbox/org-works/1.journal.org
+   :ARCHIVE_OLPATH: 工作/Archive
+   :ARCHIVE_CATEGORY: 1.journal
+   :ARCHIVE_ITAGS: ARCHIVE
+   :END:
+
+*** DONE 参加中债登资金直联会议
+    CLOSED: [2014-01-17 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+*** DONE 支持债券系统BD调研
+    CLOSED: [2014-01-17 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+*** DONE 衡泰系统初始化2014年交易日历
+    CLOSED: [2014-01-17 Fri 15:04]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:04]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:04
+    :END:
+
+** 第4周工作周报(1月20日至1月24日)
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2014-02-24 Mon 15:13
+   :ARCHIVE_FILE: ~/Dropbox/org-works/1.journal.org
+   :ARCHIVE_OLPATH: 工作/Archive
+   :ARCHIVE_CATEGORY: 1.journal
+   :ARCHIVE_ITAGS: ARCHIVE
+   :END:
+*** DONE 拟定年度和季度工作计划
+    CLOSED: [2014-01-24 Fri 15:02]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:02]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:02
+    :END:
+
+*** DONE Jboss FUSE研究: Blueprint框架
+    CLOSED: [2014-01-24 Fri 15:01]
+    - State "DONE"       from "WAITING"    [2014-02-24 Mon 15:01]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:02
+    :END:
+*** DONE Jboss FUSE研究: maven-bundle-plugin
+    CLOSED: [2014-01-24 Fri 15:02]
+    - State "DONE"       from "STARTED"    [2014-02-24 Mon 15:02]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:03
+    :END:
+
+** 第5周工作周报(1月27日至1月30日)
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2014-02-24 Mon 15:13
+   :ARCHIVE_FILE: ~/Dropbox/org-works/1.journal.org
+   :ARCHIVE_OLPATH: 工作/Archive
+   :ARCHIVE_CATEGORY: 1.journal
+   :ARCHIVE_ITAGS: ARCHIVE
+   :END:
+*** DONE 梳理SVN系统资料
+    CLOSED: [2014-01-30 Thu 15:01]
+    - State "DONE"       from "WAITING"    [2014-02-24 Mon 15:01]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:02
+    :END:
+*** DONE 提出集成测试环境优化方案
+    CLOSED: [2014-01-30 Thu 15:01]
+    - State "DONE"       from "WAITING"    [2014-02-24 Mon 15:01]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:02
+    :END:
+*** DONE Jboss FUSE研究:开发和部署Web Service
+    CLOSED: [2014-01-30 Thu 15:01]
+    - State "DONE"       from "WAITING"    [2014-02-24 Mon 15:01]
+    :PROPERTIES:
+    :ARCHIVE_TIME: 2014-02-24 Mon 15:02
+    :END:
+
+
+* 2014年2月
+* DONE 看张阿姨
+  CLOSED: [2014-03-04 Tue 13:24]
+  - State "DONE"       from "STARTED"    [2014-03-04 Tue 13:24]
+  :PROPERTIES:
+  :ID:       38EEA2B3-F24A-48C0-A4AE-DB3944C49C50
+  :ARCHIVE_TIME: 2014-03-04 Tue 13:25
+  :ARCHIVE_FILE: ~/Dropbox/org-works/org/1.journal.org
+  :ARCHIVE_OLPATH: 生活
+  :ARCHIVE_CATEGORY: home
+  :ARCHIVE_TODO: DONE
+  :END:
+

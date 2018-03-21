@@ -1,0 +1,236 @@
+- 【GOOD】PyAlgoTrade is to help you backtest stock trading strategies
+
+http://gbeced.github.io/pyalgotrade/
+
+PyAlgoTrade程式交易函數庫, 這也很多quants拿來交易用, 還可以直接接到google app engine, 當雲端自動交易程式
+
+PyAlgoTrade is a Python Algorithmic Trading Library library with focus on *backtesting*
+and support for *paper-trading* and *live-trading*. Let’s say you have an idea for a
+trading strategy and you’d like to evaluate it with historical data and see how it behaves.
+PyAlgoTrade allows you to do so with minimal effort.
+
+1. Backtesting with historical data from CSV files.
+2. Paper trading using [[http://gbeced.github.io/pyalgotrade/docs/v0.16/html/xignite_example.html#xignite-tutorial-label][Xignite]] and [[http://gbeced.github.io/pyalgotrade/docs/v0.16/html/bitstamp_example.html#bitstamp-tutorial-label][Bitstamp]] live feeds.
+3. Real trading on Bitstamp.
+
+Python算法交易库PyAlgoTrade】http://t.cn/8sKXOlU 事件驱动，聚焦回溯测试，支持模拟交易和现实交易，
+支持Yahoo! Finance, Google Finance和NinjaTrader CSV文件，支持xignite实时信息流，实时Twitter事件处理，
+内置SMA, WMA, EMA, RSI, Bollinger Bands等技术指标，强大
+
+
+- Zipline：一个Pythonic的交易算法库
+
+https://github.com/quantopian/zipline
+
+Zipline是一个交易算法库，该系统是对现场交易系统如何运转的一个近似，可以对历史数据进行投资算法的回溯检验。Zipline目前作为
+[[https://www.quantopian.com/][Quantopian]] 的回溯检验引擎。
+
+包括常用统计方法如移动平均和线性回归
+与现有python生态圈能很好融合
+一些常用统计和机器学习库，如matplotlib、scipy、statsmodels和sklearn，支持交易系统的开发、数据分析和可视化
+
+
+- scikit-learn：Python下的机器学习工具
+
+
+* PyAlgotrade
+
+** 组成
+
+PyAlgoTrade的主要组件包括：
+
+- Strategies（策略）
+
+  一个类（基于pyalgotrade.strategy.BacktestingStrategy)，描述交易逻辑——何时买，何时卖。
+
+- Feeds
+
+  数据提供者。比如，可以使用CSV文件...
+
+  数据不仅仅是bar，可以使用各种数据。比如，可以使用Twitter上的消息作为输入事件从而触发交易
+
+- Brokers
+
+  订单的执行者
+
+- DataSeries
+
+  时间序列数据
+
+
+- Technicals
+
+  技术分析。在时间序列数据的基础上技术出来的技术指标。比如，SMA(Simple Moving Average, 简单移动平均值),
+  RSI (Relative Strength Index),等等
+
+  在 PyAlgoTrade 中，这些filters作为时间序列的修饰符(decorators)存在
+
+
+- Optimizer
+
+  支持并行计算，可以使用多个进程，多台计算机进行分布式的回归测试(backtesting)
+
+** 获取数据
+
+#+BEGIN_SOURCE bash
+
+python -c "from pyalgotrade.tools import yahoofinance; yahoofinance.download_daily_bars('orcl', 2000, 'orcl-2000.csv')"
+
+#+END_SOURCE
+
+
+#+BEGIN_SRC python
+
+from pyalgotrade.barfeed import yahoofeed
+
+# Load the yahoo feed from the CSV file
+feed = yahoofeed.Feed()
+feed.addBarsFromCSV("orcl", "orcl-2000.csv")
+
+#+END_SRC
+
+** 定义策略
+
+#+BEGIN_SOURCE python
+from pyalgotrade import strategy
+from pyalgotrade.technical import ma,rsi
+
+class MyStrategy(strategy.BacktestingStrategy):
+    def __init__(self, feed, instrument, smaPeriod):
+        strategy.BacktestingStrategy.__init__(self, feed, 1000)
+        self.__position = None
+        self.__instrument = instrument
+        # We'll use adjusted close values instead of regular close values.
+        self.setUseAdjustedValues(True)
+        self.__sma = ma.SMA(feed[instrument].getPriceDataSeries(), smaPeriod)
+
+    def onEnterOk(self, position):
+        execInfo = position.getEntryOrder().getExecutionInfo()
+        self.info("BUY at $%.2f" % (execInfo.getPrice()))
+
+    def onEnterCanceled(self, position):
+        self.__position = None
+
+    def onExitOk(self, position):
+        execInfo = position.getExitOrder().getExecutionInfo()
+        self.info("SELL at $%.2f" % (execInfo.getPrice()))
+        self.__position = None
+
+    def onExitCanceled(self, position):
+        # If the exit was canceled, re-submit it.
+        self.__position.exitMarket()
+
+    def onBars(self, bars):
+        # Wait for enough bars to be available to calculate a SMA.
+        if self.__sma[-1] is None:
+            return
+
+        bar = bars[self.__instrument]
+        # If a position was not opened, check if we should enter a long position.
+        if self.__position is None:
+            if bar.getPrice() > self.__sma[-1]:
+                # Enter a buy market order for 10 shares. The order is good till canceled.
+                self.__position = self.enterLong(self.__instrument, 10, True)
+        # Check if we have to exit the position.
+        elif bar.getPrice() < self.__sma[-1]:
+            self.__position.exitMarket()
+
+#+END_SOURCE
+
+** 执行策略
+
+#+BEGIN_SOURCE python
+
+
+def run_strategy(feed,smaPeriod):
+    # Evaluate the strategy with the feed.
+    myStrategy = MyStrategy(feed, "orcl", smaPeriod)
+    myStrategy.run()
+    print "Final portfolio value: $%.2f" % myStrategy.getBroker().getEquity()
+
+run_strategy(feed, 15)
+#+END_SOURCE
+
+
+** 策略优化
+
+for i in range(10, 30):
+    run_strategy(feed,i)
+
+
+server 和 worker:
+
+Meet the optimizer component. The idea is very simple:
+
+- There is one server responsible for:
+  + Providing the bars to run the strategy.
+  + Providing the parameters to run the strategy.
+  + Recording the strategy results from each of the workers.
+
+- There are multiple workers responsible for:
+  + Running the strategy with the bars and parameters provided by the server.
+
+
+** 图形化
+
+from pyalgotrade import plotter
+from pyalgotrade.barfeed import yahoofeed
+from pyalgotrade.stratanalyzer import returns
+import sma_crossover
+
+# Load the yahoo feed from the CSV file
+feed = yahoofeed.Feed()
+feed.addBarsFromCSV("orcl", "orcl-2000.csv")
+
+# Evaluate the strategy with the feed's bars.
+myStrategy = sma_crossover.SMACrossOver(feed, "orcl", 20)
+
+# Attach a returns analyzers to the strategy.
+returnsAnalyzer = returns.Returns()
+myStrategy.attachAnalyzer(returnsAnalyzer)
+
+# Attach the plotter to the strategy.
+plt = plotter.StrategyPlotter(myStrategy)
+# Include the SMA in the instrument's subplot to get it displayed along with the closing prices.
+plt.getInstrumentSubplot("orcl").addDataSeries("SMA", myStrategy.getSMA())
+# Plot the simple returns on each bar.
+plt.getOrCreateSubplot("returns").addDataSeries("Simple returns", returnsAnalyzer.getReturns())
+
+# Run the strategy.
+myStrategy.run()
+myStrategy.info("Final portfolio value: $%.2f" % myStrategy.getResult())
+
+# Plot the strategy.
+plt.plot()
+
+
+** 结果分析
+
+计算策略执行的结果
+
+- Returns（pyalgotrade.stratanalyzer.returns.Returns）
+  + getReturns()
+    Returns a pyalgotrade.dataseries.DataSeries with the returns for each bar.
+  + getCumulativeReturns()
+    Returns a pyalgotrade.dataseries.DataSeries with the cumulative returns for each bar.
+- Sharpe Ratio
+  + getSharpeRatio(riskFreeRate, annualized=True)
+
+- DrawDown
+  calculates max. drawdown and longest drawdown duration for the portfolio.
+
+- Trades
+  records the profit/loss and returns of every completed trade.
+
+- Example
+
+* 策略交流
+
+Quantopian網站：基于python zipline 做回溯检验。是一個策略分享網站, 透過他的資源免費開發跟回測, 如果願意, 可以開放策略讓人一起討論,分享,甚至協同開發
+
+
+* 参考资料
+
+样式参考 https://www.quantopian.com/ 网站 百度一下
+功能参考 http://gbeced.github.io/pyalgotrade/ 应用 百度一下
+功能参考 https://github.com/wanfox/pyctp2 应用 百度一下

@@ -1,0 +1,335 @@
+\documentclass[a4paper]{article}
+%\documentclass[twocolumn]{article}
+
+%\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+%\usepackage{enumitem}
+\usepackage{enumerate}
+\usepackage{CJKutf8} %注意这里用的是CJKutf8而不是CJK
+\usepackage{tikz} % 画流程图用的
+\usepackage{indentfirst}%英文首行缩进
+\usepackage{fancyhdr} % 排版格式
+\usepackage{hyphenat} % 单词断字
+\usepackage{amsmath} % for {aligned}, 公式换行
+\usepackage{multicol}% 多栏排版
+\usepackage{balance}% 双栏最后一页对齐
+\usepackage{subfigure}% 多图
+\usepackage{booktabs}% 表格画线，\toprule, \midrule, \bottomrule
+
+% in texlive-science
+\usepackage{algorithm}
+\usepackage{algpseudocode}% an improvement from algorithmicx for algorithmic
+
+%======= XXX 要编译两遍才能有标签和引用等效果 =====%
+
+\usepackage[top=2.54cm,bottom=2.54cm,left=3.17cm,right=3.17cm]{geometry} % a4paper standard
+\usepackage[unicode=true,colorlinks=true]{hyperref} %注意这里不能加CJKbookmarks=true，否则会乱码
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+
+\hypersetup{
+    pdfauthor={ouoline},
+    %pdftitle={test},
+    %pdfsubject={Subject},
+    %pdfkeywords={Keyword1, Keyword2, ...},
+    %pdfcreator={LaTeX with hyperref package},
+    %pdfproducer = {dvips + ps2pdf},
+    %bookmarksnumbered=true,
+    %colorlinks=no,
+    pdfborder={0 0 0},
+    %bookmarksopen=true,
+}
+%------------------------------------------------------------------%
+
+\setcounter{secnumdepth}{5} % 编号的深度，4 表示到 paragraph 一级
+%\setcounter{tocdepth}{4} % 目录中的深度
+
+%------------------------------------------------------------------%
+
+% 自己定义新命令，参数依次是
+% \newcommand{新命令名称（带反斜线）}[参数个数（最多9个）]{命令定义}
+% 实际上相当于宏替换
+\newcommand{\sayhelloto}[1]{hello,#1}
+
+%------------------------------------------------------------------%
+
+% 放在导言区，设置全局行距
+%\linespread{1.6}
+
+% 放在导言区，公式编号和章节相关
+%\makeatletter % `@' now normal ``letter''
+%\@addtoreset{equation}{section}
+%\makeatother % `@' is restored as ``non-letter''
+%\renewcommand\theequation{\oldstylenums{\thesection}%
+%.\oldstylenums{\arabic{equation}}}
+
+\begin{document}
+
+\begin{CJK*}{UTF8}{gbsn}
+    \setlength{\parindent}{0pt} % no indent
+
+    \pagestyle{fancy}
+
+    %----------------------------------------------------%
+
+    \tableofcontents % 目录
+    \listoffigures% 图列表
+    \listoftables%表格列表
+    \addcontentsline{toc}{section}{前言}
+    \section*{前言} % 加了"*"的section不会被自动显示在标签里，但是可以通过\tableofcontents和\addcontentsline增加
+
+    %----------------------------------------------------%
+
+    商标\textsuperscript{\textregistered}
+
+
+    %----------------------------------------------------%
+
+    \sayhelloto{you} % 用\newcommand定义的新命令
+
+    %\begin{center}
+    %\Huge{title}
+    %\vspace{25pt} % 25pt between title and text
+    %\end{center}
+    \title{\Huge{标题}\\{\large 副标题}}
+    \author{\Large{作者\hspace{10pt}单位}}
+    \date{\today}
+
+    \maketitle
+
+    %----------------------------------------------------%
+
+    字体从小到大
+
+    {\tiny tiny}
+    {\scriptsize scriptsize}
+    {\footnotesize footnotesize}
+    {\small small}
+    {\normalsize normalsize}
+    {\large large}
+    {\Large Large}
+    {\LARGE LARGE}
+    {\huge huge}
+    {\Huge Huge}
+
+    \large % size of fonts
+    \CJKindent
+
+    {\rm rm}\\
+    {\sf sf}\\
+    {\tt tt, 等宽}\\
+    {\it it, 斜体}\\
+    {\sl sl}\\
+    {\em em, 还是斜体}\\
+    {\bf bf, 加粗}
+
+    %------------------------------------------------------------------%
+
+    % 对齐 可选 center flushleft flushright
+    \begin{center}
+    \end{center}
+
+    %小页环境（可嵌入上面三种对齐环境中形成组合）
+    \begin{minipage}{3cm}
+        ttt
+    \end{minipage}
+
+    %原样引用
+    \begin{verbatim}
+        特殊字符不需转义 % \ # _
+    \end{verbatim}
+
+    \begin{multicols}{2} % 2 columns
+        there is a long long long long long long long long long long long long long long long long long way to go.
+    \end{multicols}
+
+    %------------------------------------------------------------------%
+
+    % 画线命令 \rule{width}{thickness}
+    \noindent \rule{\textwidth}{1pt}
+
+    %------------------------------------------------------------------%
+
+    % 目录层次
+    %\chapter{chap} % only with "book" or "report" documentclass will this be available
+    \part{part}
+    \section{section}
+    \subsection{subsection}
+    \subsubsection{subsubsection}
+    \paragraph{para} % 从这级开始没编号，如果想要编号的话要设置\setcounter{secnumdepth}{5}
+    \subparagraph{subpara}
+
+    %------------------------------------------------------------------%
+
+    \section{中文书签测试} %注意！如果section和subsection等后面有"*"则不会出现在书签中
+    \subsection{test}
+
+    \hypertarget{code}{}
+    \lstset{% general command to set parameter(s)
+        language=c,
+        basicstyle=\tt, % 默认对所有字符使用等宽字体
+        keywordstyle=\color{green},%\bfseries\underbar% underlined bold black keywords
+        identifierstyle=,           % nothing happens
+        stringstyle=\color{purple},
+        commentstyle=\color{gray},
+        showstringspaces=false,     % no special string spaces
+        breaklines=true, % 自动换行
+    }
+
+    %表格的列格式参数中使用\extracolsep 命令来增加列之间的空隙。
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r}% \textwidth \linewidth
+        left & right \\
+    \end{tabular*}
+
+    \parbox{\linewidth}{left2 \hfill right2}
+    \makebox[\textwidth][l]{testttttttttttttttttttttttttt}
+
+    \begin{tabular}{|l|}
+        \hline
+        \begin{lstlisting}
+        #include<stdio.h>
+
+        int main()
+        {
+            printf("Hello,world.\n");
+
+            return 0;/* comment test */
+        }
+        \end{lstlisting}
+        \\\hline
+    \end{tabular}
+
+    %color options :
+    % red, green, blue, cyan, magenta, yellow, black,darkgray,
+    % gray, lightgray, orange, violet, purple, and brown
+    {\color{purple}Perl \verb| Practical Language |}\\
+
+    %------------------------------------------------------------------%
+
+    % 公式换行，"&"后表示对齐的字符
+
+    \vspace{-15pt}
+    \begin{equation}\label{eq_s}
+        \begin{aligned}
+            a &< b\\&< c
+        \end{aligned}
+    \end{equation}
+
+    这里对公式 \ref{eq_s} 进行引用
+
+    %------------------------------------------------------------------%
+
+    % 单图
+
+    \begin{figure}[!t]
+        \centering
+        %\includegraphics[width=0.9\linewidth]{pic.jpg}
+        \caption{这里是内容解析}
+        \label{ref_label1}
+    \end{figure}
+
+    这里对图 \ref{ref_label1} 进行引用
+
+    %双栏 单栏多图竖排，跨栏的话使用\begin{figure*}
+
+    \begin{figure}[!t]
+        \centering
+        \subfigure[内容解析1] {
+
+            \label{p_a}
+        }
+        \subfigure[内容解析2] {
+            %\includegraphics[width=2in]{jpg}
+            \label{p_b}
+        }
+        \subfigure[内容解析3] {
+            %\includegraphics[width=2in]{jpg}
+            \label{p_c}
+        }
+        \caption{Updating strategy}
+        \label{ref_label2}
+    \end{figure}
+
+    % 跨栏用\begin{table*}
+    \begin{table}
+        \caption{Data sets used in this experiment}
+        \label{exp_data}
+        \centering
+        \begin{tabular}{c|r c r r r c}
+            \toprule
+            one & two & three\\
+            \midrule
+            1.1 & 1.2 & 1.3\\
+            2.1 & 2.2 & 2.3\\
+            3.1 & 3.2 & 3.3\\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    %------------------------------------------------------------------%
+
+    % 列举
+
+    \begin{enumerate}[1]% 这里可以自己指定编号的样式，使用enumerate宏包。如果使用enumitem，texlive2009会出错，原因不明
+        \item second\footnote{备注}
+        \item first
+    \end{enumerate}
+
+    % vspace用来调整间距
+    \begin{itemize} % [noitemsep] item之间没空行，使用enumitem宏包
+            %\setlength\baselineskip{-1mm} %用这个命令来调整间距应该比较具有通用性
+        \item test
+        \item test2
+    \end{itemize}
+
+    \begin{itemize}
+        \item
+            \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}c@{\extracolsep{\fill}} l@{\extracolsep{\fill}}}
+                \begin{tabular}{@{}l}
+                    内容标题\\
+                    补充说明\\
+                \end{tabular}
+                &
+                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\
+            \end{tabular*}
+            \begin{itemize}
+                \item 主要内容
+            \end{itemize}
+    \end{itemize}
+
+    %------------------------------------------------------------------%
+    \newpage
+
+    \section{流程图示例}
+    \hyperlink{code}{\color{blue!70!yellow}
+
+    \color{black}
+    \begin{tikzpicture} % package tikz
+        [place/.style={circle,draw=blue!50,fill=blue!20,thick,inner sep=0pt,minimum size=6mm},
+        transition/.style={rectangle,draw=black!50,fill=black!20,thick,inner sep=0pt,minimum size=4mm}]
+        \node[place]      (waiting)                            {};
+        \node[place]      (critical)       [below=of waiting]  {};
+        \node[place]      (semaphore)      [below=of critical] {};
+        \node[transition] (leave critical) [right=of critical] {};
+        \node[transition] (enter critical) [left=of critical]  {};
+        \draw [->] (critical.west) -- (enter critical.east);
+        \draw [->] (waiting.west) .. controls +(left:5mm) and +(up:5mm) .. (enter critical.north);
+    \end{tikzpicture}
+
+
+    %--------------------------------------------
+
+    %参考文献
+
+    这里引用参考文献 \cite{abc}
+
+    \bibliographystyle{IEEEtran}
+    \balance% 双栏最后一页对齐
+    \begin{thebibliography}{0}
+        \bibitem{abc} abcde
+    \end{thebibliography}
+
+    \newpage
+
+\end{CJK*}
+\end{document}

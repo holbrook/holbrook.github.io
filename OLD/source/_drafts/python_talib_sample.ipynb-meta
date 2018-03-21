@@ -1,0 +1,179 @@
+[TA-Lib]()是技术分析库，可以计算[200多个指标](http://ta-lib.org/function.html)。
+
+这里有一个[python 封装](http://mrjbq7.github.io/ta-lib/)，可以对接 Pandas,
+并且将指标分成10组：
+
+
+- Overlap Studies
+  + BBANDS               Bollinger Bands
+  + DEMA                 Double Exponential Moving Average
+  + EMA                  Exponential Moving Average
+  + HT_TRENDLINE         Hilbert Transform - Instantaneous Trendline
+  + KAMA                 Kaufman Adaptive Moving Average
+  + MA                   Moving average
+  + MAMA                 MESA Adaptive Moving Average
+  + MAVP                 Moving average with variable period
+  + MIDPOINT             MidPoint over period
+  + MIDPRICE             Midpoint Price over period
+  + SAR                  Parabolic SAR
+  + SAREXT               Parabolic SAR - Extended
+  + SMA                  Simple Moving Average
+  + T3                   Triple Exponential Moving Average (T3)
+  + TEMA                 Triple Exponential Moving Average
+  + TRIMA                Triangular Moving Average
+  + WMA                  Weighted Moving Average
+- Momentum Indicators
+  + ADX                  Average Directional Movement Index
+  + ADXR                 Average Directional Movement Index Rating
+  + APO                  Absolute Price Oscillator
+  + AROON                Aroon
+  + AROONOSC             Aroon Oscillator
+  + BOP                  Balance Of Power
+  + CCI                  Commodity Channel Index
+  + CMO                  Chande Momentum Oscillator
+  + DX                   Directional Movement Index
+  + MACD                 Moving Average Convergence/Divergence
+  + MACDEXT              MACD with controllable MA type
+  + MACDFIX              Moving Average Convergence/Divergence Fix 12/26
+  + MFI                  Money Flow Index
+  + MINUS_DI             Minus Directional Indicator
+  + MINUS_DM             Minus Directional Movement
+  + MOM                  Momentum
+  + PLUS_DI              Plus Directional Indicator
+  + PLUS_DM              Plus Directional Movement
+  + PPO                  Percentage Price Oscillator
+  + ROC                  Rate of change : ((price/prevPrice)-1)*100
+  + ROCP                 Rate of change Percentage: (price-prevPrice)/prevPrice
+  + ROCR                 Rate of change ratio: (price/prevPrice)
+  + ROCR100              Rate of change ratio 100 scale: (price/prevPrice)*100
+  + RSI                  Relative Strength Index
+  + STOCH                Stochastic
+  + STOCHF               Stochastic Fast
+  + STOCHRSI             Stochastic Relative Strength Index
+  + TRIX                 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA
+  + ULTOSC               Ultimate Oscillator
+  + WILLR                Williams' %R
+- Volume Indicators
+  + AD                   Chaikin A/D Line
+  + ADOSC                Chaikin A/D Oscillator
+  + OBV                  On Balance Volume
+- Volatility Indicators
+  + ATR                  Average True Range
+  + NATR                 Normalized Average True Range
+  + TRANGE               True Range
+
+- Cycle Indicators
+  + HT_DCPERIOD          Hilbert Transform - Dominant Cycle Period
+  + HT_DCPHASE           Hilbert Transform - Dominant Cycle Phase
+  + HT_PHASOR            Hilbert Transform - Phasor Components
+  + HT_SINE              Hilbert Transform - SineWave
+  + HT_TRENDMODE         Hilbert Transform - Trend vs Cycle Mode
+
+- Price Transform
+- Pattern Recognition
+- Statistic Functions
+- Math Transform
+- Math Operators
+
+
+技术指标的6种类型
+
+指标类型    用途          包含的主要指标
+
+- 趋向指标: 又叫趋势跟踪类指标，主要用于跟踪并预测股价的发展趋势
+  + 移动平均线（MA）                平均线差（DMA）
+  + 指数平滑异同平均线（MACD） 动力指标（动量线）(MTM)
+  + 趋向指标（DMI）                   指数平滑移动平均线（EXPMA）
+  + 瀑布线（PBX）                       宝塔线（TWR）
+
+- 反趋向指标: 又叫反趋势类指标，主要用于捕捉趋势的转折点
+  + 随机指标（KDJ）                    乖离率（BIAS）
+  + 变动速率（ROC）                   顺势指标（CCI）
+  + 威廉指标（W&R）                  震荡量（变动速率）（OSC）
+  + 相对强弱指标（RSI）              动态买卖指标（ADTM）
+
+- 量能指标: 通过成交量的大小和变化研判趋势变化
+  + 容量比率（VR）                     量相对强弱（VRSI）
+  + 能量指标（CR）                     量变动速率（VROC）
+  + 人气意愿指标（ARBR）           成交量标准差（VSTD）
+
+- 量价指标: 通过成交量与股价变动关系分析未来趋势
+  + 震荡升降指标（ASI）              价量趋势（PVT）
+  + 能量潮（OBV）                      量价趋势（VPT）
+  + 主力进出指标（ABV）              威廉变异离散量（WVAD）
+
+- 压力支撑指标: 主要用于分析股价目前受到的压力和支撑
+  + 布林带（BOLL）                     麦克指标（MIKE）
+  + 抛物转向（SAR）                    薛斯通道（XS）
+
+- 大盘指标: 通过涨跌家数研究大盘指数的走势
+  + 涨跌比率（ADR）                   腾落指数（ADL）
+  + 绝对幅度指标（ABI）              广量冲力指标（BIT）
+  + 新三价率（TBR）                    指数平滑广量（STIX）
+
+
+
+技术分析的指标相当多，缺省的系统指标就有近百种，即使是专业的分析师有时也容易混淆。
+为了解决这种困扰，钱龙Windows版分析系统根据指标的设计原理和应用法则，
+将所有指标划分为“大势型”、“超买超卖型”、“趋势型”、“能量型”、“成交量型”、“均线型”、
+“图表型”、“选股型”、“路径型”、“停损型”等十大类型。
+
+用户只要知道指标属于哪一类的、就差不多知道了该指标的应用法则；
+同样，用户只要明白自己的需求（例如，是判断趋势呢还是要寻找超买超卖区域），
+就可以方便地在相应类别中找到合适的技术指标。
+技术指标的这种分类，也便于用户对指标原理的学习、理解和记忆。
+
+大势型
+包括：ABI、ADL、ADR、ARMS、BTI、C&A、COPPOCK、MCL、MSI、OBOS、TRIM、STIX、TBR。
+钱龙软件将各种类型、专用于判断大盘的走势的指标归于此类，大势型指标一般无法在个股画面中使用(COPPOCK指标除外)。
+超买超卖型
+包括：CCI、DRF、KDJ、K%R、KAIRI、MFI、MOM、OSC、QIANLONG、ROC、RSI、SLOWKD、VDL、W%R、BIAS、BIAS36、布林极限、极限宽。
+大约有五分之一的指标属于这种类型，完全精当地应用、解释，相当复杂，但只要掌握它的“天线”和“地线”的特征，各种难题就可以迎刃而解了。
+天线和地线都于中轴线平行，天线位于中轴线上方、地线位于中轴线下方，两者离中轴线有相同的距离。天线可视为指标压力或是常态行情中的上涨极限。地线可视为指标支撑或常态行情中的下跌极限。这里的常态行情是指涨跌互见、走势波动以波浪理论的模式进行、并且促使指标持续上下波动与固定的范围里面的情形，连续急涨急跌或瞬间的暴涨暴跌都不能算是常态行情。
+趋势型
+包括：ASI、CHAIKIN、DMA、DMI、DPO、EMV、MACD、TRIX、终极指标、VHF、VPT、钱龙长线、钱龙短线、WVAD。
+本类型指标至少有两条线，指标以两条线交叉为信号：
+趋向类指标的讯号发生，大致上都是以两条线的交叉为准，把握这个重点就可以运用自如。
+能量型
+包括：BRAR、CR、MAR、梅斯线、心理线、VCI、VR、MAD。
+本类型指标是股价热度的温度计，专门测量股民情绪高亢或沮丧。
+指标数据太高，代表高亢发烧；
+指标数据太低，代表沮丧发冷；
+成交量型
+包括：ADVOL、成交值、负量指标、OBV、正量指标、PVT、成交量、SSL、邱氏量法、成本分布。
+成交量型有N字波动型和O轴穿越型。信号发生的标志有：
+均线型
+包括：BBI、EXPMA、MA、VMA、HMA、LMA。
+即各种不同算法的平均线。主要通过短期均线穿越长期均线的结果，判断是否为买卖信号。
+图表型
+包括：K线、美国线、压缩图、收盘价线、等量线、LOGB、LOGH、LOGK、等量K线、○×图、新三价线、宝塔线、新宝塔线。
+是以K线为基础派生出来的价格图形，通过图形的特征形态及其组合，来判断买卖信号和预测涨跌。
+选股型
+包括：CSI、DX、PCNT%、TAPI、威力雷达、SV。
+主要用途是用于筛选有投资价值股票的一类指标。
+路径型
+包括：布林线、ENVELOPE、MIKE、风林火山。
+也称为压力支撑型。图形区分为上限带和下限带，上限代表压力，下限代表支撑。其指标图形特点是：股价向上触碰上限会回档；股价向下触碰下限会反弹；不同指标有特殊的不同含义。
+停损型
+包括：SAR、VTY。
+此类指标不仅具备停损的作用而且具有反转交易的功能，所以，不能单纯以停损的观念看待这个指标，而是一个会产生交易信号的相对独立的交易系统。
+股价上涨则停损圈圈（红色）位于股价下方；
+股价下跌则停损圈圈（绿色）位于股价上方；
+收盘价由下往上突破圈圈（绿色）为买进信号；
+收盘价由上往下跌破圈圈（红色）为卖出信号。
+
+
+
+
+
+技术指标根据计算方法分类
+有五个价格可以用来作计算，开盘收盘价，最高最低价，还有不在K线上表明的中间价。有无数种数学方法可以用，除了加减乘除四则运算，还可以加权、平均、乘方开方、求对数等等。
+最基本的指标是平均线，可以采用前五天的价格做平均，也可以采用之前十天的价格做平均。在K线上可以画出一条弯曲而美丽的曲线。根据计算方法，有三种平均线，简单移动平均线。加权移动平均线。指数平滑移动平均线。
+第一类趋势指标就可以产生了，只要把不同周期的指数平滑移动平均线结合在一起，就会在图标上画出一条条线，这些线在市场单边运行的时候构成像鳄鱼长大了嘴巴一样的图形。这就是鳄鱼线。
+BOLL带也是根据移动平均线得带的，它还加入了K线斜率的参数，在平均线加减一个价格，形成了三条布林带。价格持续移动的时候，K线斜率增高，在喇叭口放大的时候，在价格对三条轨道进行触碰的时候，有一定程度的调整。
+CCI因为计算方法应当属于趋势指标，但它因为把负值直接应用于计算，所有也反应了一定程度的震荡。
+价格的震荡有强弱，根据对K线长短，影线高低的波动统计，聪明的交易员发明了震荡量指标。今天的价格可以和昨天的价格做比较，也可以和以前任何一天的价格做比较，都可以得出相对的结论。比如RSI，KDJ等。
+RSI翻译叫作相对强弱指标。它用今天的收盘价格，和之前某天的价格做比较，绘出一跳波动线，再将心率图一样的波动线，做一个系数的平均值，就得到了一条相对平滑的曲线。这条曲线在0到100个系数内波动。根据观察，很轻松就可以得出30和70可以作为交易的入手点。而在RSI的曲线上画切线，对照K线，可以得出市场的背离。或者叫市场的分歧。
+比如当股价有新高，而RSI值没有超越前边高点，就有肯能出现背离，即市场即将反转。这时候，交易者就可以在RSI下穿70的时候进行做空交易。
+MACD（音：马克地），事实上是趋势指标和震荡量指标结合的产品。
+根据市场的成交量也可以统计出一类指标，比如描述大单小单的差值的BBD，DDE等国产专利技术。在24小时交易的国际市场里，成交量在不同交易所之间用不同货币进行着，是无法形成统计的

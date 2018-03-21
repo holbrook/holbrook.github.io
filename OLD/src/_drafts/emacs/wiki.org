@@ -1,0 +1,7 @@
+以前一直都用Emacs Wiki Mode记笔记，但wiki mode总有些奇奇怪怪的bug，并且已经不更新了，最近org mode 非常火爆，禁不住想试一下。
+
+对于记笔记，我的打算很简单，一个目录用来装所有的笔记，一个目录用来存放publish成HTML格式的笔记。并且能够自动生成索引文件。这样就可以在索引文件里直接查找并跳转到所有的笔记里。
+
+
+* 用 Emacs Muse 来制作测试结果报告
+http://www.ibm.com/developerworks/cn/linux/l-cn-emacsmuse/index.html

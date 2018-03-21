@@ -1,0 +1,83 @@
+
+* 为什么需要ESB？
+从服务请求者，到服务提供者
+
+1. 简单直接的
+2. 中介的作用
+3. 服务映射和转换
+4. 服务编排
+
+JBI规范？？？JBI组件
+
+协议，比如JMS,HTTP,FTP,FILE等
+
+EIP（Enterprise Integeration Patterns
+
+
+* ESB：蛮横的插入消息通道的两端
+
+[[./img/msg_channel.png]]
+
+本身不能取代消息通道
+
+* 路由
+消息路由改变通道；
+服务路由：产生不同的消息？？？？
+
+
+* ESB的功能
+
+Routing
+Transformation
+Secunity
+Connectivity
+
+一、ESB的五个基本功能：
+　　1)服务的MetaData管理：在总线范畴内对服务的注册命名及寻址进行管理。
+　　2)传输服务：确保通过企业总线互连的业务流程间的消息的正确交付，还包括基于内容的路由功能。
+　　3)中介：提供位置透明的路由和定位服务；提供多种消息传递形式；支持广泛使用的传输协议。
+　　4)多服务集成方式： 如JCA，Web服务，Messaging ，Adaptor等.
+　　5)服务和事件管理支持： 调用服务的记录、测量和监控数据；提供事件检测、触发和分布功能；
+二、ESB的八个扩展功能：
+　　1) 面向服务的元数据管理： 他必须了解被他中介的两端,即服务的请求以及请求者对服务的要求，以及服务的提供者和他所提供的服务的描述；
+　　2) Mediation ：它必须具有某种机制能够完成中介的作用，如协议转换；
+　　3) 通信：服务发布、订阅，响应 请求，同步异步消息，路由和寻址等；
+　　4) 集成： 遗留系统适配器，服务编排和映射，协议转换，数据变换，企业应用集成中间件的连续等。
+　　5) 服务交互： 服务接口定义，服务实现的置换，服务消息模型，服务目录和发现等。
+　　6) 服务安全： 认证和授权、不可否认和机密性、安全标准的支持等；
+　　7) 服务质量： 事务，服务的可交付性等；
+　　8) 服务等级： 性能、可用性等。
+　　ESB 中最常提到的两个功能是消息转换和消息路由。
+
+* ESB的好处
+** 位置透明Location transparency
+[[./img/esb_Location_transparency.png]]
+
+** Transport protocol conversion传输协议转换
+[[./img/esb_Transport_protocol_conversion.png]]
+
+** Message transformation消息转换
+[[./img/esb_Message_transformation.png]]
+** Message routing消息路由
+[[./img/esb_Message_routing.png]]
+** Message enhancement消息增强
+
+[[./img/esb_Message_enhancement.png]]
+** Security安全
+[[./img/esb_Security.png]]
+
+** Monitoring and management监控和管理
+
+[[./img/esb_Monitoring_and_management.png]]
+
+
+* Mule ESB
+Mule
+它是一个轻量级的消息框架和整合平台，基于EIP（Enterprise Integeration Patterns,由Hohpe和Woolf编写的一本书）而实现的。
+Mule的核心组件是UMO(Universal Message Objects，从Mule2.0开始UMO这一概念已经被组件Componse所代替)，UMO实现整合逻辑。
+UMO可以是POJO,JavaBean等等。
+它支持20多种传输协议(file,FTP,UDP,SMTP,POP,HTTP,SOAP,JMS等)，并整合了许多流行的开源项目，比如Spring,ActiveMQ,CXF,
+Axis,Drools等。虽然Mule没有基于JBI来构建其架构，但是它为JBI容器提供了JBI适配器，应此可以很好地与JBI容器整合在一起。而 Mule更关注其灵活性，高效性以及易开发性。从2005年发表1.0版本以来，Mule吸引了越来越多的关注者，成为开源ESB中的一支独秀。目前许多公司都使用了Mule，比如Walmart,HP,Sony,Deutsche Bank 以及 CitiBank等公司。
+
+
+

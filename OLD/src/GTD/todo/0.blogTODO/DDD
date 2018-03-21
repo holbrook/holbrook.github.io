@@ -1,0 +1,27 @@
+什么是领域模型(Domain Model) 
+   我以为Domain分两个含义：Domain Object和Domain Service。那么什么样的系统是面向Domain的系统，一个Domain Object和普通的符合OO原则的对象有什么区别；一个Domain Service和普通的Facade或者Manager对象有什么区别。
+概念上，一个Domain Object和普通的符合OO原则的对象有声明区别：Domain Object是业务意义上，承载了业务数据（我据此认为所有Domain Object是有状态对象），从本质上说它直接来源于现实世界，没有技术层次上的考虑，“符合OO原则的对象”是用OO方法分析得到的，是基于计算机领域技术的（这样的对象可以是无状态的）；但反过来，符合OO的对象不一定反应DOMAIN 的OBJECT。
+
+技术上，Domain Object是指那些包含需要被透明持久化的属性，以及相关业务逻辑（体现在Use Case中）的POJO。仔细观察旧的系统，发现Transaction Script还是Table Module操作都的是来自数据库（或者其它持久化通道）的数据，Transaction的业务逻辑是零星片断。而Table Module其操作的是同一类业务数据集合，包含明显的数据库痕迹。而一个Domain Object包含了这些需要被持久化的业务数据，同时还包含了与之相关所有业务操作，并且有自己的继承体系。Martin Fowler认为有了这些就可以称为是一个Domain Object，因此在其PoEAA中的ORM包含了一些不透明的持久化方案。我认为一个真正的Domain Object需要一个透明持久化。
+
+Domain Service包含的商业逻辑包含了两部分：流程逻辑和控制逻辑。
+1. 业务领域的流程逻辑（Business Process）。指一系列的业务行为，包括Domain Object的属性更新；Dao的创建、更新和删除操作以及对Domain Service中的包括Mail，网络等方法的访问。
+2. 业务领域的控制逻辑（Business Rule）。A rule is a declarative statement that applies logic or computation to information values。Business Rule 1. 产生一些控制信息，限制或者触发某些行为的执行；2. 产生一些状态信息，提供给业务人员参考操作。A rule results either in the discovery of new information or a decision about taking action.。
+
+而Facade或者Manager是完全从技术上考虑的，尤其是Facade，通常处理如下逻辑：1. 与表现层通信工作，把表现层的平面数据（VO）转换为相关联的Domain对象，把Domain对象计算的结果转换成平面数据（VO）返回给表现层；2. 根据Use Case完成商业逻辑（面向事务）的调度，包括其业务关联的Domain Object和Domain Service调度，其可能调度了多个Domain Service。在简化的情况下，Facade有时和service可以等同。
+
+如果把一个系统看作是一个Mechanical组件的话，那么Domain Object就是其Structure，相当于人的骨架；而流程逻辑就是Power，相当于骨架上的肌肉；那么控制逻辑就是Control，相当于肌肉中的神经。
+
+Domain应用的可能 
+JavaBean方案，采用SQL mapping,只映射字段，不支持关联关系的映射，没有多态。但随着ORM框架的发展，如hibernate，提供支持关联关系，继承多态的能力，Domain Object成为可能。
+
+Cooperation Object：Domain Model之外
+Domain Model描述了一个面向问题领域的对象组织结构，和行为逻辑。而同时系统还需要另一些称为协作对象的，来帮助我们处理特定的技术问题。
+
+应用domain 的体系结构
+      Domain Service  |           Cooperation Object
+      Domain Object   | （包括了Dao在内的处理技术问题的辅助对象）
+
+其它
+Domain Model存在于系统的各个地方，不过在不同地方有不同的映射实现。在通常的开发过程中，该映射存在于文档和开发人员的脑海中的。当要向客户展示时，就面临一个映射的关系。比如要允许客户可以在线编辑页面呈现的显示元素，在规则定义里使用对象系统时。
+另外Domain在不同视图下导致不同的内容。比如一个代理人Agent对象，在party的视图下只拥有基本属性，而在Sale channel视图下就保存了一些额外信息如：考核记录，优秀率等。

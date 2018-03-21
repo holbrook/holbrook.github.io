@@ -1,0 +1,109 @@
+http://www.emacswiki.org/emacs/ELIM
+
+
+ELIM
+
+ELIM is an elisp instant messenger daemon (using libpurple), with a sexp based control protocol. Developed by fledermaus.
+
+Contents
+Obtaining ELIM
+Supported Protocols
+Screen Shots
+Wish list
+Obtaining ELIM
+
+The savannah page
+tarballs (the most recent one is usually what you should get).
+git repo browser
+The README included should tell you everything you need to know to get started with basic IM functionality.
+
+The reference IM client implemented on top of ELIM is Garak, it is included with in the ELIM tarball.
+
+ELIM on Mac OS X
+ELIM Configuration
+Supported Protocols
+
+libpurple (v2.4.3) supports the following protocols officially:
+
+AIM
+Bonjour
+Gadu-Gadu
+GroupWise?
+ICQ
+IRC
+MSN
+MySpaceIM?
+QQ
+SILC
+SIMPLE
+Sametime
+XMPP (Jabber, GTalk)
+Yahoo
+Zephyr
+Others are available as 3rd party plugins: http://developer.pidgin.im/wiki/ThirdPartyPlugins#AdditionalProtocols
+
+Screen Shots
+
+
+
+Wish list
+
+Replace libpurple with telepathy (pretty please?). 
+Investigating adding telepathy support. ETA not-very-soon, busy with many things.
+Make an ELPA package for it. (An ELPA package doesn’t really make sense since ELIM is a C program. Distributing the elisp portion by itself is not that helpful. --technomancy)
+Notify the user when a new message is received.
+DONE
+Tab-completion for nicks (in IRC and MUCs). An IRC client can’t be without that! 
+√ELIM
+
+ELIM is an elisp instant messenger daemon (using libpurple), with a sexp based control protocol. Developed by fledermaus.
+
+Contents
+Obtaining ELIM
+Supported Protocols
+Screen Shots
+Wish list
+Obtaining ELIM
+
+The savannah page
+tarballs (the most recent one is usually what you should get).
+git repo browser
+The README included should tell you everything you need to know to get started with basic IM functionality.
+
+The reference IM client implemented on top of ELIM is Garak, it is included with in the ELIM tarball.
+
+ELIM on Mac OS X
+ELIM Configuration
+Supported Protocols
+
+libpurple (v2.4.3) supports the following protocols officially:
+
+AIM
+Bonjour
+Gadu-Gadu
+GroupWise?
+ICQ
+IRC
+MSN
+MySpaceIM?
+QQ
+SILC
+SIMPLE
+Sametime
+XMPP (Jabber, GTalk)
+Yahoo
+Zephyr
+Others are available as 3rd party plugins: http://developer.pidgin.im/wiki/ThirdPartyPlugins#AdditionalProtocols
+
+Screen Shots
+
+
+
+Wish list
+
+Replace libpurple with telepathy (pretty please?). 
+Investigating adding telepathy support. ETA not-very-soon, busy with many things.
+Make an ELPA package for it. (An ELPA package doesn’t really make sense since ELIM is a C program. Distributing the elisp portion by itself is not that helpful. --technomancy)
+Notify the user when a new message is received.
+DONE
+Tab-completion for nicks (in IRC and MUCs). An IRC client can’t be without that! 

@@ -1,0 +1,48 @@
+* 为什么要在emacs中浏览网页
+  可以找出好多理由：比如速度快，支持emacs的快捷键，编辑文档时不需要从浏览器拷贝再粘贴到emacs，以及咳咳～，隐蔽性强。
+  而关键的理由一条就够了：我喜欢！
+
+* 什么是w3m
+[[http://www.w3m.org/][w3m]] 与Links,Lynx一样，都是基于文本的浏览器。w3m支持表格、框架、SSL连接、颜色。如果是在支持图形界面的终端下，还可以显示图片（inline image）。
+w3m支持很多快捷键，可以参考[[http://wiki.ubuntu.org.cn/W3m%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%88%97%E8%A1%A8][这里]] 。
+
+* 如何在emacs中浏览网页
+使用w3m
+[[http://www.cnblogs.com/holbrook/archive/2012/02/15/2357335.html][emacs可以作为其他程序的界面]], 当然也就可以作为w3m的界面，从而实现在emacs中浏览网页。而这些就是通过[[http://emacs-w3m.namazu.org/][Emacs-w3m]] 这个emacs的扩展来实现的。
+Emacs-w3m是Emacs调用w3m的接口，所以首先还要安装w3m。另外，为了能够显示图片，还需要安装w3m-img。
+此时就可以使用emacs浏览网页了。
+首先加载Emacs-w3m模块：
+    M-x load-library RET w3m，
+之后用
+    M-x w3m
+打开一个w3m的buffer，输入url就可以浏览网页了。
+[[w3m/w3m1.png]]
+
+
+
+
+* 配置
+  虽然这样已经可以使用了，但还是很麻烦，不符合Emacer的风格。所以还要需要配置一下。可以参考如下的配置：
+
+;; w3m
+;load & init
+(autoload 'w3m "w3m" "interface for w3m on emacs" t)
+(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+(autoload 'w3m-search "w3m-search" "Search words using emacs-w3m." t)
+;settings
+(setq w3m-use-cookies t)
+(setq w3m-home-page "http://www.google.com")
+
+(require 'mime-w3m)
+(setq w3m-default-display-inline-image t)
+(setq w3m-default-toggle-inline-images t)
+
+* 使用
+此时可以使用
+    M-x w3m-goto-url RET cnblogs.com/holbrook 打开网页了：
+    [[w3m/w3m2.png]]
+可以通过“T”切换整个页面是否显示图片，通过"t"切换光标所在位置的图片显示。
+
+Emacs-w3m还支持导航，标签，书签，工具栏，cookie等功能，可以自己慢慢挖掘。
+
+

@@ -1,0 +1,15 @@
+ digraph Application {
+    rankdir=LR;
+    node [shape=box,style=filled,fillcolor="#C0D0C0"];
+    subgraph clusterClient {
+       label="Client"; style=filled; bgcolor="#D0C0A0";
+       "Browser";
+    };
+    subgraph clusterServer {
+       label="Server"; style=filled; bgcolor="#D0C0A0";
+       "App";
+       "Database" [shape=DatabaseShape,peripheries=0];
+    };
+    "Browser" -> "App" [label="HTTP"];
+    "App" -> "Database" [label="SQL"];
+ }

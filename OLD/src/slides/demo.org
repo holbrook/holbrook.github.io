@@ -1,0 +1,89 @@
+#+Title: Reveal.js Demo
+#+Author: 王海阔
+#+Email: wanghaikuo@gmail.com
+#+OPTIONS: toc:nil reveal_mathjax:t
+#+REVEAL_TRANS: concave
+#+REVEAL_THEME: beige
+
+* Set the location of Reveal.js
+
+默认位置： =./reveal.js=
+
+#+BEGIN_SRC emacs
+
+(setq org-reveal-root "file:///d:/reveal.js")
+,#+REVEAL_ROOT: file:///d:/reveal.js
+,#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/2.5.0/
+
+#+END_SRC
+
+* Heading 2
+
+HLevel 参数： 默认为1， H1 左右， H2,H3...均竖直排列
+
+改变：
+
+#+BEGIN_SRC emacs
+
+(setq org-reveal-hlevel 2)
+,#+REVEAL_HLEVEL 2
+
+#+END_SRC
+** Sub-Heading 2.1
+
+强制分页：如果内容较多：
+
+,#+REVEAL: split
+
+#+REVEAL: split
+
+这是第二页
+
+
+** Sub-Heading 2.2
+
+更改切换样式：
+
+#+BEGIN_SRC emacs
+
+,#+REVEAL_THEME
+,#+REVEAL_TRANS
+,#+REVEAL_SPEED
+
+#+END_SRC
+
+* Set Slide Background
+
+Slide background can be set to a color, an image or a repeating image array by setting heading properties.
+
+** Single Colored Background
+
+Set property reveal_background to either an RGB color value, or any supported CSS color format.
+
+,*** Single Colored Background
+   :PROPERTIES:
+   :reveal_background: #123456
+   :END:
+
+** Single Image Background
+
+Set property reveal_background to an URL of background image. Set property reveal_background_trans to slide to make background image sliding rather than fading.
+
+,*** Single Image Background
+    :PROPERTIES:
+    :reveal_background: ./images/whale.jpg
+    :reveal_background_trans: slide
+    :END:
+
+** Repeating Image Background
+
+Resize background image by setting property reveal_background_size to a number.
+
+Set property reveal_background_repeat to repeat to repeat image on the background.
+
+,*** Repeating Image Background
+    :PROPERTIES:
+    :reveal_background: ./images/whale.jpg
+    :reveal_background_size: 200px
+    :reveal_background_repeat: repeat
+    :END:

@@ -1,0 +1,6 @@
+* hibernate2->jpa
+* xxxfire->cxf
+* spring2->spring3
+* junit3->junit3
+* log4j->slf4j
+

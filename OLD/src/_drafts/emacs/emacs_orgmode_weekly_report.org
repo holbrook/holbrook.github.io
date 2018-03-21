@@ -1,0 +1,133 @@
+#+TITLE: org-mode 工作周报，我的第一段elisp程序
+
+
+* 需求
+
+* 分析
+
+org-mode中，与时间相关的属性包括 =SCHEDULED= 和 =DEADLINE= ，使用哪一个取决于
+你对计划的管理是“计划日期”驱动还是“截止日期”驱动。
+如果不是一个拖延成性的人，或者正在进行“死亡之旅”类型的项目，通常，工作事项应该是计划驱动的。
+
+工作项一般会经过计划(TODO)、开始(STARTED)，直到最后关闭。而关闭由两种方式：
+完成(DONE)和取消(CANCELLED)。
+
+在GTD[fn:1]中，还会涉及另外两张状态：等待(WAITING)和将来(SOMEDAY)。对于工作周报来说，
+别人完成的事项和将来可能要做的事都不属于周报中的内容，故不予考虑。
+
+综上，工作周报中涉及的事项，其状态图如下所示：
+
+
+#+BEGIN_SRC plantuml :file assets/images/orgmode_state_full.png :exports results
+@startuml
+[*] --> STARTED
+[*] --> TODO
+TODO --> CANCELLED
+STARTED --> DONE
+DONE --> [*]
+
+TODO --> STARTED
+STARTED --> CANCELLED
+
+
+CANCELLED --> [*]
+
+TODO: +scheduled
+DONE: +closed
+CANCELLED: +closed
+
+@enduml
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/images/orgmode_state_full.png]]
+
+
+如果用状态和时间戳来表示
+
+1. 本周计划内工作：计划时间(scheduled）在本周之内。完成情况包括：
+   - 已完成: 关闭时间(closed)在本周之内，且状态为“DONE”
+   - 已取消: 关闭时间(closed)在本周之内，且状态为“CANCELLED”
+   - 未完成: 关闭时间(closed)未设置
+
+2. 本周计划外工作
+
+   我对于“计划外”工作的理解是：紧急，并且不重要。
+
+   “本周计划外的工作”会在本周内完成。如果一项工作，是在本周期间内提出，但又不需要本周就完成，
+   完全可以列入“下周工作计划”。所以，这里本周计划外工作的条件是：
+
+   关闭时间(closed)在本周之内，且状态为“DONE”。
+
+   换言之，“本周计划外工作”没有其他的状态，只能是“已完成”。
+
+3. 下周工作计划：计划时间(scheduled)在下周之内。
+
+
+
+* 设计
+
+** 实现机制
+
+尽管org-mode提供了自定义agenda视图的方法[fn:2]，但是这种方式似乎无法输入参数，而且定义显示格式很麻烦。
+也有人通过在自定义的函数中调用 =org-tags-view= 函数，实现了“月完成工作清单”[fn:3]。
+
+我采取的做法是：使用一个单独的buffer显示周报——我可以创建org格式的周报，方便后续的发布。
+至于内容的来源，在查看了 =org-tags-view= 的代码后，我暂时放弃了使用 =org-agenda= API的想法（目前对我来说过于复杂）。
+由于 =org-tags-view= 使用名为 =*Org Agenda*= 的buffer显示内容，
+我可以直接从 =*Org Agenda*= buffer中取得内容，使用文本处理[fn:4]的方法提取要素，插入到自定义的buffer中。
+
+这可谓“不是办法的办法”，但也可以说是emacs中“万能的办法”。
+
+* 相关elisp知识
+
+** 函数式编程
+
+** 查看函数
+
+   apropos
+** 日期相关
+
+emacs中设计到三种日历：
+
+- 格里高斯历
+- ISO日历
+- 绝对日历
+
+
+** buffer
+http://www.wenb.in/elispintro/2007/08/03/12-buffer.html
+
+
+
+buffer-string
+  Function: Return the contents of the =current buffer= as a string.
+  Properties: gv-expander side-effect-free
+
+
+set-buffer
+  Function: Make buffer BUFFER-OR-NAME current for editing operations.
+  Properties: byte-compile byte-opcode
+
+
+* 相关函数
+
+** org-agenda
+[[./assets/images//349mmP.png]]
+
+** org-todo-list
+
+[[./assets/images//349aPo.png]]
+
+
+* 代码
+
+* 参考资料
+
+[fn:1] [[http://zh.wikipedia.org/zh-cn/GTD][GTD,Getting Things Done]] ,一种行为管理的方法
+
+[fn:2] org文档：[[http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html][Custom Agenda Commands]]
+
+[fn:3] [[http://jcardente.blogspot.com/2010/06/org-mode-hack-tasks-done-last-month.html][Org-mode hack: tasks done last month]]
+
+[fn:4] [[http://ergoemacs.org/emacs/elisp_idioms_batch.html][Emacs Lisp Idioms for Text Processing in Batch Style]]

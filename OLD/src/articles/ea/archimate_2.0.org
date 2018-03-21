@@ -1,0 +1,89 @@
+#+YAML/TITLE: Archimate2.0速查手册
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: <2014-04-13 Sun>
+#+YAML/LAYOUT: post
+#+YAML/TAGS: TOGAF;Archimate
+#+OPTIONS: toc:t
+
+Archimate是。。。
+这里，速查
+
+* 元模型
+Structural , Behavioral, Informational Concepts
+** 业务层
+[[./assets/images//530ziG.png]]
+
+| 元素                                                                                       | 中文 | 说明                                                                                                                                                                                   |
+|--------------------------------------------------------------------------------------------+------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [[./assets/images/archimate_icons/ArchiMateBusinessActor.png]]          Business Actor         |      | A business actor is defined as an organizational entity that is capable of performing behavior.                                                                                        |
+| [[./assets/images/archimate_icons/ArchiMateBusinessRole.png]]           Business Role          |      | A business role is defined as the responsibility for performing specific behavior, to which an actor can be assigned                                                                   |
+| [[./assets/images/archimate_icons/ArchiMateBusinessCollaboration.png]]  Business Collaboration |      | Business collaboration is defined as an aggregate of two or more business roles that work together to perform collective behavior.                                                     |
+| [[./assets/images/archimate_icons/ArchiMateBusinessInterface.png]] Business Interface          |      | A business interface is defined as a point of access where a business service is made available to the environment.                                                                    |
+| [[./assets/images/archimate_icons/ArchiMateLocation.png]] Location                             |      | A location is defined as a conceptual point or extent in space.                                                                                                                        |
+| [[./assets/images/archimate_icons/ArchiMateBusinessObject.png]]  Business Object               |      | A business object is defined as a passive element that has relevance from a business perspective.                                                                                      |
+|--------------------------------------------------------------------------------------------+------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [[./assets/images/archimate_icons/ArchiMateBusinessProcess.png]]  Business Process             |      | A business process is defined as a behavior element that groups behavior based on an ordering of activities. It is intended to produce a defined set of products or business services. |
+| [[./assets/images/archimate_icons/ArchiMateBusinessFunction.png]] Business Function            |      | A business function is defined as a behavior element that groups behavior based on a chosen set of criteria (typically required business resources and/or competences).                |
+| [[./assets/images/archimate_icons/ArchiMateBusinessInteraction.png]]  Business Interaction     |      | A business interaction is defined as a behavior element that describes the behavior of a business collaboration.                                                                       |
+| [[./assets/images/archimate_icons/ArchiMateBusinessEvent.png]] Business Event                  |      | A business event is defined as something that happens (internally or externally) and influences behavior.                                                                              |
+| [[./assets/images/archimate_icons/ArchiMateBusinessService.png]]  Business Service             |      | A business service is defined as a service that fulfills a business need for a customer (internal or external to the organization).                                                    |
+|--------------------------------------------------------------------------------------------+------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [[./assets/images/archimate_icons/ArchiMateRepresentation.png]]  Representation                |      | A representation is defined as a perceptible form of the information carried by a business object.                                                                                     |
+| [[./assets/images/archimate_icons/ArchiMateMeaning.png]]  Meaning                              |      | Meaning is defined as the knowledge or expertise present in a business object or its representation, given a particular context.                                                       |
+| [[./assets/images/archimate_icons/ArchiMateValue.png]]  Value                                  |      | Value is defined as the relative worth, utility, or importance of a business service or product.                                                                                       |
+| [[./assets/images/archimate_icons/ArchiMateProduct.png]]  Product                              |      | A product is defined as a coherent collection of services, accompanied by a contract/set of agreements, which is offered as a whole to (internal or external) customers.               |
+| [[./assets/images/archimate_icons/ArchiMateContract.png]]  Contract                            |      | A contract is defined as a formal or informal specification of an agreement that specifies the rights and obligations associated with a product.                                       |
+
+*** 示例
+
+** 应用层
+
+[[./assets/images//530Bgr.png]]
+
+| 元素                                                                                           | 中文 | 说明                                                                                                                                                    |
+|------------------------------------------------------------------------------------------------+------+---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [[./assets/images/archimate_icons/ArchiMateApplicationComponent.png]]Application component         |      | A modular, deployable, and replaceable part of a software system that encapsulates its behavior and data and exposes these through a set of interfaces. |
+| [[./assets/images/archimate_icons/ArchiMateApplicationCollaboration.png]]Application collaboration |      | An aggregate of two or more application components that work together to perform collective behavior.                                                   |
+| [[./assets/images/archimate_icons/ArchiMateApplicationInterface.png]]Application interface         |      | A point of access where an application service is made available to a user or another application component.                                            |
+| [[./assets/images/archimate_icons/ArchiMateDataObject.png]]Data object                             |      | A passive element suitable for automated processing.                                                                                                    |
+| [[./assets/images/archimate_icons/ArchiMateApplicationFunction.png]]Application function           |      | A behavior element that groups automated behavior that can be performed by an application component.                                                    |
+| [[./assets/images/archimate_icons/ArchiMateApplicationInteraction.png]]Application interaction     |      | A behavior element that describes the behavior of an application collaboration.                                                                         |
+| [[./assets/images/archimate_icons/ArchiMateApplicationService.png]]Application service             |      | A service that exposes automated behavior.                                                                                                              |
+
+** Technology Layer
+[[./assets/images//530Oqx.png]]
+
+
+| 元素                                                                                          | 中文 | 说明                                                                                                                                                    |
+| [[./assets/images/archimate_icons/ArchiMateNode.png]] Node                                        |      | A computational resource upon which artifacts may be stored or deployed for execution.                                                                  |
+| [[./assets/images/archimate_icons/ArchiMateDevice.png]] Device                                    |      | A hardware resource upon which artifacts may be stored or deployed for execution.                                                                       |
+| [[./assets/images/archimate_icons/ArchiMateNetwork.png]] Network                                  |      | A communication medium between two or more devices.                                                                                                     |
+| [[./assets/images/archimate_icons/ArchiMateCommunicationPath.png]] Communication path             |      | A link between two or more nodes, through which these nodes can exchange data.                                                                          |
+| [[./assets/images/archimate_icons/ArchiMateInfrastructureInterface.png]] Infrastructure interface |      | A point of access where infrastructure services offered by a node can be accessed by other nodes and application components.                            |
+| [[./assets/images/archimate_icons/ArchiMateSystemSoftware.png]] System software                   |      | A software environment for specific types of components and objects that are deployed on it in the form of artifacts.                                   |
+| [[./assets/images/archimate_icons/ArchiMateInfrastructureFunction.png]] Infrastructure function   |      | A behavior element that groups infrastructural behavior that can be performed by a node.                                                                |
+| [[./assets/images/archimate_icons/ArchiMateInfrastructureService.png]] Infrastructure service     |      | An externally visible unit of functionality, provided by one or more nodes, exposed through well-defined interfaces, and meaningful to the environment. |
+| [[./assets/images/archimate_icons/ArchiMateArtifact.png]] Artifact                                |      | A physical piece of data that is used or produced in a software development process, or by deployment and operation of a system.                        |
+
+* Viewpoints
+
+** 清单
+
+** Introductory Viewpoint
+** Organization Viewpoint
+** Actor Co-operation Viewpoint
+** Business Function Viewpoint
+** Business Process Viewpoint
+** Business Process Co-operation Viewpoint
+** Product Viewpoint
+** Application Behavior Viewpoint
+** Application Co-operation Viewpoint
+** Application Structure Viewpoint
+** Application Usage Viewpoint
+** Infrastructure Viewpoint
+** Infrastructure Usage Viewpoint
+** Implementation and Deployment Viewpoint
+** Information Structure Viewpoint
+** Service Realization Viewpoint
+** Layered Viewpoint
+** Landscape Map Viewpoint

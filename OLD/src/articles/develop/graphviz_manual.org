@@ -1,0 +1,125 @@
+#+YAML/TITLE: Graphviz速查手册
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: <2014-04-26 Sat>
+#+YAML/LAYOUT: post
+#+YAML/TAGS: graph
+#+OPTIONS: toc:t
+
+
+[[http://www.graphviz.org/][Graphviz]] 是贝尔实验室开发的一个开源的绘图工具包。与传统的绘图方式不同，Graphviz使用代码的方式，以 =dot= 作为DSL来描述图形。
+
+也就是说，你只需要关注图(graph)本身的数据，比如节点(node)、边(edge)、子图(subgraph)等，并设置这些元素的显示属性，就可以自动布局出整个图形。
+这是经典的WYTIWYG(What you think is what you get)方式，而不是M$的WYSIWYG(What you see is what you get)。
+
+通过Graphviz提供的工具，可以实时预览图形，也可以导出png、SVG、PDF等多种格式。
+
+使用Graphviz还有一个好处在于，你可以以文本的方式编辑和保存图形。比如，将 =dot= 代码嵌入到 =org= 文档中，不需要额外保存图片文件。
+与Graphviz类似的其他工具还有类似ASC Art的[[#][emacs ditaa]]、在Graphivz基础上的[[#][plantuml]]等。
+
+dot语言中，顶点和边都具有各自的属性，比如形状，颜色，填充模式，字体，样式等。
+由于还不够熟练，在使用Graphviz时，经常需要查阅官方文档和网上的例子，效率很低。所以通过本文整理用到过的语法和例子，作为速查手册。
+
+* 图形(graph)
+
+** 布局
+graphviz中包含了众多的布局器：
+
+dot 默认布局方式，主要用于有向图
+neato 基于spring-model(又称force-based)算法
+twopi 径向布局
+circo 圆环布局
+fdp 用于无向图
+graphviz的设计初衷是对有向图/无向图等进行自动布局，开发人员使用dot脚本定义图形元素，然后选择算法进行布局，最终导出结果。
+
+
+graphviz提供5中布局方式:
+dot graphviz的默认布局方式，用于画有向图
+neato spring-model(基于斥力+张力的布局)
+twopi
+circo 在使用过程中，感觉circo算法布局出来的图形最为合理
+fdp
+
+** 颜色字典
+
+** 子图
+
+* 节点(node)
+
+** 节点形状
+
+http://www.graphviz.org/doc/info/shapes.html
+
+*** 内置形状
+
+*** 复合形状(record)
+
+*** 使用html table定义形状
+
+*** 其他自定义
+ps
+svg
+
+
+** 边框
+
+** 填充
+
+渐进色
+
+edge [color="#ff00ff:#ffffff:#00ffff:#000000:#00ff00:#ffff00:#ff0000:#0000ff"]
+
+** 旋转
+
+* 边(edge)
+
+** 线型和箭头
+
+
+虚线
+双向箭头
+
+示例：
+
+*** 反向箭头
+[dir=back]
+
+** 颜色
+
+** 粗细
+
+* 高级用法
+
+** 使用集合批量设置属性
+
+前面的例子中已经涉及到了集合，即用 ={}= 批量设置边。通过集合还可以为节点或边设置属性。比如：
+
+#+BEGIN_SRC dot
+{ node [shape=circle]
+     a b c d e f g h  i j k l m n o p  q r s t u v w x
+}
+
+{ edge [color="#ff0000:#0000ff"]
+    A -> i -> {I K}
+    B -> j -> {J L}
+}
+#+END_SRC
+* 绘图示例
+
+** 流程图
+
+** 数据流图(DFD)
+
+** 实体关系图(ER)
+
+** 思维导图(Mind Map)
+来自[[http://hi.baidu.com/jiqing0925/item/7f8255cf58625826a0b50a82]] 的一个例子，如下图：
+
+[[./assets/images/graphviz/graphviz_mindmap.jpg]]
+
+
+当然，这不一定是很好的选择。对我来说，使用[[#][ox-freemind]]的效果会更好：
+
+
+
+* 参考资料
+本文只是作为速查手册，如果

@@ -1,0 +1,53 @@
+[[http://www.cnblogs.com/holbrook/archive/2012/12/30/2839842.html][在OSGi中使用JPA
+
+前面]] 提到了JPA的一些基本概念。一些常见的JPA实现包括：
+[[http://www.hibernate.org/][Hibernate]] 、[[http://www.eclipse.org/eclipselink/][EclipseLink]] 、[[http://openjpa.apache.org/][OpenJPA]] 等。
+
+OSGi的运行机制与传统的Java Application有所不同，导致JavaEE的许多技术在OSGi环境中缺少一致的标准。JPA也是一样。直到2010年3月的[[http://www.osgi.org/Download/Release4V42][企业OSGi标准(OSGi Enterprise Specification)]] 4.2中首先提到了OSGi对于JPA的支持。随后Apache和Eclipse都对该标准进行了实现，分别是[[http://aries.apache.org/][Apache Aries]] 和 [[http://www.eclipse.org/gemini/][Eclipse Gemini]]。
+
+Eclipse Gemini包括Blueprint、Management、DBAccess、Naming、JPA、Web六个模块。
+其中Gemini JPA实现了OSGi 5.0 Enterprise Specification中的JPA规范，Gemeni DBAccess实现了OSGi中的JDBC支持，可以在JPA中作为Driver的提供者。
+
+本文介绍使用Gemini JPA和Gemini DBAccess在Felix中实现持久化支持，将会使用[[http://db.apache.org/derby/][Derby]]数据库。
+
+
+
+* 安装
+增加update site:
+GeminiJPA - http://download.eclipse.org/gemini/updates/jpa/1.1.0
+
+
+安装：
+Gemini JPA， Gemini DBAccess for Derby
+
+* 创建工程
+plugin project, osgi->felix,
+
+增加依赖：
+Require-Bundle: javax.persistence;bundle-version="2.0.5",
+
+EclipseLink bundles:
+ org.eclipse.persistence.jpa;bundle-version="2.4.2",
+ org.eclipse.persistence.core.source;bundle-version="2.4.1",
+ org.eclipse.persistence.antlr;bundle-version="3.2.0",
+ org.eclipse.persistence.asm;bundle-version="3.3.1",
+
+
+ org.eclipse.gemini.dbaccess.derby;bundle-version="1.1.0",//Gemini DBAccess(可选），否则需要JDBC driver的bundle
+
+
+ org.eclipse.gemini.jpa;bundle-version="1.1.0"
+
+
+* 创建实体
+使用[[https://github.com/backslash47/gemini.jpa/tree/master/org.eclipse.gemini.jpa.sample.basic][org.eclipse.gemini.jpa.sample.basic]]中的实体类：
+Account ,  Customer, Transaction, TxOperation
+
+
+* 参考资料
+[[http://wiki.eclipse.org/Gemini/JPA/Documentation][Gemini/JPA/Documentation]]
+
+
+
+
+

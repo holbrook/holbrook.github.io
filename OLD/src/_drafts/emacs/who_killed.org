@@ -1,0 +1,7 @@
+TextMate/PyCharm
+SourceTree/TotriesGit
+xpdf/preview
+Evernote
+Outliner
+Mail
+

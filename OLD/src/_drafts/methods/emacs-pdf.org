@@ -1,0 +1,106 @@
+#+TITLE:  在Emacs中使用Evernote
+#+AUTHOR: Holbrook Wong
+#+EMAIL:  wanghaikuo@gmail.com
+
+* 简介
+[[http://www.emacswiki.org/emacs/DocViewMode][DocViewMode]] 为Emacs提供了DVI、PDF等文件支持。DocViewMode将dvi、pdf等文件转换成png图片，并在emacs中打开。如下图：
+
+[[./pdf/docview.png]]
+
+* 安装
+从Emacs v23开始，默认包括了DocViewMode。但需要系统中安装基础的软件包：
+
+首先，ghostscript是必需的
+
+然后要安装xpdf
+
+
+* 使用
+
+在DocViewMode中可以使用部分Emacs快捷键，同时也DocViewMode也定义了自己的一些快捷键：
+
+| 快捷键 | 功能     |
+|--------+----------|
+| p/n    | 上下翻页 |
+| +/-    | 缩放     |
+| C-s    | 搜索   |
+| q      | 退出       |
+
+
+* 书签
+
+DocView不直接支持书签，这很不方便，尤其是在阅读较大型文档的时候。不过Emacs有另外一个插件[[http://www.emacswiki.org/emacs/BookMarks][BookMarks]]， 可以与DocViewMode结合使用。
+
+BookMarks是Emacs自带的插件，支持以下操作：
+
+| 快捷键              | 操作         |
+|---------------------+--------------|
+| C-x r m             | 设置书签     |
+| C-x r b             | 跳转到书签   |
+| C-x r l             | 列出所有书签 |
+| M-x bookmark-delete | 删除书签         |
+
+- 每个文件只能设置一个书签,如果要在一个文件中使用多个书签，参考[[http://www.emacswiki.org/emacs/BookmarkPlus#Bookmark%2b][Bookmark+]]。
+- 默认将所有书签保存在~/.emacs.bmk
+
+
+简单地说，它有四个主要的元素：
+
+filename: 书签所对应的文件名
+position: 书签在对应文件里的位置
+bookmark-set: 在当前buffer的当前光标位置设置书签
+bookmark-jump: 跳到相应的书签位置
+bookmark还提供了一定的扩展功能，如果上述四个概念不足以实现某种特定的书签，可以在其基础上扩展。
+
+doc-view是GNU Emacs用来查看PDF文件的工具，它首先把PDF转换成图片，每页一张图，然后把图片显示出来。对于doc-view来说，书签定义的位置是页，而不是某个字符的位置，所以doc-view必须通过扩展才能使用bookmark。
+
+扩展方式很简单，首先为doc-view-mode定义一个单独的书签创建函数，在书签创建时两条额外的信息
+
+页数
+以及一个处理该书签的函数，以跳到相应的页数
+(defun doc-view-bookmark-make-record ()
+  (nconc (bookmark-make-record-default)
+         `((page     . ,(doc-view-current-page))
+           (handler  . doc-view-bookmark-jump))))
+
+;;;###autoload
+(defun doc-view-bookmark-jump (bmk)
+  ;; This implements the `handler' function interface for record type
+  ;; returned by `doc-view-bookmark-make-record', which see.
+  (prog1 (bookmark-default-handler bmk)
+    (let ((page (bookmark-prop-get bmk 'page)))
+      (when (not (eq major-mode 'doc-view-mode))
+        (doc-view-toggle-display))
+      (with-selected-window
+          (or (get-buffer-window (current-buffer) 0)
+              (selected-window))
+        (doc-view-goto-page page)))))
+然后用该函数替换掉默认的书签创建函数。具体实现参见doc-view.el文件。
+
+(set (make-local-variable 'bookmark-make-record-function)
+     'doc-view-bookmark-make-record)
+然而，doc-view提供的书签有一点小小的缺陷，就是没有保存解析度（doc-view-resolution）。doc-view本身提高缩放功能，但是如果缩放比例没有保存的话，使用书签后PDF将以默认比例打开，阅读体验不太友好。
+
+修改的方式和前面几乎一样，唯一的区别是在doc-view-mode-hook里面替换掉doc-view-mode原来的书签创建函数，改用自己写的那个。代码部分摘录如下，具体参见我的wl-ebook-viewer.el中关于doc-view的部分（其中还包括了自动设置书签和打开PDF时自动跳到书签位置的代码，用于模拟定位上次阅读位置功能）。
+
+(defun wl-doc-view-bookmark-make-record ()
+  (nconc (bookmark-make-record-default)
+         `((page . ,(doc-view-current-page))
+           (resolution . ,doc-view-resolution)
+           (handler . wl-doc-view-bookmark-jump))))
+
+(defun wl-bookmark-get-resolution (bookmark)
+  "Get doc view resolution."
+  (or (bookmark-prop-get bookmark 'resolution)
+      (default-value 'doc-view-resolution)))
+
+(defun wl-doc-view-bookmark-jump (bookmark)
+  (prog1 (doc-view-bookmark-jump bookmark)
+    (let ((resolution (wl-bookmark-get-resolution bookmark)))
+      (assert (> resolution 0))
+      (when (/= doc-view-resolution resolution)
+        (set (make-local-variable 'doc-view-resolution) resolution)
+        (doc-view-reconvert-doc)))))
+
+* 小结
+现在，你可以将系统中PDF的默认打开程序设置成Emacs了。

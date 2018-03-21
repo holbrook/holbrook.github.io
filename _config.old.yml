@@ -1,0 +1,11 @@
+
+
+algolia:
+  applicationID: '2D390ZMGCJ'
+  apiKey: '98fe25d384567f4447d37429b35a233e'
+  adminApiKey: '5b426ca75aa07d8d81382fb7df8f7401'
+  indexName: 'thinkinside'
+  chunkSize: 5000
+
+
+

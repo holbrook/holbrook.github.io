@@ -1,0 +1,22 @@
+#+TITLE:
+#+DATE:
+#+DESCRIPTION:
+
+* 参考资料
++ [[http://wenku.baidu.com/view/fed7ceeb5ef7ba0d4a733b4d.html][金融复杂性与行为金融学理论]]
++ 饶育蕾《行为金融学》课件
+  1. [[http://wenku.baidu.com/view/91d3252d647d27284b735158.html][第一章概论]]
+  2. [[http://wenku.baidu.com/view/b4488c7d31b765ce05081458.html][第二章有效市场价说及其缺陷]]
+  3. [[http://wenku.baidu.com/view/8f8010e6524de518964b7d5b.html][第三章证券市场中的异象]]
+  4. [[http://wenku.baidu.com/view/991873681eb91a37f1115c5b.html][第四章心理实验对预期效用理论的挑战]]
+  5. [[http://wenku.baidu.com/view/25d58c26bcd126fff7050b5b.html][第五章认知偏差]]
+  6. [[http://wenku.baidu.com/view/98dfac3e87c24028915fc35a.html][第六章心理偏差与偏好]]
+  7. [[http://wenku.baidu.com/view/e98d595b312b3169a451a45a.html][第七章前景理论]]
+  8. [[http://wenku.baidu.com/view/3ccf9d8cd0d233d4b14e695a.html?re=view][第八章金融市场中的个体心理与行为偏差]]
+  9. [[http://wenku.baidu.com/view/233f383a0912a2161479295a.html][第九章金融市场中的群体心理特征与金融泡沫]]
+  10. [[http://wenku.baidu.com/view/14628e9e0b4e767f5acfcebd.html][第十章行为资产定价理论]]
+  11. [[http://wenku.baidu.com/view/4b9f78bb83c4bb4cf7ecd1bf.html][第十一章行为资产组合理论]]
+  12. [[http://wenku.baidu.com/view/4837354e9ec3d5bbfd0a74be.html][第十二章行为投资管理]]
+
+
+

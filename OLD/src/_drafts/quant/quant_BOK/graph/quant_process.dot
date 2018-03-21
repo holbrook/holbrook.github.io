@@ -1,0 +1,21 @@
+digraph G{
+  graph [ rankdir = "LR"];
+
+  market
+  subgraph cluster_research { 
+    collection [label=" 收集数据"]    
+    process 
+    clean
+    analysis
+
+    market -> collection -> process -> clean -> analysis -> model
+    analysis -> collection
+    clean -> model
+  }
+
+  subgraph cluster_trade {
+    model -> strategy -> market 
+    clean, model -> visiualize
+  }
+
+}

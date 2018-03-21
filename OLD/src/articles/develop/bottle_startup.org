@@ -1,0 +1,118 @@
+#+YAML/TITLE: 开始使用bottle.py开发python Web应用
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: <2014-04-28 Mon>
+#+YAML/LAYOUT: post
+#+YAML/TAGS: python; angularjs; bottle.py; REST
+#+OPTIONS: toc:t
+
+最近在基于salt实现一个复杂分布式系统的部署工具，需要开发web界面。本文记录对框架的选择、开发bottle.py应用过程中遇到的问题及解决办法。
+
+* 框架选择
+
+最近在基于salt实现一个复杂分布式系统的部署工具，需要开发web界面。显然，[[https://www.djangoproject.com/][Django]] 不适合做这件事情：
+
+- 我不需要ORM。因为数据量不大，而且结构比较复杂，最佳的选择是用数据文件
+- 为了易用性，我想使用[[https://angularjs.org][AngularJS]] 实现一个SPA(Single Page Application)，所以我也不需要模板
+- 我不需要管理用户。实际上，这是部署在内网为少数人提供的工具
+
+简单的说，Django更适合Web Site，而不是Web App。我需要一个轻量级的框架，比如[[http://flask.pocoo.org/][Flask]] 、[[http://webpy.org/][web.py]] 和 [[http://bottlepy.org/docs/dev/index.html][bottle.py]]。
+
+这里面似乎bottle.py不依赖外部库，代码最简单，而且其功能对我来说完全够用。
+
+对于使用文件持久化数据，本来最佳的选择是python自带的[[https://docs.python.org/2/library/shelve.html][shelve]], 但是考虑人工修改的需要，以及对前端的友好性，最终选择了
+[[https://pythonhosted.org/pickleDB/][pickleDB]]。
+
+虽然是内部使用的工具，但是也不能看上去太寒酸。好在AngularJS支持各种插件，其中就有angular-ui-bootstrap，
+可以创建bootstrap风格的界面，至少说得过去。
+
+
+* bottle.py项目目录结构
+
+由于bottle.py的简单，可以任意的使用。但是对工程目录进行良好的规划，可以为后续的维护带来便利。由于之前对Django比较熟悉，参考Django工程目录设计了
+bottle.py应用的目录结构：
+
+#+BEGIN_SRC bash
+ROOT
+ ├─ apps/        bottle模块
+ │ ├─ module1/
+ │ │ ├─ __init__.py    模块初始化文件，完成本模块的组装
+ │ │ ├─ views.py
+ │ │ ├─ models.py
+ │ │ ├─ services.py
+ │ │ └─ templates/     模板
+ │ ├─ module2/
+ │ ├─ .../
+ ├─ plugins/           bottle.py插件
+ ├─ libs/              依赖的其他python模块
+ │ ├─ python*.*/　　指定python版本号
+ │ │ ├─ site-packages/
+ │ │ └─ requirements.pip    #pip的依赖说明文件
+ ├─ static/            静态文件
+ ├─ tests/             测试代码
+ ├─ uploads/           上传文件
+ ├─ settings.py        全局设置
+ ├─ urls.py
+ ├─ bottle.py          由于是内网应用，为了部署方便，直接将bottle.py直接打包到应用中
+ ├─ app.py             用于以uWSGI方式启动应用
+ └─ run.py             用于开发过程中启动web服务器
+#+END_SRC
+
+* AngularJS工程目录结构
+上面的目录结构中，static目录存放静态文件。参考AngularJS的文档，子目录结构设计如下：
+
+#+BEGIN_SRC bash
+static
+ ├─ css/
+ ├─ data/              静态数据，用于测试静态页面
+ ├─ img/
+ ├─ js/
+ │ ├─ app.js
+ │ ├─ controllers.js
+ │ ├─ filters.js
+ │ ├─ services.js
+ │ ├─ urls.js　　       定义两组urls，一组使用 =data/= 中的测试数据用于前端单独测试；另一组连接后端提供的json。
+ │ └─ widgets.js
+ ├─ lib/               用到的前端库
+ │ ├─ angular/　　
+ │ ├─ angular-xeditable/　　
+ │ ├─ bootstrap/
+ │ └─ jquery/
+ ├─ partials/
+ ├─ tests/             前端测试代码
+ ├─ favicon.ico
+ └─ index.html
+#+END_SRC
+
+* bottle.py应用的模块划分
+其实bottle.py中没有模块，只有应用(app)。可以指定一个app为主应用，其他模块挂载到主应用的子目录。
+
+我的做法是：
+
+- 在apps中分别定义每个app，比如main_app, module1, module2。每个app定义自己的route
+
+- 在工程的 =app.py= 中进行组装：
+  #+BEGIN_SRC python
+  app = main_app
+  app.mount('/API/REST/env/', module1)
+  app.mount('/API/REST/deploy/', module2)
+  #+END_SRC
+* python第三方模块管理
+
+可以参考site-packages的目录结构进行管理。在 =settings.py= 中设置libs的加载：
+#+BEGIN_SRC python
+sys.path.insert(0, 'os.path.join(PROJECT_ROOT,'libs/site-packages/*****.egg'))
+#+END_SRC
+
+* RESTful接口
+既然选择了AngularJS作为前端MVC框架，那么后端只需要实现RESTful接口即可。bottle.py的view函数如果
+返回dict对象，可以直接渲染为json数据。对于非dict对象，比如array，需要自定义view函数，比如：
+
+#+BEGIN_SRC python
+@route('/API/array')
+def json_array():
+    data = [...]
+    response.content_type = 'application/json'
+    return json.dumps(data)
+#+END_SRC
+
+* 使用uWSGI部署到Nginx(TODO)

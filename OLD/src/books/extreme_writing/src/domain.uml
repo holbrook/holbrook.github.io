@@ -1,0 +1,12 @@
+@startuml
+class Article
+
+Book o- Article
+
+Article *- Asset
+Article *- Source
+Article *- Part
+Article -- "index" Part
+Asset -- "from" Source
+
+@enduml

@@ -1,0 +1,195 @@
+#+LAST_MOBILE_CHANGE: 2014-03-02 20:18:02
+* 工作
+#+CATEGORY: work
+** CANCELLED 开发ESB-Livebos Adapter
+   CLOSED: [2014-04-18 Fri 10:51] SCHEDULED: <2014-03-10 Mon>
+   - State "CANCELLED"  from ""           [2014-04-18 Fri 10:51] \\
+     goto T2
+
+** CANCELLED TIBCO技术交流
+   CLOSED: [2014-04-03 Thu 10:36] SCHEDULED: <2014-03-11 Tue 13:30-17:00>
+   - State "CANCELLED"  from "SOMEDAY"    [2014-04-03 Thu 10:36] \\
+     工作重点转到T2
+
+   3层5号会议室
+   内容：
+       流程整合(BPM相关产品)；
+       CEP技术及风险管理；
+
+** SOMEDAY 梳理Mule对接清单
+** DONE TIBCO第2次技术交流
+   CLOSED: [2014-03-05 Wed 23:50] SCHEDULED: <2014-03-05 Wed 13:30-17:00>
+   - State "DONE"       from "STARTED"    [2014-03-06 Thu 23:50]
+   :PROPERTIES:
+   :ID:       5C72799D-C1E1-42CB-B86A-8FF71C25768C
+   :END:
+
+   关于TIBCO的具体技术的交流，3层2号会议室
+   交流内容：
+   CEP技术及风险管理；
+   流程整合；
+   主数据管理；
+
+欢迎大家参加。
+
+** DONE 衡泰系统补充外审材料                                                    :unplanned:
+   CLOSED: [2014-02-26 Wed 11:19]
+   - State "DONE"       from "STARTED"    [2014-02-26 Wed 11:19]
+** DONE 整理T2非交易网关资料，提供给邹静
+   CLOSED: [2014-02-26 Wed 15:04] SCHEDULED: <2014-02-24 Mon>
+   - State "DONE"       from "STARTED"    [2014-02-26 Wed 15:04]
+   :PROPERTIES:
+   :ID:       1570A899-FEA0-4220-AB4E-67372E6468C5
+   :END:
+
+   [[file:~/Dropbox/org-works/papers/T2_info.org]]
+
+** CANCELLED 整理TIBCO交流文档
+   CLOSED: [2014-03-27 Thu 10:10] SCHEDULED: <2014-02-24 Mon>
+   - State "CANCELLED"  from ""           [2014-03-27 Thu 10:10] \\
+     转向 =统一接入= 相关工作
+   :PROPERTIES:
+   :ID:       008C9819-CE4C-4C4B-8F80-01CB14E38CDD
+   :END:
+
+** DONE 协助webservice问题分析(投行-->合同)                                     :unplanned:
+   CLOSED: [2014-02-25 Tue 10:57]
+   - State "DONE"       from "STARTED"    [2014-02-25 Tue 10:57]
+
+** Archive                                                                      :ARCHIVE:
+
+*** 第6,7周工作周报(2月7日至2月14日)
+
+**** DONE Jboss FUSE研究:Apache Camel
+     CLOSED: [2014-02-14 Fri 13:44]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:44]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:52
+     :END:
+**** DONE Jboss FUSE研究:开发和部署路由
+     CLOSED: [2014-02-14 Fri 13:45]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:45]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:49
+     :END:
+**** DONE 协商衡泰系统超级用户管理办法
+     CLOSED: [2014-02-14 Fri 13:45]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:45]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:49
+     :END:
+
+**** DONE 支持衡泰系统的审计工作
+     CLOSED: [2014-02-14 Fri 13:44]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:44]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:53
+     :END:
+**** DONE 编写SVN自动备份脚本
+     CLOSED: [2014-02-14 Fri 13:43]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:43]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:54
+     :END:
+*** 第8周工作周报(2月17日至2月21日)
+**** DONE 中科软BPM交流                                                         :unplanned:
+     CLOSED: [2014-02-18 Tue 13:33]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:33]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:55
+     :END:
+
+**** DONE 外审访谈：衡泰系统                                                    :unplanned:
+     CLOSED: [2014-02-17 Mon 13:34]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:34]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:55
+     :END:
+
+**** DONE TIBCO技术交流                                                         :unplanned:
+     CLOSED: [2014-02-19 Wed 13:34]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:34]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:56
+     :END:
+   TODO: 整理文档
+
+**** DONE Jboss FUSE研究：Apache Karaf
+     CLOSED: [2014-02-21 Fri 13:36]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:36]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:56
+     :END:
+
+**** DONE 衡泰系统改进需求调研
+     CLOSED: [2014-02-17 Mon 13:35]
+     - State "DONE"       from "STARTED"    [2014-02-24 Mon 13:35]
+     :PROPERTIES:
+     :ARCHIVE_TIME: 2014-02-24 Mon 13:56
+     :END:
+*** 第9周工作周报(2月24日至2月28日)
+
+* 学习
+
+** 翻译： as ppt
+http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html
+
+* 生活
+#+CATEGORY: home
+** TODO SSD硬盘
+   :PROPERTIES:
+   :ID:       6C2C8990-123A-43E7-B083-9E7A32157FBF
+   :END:
+** TODO 修卧室灯
+   :PROPERTIES:
+   :ID:       794E3C22-5C4C-4B48-A1E2-60875E573B7D
+   :END:
+** SOMEDAY 修门锁(主卧，厨房)
+   :PROPERTIES:
+   :ID:       BA005B06-0C90-421A-9256-A7AC78C6BC15
+   :END:
+
+** SOMEDAY 浴室地垫
+   :PROPERTIES:
+   :ID:       E401B281-38D9-4C85-BF1E-0D43ED2FA3BC
+   :END:
+* 周期性
+** TODO 签卡
+   DEADLINE: <2014-05-10 Sat ++1m -5d>
+   - State "DONE"       from "STARTED"    [2014-04-03 Thu 10:37]
+   - State "DONE"       from "STARTED"    [2014-03-07 Fri 09:15]
+
+   - State "DONE"       from "STARTED"    [2014-02-25 Tue 11:26]
+   :PROPERTIES:
+   :LAST_REPEAT: [2014-04-03 Thu 10:37]
+   :ID:       30719D77-1AF8-4717-B20E-6C7F89D7CAD4
+   :END:
+** TODO 还房贷
+   DEADLINE: <2014-05-05 Mon ++1m -5d>
+   - State "DONE"       from "STARTED"    [2014-04-03 Thu 10:35]
+   - State "DONE"       from "STARTED"    [2014-03-03 Mon 09:13]
+   :PROPERTIES:
+   :ID:       07A1BDA6-C9DF-4A26-B955-FFC83C0CF76E
+   :LAST_REPEAT: [2014-04-03 Thu 10:35]
+   :END:
+   5日之前,3175
+** TODO 还信用卡
+   DEADLINE: <2014-06-01 Sun ++1m -5d>
+   - State "DONE"       from "STARTED"    [2014-04-30 Wed 10:12]
+   - State "DONE"       from "STARTED"    [2014-04-03 Thu 10:33]
+   - State "DONE"       from "STARTED"    [2014-03-01 Sat 23:37]
+   :PROPERTIES:
+   :LAST_REPEAT: [2014-05-05 Mon 10:12]
+   :ID:       F50775E6-E130-441B-994A-4B0403A14AC8
+   :END:
+** TODO 取公积金
+   DEADLINE: <2014-05-05 Mon ++3m -1d>
+   - State "DONE"       from "STARTED"    [2014-02-28 Fri 12:41]
+   :PROPERTIES:
+   :LAST_REPEAT: [2014-02-28 Fri 12:41]
+   :ID:       B4F85A5A-27F2-480B-B39E-ADED4546ACF4
+   :END:
+* 纪念日
+
+%%(org-anniversary 2010 4 27) 儿子%d岁生日
+%%(org-anniversary 2013 11 25) 父亲%d周年祭日(11-26,凌晨2点）

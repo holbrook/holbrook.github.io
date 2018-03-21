@@ -1,0 +1,46 @@
+#+YAML/TITLE: matplotlib入门
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: <2014-04-28 Mon>
+#+YAML/LAYOUT: post
+#+YAML/TAGS: python; matplotlib; chart
+#+OPTIONS: toc:t
+
+之前写过[[/2014/01/17/jfreechart.html][《JFreeChart概述》]] 和 [[/2014/01/18/swt_jfreechart_candlestick.html][《在SWT中用JFreeChart实现K线图》]] 。在python中，对应的模块是[[http://matplotlib.org][matplotlib]]。
+从名字就可以看出，matplotlib的理想很远大：在python绘图领域成为matlib。实际上，matplotlib已经实现了这一目标：
+在python科学计算领域，matplotlib是数据可视化不二之选。matplotlib的特性包括：
+
+- 基于Python的绘图库
+- 完整支持二维绘图，部分支持三维绘图
+- 可以在GTK+、Qt、Tk、FLTK、wxWidgets、Cocoa等图形环境中使用
+- 支持过程式和交互式绘图
+- 可以导出png、Postscript、PDF、SVG等格式
+
+* 模型
+
+matplotlib绘出的一个简单chart可能是这样：
+
+[[./assets/images//524W7x.png]]
+
+matplotlib对chart的抽象如下：
+
+[[./assets/images//524IFB.png]]
+
+1. Figure
+
+   最顶层的matplotlib对象，包含与管理某个图形的所有元素。Figure只是逻辑上的图形对象，可以渲染到不同的图形环境实现可视化。
+
+   Figure中还封装了基本事件处理和可视化组件的功能。
+
+2. Axes
+
+   坐标系。一个图形可以分成多个子图，每个子图都有自己的坐标系。当然，也可以在子图之间共用某个坐标轴。
+
+3.
+
+
+* 命令式绘图与对应关系
+
+Figure -> plot()
+Axes -> subplot()
+
+Rect

@@ -1,0 +1,244 @@
+#TITLE: 用python处理数据分析
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: <2015-04-09 Thu>
+#+KEYWORDS:
+#+OPTIONS: toc:t
+
+excel？R？Matlib？
+
+
+或者，更高大上的数据中心/多维度分析工具？
+
+甚至，有时用到数据库？
+
+不过，我敢打赌，你一定混合使用过多个工具：
+
+先。。。导出到excel，进行一些处理，生成图表，最后编写报告
+
+我就干过一件比较悲催的事情：
+1. 原始的csv
+2. 导入到sqlite，用sql语句进行清洗
+3. 在R中，使用sql查询数据，进行简单的统计分析
+4. 如果是比较复杂的处理，用python(R可能也能做到，但是我对R不是非常习惯）
+   用matplotlib绘图
+5. 对于一些结果，还要从R或python生成csv
+
+
+
+
+先感谢Numpy
+
+再感谢ipython，
+  交互式处理，随时看看结果
+
+* 数据结构
+
+numpy, pandas
+
+
+** numpy
+
+核心是 ndarray
+
+*** ndarray
+
+** pandas
+
+  基于 Numpy 构建的含有更高级数据结构和工具的数据分析包.围绕着 Series 和 DataFrame 两个核心数据结构展开
+  Series 和 DataFrame 分别对应于一维的序列和二维的表结构
+
+使用惯例：
+
+#+BEGIN_SOURCE python
+from pandas import Series,DataFrame
+import pandas as pd
+#+END_SOURCE
+
+
+
+*** Series
+
+一个定长的有序字典。基本任意的一维数据都可以用来构造 Series 对象
+一维数组，与Numpy中的一维array类似。二者与Python基本的数据结构List也很相近，其区别是：List中的元素可以是不同的数据类型，而Array和Series中则只允许存储相同的数据类型，这样可以更有效的使用内存，提高运算效率。
+
+#+BEGIN_SOURCE python
+In [4]: s = pd.Series([1,3,5,np.nan,6,8])
+
+In [5]: s
+Out[5]:
+0     1
+1     3
+2     5
+3   NaN
+4     6
+5     8
+dtype: float64
+#+END_SOURCE
+
+
+#+BEGIN_SOURCE python
+>>> s = Series([1,2,3.0,'abc'])
+>>> s
+0      1
+1      2
+2      3
+3    abc
+dtype: object
+#+END_SOURCE
+
+虽然 dtype:object 可以包含多种基本数据类型，但总感觉会影响性能的样子，最好还是保持单纯的 dtype。
+
+
+
+
+*** Time-Series
+
+以时间为索引的Series。
+
+#+BEGIN_SOURCE python
+In [6]: dates = pd.date_range('20130101',periods=6)
+
+In [7]: dates
+Out[7]:
+<class 'pandas.tseries.index.DatetimeIndex'>
+[2013-01-01, ..., 2013-01-06]
+Length: 6, Freq: D, Timezone: None
+
+In [8]: df = pd.DataFrame(np.random.randn(6,4),index=dates,columns=list('ABCD'))
+
+In [9]: df
+Out[9]:
+                   A         B         C         D
+2013-01-01  0.469112 -0.282863 -1.509059 -1.135632
+2013-01-02  1.212112 -0.173215  0.119209 -1.044236
+2013-01-03 -0.861849 -2.104569 -0.494929  1.071804
+2013-01-04  0.721555 -0.706771 -1.039575  0.271860
+2013-01-05 -0.424972  0.567020  0.276232 -1.087401
+2013-01-06 -0.673690  0.113648 -1.478427  0.524988
+#+END_SOURCE
+
+*** DataFrame
+二维的数据结构，其本质是Series的容器
+
+二维的表格型数据结构。很多功能与R中的data.frame类似。可以将DataFrame理解为Series的容器。以下的内容主要以DataFrame为主。
+
+
+DataFrame可以包含一个索引以及与这些索引联合在一起的Series，
+由于一个Series中的数据类型是相同的，而不同Series的数据结构可以不同。
+因此对于DataFrame来说，每一列的数据结构都是相同的，而不同的列之间则可以是不同的数据结构。
+
+或者以数据库进行类比，DataFrame中的每一行是一个记录，名称为Index的一个元素，而每一列则为一个字段，是这个记录的一个属性
+
+#+BEGIN_SOURCE python
+In [10]: df2 = pd.DataFrame({ 'A' : 1.,
+   ....:                      'B' : pd.Timestamp('20130102'),
+   ....:                      'C' : pd.Series(1,index=list(range(4)),dtype='float32'),
+   ....:                      'D' : np.array([3] * 4,dtype='int32'),
+   ....:                      'E' : pd.Categorical(["test","train","test","train"]),
+   ....:                      'F' : 'foo' })
+   ....:
+
+In [11]: df2
+Out[11]:
+   A          B  C  D      E    F
+0  1 2013-01-02  1  3   test  foo
+1  1 2013-01-02  1  3  train  foo
+2  1 2013-01-02  1  3   test  foo
+3  1 2013-01-02  1  3  train  foo
+
+In [12]: df2.dtypes
+Out[12]:
+A           float64
+B    datetime64[ns]
+C           float32
+D             int32
+E          category
+F            object
+dtype: object
+
+#+END_SOURCE
+
+方法：
+
+In [13]: df2.<TAB>
+df2.A                  df2.boxplot
+df2.abs                df2.C
+df2.add                df2.clip
+df2.add_prefix         df2.clip_lower
+df2.add_suffix         df2.clip_upper
+df2.align              df2.columns
+df2.all                df2.combine
+df2.any                df2.combineAdd
+df2.append             df2.combine_first
+df2.apply              df2.combineMult
+df2.applymap           df2.compound
+df2.as_blocks          df2.consolidate
+df2.asfreq             df2.convert_objects
+df2.as_matrix          df2.copy
+df2.astype             df2.corr
+df2.at                 df2.corrwith
+df2.at_time            df2.count
+df2.axes               df2.cov
+df2.B                  df2.cummax
+df2.between_time       df2.cummin
+df2.bfill              df2.cumprod
+df2.blocks             df2.cumsum
+df2.bool               df2.D
+
+
+*** Panel
+
+三维的数组，可以理解为DataFrame的容器。
+
+
+** 参考资料
+
+1. [[http://pandas.pydata.org/pandas-docs/stable/10min.html][10 Minutes to pandas]]
+
+
+
+* pandas
+
+Pandas最初被作为金融数据分析工具而开发出来，因此，pandas为时间序列分析提供了很好的支持。
+Pandas的名称来自于面板数据（panel data）和python数据分析（data analysis）。
+panel data是经济学中关于多维数据集的一个术语，在Pandas中也提供了panel的数据类型。
+
+* 数据清洗
+
+1. 选择要导入的列
+
+df = pd.read_csv(
+                ...
+                usecols=['ORDERID', 'ORDERSNO', 'ORDERDATE','STKCODE'...],
+                ...
+                )
+
+2. 删除不需要的列
+
+del df['MARKETNAME']
+
+3. 只保留需要的列
+
+columns = ['','',''...]
+df = df[columns]
+
+4. 去掉有空值的行
+
+df = df.dropna()
+
+5. 按属性过滤数据
+
+df = df[(df.A!=1) & (df.B=='VVV')]
+
+
+* summary
+
+df.describe()
+
+* 透视表
+
+[[http://pandas.pydata.org/pandas-docs/stable/generated/pandas.tools.pivot.pivot_table.html][aaa]
+* 参考资料
+0. 本文的pynb下载
+1. [[http://pandas.pydata.org/pandas-docs/stable/10min.html][10分钟学Pandas]]
+2. pandas教程 http://jingyan.baidu.com/season/43456?pn=0，本文的大部分例子来自那里

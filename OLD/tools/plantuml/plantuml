@@ -1,0 +1,2 @@
+echo `dirname $0`
+java -jar `dirname $0`/plantuml.8024.jar $@

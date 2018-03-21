@@ -1,0 +1,202 @@
+* 基本原理
+
+#+BEGIN_SRC elisp
+(setq org-agenda-custom-commands
+   `(( "F" "Closed Last Month"
+      tags (concat "CATEGORY=\"Foo\""
+                   "+TODO=\"DONE\""
+                   "+CLOSED>=\"[2010-05-01]\""
+                   "+CLOSED<=\"[2010-05-30]\"" )))
+#+END_SRC
+
+
+After eval-ing this command, typing Cc a F will produce the same list as above without having to enter the match string. This approach is indeed better but uses a hard-coded match string. An even better solution would generate the match string based on the current date.
+Thanks to the near infinite hackability of emacs, it's possible to extend the stock org mode functionality without modifying it directly. The below elisp code defines two new interactive functions that call into org-mode to perform a tag search for a specific month.
+
+  ( require ' calendar )
+
+ ( defun jtc-org-tasks-closed-in-month ( &optional month year match-string)
+   "Produces an org agenda tags view list of the tasks completed
+  in the specified month and year.  Month parameter expects a number
+  from 1 to 12.  Year parameter expects a four digit number.  Defaults
+  to the current month when arguments are not provided.  Additional search
+  criteria can be provided via the optional match-string argument "
+   (interactive)
+   ( let* ((today (calendar-current-date))
+          (for-month (or month (calendar-extract-month today)))
+          (for-year (or year (calendar-extract-year today))))
+     (org-tags-view nil
+           (concat
+            match-string
+            (format "+CLOSED>=\"[%d-%02d-01]\""
+                    for-year for-month)
+            (format "+CLOSED<=\"[%d-%02d-%02d]\""
+                    for-year for-month
+                    (calendar-last-day-of-month for-month for-year))))))
+
+ ( defun jtc-foo-tasks-last-month ()
+   "Produces an org agenda tags view list of all the tasks completed
+  last month with the Category Foo."
+   (interactive)
+   ( let* ((today (calendar-current-date))
+          (for-month (calendar-extract-month today))
+          (for-year (calendar-extract-year today)))
+        (calendar-increment-month for-month for-year -1)
+        (jtc-org-tasks-closed-in-month
+         for-month for-year "CATEGORY=\"Foo\"+TODO=\"DONE\"" )))
+The first function, jtc-org-tasks-closed-in-month , generates an appropriate query string and calls the internal org-mode agenda function org-tags-view . The function defaults to the current month but takes optional arguments for the desired month and year. The function also takes a match-string argument that can be used to provide additional match criteria.
+
+The second function, jtc-foo-tasks-last-month , calculates the prior month and calls jtc-org-tasks-closed-in-month with an additional match string to limit the list to DONE tasks from the category Foo . Executing jtc-foo-tasks-last-month interactively automatically produces a list of the tasks closed in the prior month. For my purposes, this is close enough to the ideal solution. Using the optional match-string argument, I can re-use this solution to search for tasks completed in other categories or with specific tags.
+* fun in cal-move.el
+
+;;;###cal-autoload
+(defun calendar-beginning-of-week (arg)
+  "Move the cursor back ARG calendar-week-start-day's."
+  (interactive "p")
+  (calendar-cursor-to-nearest-date)
+  (let ((day (calendar-day-of-week (calendar-cursor-to-date))))
+    (calendar-backward-day
+     (if (= day calendar-week-start-day)
+         (* 7 arg)
+       (+ (mod (- day calendar-week-start-day) 7)
+          (* 7 (1- arg)))))))
+
+;;;###cal-autoload
+(defun calendar-end-of-week (arg)
+  "Move the cursor forward ARG calendar-week-start-day+6's."
+  (interactive "p")
+  (calendar-cursor-to-nearest-date)
+  (let ((day (calendar-day-of-week (calendar-cursor-to-date))))
+    (calendar-forward-day
+     (if (= day (mod (1- calendar-week-start-day) 7))
+         (* 7 arg)
+       (+ (- 6 (mod (- day calendar-week-start-day) 7))
+          (* 7 (1- arg)))))))
+* agenda
+http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html#sec-6-2
+M-x customize-variable RET org-agenda-custom-commands
+The customization buffer for the variable provides a nice interface for setting custom commands as well as a full explanation of the different components of the setting.
+
+As the documentation explains, the configuration for each custom command is a list consisting of the following:
+
+1) Key
+The shortcut for invoking the command in the agenda dispatcher ("h", "J", etc.).
+2) Description (optional)
+The description of the command that will be displayed in the agenda dispatcher (optional).
+3) Type of search
+The desired agenda display/search. The options include agenda, todo, search, tags, alltodo, tags-todo, todo-tree, tags-tree, occur-tree, or a user-defined function.
+4) Search term
+Depending on the type of search, this will be a TODO keyword, a tag (or property), a word, or a regular expression.
+5) Settings (optional)
+How the agenda command should search and display information. These are local settings, active only for the command in which they are set.
+6) Export files (optional)
+If you want the agenda view to be automatically exported when you type C-c a e, then you can include the path to the exported file here. The file extension will determine the export format.
+* string
+** concat: 连接字符串
+http://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Strings.html#Creating-Strings
+#+BEGIN_SRC elisp
+(concat "abc" "-def")
+               ⇒ "abc-def"
+          (concat "abc" (list 120 121) [122])
+               ⇒ "abcxyz"
+          ;; nil is an empty sequence.
+          (concat "abc" nil "-def")
+               ⇒ "abc-def"
+          (concat "The " "quick brown " "fox.")
+               ⇒ "The quick brown fox."
+          (concat)
+               ⇒ ""
+#+END_SRC
+* elisp
+** 定义函数
+defun
+
+在一个函数的定义中，在defun关键字后面有5个部分：
+
+   1. 函数符号的名称
+   2. 传递给函数的参数列表,如果没有参数则传递给函数的是一个空列表,()
+   3. 描述函数的文档字符串。（可选）
+   4. 当用户按M-x func_name以交互方式运行函数时的提示信息;或按键组合。（可选）
+   5. 函数体
+
+模板
+
+(defun function-name (arguments...)
+    "optional-documentation..."
+    (interactive argument-passing-info) ; optional
+    body...)
+
+一个实例（非交互）
+
+(defun multiply-by-seven (number)
+  "Multiply NUMBER by seven."
+  (* 7 number))
+
+函数参数列表中的变量名对每个函数是私有的，不同函数的参数名可以相同。
+
+参数列表后面是描述函数功能的文档字符串。也就是按C-h f name_of_function时所看到的信息。
+
+在调用的时候使用
+
+(multiply-by-seven 3)
+
+制作交互式函数
+
+用户可以通过按键或者M-x 函数名来调用。
+交互式函数multiply-by-seven预览
+
+交互式版本的multiply-by-seven：
+
+(defun multiply-by-seven (number)
+  "Multiply NUMBER by seven."
+  (interactive "p")
+  (message "The result is %d" (* 7 number)))
+
+安装上面的函数后，可以使用C-u number参数，然后输入M-x multiply-by-seven然后回车。回显区将显示计算结果。
+
+调用这个函数的两种方法：
+
+   1. 输入前缀参数，然后输入M-x和函数名，比如C-u 3 M-x forward-sentence
+   2. 输入任意按键绑定例如：C-u 3 M-e
+
+输入C-u不带数字，则参数默认为4。
+交互式函数multiply-by-seven
+
+在上节所写的函数中,表达式(interactive "p")中的"p"告诉Emacs把前缀参数(C-u后带的参数)作为函数参数(number)传递给函数。
+** let
+
+let
+
+let表达式是在多数函数中都要用到的一个Lisp表。
+
+let用于修改或者绑定值到符号上。
+let 可以防止混乱
+
+let创建的是本地变量，作用范围止于let表达式范围内，不影响let外部的变量。let可以一次创建多个变量，并给每个变量赋值，初始值也可以是nil。在let执行完后，将返回最后一个语句的值。
+let表达式的组成
+
+let表达式分为3个部分，第一部分是符号"let"。第二个部分被称为变量列表（varlist），每个元素都一个符号或者包含二个元素的列表，每个列表中的一个元素是一个符号。第三部分是let的体（body）。
+
+(let ((variable value)
+      (variable value)
+      ...)
+  body...)
+
+let表达式举例
+
+(let ((zebra 'stripes)
+      (tiger 'fierce))
+  (message "One kind of animal has %s and another is %s."
+           zebra tiger))
+
+let语句中的未初始化变量
+
+(let ((birch 3)
+      pine
+      fir
+      (oak 'some))
+  (message
+   "Here are %d variables with %s, %s, and %s value."
+   birch pine fir oak))
+
+这里的pine、fir的值都是nil。

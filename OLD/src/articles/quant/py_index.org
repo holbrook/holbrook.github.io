@@ -1,0 +1,119 @@
+* python vs R
+** 功能
+
+R主要在学术界流行，python(numpy scipy)在工程方便比较实用
+
+R的统计背景很浓烈，如果你不熟习统计知识（历史）的话，R的帮助文档看起来是很累的。
+
+python的统计包，成熟度不如R。但是已经到了可用的水平了。是读计算机的人写的统计包
+
+ipython 的notebook非常强大（感觉就像mathematica)而且还是基于web，在合作分享方面非常好用。
+
+画图：
+R自带的那些工具就挺好用了，然后还有ggplot这种非常优美的得力工具。
+
+python 有matplotlib，画出来效果感觉比R自带的好一些些，而且界面基于QT，跨平台支持。可能是R用得多了，pyplot用起来还是不太顺手，觉得其各个组建的统一性不高。
+
+
+** 性能
+
+R确实慢，除非满足一些约束条件：
+
+- 多用R命令，少写自己的script
+- 不要处理大数据
+- 尽量别处理文本文件
+
+Python也慢，并且有致命伤——GIL。但是可以使用一些手段变快：
+比如pypy，cython，或者直接ctypes挂C库。纯python写个原型，然后就开是不断的profiling和加速吧。很轻易可以达到和C一个数量级的速度，但是写程序、调试的时间少了很多。
+
+并行计算：
+R v15 之后有了自带的parallel包，用挺轻松的。不过其实就是不停的fork，或者mpi，内存消耗挺厉害的。parSapply，parApply什么的，真是很好用。
+
+Python虽然有GIL——并行计算的死敌，但是有multiprocessing(fork依赖) ，是可以共享数据的什么的，估计内存消耗方面比R好点，数据零散的话overhead很多。到了MPI的话，mpi4py还是挺好用的。用cython的话结合openmp可以打破GIL，但是过程中不能调用python的对象。
+
+
+** IDE
+Rstudio非常不错，提供类matlab环境。（用过vim-r-plugin，用过emacs + ess现在用vim。）
+
+windows 下有python(x,y) 还有许多商业的工具。（本人现在的emacs环境还不是很顺手~）
+
+** 建议
+
+如果只是处理（小）数据的，用R。结果更可靠，速度可以接受，上手方便，多有现成的命令、程序可以用。
+
+要自己搞个算法、处理大数据、计算量大的，用python。开发效率高，一切尽在掌握。
+
+ps：盲目地用R的包比盲目的地用python的包要更安全。起码R会把你指向一篇论文，而python只是指向一堆代码。R出问题了还有论文作者、审稿人陪葬。
+
+
+
+* 依赖关系
+
+- 数据结构
+  + numpy
+
+- 数据处理
+  + pandas(数据处理）
+    类似数据库，两三个表来回查、匹配, 适合做数据整理工作
+
+- 绘图
+
+  + matplotlib
+  + pyplot
+
+    pyplot作图的方式和R差异很大，R是一条命令画点东西，pylot是准备好了以后一起出来。
+    pyplot的颜色选择有点蛋疼，默认颜色比较少，之后可用html的颜色，但是名字太长了~。
+    pyplot 的legend比R 好用多了，算是半自动化了。
+    pyplot画出来后可以自由拉升缩放，然后再保存为图片，这点比R好用多了。
+
+
+
+seaborn ???
+- 科学计算
+
+  + scipy
+  + SymPy（类似mathematica？）
+    SymPy是一个符号计算的Python库。它的目标是成为一个全功能的计算机代数系统，同时保持代码简洁、易于理解和扩展。
+    SymPy支持符号计算、高精度计算、模式匹配、绘图、解方程、微积分、组合数学、离散数学、几何学、概率与统计、物理学等方面的功能。[2][3]
+
+除了Pandas之外，Python还提供了多个科学计算包，比如Numpy，Scipy，以及数据挖掘的包：Scikit Learn，Orage，NLTK等
+
+- 统计分析
+
+
+
+- 金融分析
+
+  + ta-lib
+
+- 性能优化
+  + ctypes
+  + multiprocess
+
+
+
+- 其他
+  + scikit-learn
+    是一个 Python 的机器学习项目。是一个简单高效的数据挖掘和数据分析工具。基于 NumPy、SciPy 和 matplotlib 构建。
+  + 数据挖掘
+    数据挖掘的包：Scikit Learn，Orage，NLTK等
+
+交易系统：PyAlgoTrade
+
+#+BEGIN_SRC graphviz
+
+pandas -> Numpy
+
+
+scikit-learn -> Numpy, SciPy, matplotlib
+
+#+END_SRC
+
+
+* numpy
+
+* scipy
+
+* pandas 数据分析
+
+参考资料

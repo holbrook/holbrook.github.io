@@ -1,0 +1,293 @@
+---
+tags:
+  - 配置管理
+layout: post
+title: 配置管理规范需要考虑的内容
+---
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 出发点</a></li>
+<li><a href="#sec-2">2. 版本命名</a></li>
+<li><a href="#sec-3">3. 分支策略</a></li>
+<li><a href="#sec-4">4. 角色和流程</a></li>
+<li><a href="#sec-5">5. 配置项清单</a></li>
+</ul>
+</div>
+</div>
+<p>
+在拟定《配置管理规范》时，需要考虑很多因素。本文例举一些需要考虑的因素以及相关的可选策略。
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 出发点</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+出发点的不同决定后续一系列选择的不同。配置管理的出发点可以分为两种：
+</p>
+
+<ul class="org-ul">
+<li>以开发管理为出发点
+
+<p>
+常见于乙方（服务提供方）。乙方的配置管理目的是：
+</p>
+
+<ul class="org-ul">
+<li>管理各阶段的可构建物，如源代码、配置参数、设计文档、构建脚本等
+</li>
+<li>实现不同团队的并行开发
+</li>
+</ul>
+</li>
+
+<li>以运维为出发点
+
+<p>
+常见于甲方（服务使用方）。甲方的配置管理目的是：
+</p>
+
+<ul class="org-ul">
+<li>管理各阶段的可部署物，随时可以从配置库中获取需要的某个版本进行部署
+</li>
+<li>管理打补丁、升级等运维操作
+</li>
+<li>记录当前的部署情况
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+配置管理一般都通过“版本”来标记某一个时点、某一条路径上的某种状态。由于甲方和乙方配置管理的目的和出发点不同，二者对“版本”内涵的理解可能有所不同：
+</p>
+
+<ul class="org-ul">
+<li>乙方关注的“版本”，是开发过程中的一个状态。其配置项是源代码、配置参数、设计文档、构建脚本等内容，
+基于这些内容开发人员可以获取工程的基线、进行新特性的开发或bug修复，最终产生下一个版本。
+</li>
+
+<li>甲方关注的“版本”，是软件生命周期中的一个状态。其配置项是包括安装包、补丁包、部署说明等部署内容，是自开发过程中发布的产物。
+基于这些内容，运维人员可以获取可部署版本、进行部署、打补丁或升级，最终产生一个可用的环境。
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 版本命名</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+版本命名就是为某一个版本取一个符合某种规律的名称，通过该名称相关人员可以明确知道所对应的状态、与其他版本的关系，而不需要过多的解释。
+</p>
+
+<p>
+版本的命名需要遵循某种格式。目前被普遍接受的是GNU风格的版本号格式：
+</p>
+
+<p>
+<code>主版本号.子版本号[.修正版本号 [-发布版本号]]</code>
+</p>
+
+<ul class="org-ul">
+<li>主版本号(Major)
+
+<p>
+使用递增的整数，主版本号的变化表明重大的升级，一般不向下兼容。
+</p>
+
+<p>
+GNU项目一般主版本号从 <code>0</code> 开始；M$风格的项目主版本号从 <code>1</code> 开始。
+</p>
+</li>
+
+<li>次版本号(Minor)
+
+<p>
+使用递增的整数。次版本号的变化表明增加了新特性(feature)或修正了较多的bug，但是能够向下兼容。
+</p>
+
+<p>
+当主版本号升级时，此版本号一般会归零。
+</p>
+</li>
+
+<li>修正版本号(Revision)
+
+<p>
+使用递增的整数，用于标记少量bug的修复。初始可以不标记修正版本号，也可以标记为 =0=。
+</p>
+
+<p>
+通常，修正版本号来自于某个“hotfix”的开发，而不是完整的工程。
+</p>
+</li>
+
+<li>发布版本号(Release)
+
+<p>
+一般用于持续集成等需要多次发布的场景。编译版本号的格式为：
+</p>
+
+<p>
+<code>发布类型 顺序号</code>
+</p>
+
+<p>
+其中常用的发布类型包括：
+</p>
+
+<ul class="org-ul">
+<li>alpha: 内部测试版，用于开发者或专业人员测试，通常bug较多
+</li>
+<li>beta: 外部测试版，bug较少，可以由用户参与测试
+</li>
+<li>build: 构建版本，用于持续集成
+</li>
+<li>current: 当前(最新)版
+</li>
+<li>release: 发布版，正式版本
+</li>
+<li>update: 升级版，一般用于标记升级包
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+<p>
+版本号举例如下：
+</p>
+
+<ul class="org-ul">
+<li>0.1
+</li>
+<li>1.2.1
+</li>
+<li>2.0
+</li>
+<li>3.0.0-build1234
+</li>
+<li>4.0-release
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 分支策略</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+现代的版本管理工具都支持多个路径的并行开发。其中一个最主要的路径称为“主干”，比如比如svn中的 <code>trunk=，或者git中的 =master</code> 分支； 相对于“主干”，其余的路径称为“分支”(branches)。
+</p>
+
+<p>
+通常，会按照开发的目的划分分支，比如：
+</p>
+
+<p>
+所谓主干策略，就是选择主干上记录什么样的版本：
+</p>
+
+<ul class="org-ul">
+<li>新特性分支
+</li>
+<li>bug修复分支
+</li>
+<li>开发分支
+</li>
+<li>发布分支
+</li>
+</ul>
+
+<p>
+确定分支策略，首先要确定“主干策略”，即将哪种版本记入主干：
+</p>
+<ul class="org-ul">
+<li>稳定主干策略
+
+<p>
+在主干上记录发布版本，在分支上进行新功能的开发和bug修复。
+</p>
+
+<p>
+分支上的开发和测试完成后，需要发布时，再合并到主干。同时，主干上的每个版本都会给出一个版本命名(一般通过标签tags）。
+</p>
+</li>
+
+<li>不稳定主干策略
+
+<p>
+在主干上记录（最新）开发版本，其他分支用于测试、发布等。
+</p>
+
+<p>
+这种方式分支合并的工作量较小，但是管理不够严格，适合非常小型、非正式的项目，比如文档资料的管理。
+</p>
+</li>
+</ul>
+
+
+<p>
+决定了“主干策略”，还需要决定哪些情况可以创建分支，分支的存在周期，以及在什么情况下进行哪些分支的合并。
+</p>
+
+<p>
+<a href="http://nvie.com/posts/a-successful-git-branching-model/">这里</a> 有一个很好的分支模型，尽管是基于git描述的，但也可以在svn上使用。该模型的全貌如下图：
+</p>
+
+
+<div class="figure">
+<p><img src="http://nvie.com/img/2009/12/Screen-shot-2009-12-24-at-11.32.03.png" alt="Screen-shot-2009-12-24-at-11.32.03.png" />
+</p>
+</div>
+
+
+<ul class="org-ul">
+<li>稳定主干策略，从主干获取可发布的版本
+</li>
+<li>一个长周期的开发(dev)分支，从中获取最新代码
+</li>
+<li>基于开发(dev)分支创建特性(feature)分支，用于功能开发
+</li>
+<li>基于开发(dev)分支创建发布(release)分支，用于测试
+</li>
+<li>基于主干(master)创建补丁(hotfix)分支，用于补丁升级。hotfix分支需要合并到master和develop分支。
+</li>
+</ul>
+
+<p>
+不管是出于开发管理还是运维管理，都可以直接使用这个分支模型。当然，也可以根据自己的需要进行剪裁。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 角色和流程</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+版本库不仅仅是开发人员使用，实际上，版本库可以成为开发人员、测试人员、运维人员协同的平台和基础，由配置管理员进行管理和协调。
+</p>
+
+<p>
+与版本库相关的软件过程包括配置管理、质量管理、变更管理、发布管理等，涉及到版本库初始化、开发、升级、发布、部署、hotfix等诸多的流程。
+</p>
+
+<p>
+在《配置管理规范》中，还要明确每个流程中，各角色的职责和具体的步骤。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 配置项清单</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+配置项清单用于规范哪些内容需要纳入版本管理，以及组织这些内容的目录结构。
+</p>
+
+<p>
+如果使用subversion进行管理，顶层目录通常分为 <code>trunk=， =branches</code>, <code>tags</code> 三个子目录，分别管理主干、分支和标签。
+</p>
+</div>
+</div>

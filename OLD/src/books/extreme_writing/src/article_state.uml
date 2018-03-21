@@ -1,0 +1,8 @@
+@startuml
+[*] --> draft
+draft --> finished
+finished--> published
+published--> updated
+updated --> published
+published --> [*]
+@enduml

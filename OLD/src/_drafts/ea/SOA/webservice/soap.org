@@ -1,0 +1,1626 @@
+[Java webservice 】
+web service一定要解决对象和xml相互转换的问题。
+
+简单类型容易支持(SOAP)
+
+复杂对象要定义object和xml相互转换的问题。
+
+如果你喜欢zhuangbility, 可以叫做序列化（Serilizxxx）和反序列化
+
+先定xml，再定class
+class first
+
+* 问题的定位
+由于Web service的概念太宽泛，为了避免分歧，首先要明确一些定义和约定。
+
+
+** 主流的Java web service 架构框架
+目前主流的Java Web Service架构框架包括JWS，Axis2和CXF。JAX-WS在JDK1.6+/J2EE5+ 内置支持， CXF来自XFire和Celtix的重组，Axis2是在Axis基础上的重新实现。
+
+
+|               | JAX-WS  | CXF                              | Axis2                               |
+|---------------+---------+----------------------------------+-------------------------------------|
+| 提供者        | JDK内置 | Apache                           | Apache                              |
+| data bindings | JAXB    | JAXB, Aegis, XMLBeans, SDO, JiBX | XMLBeans、JiBX、JaxMe 、JaxBRI、ADB |
+| 优势          | 语言级 | 实现了ESB                        | 支持多语言                          |
+
+
+** 序列化和反序列化框架
+*** 从一个实例看jaxb的强大
+对象和xml之间的映射
+看一下如下的xml 
+#+BEGIN_QUOTE
+<?xml version="1.0"?> 
+<customer id="No1"> 
+    <name>Alice Smith</name> 
+    <address> 
+        <street>123 Maple Street</street> 
+        <city>Cambridge</city> 
+        <zip>12345</zip> 
+    </address> 
+</customer> 
+#+END_QUOTE
+
+别忘了生成相应的xsd，或者dtd文件，这是主要的配置： xsd: 
+#+BEGIN_QUOTE
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"> 
+   
+    <xs:complexType name="Customer"> 
+      <xs:sequence> 
+         <xs:element name="address" type="Address"/> 
+         <xs:element name="name" type="xs:string"/> 
+      </xs:sequence> 
+       <xs:attribute name="id" type="xs:string"/>       
+    </xs:complexType> 
+   
+      <xs:complexType name="Address"> 
+      <xs:sequence> 
+         <xs:element name="street" type="xs:string"/> 
+         <xs:element name="city" type="xs:string"/> 
+         <xs:element name="zip" type="ZipCodeType"/> 
+       </xs:sequence> 
+   </xs:complexType> 
+  
+    <xs:simpleType name="ZipCodeType"> 
+      <xs:restriction base="xs:integer"> 
+         <xs:minInclusive value="10000"/> 
+         <xs:maxInclusive value="99999"/> 
+      </xs:restriction> 
+    </xs:simpleType> 
+    <xs:element name="customer" type="Customer"/> 
+    <xs:element name="address" type="Address"/> 
+</xs:schema> 
+#+END_QUOTE
+
+需要映射两个java对象，CustomerBo和AddressBo 
+java 对象可以通过xjc来生成。 
+或者自己定义（但需要增加相应的java注释，如@XmlAccessorType,@XmlType,这是给引擎使用的) 
+所以一般通过xjd自动生成 
+
+#+BEGIN_QUOTE
+@XmlAccessorType(AccessType.FIELD) 
+@XmlType(name = "Customer", propOrder = { 
+    "address", 
+    "customerName" 
+}) 
+public class CustomerBo { 
+
+    protected Address address; 
+
+    @XmlElement(name = "name") 
+    protected String customerName; 
+
+    @XmlAttribute 
+    protected String id; 
+
+    public Address getAddress() { 
+        return address; 
+    } 
+
+    public String getCustomerName() { 
+        return customerName; 
+    } 
+
+    public String getId() { 
+        return id; 
+    } 
+
+    public void setAddress(Address value) { 
+        this.address = value; 
+    } 
+
+    public void setCustomerName(String value) { 
+        this.customerName = value; 
+    } 
+
+    public void setId(String value) { 
+        this.id = value; 
+    } 
+} 
+
+
+public class Address { 
+
+    protected String street; 
+
+    protected String city; 
+
+    @XmlElement(name = "zip") 
+    protected BigInteger zipCode; 
+
+    public String getStreet() { 
+        return street; 
+    } 
+
+    public void setStreet(String value) { 
+        this.street = value; 
+    } 
+
+    public String getCity() { 
+        return city; 
+    } 
+
+    public void setCity(String value) { 
+        this.city = value; 
+    } 
+
+    public BigInteger getZipCode() { 
+        return zipCode; 
+    } 
+
+    public void setZipCode(BigInteger value) { 
+        this.zipCode = value; 
+    } 
+
+} 
+#+END_QUOTE
+
+定义jxb绑定文件： 
+#+BEGIN_QUOTE
+<jxb:bindings version="1.0" 
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb" 
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"> 
+   <jxb:bindings schemaLocation="customer.xsd" node="/xs:schema">   
+          
+   <jxb:globalBindings 
+         fixedAttributeAsConstantProperty="false" 
+         collectionType="java.util.Vector" 
+         typesafeEnumBase="xs:NCName" 
+         choiceContentProperty="false" 
+         typesafeEnumMemberName="generateError" 
+         enableFailFastCheck="false"  
+         generateIsSetMethod="false" 
+         underscoreBinding="asCharInWord"/> 
+   <jxb:schemaBindings> 
+      <jxb:package name="mycompany.demo"> 
+        <jxb:javadoc><![CDATA[<body>Package level documentation for generated package mycompany.demo.</body>]]> 
+        </jxb:javadoc> 
+      </jxb:package> 
+      <jxb:nameXmlTransform> 
+        <jxb:elementName suffix="Element"/> 
+      </jxb:nameXmlTransform> 
+    </jxb:schemaBindings>  
+
+    //需要绑定的元素 
+   <jxb:bindings node="//xs:complexType[@name='Customer']"> 
+       //绑定的类 
+      <jxb:class name="CustomerBo"> 
+        <jxb:javadoc>A &lt;b>todo..</jxb:javadoc> 
+      </jxb:class> 
+      <jxb:bindings node=".//xs:element[@name='name']"> 
+           //绑定的属性 
+           <jxb:property name="customerName"/> 
+        </jxb:bindings> 
+    </jxb:bindings>  
+         
+    <jxb:bindings node="//xs:complexType[@name='Address']"> 
+      <jxb:class name="AddressBo"> 
+        <jxb:javadoc><![CDATA[First line of documentation for a <b>Address</b>.]]></jxb:javadoc> 
+      </jxb:class> 
+      <jxb:bindings node=".//xs:element[@name='zip']"> 
+         <jxb:property name="zipCode"/> 
+      </jxb:bindings> 
+    </jxb:bindings> 
+            
+   </jxb:bindings> 
+</jxb:bindings> 
+#+END_QUOTE
+
+    看着比较复杂，其实挺好理解，当然可以不需要这个绑定文件，也可以绑定相应的java 类，但需要元素名称和类名称完全一致，而且属性也要一致。 
+
+    看一下jaxb是如何来读入xml的： 
+        //主要的环境类，主要读取ObjectFactory这个类，这是由xjc生成的。 
+        JAXBContext jc = JAXBContext.newInstance("mycompany.demo"); 
+        Unmarshaller u = jc.createUnmarshaller(); 
+        JAXBElement customerE = (JAXBElement) u.unmarshal(new FileInputStream( 
+                                "customer.xml")); 
+        CustomerBo bo = (CustomerBo) customerE.getValue(); 
+    就是这么简单 
+
+    写入也比较简单： 
+        JAXBContext jc = JAXBContext.newInstance("mycompany.demo"); 
+        Marshaller marshaller=jc.createMarshaller(); 
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); 
+        customerE.setValue(bo); 
+        marshaller.marshal( customerE,new FileOutputStream("test.xml")); 
+  
+    在webservices中jaxb的作用是明显的，当然也有不方便的地方，比如定义binding.jaxb文件时，如果没有工具支持，手工写，还是比较困难。 
+*** JAXB
+转化规则的定义在JWS中是通过JAXB的注释来完成的。新版的JAXB简化了绑定规则的描述，它允许直接将规则以注解的形式写入Java类。
+例如：
+@Entity
+@Name("hotel")
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
+@XmlType(name="", propOrder = {
+    "id",
+    "img",
+    "name",
+    "address",
+    "city",
+    "state",
+    "zip",
+    "country",
+    "price",
+    "ipAddress"
+})
+@XmlRootElement(name="Hotel")
+public class Hotel implements Serializable
+{
+   private Long id;
+   private String img;
+   private String name;
+   private String address;
+   private String city;
+   private String state;
+   private String zip;
+   private String country;
+   private BigDecimal price;
+   private String ipAddress = "192.168.1.112";
+ 
+@Id @GeneratedValue
+   public Long getId()
+   {
+      return id;
+   }
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
+  
+  @Length(max = 50)
+  @NotNull
+  public String getImg() {
+           return img;
+  }
+ 
+  public void setImg(String img) {
+           this.img = img;
+  }
+ 
+  @Length(max=50) @NotNull
+   public String getName()
+   {
+      return name;
+   }
+   public void setName(String name)
+   {
+      this.name = name;
+   }
+  
+   @Length(max=100) @NotNull
+   public String getAddress()
+   {
+      return address;
+   }
+   public void setAddress(String address)
+   {
+      this.address = address;
+   }
+  
+   @Length(max=40) @NotNull
+   public String getCity()
+   {
+      return city;
+   }
+   public void setCity(String city)
+   {
+      this.city = city;
+   }
+  
+   @Length(min=4, max=6) @NotNull
+   public String getZip()
+   {
+      return zip;
+   }
+   public void setZip(String zip)
+   {
+      this.zip = zip;
+   }
+  
+   @Length(min=2, max=10) @NotNull
+   public String getState()
+   {
+      return state;
+   }
+   public void setState(String state)
+   {
+      this.state = state;
+   }
+  
+   @Length(min=2, max=40) @NotNull
+   public String getCountry()
+   {
+      return country;
+   }
+   public void setCountry(String country)
+   {
+      this.country = country;
+   }
+ 
+   @Column(precision=6, scale=2)
+   public BigDecimal getPrice()
+   {
+      return price;
+   }
+   public void setPrice(BigDecimal price)
+   {
+      this.price = price;
+   }
+   @Transient
+   public String getIpAddress() {
+          return ipAddress;
+   }
+   public void setIpAddress(String ipAddress) {
+          this.ipAddress = ipAddress;
+   }
+   @Override
+   public String toString()
+   {
+      return "Hotel(" + name + "," + address + "," + city + "," + zip + ")";
+   }
+   }
+
+** SOAP
+[[http://zh.wikipedia.org/wiki/SOAP][SOAP]](简单对象访问协议）是关于消息封装格式的规范。内容包括：
+- SOAP 封装（envelop），它定义了一个框架，描述消息中的内容是什么，是谁发送的，谁应当接受并处理它以及如何处理它们；
+- SOAP 编码规则（encoding rules），它定义了一种序列化的机制，用于表示应用程序需要使用的数据类型的实例；
+- SOAP RPC表示（RPC representation），它定义了一个协定，用于表示远程过程调用和应答；
+- SOAP 绑定（binding），它定义了SOAP使用哪种协议交换信息。使用HTTP/TCP/UDP协议都可以。
+
+SOAP使用XML定义消息格式。下面是SOAP消息的请求和相应格式的例子：
+
+- 请求
+
+#+BEGIN_QUOTE
+: <soapenv:Envelope
+:     xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+:     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+:     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+:   <soapenv:Body>
+:     <req:echo xmlns:req="http://localhost:8080/axis2/services/MyService/">
+:       <req:category>classifieds</req:category>
+:     </req:echo>
+:   </soapenv:Body>
+: </soapenv:Envelope>
+#+END_QUOTE
+
+- 响应
+
+#+BEGIN_QUOTE
+: <soapenv:Envelope
+:     xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+:     xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+:   <soapenv:Header>
+:     <wsa:ReplyTo>
+:       <wsa:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</wsa:Address>
+:     </wsa:ReplyTo>
+:     <wsa:From>
+:       <wsa:Address>http://localhost:8080/axis2/services/MyService</wsa:Address>
+:     </wsa:From>
+:     <wsa:MessageID>ECE5B3F187F29D28BC11433905662036</wsa:MessageID>
+:   </soapenv:Header>
+:   <soapenv:Body>
+:     <req:echo xmlns:req="http://localhost:8080/axis2/services/MyService/">
+:       <req:category>classifieds</req:category>
+:     </req:echo>
+:   </soapenv:Body>
+: </soapenv:Envelope>
+#+END_QUOTE
+
+** SOAP中的格式定义
+
+SOAP的规则通常在WSDL中定义，下面是一个例子：
+
+#+BEGIN_QUOTE
+: <wsdl:binding name="ProxyServiceSoapBinding" type="tns:ProxyServicePortType">
+:     <soap:binding  style="document"  transport="http://schemas.xmlsoap.org/soap/http"/>
+:     <wsdl:operation name="invoke">
+:         <soap:operation soapAction="" style="document"/>
+:         <wsdl:input name="invoke">
+:             <soap:body use="literal"/>
+:         </wsdl:input>
+:         <wsdl:output name="invokeResponse">
+:             <soap:body use="literal"/>
+:         </wsdl:output>
+:     </wsdl:operation>
+: </wsdl:binding>
+#+END_QUOTE
+
+在上面的例子中，有两个方面需要注意：
+
+- 服务方法的格式定义
+
+定义了xxxxx，在xxx
+WSDL中<soap:bingding>节点的style属性约定了服务调用方法的格式，可以是rpc或者document。
+
+rpc style用一种统一的、严格的格式约定了如何使用xml描述服务调用方法，而document stype引用另一个<wsdl:type>节点来描述服务调用方法，可以采用任何schema。
+
+- 传输数据的格式定义
+
+WSDL的<wsdl:operation>节点定义了服务方法，需要包括<wsdl:input>和<wsdl:output>字节点，分别定义输入/请求和输出/响应的消息格式。
+
+消息格式使用<soap:body>节点来定义。该节点有一个use属性，指定了soap消息的编码规则，可以为encoded或者literal.
+
+use="literal" 意味着type定义遵循xml模式定义
+use="encoded" 参考xml中已有的应用数据，通常指的是soap1.1规范中的soap编码规则。如果文档中没有自定义数据，就可以选择
+
+encoded。
+
+
+
+Use属性值决定消息的编码方式：可以是encoded或者是 literal。
+
+1)encoded值表示XML的消息使用类型属性引用抽象数据类型，使用Section 5编码（SOAP规范第五章定义的编码）进行xml的序列化和反序列化。
+
+2) Literal值表示XML的消息使用类型属性或者Element元素引用具体的Schema定义，也就是说，根据具体的Schema将内存对象序列化成XML消息。
+
+** 对比
+C_2^2 * C_2^2 =4
+
+| style    | use     | 说明             |
+|----------+---------+------------------|
+| rpc      | encoded | JAVA开发中常用   |
+| rpc      | literal |                  |
+| document | encoded | DotNet开发中常用 |
+| document | literal |                  |
+
+
+
+第一种RPC/Encoded曾在JAVA开发中应用非常广泛；第二种编码样式是DOT NET开发社区使用的缺省编码方式；第三种编码样式是第一种和第二种编码方式的混合，使用RPC的方式传送文档型数据。最近几年RPC/Encoded遭受了不少质疑和反对声浪。
+
+在WS-I基本概要1.1（WS-I Basic Profile Version 1.1）中，已经禁止使用这种编码样式。WS-I基本概要1.1要求使用WSDL SOAP绑定的RPC/literal或Document/literal形式。WS-I基本概要禁止对soap:Envelope或派生的soap:Body元素使用soap:encodingStyle.属性。因此，RPC/literal和Document/literal是WS-I标准唯一支持的2种格式。引用原文如下：
+
+R1007 An ENVELOPE described in an rpc-literal binding MUST NOT containsoap:encodingStyleattribute on any element that is a grandchild ofsoap:Body.
+
+为什么RPC/Encoded被抛弃？
+
+
+2、RPC/Encoded的问题。
+
+在RPC/Encoded中，SOAP编码定义了一系列的编码规则，方便了从SOAP数据模型到XML的映射。编码规则非常灵活并支持图形数据和多态的表示，而Document/literal依赖于自然树结构来表示数据对象。
+
+在SOAP编码中，使用SOAP编码规则的多引用，引用可以很简单地表示，因此，循环引用如果采用SOAP编码作为消息绑定，可以表达一个循环的对象图。
+
+
+
+
+在DOC/LIT中，方法基于XML脚本定义了消息类型作为固定类型。XML脚本利用XSD基本类型作为叶子节点来表示自然树结构，一个循环对象图不能够转换为树结构。因此对象的引用必须在每一处对象引用中重复定义对象。
+
+
+
+
+
+从上面的分析看来，无疑是RPC/Encoded更加有吸引力，事实上，很长一段时间来大部分J2EE Web服务缺省采用RPC/encoded方式。然而WS-I基本概要（WS-I Basic Profile）为何抛弃这种编码样式呢？
+
+在同一平台下SOAP 消息的编写者和阅读者具有同步的存根来理解编码的 SOAP 消息，此时RPC/encoded无疑是易用。但是对于跨平台的使用场合，多引用访问器编码在 XSD 中难以表达，在不同的平台之间的实现有些细微的不同，带来了跨平台互操作性的问题。当反序列化XML消息的时候，SOAP协议栈会碰到WSDL中没有定义的多引用访问器，此时的处理每种平台每种类库都有所不同。
+RPC/encoded 模型使用 SOAP 编码规则来表述抽象 SOAP 数据模型，依赖厂商的 SOAP 库来提供抽象数据模型的具体实现。
+当然这个不是程序员考虑的问题，各种WebService开发工具包屏蔽了SOAP编码方案的细节，呈现给程序员的，是面向接口编程熟悉的领域，然而却带来了处理的复杂性。有性能测试文章表明，RPC/ENC的样式实现的远程调用性能不佳，特别是随着XML消息payload的增大性能非线性下降，而DOC/LIT则能保持线性下降。
+
+比起DOC/LIT，RPC/ENC样式下的SOAP协议栈除了单纯的XML处理之外，还要处理SOAP编码的逻辑，还原多引用的对象图。
+
+
+三：Document/literal的好处。
+
+1、更松散的客户端和服务器端耦合性
+
+RPC样式，定义了SOAP客户端和服务器端之间的远程方法调用接口。该接口引用了抽象的SOAP数据类型，根据编码方案将SOAP数据模型转换成SOAP消息。客户端和服务器端的耦合度是远程过程调用的接口。
+
+在Document样式，SOAP客户端与服务器端交互的是符合WSDL约束一段文本型数据。SOAP客户端与服务器端的契约或者说耦合度是仅仅WSDL描述的限制。
+
+可以看出，Document样式中，客户端和服务器端的耦合性更低，远程过程调用必须是相对静态的，并且对接口的任何变化都将破坏服务和应用程序之间的契约。如果服务是广泛分布的，那么很可能大量的应用程序已经从它的WSDL文档中产生了存根代码。改变WSDL将会导致所有依赖于特定方法签名的应用程序被破坏。使用文档消息传递，规则更不严格，并且可以使XML模式得到显著增强和改变，同时又不会破坏调用应用程序。
+
+2、充分利用XML的好处，包括自描述、自验证等
+
+3、在异步调用的场合，由于文档消息通常是自包含的，因此适合于异步处理，可以直接放到服务器的队列中。
+
+4、更好的互操作性
+
+四：Document/literal模拟的RPC调用
+
+在标准Document/literal方式下，程序员不得不处理所有的事务，包括基于XML的SOAP消息的序列化和逆序列化。标准的Document/literal不是面向RPC的，也没有定义与远程调用相关的信息，对仍然酷爱RPC调用的开发者来说无疑是欠缺的，在SOAP工具开发者看来Document/literal标准方式主要是缺乏函数的方法名。
+
+于是微软提出了使用Document/literal模拟RPC的方法调用，定义了一种用特殊的Document/literal使用方法，有名称叫做Document/literal wrapped。其实就是故意在WSDL中定义一个复杂类型complexType节点，该节点的名称与远程调用的方法名相同，该节点把发送的所有参数再封装一层。这样，SOAP的开发工具可以在接受到XML消息的时候根据节点上的方法名将XML消息处理后分发到具体的处理函数中。<o:p></o:p>
+
+为帮助理解，先看一段普通的Document/literal样式的WSDL和SOAP消息。
+
+xml 代码
+ 
+<types>  
+    <schema>  
+        <element name="xElement" type="xsd:int"/>  
+        <element name="yElement" type="xsd:float"/>  
+    </schema>  
+</types>  
+  
+<message name="myMethodRequest">  
+    <part name="x" element="xElement"/>  
+    <part name="y" element="yElement"/>  
+</message>  
+<message name="empty"/>  
+  
+<portType name="PT">  
+    <operation name="myMethod">  
+        <input message="myMethodRequest"/>  
+        <output message="empty"/>  
+    </operation>  
+</portType>  
+
+soap消息，该SOAP消息中不含方法名的信息：
+xml 代码
+ 
+<soap:envelope>  
+    <soap:body>  
+        <xElement>5</xElement>  
+        <yElement>5.0</yElement>  
+    </soap:body>  
+</soap:envelope>  
+
+下面是使用Document/literal wrapped样式对应的WSDL定义：
+xml 代码
+ 
+<types>  
+    <schema>  
+        <element name="myMethod">  
+            <complexType>  
+                <sequence>  
+                    <element name="x" type="xsd:int"/>  
+                    <element name="y" type="xsd:float"/>  
+                </sequence>  
+            </complexType>  
+        </element>  
+        <element name="myMethodResponse">  
+            <complexType/>  
+        </element>  
+    </schema>  
+</types>  
+<message name="myMethodRequest">  
+    <part name="parameters" element="myMethod"/>  
+</message>  
+<message name="empty">  
+    <part name="parameters" element="myMethodResponse"/>  
+</message>  
+  
+<portType name="PT">  
+    <operation name="myMethod">  
+        <input message="myMethodRequest"/>  
+        <output message="empty"/>  
+    </operation>  
+</portType>  
+
+对应的SOAP消息，消息中包含了方法名信息，虽然，只是WSDL定义的myMethod节点：
+xml 代码
+ 
+<soap:envelope>  
+    <soap:body>  
+        <myMethod>  
+            <x>5</x>  
+            <y>5.0</y>  
+        </myMethod>  
+    </soap:body>  
+</soap:envelope>  
+
+这种编码样式，兼顾了Document/literal和RPC的好处，具有更好的跨平台互操作性，目前许多类库都是采用这种方案，例如，大名鼎鼎的XFIRE。当然，这个方案肯定也有一些问题。
+
+1、 这其实不是真正的RPC样式，方法名不能重载。
+
+2、 WSDL文件比标准的Document/literal要复杂一些。
+
+
+
+
+
+
+2.3.3  RPC与Document绑定样式的权衡选择
+
+Tradeoffs Between the RPC and Document Styles
+
+JWS及支持RPC绑定样式也支持Document绑定样式，同时Document绑定样式为默认值；在这两种绑定样式中，依照Web 服务基本概要（WS-I Basic Profile）的基本要求，这两种绑定样式只可以采用literal编码方式。在服务绑定样式上究竟选择RPC还是Document一直都是争论的话题。不管怎样，Document绑定样式，尤其是封装情况下，正在很快地被人们所认可。因此接下来简要地探讨这两种绑定样式选择上的权衡。
+
+不管以怎样的权衡方式，都应该以严格的眼光来真正地理解事情的两面性，尤其是要从特定的角度来证明这种两面性。RPC样式比较常见的不足就是它只能够适用服务的请求/响应模式。尽管请求/响应模式在基于SOAP的Web服务中占主导地位，很多实际应用场景（比如在购买商品时验证新卡的有效性）都需要。
+
+下面是RPC样式的一些优点：
+
+由于有类型定义，自动生成的WSDL文档非常精简。
+
+WSDL文档中的消息可以直接反映出对应的基础Web服务操作的名称，也就是在基于Java语言的Web服务中@WebMethods所注解的方法。因此从WSDL文档中人们可以直接获取服务操作的名称。
+
+由于不需要承载更多类型及编码信息，消息的传输往往是高效的。
+
+下面是RPC样式的一些缺点：
+
+由于WSDL中没有类型定义部分，因此不能够提供XSD文档来校验SOAP消息体。
+
+同样由于没有XSD来定义数据类型，服务能够使用的数据类型有限。因此服务只是局限于一些相对简单的类型，比如整数、字符串、日期、数组等。
+
+RPC样式对请求/响应消息的模式捆绑，使得服务与客户端之间耦合性增加。比如Java客户端ch01.ts.TimeClient中下面这句代码，在服务应答或抛出一个异常之前，调用会一直阻塞：
+
+port.getTimeAsString() 
+相对异步调用方式而言，RPC样式下服务调用通常是同步的。下一节将提供一个例子来演示在请求/响应模式下，JWS是如何支持非阻塞客户端的。
+
+以此样式实现的Java服务可能在其他语言平台下无法使用，这样也就违背了Web服务的互用性原则。同样也就不会有来自Web服务社区和WS-I小组的长期支持了。
+
+下面是Document样式的一些优点：
+
+可以利用WSDL文档类型部分的XSD文档直接来验证SOAP消息体。
+
+XML模式语言除了支持整数、字符串及日期等这些简单数据类型之外，还支持任意复杂的类型，因此这种样式的Web服务所使用的数据类型不受限制。
+
+只要在XSD中定义了明确的数据结构，如何构建SOAP消息体具有很大的灵活性。
+
+包装行为吸取了RPC样式的一个重要优点，即RPC样式中SOAP消息体可以直接通过与之关联的服务操作名称来命名，同时又摒弃了RPC样式的不足之处。
+
+下面是Document样式的不足之处：
+
+在非包装版本中，SOAP消息中没有提供服务操作的名称，一些特定的程序代码在分发消息时可能会变得复杂。
+
+包装版本使得服务调用的复杂度有所增加，尤其是在API级别。就像前面的AmazonClientW例子一样，针对程序开发人员来说，基于包装的Document绑定样式的服务编写客户端代码也许就变成了一项极具挑战性的工作。
+
+在SOAP消息体的XML包装元素中必须拥有一个服务操作的名称，因此包装版本不支持重载的服务操作。实际上，针对一个既定的元素名称也只能够有一个服务操作。
+
+
+
+
+* JWS
+
+
+* 协议
+* 深入研究SOAP消息
+在这个系列教程的第一部分我们介绍了有关Web Services的基本概念，包括SOAP及WSDL。我们在极短的时间来开发了一个Web Service，在开发过程中我们讲解了SOAP消息、实现java web service客户端及WSDL的结构。在这篇文章中我们将就SOAP的复杂类型、错误处理及远程对象引用等内容做探讨。 
+
+** SOAP及复杂类型 
+
+到目录为止，我们开发的web services仅使用简单的数据类型如string、int、doubles。现在让我们来看看复杂数据类型是怎样转化成SOAP消息的。 
+
+SOAP协议推荐了所谓的SOAP编码方案将编程语言的复杂类型转化成XML。通常，如下的转化是自动进行的： 
+
+Java 2 的简单类型 
+符合JavaBesna规范的自定义类。所有公有的变量及getters/setters都通过Java内省序列化器来转化成XML。 
+
+如下示例演示了JavaBean的序列化及Java 2集合类的序列化。
+
+我们将向这个Web Service传送一个简单的名为OrderRequest数据结构。OrderRequest是一个极为简单的JavaBean,其中包含了对自有变量symbol、limitPrice、volume的赋值及取值方法。这个Web Service的processOrder方法接收OrderReqesut作为其唯一的参数。随后将向你展示怎样在SOAP消息中表示OrderRequest这个数据结构。服务的getOrders方法将服务接收到的所有订单作为一个集合（collection）返回给客户端。在java的类文件里，getOrders方法的返回类型为java.util.Hashtable，随后将介绍这个数据类型在XML中是怎样表示的。 
+
+我们继续在股票市场上转悠，现在来实现一个简单的股票交易(买股票）的Web Service。 
+
+package com.systinet.demos.mapping;
+
+public class OrderService {
+
+    private java.util.HashMap orders = new java.util.HashMap();
+    
+    public String processOrder(OrderRequest order) {
+        String result = "PROCESSING ORDER";
+        
+        Long id = new Long(System.currentTimeMillis());
+        
+        result       += "\n----------------------------";
+        result       += "\nID:             "+id;
+        result       += "\nTYPE:           "+
+((order.getType()==order.ORDER_TYPE_SELL)?("SELL"):("BUY"));
+        result       += "\nSYMBOL:         "+order.getSymbol();
+        result       += "\nLIMIT PRICE:    "+order.getLimitPrice();
+        result       += "\nVOLUME:         "+order.getVolume();
+        
+        this.orders.put(id,order);
+        
+        return result;
+    }
+    
+    public java.util.HashMap getOrders() {
+        return this.orders;
+    }
+
+}
+
+
+Figure 1: Complex types handling example (OrderService.java)
+
+
+[i]提示[/i]：你可以在示例源码解压缩后的bin目录下找到所有的脚本(scripts)。 
+执行deployMapping.bat脚本以编译及布署这个买股票的服务。客户端程序简单地创建两个购买请求并将它们发送给web service。然后客户端程序获取一个包含了两个购买请求信息的Hashtable请将它们显示在控制台上。让我们来看一看客户端代码，我们又一次在科技股上投机：
+
+package com.systinet.demos.mapping;
+
+import org.idoox.wasp.Context;
+import org.idoox.webservice.client.WebServiceLookup;
+
+public final class TradingClient {
+
+    public static void main( String[] args ) throws Exception {
+        
+      WebServiceLookup lookup = (WebServiceLookup)Context.getInstance(Context.WEBSERVICE_LOOKUP);
+      OrderServiceProxy service = 
+(OrderServiceProxy)lookup.lookup("http://localhost:6060/MappingService/",OrderServiceProxy.class);
+
+      com.systinet.demos.mapping.struct.OrderRequest order = new com.systinet.demos.mapping.struct.OrderRequest();
+      order.symbol = "SUNW";
+      order.type = com.systinet.demos.mapping.OrderRequest.ORDER_TYPE_BUY;
+      order.limitPrice = 10;
+      order.volume = 100000;
+      String result = service.processOrder(order);
+      
+      System.out.println(result);
+      
+      order = new com.systinet.demos.mapping.struct.OrderRequest();
+      order.symbol = "BEAS";
+      order.type = com.systinet.demos.mapping.OrderRequest.ORDER_TYPE_BUY;
+      order.limitPrice = 13;
+      order.volume = 213000;
+      result = service.processOrder(order);
+      
+      System.out.println(result);
+      
+      java.util.HashMap orders = service.getOrders();
+      
+      java.util.Iterator iter = orders.keySet().iterator();
+      
+      while(iter.hasNext()) {
+          Long id = (Long)iter.next();
+          OrderRequest req = (OrderRequest)orders.get(id);
+          System.out.println("\n----------------------------");
+        System.out.println("\nID:             "+id);
+        System.out.println("\nTYPE:           "+
+((req.getType()==com.systinet.demos.mapping.OrderRequest.ORDER_TYPE_SELL)?("SELL"):("BUY")));
+        System.out.println("\nSYMBOL:         "+req.getSymbol());
+        System.out.println("\nLIMIT PRICE:    "+req.getLimitPrice());
+        System.out.println("\nVOLUME:         "+req.getVolume());
+      }
+      
+    }
+
+}
+
+Figure 2: Ordering client source code (TradingClient.java)
+
+** 深入研讨复杂数据类型的映射（Complex type mapping)
+
+首先要介绍的是我们发布Web Service时产生的WSDL文件。如果你已经布署了这个mapping service(译者注:买股票服务的服务名），你可以通过如下链接查看其WSDL文件http://localhost:6060/MappingService/.
+
+在这个教程的第一部分我们说过，WSDL描述了一个Web Service提供什么功能（WHAT部分），如何与其交互－－如何调用它（HOW部分），以及它所在的地址(WHERE部分)。WSDL提供一个结构化的机制用于描述它所提供的功能、它能处理的消息格式(formats)、它支持的协议及这个Web Service实例所在的地址。在我们的例子中，最值得关注的是OrderRequest这个java类是怎样被映射成XML的：
+
+<xsd:complexType name="OrderRequest">
+  <xsd:sequence>
+    <xsd:element name="limitPrice" type="xsd:double"/>
+    <xsd:element name="symbol" type="xsd:string"/>
+    <xsd:element name="type" type="xsd:short"/>
+    <xsd:element name="volume" type="xsd:long"/>
+  </xsd:sequence>
+</xsd:complexType>
+
+可以看到，OrderRequest被映射成一个简单数据类型的集合。从getOrders方法返回的HashMap被映射成从http://idoox.com/containers:HashMap导入的类型。我们的WSDL文件导入了如下的定义：
+
+<complexType name="HashMap">
+  <sequence>
+    <element name="item" minOccurs="0" maxOccurs="unbounded">
+      <complexType>
+        <sequence>
+          <element name="key" type="anyType" /> 
+          <element name="value" type="anyType" /> 
+        </sequence>
+      </complexType>
+    </element>
+  </sequence>
+</complexType>
+
+现在让我们来看一下客户端与Web Service交互的SOAP消息。在一个HTTP浏览器中打开管理控制台，按一下刷新按钮，在控制台的MappingService区按一下"Enable"链接。接着，执行runMappingClient.bat脚本以运行客户端程序，请注意交互时的SOAP消息。如下示例了对processOrder方法调用的SOAP消息，其中包含了一个OrderRequest实例参数：
+
+<?xml version="1.0" encoding="UTF-8"?>
+  <ns0:Envelope xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/">
+    <ns0:Body 
+      ns0:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+      <ns0:processOrder xmlns:ns0=
+"http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/mapping/OrderService">
+        <p0 xsi:type=
+"ns1:OrderRequest" xmlns:ns1="http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/mapping/">
+          <limitPrice xsi:type="xsd:double">10.0</limitPrice>
+          <symbol xsi:type="xsd:string">SUNW</symbol>
+          <type xsi:type="xsd:short">1</type>
+          <volume xsi:type="xsd:long">100000</volume>
+        </p0>
+      </ns0:processOrder>
+    </ns0:Body>
+  </ns0:Envelope>
+
+下面示例的是getOrders方法返回时的SOAP消息(包含购买请求信息的HashMap):
+
+<?xml version="1.0" encoding="UTF-8"?>
+  <ns0:Envelope xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/">
+    <ns0:Body 
+      ns0:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+        <ns0:getOrdersResponse xmlns:ns0=
+"http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/mapping/OrderService">
+          <response xsi:type="ns1:HashMap" xmlns:ns1="http://idoox.com/containers">
+            <item>
+              <key xsi:type="xsd:long">1006209071080</key>
+              <value xsi:type=
+"ns2:com.systinet.demos.mapping.OrderRequest" xmlns:ns2="http://idoox.com/package/">
+                <volume xsi:type="xsd:long">100000</volume>
+                <symbol xsi:type="xsd:string">SUNW</symbol>
+                <limitPrice xsi:type="xsd:double">10.0</limitPrice>
+                <type xsi:type="xsd:short">1</type>
+              </value>
+            </item>
+          <item>
+        <key xsi:type="xsd:long">1006209071130</key>
+        <value xsi:type="ns3:com.systinet.demos.mapping.OrderRequest" xmlns:ns3="http://idoox.com/package/">
+          <volume xsi:type="xsd:long">213000</volume>
+          <symbol xsi:type="xsd:string">BEAS</symbol>
+          <limitPrice xsi:type="xsd:double">13.0</limitPrice>
+          <type xsi:type="xsd:short">1</type>
+          </value>
+      </item></response>
+    </ns0:getOrdersResponse></ns0:Body>
+  </ns0:Envelope>
+
+Java至XML的映射直接明了。可以看到外层的HashMap元素包含了多个key及value元素。注意到有一个OrderReqeust的数据类型在内部的XML定义中。
+
+最后我们可以运行undeployMapping.bat以解除对刚才这个Web Service的布署。
+
+** SOAP错误处理
+
+
+当服务器遇到错误时，SOAP定义了一个所谓的SOAP Fault的XML结构来代表这个错误。在本教程的第一部分我们简短地介绍过错误消息，现在让我们深入地钻研一下。SOAP Fault包括三个基本的元素（element):
+
+FAULTCODE  它包含一个错误的编码或ID。
+
+FAULTSTRING  它包含对错误的简单描述。 
+
+DETAIL  对错误的比较详细的描述。 
+
+
+为了演示错误消息的处理，我们在先前的股票报价的例子中增加一些异常。在getQuote方法中我们提供对三种股票的报价，对于其它的股票，将抛出StockNotFoundException异常：
+
+package com.systinet.demos.fault;
+
+public class StockQuoteService {
+
+    
+    public double getQuote(String symbol) throws StockNotFoundException {
+        if(symbol!=null && symbol.equalsIgnoreCase("SUNW"))
+            return 10;
+        if(symbol!=null && symbol.equalsIgnoreCase("MSFT"))
+            return 50;
+        if(symbol!=null && symbol.equalsIgnoreCase("BEAS"))
+            return 11;
+        throw new StockNotFoundException("Stock symbol "+symbol+" not found.");    
+    }
+    
+    public java.util.LinkedList getAvailableStocks() {
+        java.util.LinkedList list = new java.util.LinkedList();
+        list.add("SUNW");
+        list.add("MSFT");
+        list.add("BEAS");
+        return list;
+    }
+
+}
+
+
+Figure 3: SOAP web service Java source (StockQuoteService.java)
+
+
+执行deployFault.bat以布署这个web service。在一个HTTP浏览器中打开管理控制台，按一下刷新按钮，在控制台的StockQuoteService区按一下"Enable"链接。
+
+在浏览器中打开http://localhost:6060/StockQuoteService/　以显示布署时产生的WSDL文件，请注意SOAP Fault消息在WSDL中的定义：
+
+<wsdl:
+message name=‘StockQuoteService_getQuote_com.systinet.demos.fault.StockNotFoundException_Fault‘>
+  <wsdl:part name=‘idoox-java-mapping.com.systinet.demos.fault.StockNotFoundException‘ type=‘xsd:string‘/>
+</wsdl:message>
+在WSDL的port type元素中，Fault消息是这样被getQuote操作所引用的：
+
+<wsdl:operation name=‘getQuote‘ parameterOrder=‘p0‘>
+  <wsdl:input name=‘getQuote‘ message=‘tns:StockQuoteService_getQuote_Request‘/>
+  <wsdl:output name=‘getQuote‘ message=‘tns:StockQuoteService_getQuote_Response‘/>
+  <wsdl:fault name=‘getQuote_fault1‘ 
+message=‘tns:StockQuoteService_getQuote_com.systinet.demos.fault.StockNotFoundException_Fault‘/>
+</wsdl:operation>
+
+如下是binding元素的片段：
+
+<wsdl:operation name=‘getQuote‘>
+  <soap:operation soapAction=‘‘ style=‘rpc‘/>
+  <wsdl:input name=‘getQuote‘>
+    <soap:body use=‘encoded‘ encodingStyle=‘http://schemas.xmlsoap.org/soap/encoding/‘ 
+namespace=‘http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/fault/‘/>
+  </wsdl:input>
+  <wsdl:output name=‘getQuote‘>
+    <soap:body use=‘encoded‘ encodingStyle=‘http://schemas.xmlsoap.org/soap/encoding/‘ 
+namespace=‘http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/fault/‘/>
+  </wsdl:output>
+  <wsdl:fault name=‘getQuote_fault1‘>
+    <soap:fault name=‘getQuote_fault1‘ use=‘encoded‘ encodingStyle=‘http://schemas.xmlsoap.org/soap/encoding/‘ 
+namespace=‘http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/fault/‘/>
+  </wsdl:fault>
+</wsdl:operation>
+
+
+看得出来，当一个服务器端错误产生时，这个错误被映射成一个简单的SOAP消息，然后返回给客户端。
+
+接下来让我们创建一个简单的web service客户程序：
+
+package com.systinet.demos.fault;
+
+import org.idoox.wasp.Context;
+import org.idoox.webservice.client.WebServiceLookup;
+
+
+public final class StockClient {
+
+    public static void main( String[] args ) throws Exception {
+        
+      // lookup service
+      WebServiceLookup lookup = (WebServiceLookup)Context.getInstance(Context.WEBSERVICE_LOOKUP);
+      // bind to StockQuoteService
+      StockQuoteServiceProxy quoteService = (StockQuoteServiceProxy)lookup.lookup(
+        "http://localhost:6060/StockQuoteService/",
+        StockQuoteServiceProxy.class
+      );
+      
+
+      // use StockQuoteService
+      System.out.println("Getting available stocks");
+      System.out.println("------------------------");
+      java.util.LinkedList list = quoteService.getAvailableStocks();
+      java.util.Iterator iter = list.iterator();
+      while(iter.hasNext()) {
+         System.out.println(iter.next());
+      }
+      System.out.println("");
+      
+      System.out.println("Getting SUNW quote");
+      System.out.println("------------------------");
+      System.out.println("SUNW "+quoteService.getQuote("SUNW"));
+      System.out.println("");
+      
+      System.out.println("Getting IBM quote (warning, this one doesn‘t exist, so we will get an exception)");
+      System.out.println("------------------------");
+      System.out.println("SUNW "+quoteService.getQuote("IBM"));
+      System.out.println("");
+
+      
+    }
+
+}
+
+Figure 4: SOAP client Java source (StockClient.java)
+
+我们需要产生客户端的Java 接口，编译这些java类，然后运行客户端程序。所有这些工作都包含在runFaultClient.bat脚本里。
+
+我们的股票报价系统所含的股票种类不多，它不包含IBM。执行客户端程序里，客户端将首先显示所有可获取股价的股票名，然后获取SUNW的股票价格，当想获得IBM的股票价格时，将抛出一个StockNotFound异常说“Stock symbol IBM not found"。请打开管理控制台，点击show SOAP conversation链接，一个新窗口被打开，显示如下的消息(高亮显示的是重要的消息部分）：
+
+==== INPUT ==== http://localhost:6060/StockQuoteService/ ==== 11/14/01 4:44 PM =
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:Envelope xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/">
+    <ns0:Body 
+        ns0:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+[i]        <ns0:getQuote xmlns:ns0="http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/fault/">
+            <p0 xsi:type="xsd:string">IBM</p0>
+        </ns0:getQuote>[/i]
+      </ns0:Body>
+</ns0:Envelope>
+==== CLOSE ===================================================================== 
+
+==== OUTPUT ==== http://localhost:6060/StockQuoteService/ ======================
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:Envelope xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/">
+    <ns0:Body 
+        ns0:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+[i]        <ns0:Fault xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/">
+            <faultcode>ns0:Server</faultcode>
+            <faultstring>Stock symbol IBM not found.</faultstring>
+            <detail xmlns:ijm="urn:idoox-java-mapping">
+                <ijm:idoox-java-mapping.com.systinet.demos.fault.StockNotFoundException>
+                    <ijm:stack-trace>
+                        com.systinet.demos.fault.StockNotFoundException: Stock symbol IBM not found.
+                        at com.systinet.demos.fault.StockQuoteService.getQuote(StockQuoteService.java:24)
+                        at java.lang.reflect.Method.invoke(Native Method)
+                        at com.idoox.wasp.server.adaptor.JavaAdaptorInvoker.invokeService(JavaAdaptorInvoker.java:387)
+                        at com.idoox.wasp.server.adaptor.JavaAdaptorInvoker.invoke(JavaAdaptorInvoker.java:239)
+                        at com.idoox.wasp.server.adaptor.JavaAdaptorImpl.dispatch(JavaAdaptorImpl.java:164)
+                        at com.idoox.wasp.server.AdaptorTemplate.dispatch(AdaptorTemplate.java:178)
+                        at com.idoox.wasp.server.ServiceConnector.dispatch(ServiceConnector.java:217)
+                        at com.idoox.wasp.server.ServiceManager.dispatch(ServiceManager.java:231)
+                        at com.idoox.wasp.server.ServiceManager$DispatcherConnHandler.handlePost(ServiceManager.java:1359)
+                        at com.idoox.transport.http.server.Jetty$WaspHttpHandler.handle(Jetty.java:94)
+                        at com.mortbay.HTTP.HandlerContext.handle(HandlerContext.java:1087)
+                        at com.mortbay.HTTP.HttpServer.service(HttpServer.java:675)
+                        at com.mortbay.HTTP.HttpConnection.service(HttpConnection.java:457)
+                        at com.mortbay.HTTP.HttpConnection.handle(HttpConnection.java:317)
+                        at com.mortbay.HTTP.SocketListener.handleConnection(SocketListener.java:99)
+                        at com.mortbay.Util.ThreadedServer.handle(ThreadedServer.java:254)
+                        at com.mortbay.Util.ThreadPool$PoolThreadRunnable.run(ThreadPool.java:601)
+                        at java.lang.Thread.run(Thread.java:484)
+                    </ijm:stack-trace>
+                </ijm:idoox-java-mapping.com.systinet.demos.fault.StockNotFoundException>
+            </detail>
+        </ns0:Fault>[/i]    
+   </ns0:Body>
+</ns0:Envelope>
+==== CLOSE =====================================================================
+请注意其中的FAULT结构。FAULTCODE包含所产生的错误编码，FAULTSTRING元素携带了这个异常消息，而DETAIL元素包含在栈中跟踪到的异常。所有的SOAP错误消息都遵从这种基本的格式。
+
+最后，执行updeployFault.bat以解除刚才服务的布署。
+
+** 远程引用
+
+远程引用是一种用于许多分布式对象系统中的结构，如RMI、CORBA及DCOM。假定你有一个调用服务器端对象的客户程序。下面解释它们是如何工作的。假设服务器端对象创建一个新的对象，且它需要将这个对象传给远程的客户端(如Figure 5 所示)。它可以选择传值(by value)或传引用(by reference)的方式来传递这个对象。如果选择传值传递，需要将整个对象传过去；如果是传引用传递，则整整是传递了指向这个对象的指针。远程引用是工作在网络环境下的引用。远程引用在许多分布式设计模式中受到批判，特别是工厂模式(Facotry pattern)中。因为这个特性与许多分布式计算应用相矛盾，不是所有的SOAP实现支持这个它。
+
+现在让我们来看一个远程引用的例子。在一个Order Web Service中定义一个createLineItem方法。这个方法用于创建一个新的LineItem对象，这个对象包含所购产品的类别、产品价格及购买数量的信息。Order Web Service包含许多LineItem对象的引用。LineItem对象需要返回给客户端程序给供客户端获取信息使用。
+
+
+Figure 5: Remote references
+
+实现简单的远程引用
+
+我们将创建一个新的例子以演示远程引用特性。我们用从股市上赚的钱来买一些商品。首先定义两个接口：Order及LineItem。客户端将使用这两个接口来引用远程对象：
+
+package com.systinet.demos.interref;
+
+public interface LineItem extends java.rmi.Remote {
+
+   public String getID();
+   
+   public long getCount();
+   
+   public String getProductID();
+   
+   public void close();
+
+}
+
+Figure 6: LineItem interface
+
+package com.systinet.demos.interref;
+
+public interface Order {
+
+   public LineItem addItem(String productID, long count);
+   
+   public LineItem getItem(String id);
+   
+   public void removeItem(String id);
+   
+}
+
+
+Figure 7: Order interface
+
+注意到LineItem接口继承至java.rmi.Remote接口。这是在WASP中操作远程引用的最简单方法。除此之外，IineItem接口是非常好懂的。Order接口的addItem方法创建一个新的购买项(order item)并将其返回。getItem返回一个已存在的项目(item)而removeItem则从买单中删除一个指定的项目(item)。
+
+现在让我们来实现这两个接口：
+
+package com.systinet.demos.interref;
+
+import org.idoox.webservice.server.WebServiceContext;
+import org.idoox.webservice.server.LifeCycleService;
+
+public class LineItemImpl implements LineItem {
+
+    private String pid;
+    private String id;
+    private long count;
+    
+    
+    public LineItemImpl(String pid, long count) {
+        System.err.println("Creating new LineItem.");
+        this.id = pid+System.currentTimeMillis();
+        this.pid = pid;
+        this.count = count;
+    }
+    
+    public void close() {
+        System.err.println("close()");
+        WebServiceContext context = WebServiceContext.getInstance();
+        LifeCycleService lc = context.getLifeCycleService();
+        lc.disposeServiceInstance(this);
+    }
+    
+    public long getCount() {
+        System.err.println("getCount()");
+        return this.count;
+    }
+    
+    public String getProductID() {
+        System.err.println("getProductID()");
+        return this.pid;
+    }
+    
+    public String getID() {
+        System.err.println("getID()");
+        return this.id;
+    }
+    
+}
+
+Figure 8: LineItem implementation
+
+
+package com.systinet.demos.interref;
+
+public class OrderImpl implements Order {
+
+    private java.util.HashMap items = new java.util.HashMap();
+
+    public LineItem getItem(String id) {
+        return (LineItem)this.items.get(id);
+    }
+
+    public LineItem addItem(java.lang.String pid, long count) {
+        LineItem item = new LineItemImpl(pid, count);
+        this.items.put(item.getID(), item);
+        return item;
+    }
+
+    public void removeItem(java.lang.String id) {
+        LineItem item = (LineItem)this.items.remove(id);
+        item.close();
+    }
+
+
+}
+
+
+Figure 9: Order implementation
+
+
+执行deployInterref.bat以布署这个web service。
+
+这是标准的实现。客户端代码也是很标准的实现法：
+
+package com.systinet.demos.interref;
+
+import javax.wsdl.QName;
+
+import org.idoox.wasp.Context;
+import org.idoox.webservice.client.WebServiceLookup;
+
+public final class OrderClient {
+
+    public static void main( String[] args ) throws Exception {
+        
+      // lookup service
+      WebServiceLookup lookup = (WebServiceLookup)Context.getInstance(Context.WEBSERVICE_LOOKUP);
+      
+      Order order = (Order)lookup.lookup("http://localhost:6060/OrderService/", 
+                new QName("http://idoox.com/wasp/tools/java2wsdl/output/com/systinet/demos/interref/", "OrderService"),
+                "OrderImpl", Order.class);
+      
+      String id1 = order.addItem("THNKPDT23", 2).getID();
+      String id2 = order.addItem("THNKPDT22", 2).getID();
+      
+      System.out.println("ID1 "+id1);
+      System.out.println("ID2 "+id2);
+      
+      LineItem item = order.getItem(id1);
+      
+      System.out.println("Line ITEM");
+      System.out.println("---------");
+      System.out.println("ID:         "+item.getID());
+      System.out.println("Product ID: "+item.getProductID());
+      System.out.println("Count:      "+item.getCount());
+     
+      item = order.getItem(id2);
+      
+      System.out.println("Line ITEM");
+      System.out.println("---------");
+      System.out.println("ID:         "+item.getID());
+      System.out.println("Product ID: "+item.getProductID());
+      System.out.println("Count:      "+item.getCount());
+
+      
+    }
+
+}
+
+Figure 10: Order client
+
+
+这个简单的客户端程序创建了购买服务(ordering web service)的动态代理(proxy)，然后创建两个买单项（order item）:THNKPDT23及THNKPDT22。两个买单项都在服务端动态地创建，客户端只是获得他们的引用(reference)。这是一个我们先前提到的工厂模式的蛮好的例子。在我们的例子中，购买服务(ordering service)充当了买单项(order item)的工厂。
+
+请注意买单项(line item)是有状态的(stateful)，因为它们保存有买单项数据。
+
+删除远程引用
+
+不像无状态的web service,有状态的web service需要特别的代码以钝化。在我们的例子中我们使用一个特定的清除器。我们调用LifeCycle这个系统服务的disposeServiceInstance方法。请看如下的代码：
+
+public void close() {
+  System.err.println("close()");
+  WebServiceContext context = WebServiceContext.getInstance();
+  LifeCycleService lc = context.getLifeCycleService();
+  lc.disposeServiceInstance(this);
+}
+
+最后执行undeployInterref.bat以解除我们刚才这个web service的布署。
+
+下一步做什么？
+
+在这部分我们研究了一下SOAP的复杂类型、SOAP错误消息以及远程对象引用。现在我们已经很好地理解了SOAP、WSDL及创建与使用web service的过程。我们希望能使这些东西显示简单易懂。在第三部分，我们将关注于web service的安全问题。
+
+同时我们非常欢迎各种反馈、评论及意见。请联系： tutorial@systinet.com .
+
+
+* 四、CXF WebService中传递复杂类型对象
+http://www.cnblogs.com/hoojo/archive/2011/03/30/1999523.html
+* WebService传输复杂数据类型
+
+以下演示的就是从客户端传一个GoVO对象到服务端，服务端经过处理，把数据封装成一个GoPO对象传到客户端，当然实际项目中没有这么简单，为了让自己不便于以后的知识点重构上有较大障碍，所以写下以下文字，希望从糟粕中提练精华。
+首先，在服务端程序中编写提供服务的接口，以及接口中方法要调用或要返回的javabean对象(必须序列化)，当然还有实现接口的类，不过不用写具体处理过程。
+<o:p> </o:p>
+package com.interfacepackge;<o:p></o:p>
+public interface ServerProtInterface {<o:p></o:p>
+    public GoPO getElement(GoVO vo);}<o:p></o:p>
+import java.io.Serializable;<o:p></o:p>
+public class GoPO implements Serializable{<o:p></o:p>
+    private static final long serialVersionUID = 5292943075702291483L;<o:p></o:p>
+    private String add;<o:p></o:p>
+    public String getAdd(){return add;}<o:p></o:p>
+    public void setAdd(String add){this.add = add;}<o:p></o:p>
+}<o:p></o:p>
+import java.io.Serializable;<o:p></o:p>
+public class GoVO implements Serializable{<o:p></o:p>
+    private static final long serialVersionUID = -8563449093441945059L;<o:p></o:p>
+    private String title;<o:p></o:p>
+    public String getTitle() {return title;}<o:p></o:p>
+    public void setTitle(String title) {this.title = title;}<o:p></o:p>
+}<o:p></o:p>
+public class ServiceProtInterfaceImpl implements ServiceProtInterface {<o:p></o:p>
+    public GoPO getElement(GoVO vo) {<o:p></o:p>
+        return null;<o:p></o:p>
+    }<o:p></o:p>
+}<o:p></o:p>
+<o:p> </o:p>
+然后把包含有接口和bean对象的文件拷贝到AXIS目录下的WEB-INF目录下，使用如下指令：（是一句命令！！）
+<o:p> </o:p>
+java -Djava.ext.dirs=lib org.apache.axis.wsdl.Java2WSDL -o temp.wsdl –l "http://localhost:8090/axis/services/WS_UP_OBJ" -n "urn:WS_UP_OBJ" -p"com.lovo.upobj,com.lovo.upobj.po" "urn:WS_UP_OBJ" com.lovo.upobj.bo.UpObjIface<o:p></o:p>
+<o:p> </o:p>
+//WS_UP_OBJ 是 web service 的服务名，8090 是web服务的端口 ，WS_UP_OBJ可以修改为你自己定义的web service 的服务名
+//com.lovo.upobj,com.lovo.upobj.po 接口中方法要调用或要返回的javabean对象
+//com.lovo.upobj.bo.UpObjIface 为服务端 接口
+运行上述命令 后，在当前目录可以得到 temp.wsdl 服务描述文件
+<o:p> </o:p>
+2：有了temp.wsdl服务描述文件，就可以使用它来生成JAX-RPC 的框架，这个框架使得我们编程变得简单，在AXIS目录下的WEB-INF子目录，使用以下的命令就可以生成这个框架：（也是一句命令哦！！）
+<o:p> </o:p>
+java -Djava.ext.dirs=lib org.apache.axis.wsdl.WSDL2Java -o . -d Session -s -S true -Nurn:WS_UP_OBJ com.lovo.upobj.bo temp.wsdl<o:p></o:p>
+<o:p> </o:p>
+//WS_UP_OBJ 是 web service 的服务名,com.lovo.upobj.bo 为服务端 接口 UpObjIface 所在的包
+<o:p> </o:p>
+使用这个命令后将 在 包含有接口和bean对象的文件 中 生成以下新文件：
+<o:p> </o:p>
+*Interface.java：新的*Interface接口，它扩展了java.rmi.Remote接口；（客户端要用）
+*InterfaceService.java：客户端服务接口，用来获得*Interface对象的引用；（客户端要用）
+*InterfaceServiceLocator.java：在客户端使用，主要用来服务定位；（客户端要用）
+*SoapBindingImpl.java：服务端实现类，它实现了*Interface接口，服务端的业务方法实现代码就在这里编写；
+*SoapBindingSkeleton.java：服务端Skeleton；
+*SoapBindingStub.java：客户端Stub；（客户端要用）
+GoVO.java：新的GoVO序列化对象；（客户端要用）-
+GoPO.java：新的GoVO序列化对象；（客户端要用）
+deploy.wsdd：部署这个Web服务的脚本；
+undeploy.wsdd：卸载这个Web服务的脚本。
+<o:p> </o:p>
+然后可以摒弃我们刚才写的那些代码，把以上生成的框架拷贝到我们的工程中。并在*SoapBindingImpl.java编写服务端的业务方法实现代码；
+<o:p> </o:p>
+然后在***SoapBindingStub.java 文件 的对应位置添加如下代码：（目的是把我们在传输过程中使用的传输对象进行注册。以便它以流的方式传输。）
+<o:p> </o:p>
+QName  qn  = new QName( "OO", "OO");
+_call.registerTypeMapping(com.interfacepackge.GoPO.class, qn,               
+new org.apache.axis.encoding.ser.BeanSerializerFactory(com.interfacepackge.GoPO.class, qn),       
+new org.apache.axis.encoding.ser.BeanDeserializerFactory(com.interfacepackge.GoPO.class, qn));
+       
+QName  qn1  = new QName( "OO", "OO");
+_call.registerTypeMapping(com.interfacepackge.GoVO.class, qn1,               
+new org.apache.axis.encoding.ser.BeanSerializerFactory(com.interfacepackge.GoVO.class, qn1),       
+new org.apache.axis.encoding.ser.BeanDeserializerFactory(com.interfacepackge.GoVO.class, qn1));
+<o:p> </o:p>
+接着，把编译后的服务端程序的class文件连同完整的包目录 拷贝到服务器相应部署目录下的 AXIS\WEB-INF\class子目录。
+然后开始部署（此处需要把deploy.wsdd拷贝到WEB-INF目录下）
+在控制台中，转到AXIS\WEB-INF，执行以下的命令就可以完成部署
+java -Djava.ext.dirs=lib org.apache.axis.client.AdminClient -lhttp://localhost:8090/axis/services/AdminService deploy.wsdd<o:p></o:p>
+<o:p> </o:p>
+OK，服务端完成了，接着我们需要干的是编写我们的客户端代码，在这之前需要把前面标有“客户端要用”的类的类文件打包，以便我们客户端导入。
+客户端程序为：（需要导入AXIS引擎中lib里所有的jar文件）
+public class ClientText {
+       public static void main(String [] args){
+              GoVO vo = new GoVO();
+              vo.setTitle("丁一郎");
+              ServerProtInterfaceServiceLocator locator = new ServerProtInterfaceServiceLocator();
+              ServerProtInterface inter;
+              try {
+                     inter = locator.getWS_UP_OBJ ();
+                     GoPO po = inter.getElement(vo);
+                     System.out.println(po.getAdd());
+              } catch (ServiceException e) {
+                     // TODO 自动生成 catch 块
+                     e.printStackTrace();
+              } catch (RemoteException e) {
+                     // TODO 自动生成 catch 块
+                     e.printStackTrace();
+              }
+       }
+}
+<o:p> </o:p>
+如果要远程调用此WebService，则应该把ServerProtInterfaceServiceLocator.源文件的URL地址改为IP地下。
+private java.lang.String /WS_UP_OBJ _address = "http://localhost:8080/axis/services//WS_UP_OBJ ";
+<o:p> </o:p>
+这样就可以实现对远程访问了。以上客户端运行结果为：
+丁一郎
+<o:p> </o:p>
+以上为WebService传输复杂数据类型，主要是通常三条命令来完成，其间生成的框架为我们的开发做了很多实质性的东西，至此WebService可以说是入门了吧！
+
+
+* Java深度历险（十）——Java对象序列化与RMI
+
+对于一个存在于Java虚拟机中的对象来说，其内部的状态只保持在内存中。JVM停止之后，这些状态就丢失了。在很多情况下，对象的内部状态是需要被持久化下来的。提到持久化，最直接的做法是保存到文件系统或是数据库之中。这种做法一般涉及到自定义存储格式以及繁琐的数据转换。对象关系映射（Object-relational mapping）是一种典型的用关系数据库来持久化对象的方式，也存在很多直接存储对象的对象数据库。对象序列化机制（object serialization）是Java语言内建的一种对象持久化方式，可以很容易的在JVM中的活动对象和字节数组（流）之间进行转换。除了可以很简单的实现持久化之外，序列化机制的另外一个重要用途是在远程方法调用中，用来对开发人员屏蔽底层实现细节。
+
+
+** 基本的对象序列化
+由于Java提供了良好的默认支持，实现基本的对象序列化是件比较简单的事。待序列化的Java类只需要实现Serializable接口即可。Serializable仅是一个标记接口，并不包含任何需要实现的具体方法。实现该接口只是为了声明该Java类的对象是可以被序列化的。实际的序列化和反序列化工作是通过ObjectOuputStream和ObjectInputStream来完成的。ObjectOutputStream的writeObject方法可以把一个Java对象写入到流中，ObjectInputStream的readObject方法可以从流中读取一个Java对象。在写入和读取的时候，虽然用的参数或返回值是单个对象，但实际上操纵的是一个对象图，包括该对象所引用的其它对象，以及这些对象所引用的另外的对象。Java会自动帮你遍历对象图并逐个序列化。除了对象之外，Java中的基本类型和数组也是可以通过 ObjectOutputStream和ObjectInputStream来序列化的。
+
+try {
+    User user = new User("Alex", "Cheng");
+    ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("user.bin"));
+    output.writeObject(user);
+    output.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+ 
+try {
+    ObjectInputStream input = new ObjectInputStream(new FileInputStream("user.bin"));
+    User user = (User) input.readObject();
+    System.out.println(user);
+} catch (Exception e) {
+    e.printStackTrace();
+} 
+ 
+上面的代码给出了典型的把Java对象序列化之后保存到磁盘上，以及从磁盘上读取的基本方式。 User类只是声明了实现Serializable接口。
+
+在默认的序列化实现中，Java对象中的非静态和非瞬时域都会被包括进来，而与域的可见性声明没有关系。这可能会导致某些不应该出现的域被包含在序列化之后的字节数组中，比如密码等隐私信息。由于Java对象序列化之后的格式是固定的，其它人可以很容易的从中分析出其中的各种信息。对于这种情况，一种解决办法是把域声明为瞬时的，即使用transient关键词。另外一种做法是添加一个serialPersistentFields? 域来声明序列化时要包含的域。从这里可以看到在Java序列化机制中的这种仅在书面层次上定义的契约。声明序列化的域必须使用固定的名称和类型。在后面还可以看到其它类似这样的契约。虽然Serializable只是一个标记接口，但它其实是包含有不少隐含的要求。下面的代码给出了 serialPersistentFields的声明示例，即只有firstName这个域是要被序列化的。
+
+private static final ObjectStreamField[] serialPersistentFields = { 
+    new ObjectStreamField("firstName", String.class) 
+};  
+** 自定义对象序列化
+基本的对象序列化机制让开发人员可以在包含哪些域上进行定制。如果想对序列化的过程进行更加细粒度的控制，就需要在类中添加writeObject和对应的 readObject方法。这两个方法属于前面提到的序列化机制的隐含契约的一部分。在通过ObjectOutputStream的 writeObject方法写入对象的时候，如果这个对象的类中定义了writeObject方法，就会调用该方法，并把当前 ObjectOutputStream对象作为参数传递进去。writeObject方法中一般会包含自定义的序列化逻辑，比如在写入之前修改域的值，或是写入额外的数据等。对于writeObject中添加的逻辑，在对应的readObject中都需要反转过来，与之对应。
+
+在添加自己的逻辑之前，推荐的做法是先调用Java的默认实现。在writeObject方法中通过ObjectOutputStream的defaultWriteObject来完成，在readObject方法则通过ObjectInputStream的defaultReadObject来实现。下面的代码在对象的序列化流中写入了一个额外的字符串。
+
+private void writeObject(ObjectOutputStream output) throws IOException {
+    output.defaultWriteObject();
+    output.writeUTF("Hello World");
+}
+private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
+    input.defaultReadObject();
+    String value = input.readUTF();
+    System.out.println(value);
+}  
+** 序列化时的对象替换
+在有些情况下，可能会希望在序列化的时候使用另外一个对象来代替当前对象。其中的动机可能是当前对象中包含了一些不希望被序列化的域，比如这些域都是从另外一个域派生而来的；也可能是希望隐藏实际的类层次结构；还有可能是添加自定义的对象管理逻辑，如保证某个类在JVM中只有一个实例。相对于把无关的域都设成transient来说，使用对象替换是一个更好的选择，提供了更多的灵活性。替换对象的作用类似于Java EE中会使用到的传输对象（Transfer Object）。
+
+考虑下面的例子，一个订单系统中需要把订单的相关信息序列化之后，通过网络来传输。订单类Order引用了客户类Customer。在默认序列化的情况下，Order类对象被序列化的时候，其引用的Customer类对象也会被序列化，这可能会造成用户信息的泄露。对于这种情况，可以创建一个另外的对象来在序列化的时候替换当前的Order类的对象，并把用户信息隐藏起来。
+
+private static class OrderReplace implements Serializable {
+    private static final long serialVersionUID = 4654546423735192613L;
+    private String orderId;
+    public OrderReplace(Order order) {
+        this.orderId = order.getId();
+    }
+    private Object readResolve() throws ObjectStreamException {
+        //根据orderId查找Order对象并返回
+    }
+}    
+这个替换对象类OrderReplace只保存了Order的ID。在Order类的writeReplace方法中返回了一个OrderReplace对象。这个对象会被作为替代写入到流中。同样的，需要在OrderReplace类中定义一个readResolve方法，用来在读取的时候再转换回 Order类对象。这样对调用者来说，替换对象的存在就是透明的。
+
+private Object writeReplace() throws ObjectStreamException {
+    return new OrderReplace(this);
+} 
+** 序列化与对象创建
+在通过ObjectInputStream的readObject方法读取到一个对象之后，这个对象是一个新的实例，但是其构造方法是没有被调用的，其中的域的初始化代码也没有被执行。对于那些没有被序列化的域，在新创建出来的对象中的值都是默认的。也就是说，这个对象从某种角度上来说是不完备的。这有可能会造成一些隐含的错误。调用者并不知道对象是通过一般的new操作符来创建的，还是通过反序列化所得到的。解决的办法就是在类的readObject方法里面，再执行所需的对象初始化逻辑。对于一般的Java类来说，构造方法中包含了初始化的逻辑。可以把这些逻辑提取到一个方法中，在readObject方法中调用此方法。
+
+** 版本更新
+把一个Java对象序列化之后，所得到的字节数组一般会保存在磁盘或数据库之中。在保存完成之后，有可能原来的Java类有了更新，比如添加了额外的域。这个时候从兼容性的角度出发，要求仍然能够读取旧版本的序列化数据。在读取的过程中，当ObjectInputStream发现一个对象的定义的时候，会尝试在当前JVM中查找其Java类定义。这个查找过程不能仅根据Java类的全名来判断，因为当前JVM中可能存在名称相同，但是含义完全不同的Java 类。这个对应关系是通过一个全局惟一标识符serialVersionUID来实现的。通过在实现了Serializable接口的类中定义该域，就声明了该Java类的一个惟一的序列化版本号。JVM会比对从字节数组中得出的类的版本号，与JVM中查找到的类的版本号是否一致，来决定两个类是否是兼容的。对于开发人员来说，需要记得的就是在实现了Serializable接口的类中定义这样的一个域，并在版本更新过程中保持该值不变。当然，如果不希望维持这种向后兼容性，换一个版本号即可。该域的值一般是综合Java类的各个特性而计算出来的一个哈希值，可以通过Java提供的serialver命令来生成。在Eclipse中，如果Java类实现了Serializable接口，Eclipse会提示并帮你生成这个serialVersionUID。
+
+在类版本更新的过程中，某些操作会破坏向后兼容性。如果希望维持这种向后兼容性，就需要格外的注意。一般来说，在新的版本中添加东西不会产生什么问题，而去掉一些域则是不行的。
+
+** 序列化安全性
+前面提到，Java对象序列化之后的内容格式是公开的。所以可以很容易的从中提取出各种信息。从实现的角度来说，可以从不同的层次来加强序列化的安全性。
+
+对序列化之后的流进行加密。这可以通过CipherOutputStream来实现。
+实现自己的writeObject和readObject方法，在调用defaultWriteObject之前，先对要序列化的域的值进行加密处理。
+使用一个SignedObject或SealedObject来封装当前对象，用SignedObject或SealedObject进行序列化。
+在从流中进行反序列化的时候，可以通过ObjectInputStream的registerValidation方法添加ObjectInputValidation接口的实现，用来验证反序列化之后得到的对象是否合法。
+RMI
+RMI（Remote Method Invocation）是Java中的远程过程调用（Remote Procedure Call，RPC）实现，是一种分布式Java应用的实现方式。它的目的在于对开发人员屏蔽横跨不同JVM和网络连接等细节，使得分布在不同JVM上的对象像是存在于一个统一的JVM中一样，可以很方便的互相通讯。之所以在介绍对象序列化之后来介绍RMI，主要是因为对象序列化机制使得RMI非常简单。调用一个远程服务器上的方法并不是一件困难的事情。开发人员可以基于Apache MINA或是Netty这样的框架来写自己的网络服务器，亦或是可以采用REST架构风格来编写HTTP服务。但这些解决方案中，不可回避的一个部分就是数据的编排和解排（marshal/unmarshal）。需要在Java对象和传输格式之间进行互相转换，而且这一部分逻辑是开发人员无法回避的。RMI的优势在于依靠Java序列化机制，对开发人员屏蔽了数据编排和解排的细节，要做的事情非常少。JDK 5之后，RMI通过动态代理机制去掉了早期版本中需要通过工具进行代码生成的繁琐方式，使用起来更加简单。
+
+RMI采用的是典型的客户端-服务器端架构。首先需要定义的是服务器端的远程接口，这一步是设计好服务器端需要提供什么样的服务。对远程接口的要求很简单，只需要继承自RMI中的Remote接口即可。Remote和Serializable一样，也是标记接口。远程接口中的方法需要抛出RemoteException。定义好远程接口之后，实现该接口即可。如下面的Calculator是一个简单的远程接口。
+
+public interface Calculator extends Remote {
+    String calculate(String expr) throws RemoteException;
+}  
+实现了远程接口的类的实例称为远程对象。创建出远程对象之后，需要把它注册到一个注册表之中。这是为了客户端能够找到该远程对象并调用。
+
+public class CalculatorServer implements Calculator {
+    public String calculate(String expr) throws RemoteException {
+        return expr;
+    }
+    public void start() throws RemoteException, AlreadyBoundException {
+        Calculator stub = (Calculator) UnicastRemoteObject.exportObject(this, 0);
+        Registry registry = LocateRegistry.getRegistry();
+        registry.rebind("Calculator", stub);
+    }
+}
+CalculatorServer是远程对象的Java类。在它的start方法中通过UnicastRemoteObject的exportObject把当前对象暴露出来，使得它可以接收来自客户端的调用请求。再通过Registry的rebind方法进行注册，使得客户端可以查找到。
+
+客户端的实现就是首先从注册表中查找到远程接口的实现对象，再调用相应的方法即可。实际的调用虽然是在服务器端完成的，但是在客户端看来，这个接口中的方法就好像是在当前JVM中一样。这就是RMI的强大之处。
+
+public class CalculatorClient {
+    public void calculate(String expr) {
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost");
+            Calculator calculator = (Calculator) registry.lookup("Calculator");
+            String result = calculator.calculate(expr);
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+} 
+在运行的时候，需要首先通过rmiregistry命令来启动RMI中用到的注册表服务器。
+
+为了通过Java的序列化机制来进行传输，远程接口中的方法的参数和返回值，要么是Java的基本类型，要么是远程对象，要么是实现了 Serializable接口的Java类。当客户端通过RMI注册表找到一个远程接口的时候，所得到的其实是远程接口的一个动态代理对象。当客户端调用其中的方法的时候，方法的参数对象会在序列化之后，传输到服务器端。服务器端接收到之后，进行反序列化得到参数对象。并使用这些参数对象，在服务器端调用实际的方法。调用的返回值Java对象经过序列化之后，再发送回客户端。客户端再经过反序列化之后得到Java对象，返回给调用者。这中间的序列化过程对于使用者来说是透明的，由动态代理对象自动完成。除了序列化之外，RMI还使用了动态类加载技术。当需要进行反序列化的时候，如果该对象的类定义在当前JVM中没有找到，RMI会尝试从远端下载所需的类文件定义。可以在RMI程序启动的时候，通过JVM参数java.rmi.server.codebase来指定动态下载Java类文件的URL。  
+
+参考资料
+Java对象序列化规范 
+http://download.oracle.com/javase/6/docs/platform/serialization/spec/serialTOC.html
+RMI规范
+http://download.oracle.com/javase/6/docs/platform/rmi/spec/rmiTOC.html
+
+* Hessian序列化复杂对象
+
+前两篇都讲的是Hessian序列化一个字符串，进行远程调用和传输，在上篇的基础上，做个复杂对象的传输。
+ 
+1、创建复杂类：
+package lavasoft.suths.pojo; 
+
+import java.io.Serializable; 
+import java.util.Date; 
+
+/** 
+// * 一个象征性的复杂类型 
+//* 
+//* @author leizhimin 2009-8-14 17:21:40 
+*/ 
+public class Foo implements Serializable { 
+        private static final long serialVersionUID = 1792241905841405420L; 
+        private String name; 
+        private Date createtime; 
+
+        public Foo(String name) { 
+                this.name = name; 
+                createtime = new Date(); 
+        } 
+
+        public String getName() { 
+                return name; 
+        } 
+
+        public void setName(String name) { 
+                this.name = name; 
+        } 
+
+        public Date getCreatetime() { 
+                return createtime; 
+        } 
+
+        public void setCreatetime(Date createtime) { 
+                this.createtime = createtime; 
+        } 
+
+        @Override 
+        public String toString() { 
+                return "Foo{" + 
+                                "name='" + name + '\'' + 
+                                ", createtime=" + createtime + 
+                                '}'; 
+        } 
+}
+ 
+2、修改服务接口和实现
+public interface Hello { 
+        String sayHello(String name); 
+
+        Foo makeFoo(String name); 
+}
+ 
+public class HelloService implements Hello { 
+        public String sayHello(String name) { 
+                return "Hello " + name + "!"; 
+        } 
+
+        public Foo makeFoo(String name) { 
+                return new Foo(name); 
+        } 
+}
+ 
+3、部署web，其他的配置都不用改变，并运行tomcat。
+ 
+4、写客户端测试：
+/** 
+//* 客户端调用（会依赖服务接口） 
+//* 
+//* @author leizhimin 2009-8-14 12:29:33 
+*/ 
+public class Client { 
+        public static void main(String[] args) throws MalformedURLException { 
+                String url = "http://localhost:8080/hessianapp/hessian/hello"; 
+                HessianProxyFactory factory = new HessianProxyFactory(); 
+                Hello hello = (Hello) factory.create(Hello.class, url); 
+                System.out.println(hello.sayHello("Hessian")); 
+                System.out.println(hello.makeFoo("foo")); 
+        } 
+}
+ 
+运行结果：
+Hello Hessian! 
+Foo{name='foo', createtime=Fri Aug 14 17:32:17 CST 2009} 
+
+Process finished with exit code 0
+ 
+整合Spring的测试：
+/** 
+//* Spring整合Hessian，客户端测试 
+//* 
+//* @author leizhimin 2009-8-14 15:32:46 
+*/ 
+public class TestClient { 
+        public static void main(String[] args) { 
+        try { 
+                        ApplicationContext context = new ClassPathXmlApplicationContext("/remoting-client.xml"); 
+                        Hello hello = (Hello) context.getBean("helloServiceClient"); 
+                        System.out.println(hello.sayHello("Spring Hession")); 
+                        System.out.println(hello.makeFoo("SpringFoo")); 
+                } 
+                catch (Exception e) { 
+                        e.printStackTrace(); 
+                } 
+        } 
+}
+ 
+运行结果：
+Hello Spring Hession! 
+Foo{name='SpringFoo', createtime=Fri Aug 14 17:41:29 CST 2009} 
+
+Process finished with exit code 0
+ 
+总结
+1、Hessian的序列化做的还不错，可以信赖。
+2、序列化对象要实现java.io.Serializable接口。
+3、序列化类要有serialVersionUID。
+4、注意序列化的规范，有些成员是不能序列化的。
+
+* TODO
+http://reeboo.iteye.com/blog/515345
+
+http://www.iteye.com/topic/145061
+
+http://liugang594.iteye.com/blog/453477
+
+http://softstone.iteye.com/blog/172892
+
+http://jackyrong.iteye.com/blog/239074
+
+http://www.ibm.com/developerworks/cn/webservices/ws-soa-intersoap/
+
+http://www.51testing.com/?uid-353118-action-viewspace-itemid-22164

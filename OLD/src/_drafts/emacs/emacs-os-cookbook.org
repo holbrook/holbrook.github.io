@@ -1,0 +1,802 @@
+编程之道？
+Emacs之道
+“Emacs操作系统”使用帮助
+
+阴，阳
+
+
+* dirtree的不足（与sublime相比）
+
+1. 去掉目录（现在只能添加）
+2. 实时刷新
+
+
+* include测试
+** 任务篇
+
+*** 任务管理
+
+#+INCLUDE: ../blog/emacs/emacs_orgmode_task.org
+
+* 参考目录
+** 写
+- 写文件(基本编辑）
+- 写文档(org, latex)
+- 写计划(org)
+  大概，大型写作需要进行计划和任务管理
+- 写代码
+  + 高亮
+  + 模板
+  + 编译
+  + 调试
+- 现代化
+  + dirtree
+  + minibuffer
+
+
+
+* 入门篇——土
+** 基本配置：为Emacs插上翅膀(Xwindow)
+Emacs确实不好用，但那不是Emacs的错，而是因为你不会配置。“裸奔”的Emacs让人“泪奔”，但是大神配置的Emacs用起来可以行云流水，让你欲罢不能。
+
+如果说Emacs是Linux的"Base System"，那么大神们的配置就相当于
+gnome和KDE。
+
+几个大神的配置包括：
+*** starter-kit
+由于starter-kit的名字表明我太初级了，而我又自命不凡地觉得自己用了那么多年的Vim，不应该属于初级那类，因此我始终没有用starter-kit，也就无从知道它好不好用了。
+*** purcell
+Purcell的配置更新太快
+[[https://github.com/purcell/emacs.d][purcell]] 是《一年成为Emacs高手》[fn:1]中推荐的，作者Purcell本身是从事Web开发的，
+从评论上看更新有点快，所以自己配置的话，可能经常会出现配置冲突。
+这个配置中有个比较好的功能， 就是可以保存桌面，保存的桌面可以在下一次打开时自动载入。purcell的版本默认装不了el-get，因为跟装在里面的scratch扩展有冲突，我的解决方案是在git clone el-get的过程中在终端通过 sed命令将el-get中冲突的部分替换掉，或者启动Emacs后，先将scratch卸载（在ELPA中卸载），然后执行el-get的下载脚本，安装成功后再重启Emacs；由于启动时purcell配置会自动检测更新配 置环境，因此在启动过程中会检测到scratch被删除，然后重新下载安装scratch。在purcell中，如果要加入自己的定制，则可以通过在Emacs中执行“M-x customize-variable”或者在 ~/.emacs.d/lisp/中增加init-local.el文件，这个文件相当于.emacs文件，只是记得文件最后要有一句：
+(provide 'init-local)
+*** prelude
+
+在网上乱搜的时候无意看到这个的，后来发现其实很多人都有推荐这个，比推荐purcell的多。它设置了一个较好的功能，就是保存“el”文件时自动编译。如果要添加自己的东西，则可以同样 通过“M-x customize-variable”，或者：在~/.emacs.d/personal/中添加后缀为“el”的文件，这样prelude便会自动载入这些配置了，这点感觉比purcell的实现要灵活一些。我大概花了一天左右的 时间在prelude上安装扩展和配置，弄得七七八八，基本能正常写代码了。不过后来头脑一热，又改成使用purcell了。现在回过头来看，purcell和prelude相比，并没有太多的孰优孰劣，要改成自己习 惯的环境也都得折腾一番，所以选择哪个完全是自己喜好了。
+
+
+** 保护小指
+因为Emacs“使用肌肉进行记忆”，所以一开始就养成好习惯非常重要。
+比较突出的问题是，由于最早开发Emacs时的键盘与现在的不太一样，用现在的键盘使用Emacs非常伤手指。
+我就曾经因为小手指疼痛[[放弃了Emacs一段时间]]
+现在比较流行的做法是用Caps Lock键代替Ctrl。
+
+做法是：
+
+p
+Mac OS:
+系统偏好设置-键盘-修饰键，将Caps Lock键映射为 =^ Control= ，如下图：
+
+[[./images/blog/./42255Z0.png]]
+windows:
+几个大神的配置：
+** 设置字体
+
+mac下设置字体：
+
+#+BEGIN_SRC emacs
+(set-fontset-font
+    (frame-parameter nil 'font)
+    'han (font-spec :family "Hiragino Sans GB"))
+
+#+END_SRC
+** 基本编辑(Shell)
+* 配置篇
+** 包管理器(apt,yum, ...)
+* 写作篇水
+** org-mode编辑
+*** 嵌入可执行代码
+** 快速截图
+http://dreamrunner.org/wiki/public_html/Emacs/org-mode.html
+http://blog.xeonxu.info/blog/2012/09/23/guan-yu-zai-org-modexia-fang-bian-cha-ru-jie-tu-de-fang-fa/
+
+1. 安装命令行截图工具 =scrot=
+
+MAC OS:
+: brew install scrotwm
+Ubuntu:
+: sudo apt-get install scrot (scrotwm?)
+
+#+BEGIN_SRC emacs
+;; screenshot in org-mode
+;; modified by gift.young@gmail.com
+;; based on [http://praktikanten.brueckenschlaeger.org/2010/11/28/screenshots-in-org-mode]
+
+(defun my-screenshot ()
+ "Take a screenshot into a unique-named file in the current buffer file
+ directory and insert a link to this file."
+ (interactive)
+ (setq filename
+ (concat (make-temp-name
+ (concat (file-name-directory (buffer-file-name)) "images/" ) ) ".png"))
+ (if (file-accessible-directory-p (concat (file-name-directory
+(buffer-file-name)) "images/"))
+ nil
+ (make-directory "images"))
+ (call-process-shell-command "scrotwm" nil nil nil nil "-s" (concat
+"\"" filename "\"" ))
+ (insert (concat "[[" filename "]]"))
+ (org-display-inline-images)
+ )
+
+ (global-set-key (kbd "M-s") 'my-screenshot)
+
+#+END_SRC
+
+#+BEGIN_SRC emacs
+;; update by http://blog.xeonxu.info/blog/2012/09/23/guan-yu-zai-org-modexia-fang-bian-cha-ru-jie-tu-de-fang-fa/
+
+(defun my-screenshot ()
+  "Take a screenshot into a unique-named file in the current buffer file
+directory and insert a link to this file."
+  (interactive)
+  (setq filename
+        (concat (make-temp-name "./") ".png"))
+  (setq fullfilename
+                 (concat (file-name-directory (buffer-file-name)) "images/blog/" filename))
+  (if (file-accessible-directory-p (concat (file-name-directory
+                                            (buffer-file-name)) "images/blog/"))
+      nil
+    (make-directory "images/blog/" t))
+  (call-process-shell-command "screencapture" nil nil nil nil "-i" (concat
+                                                            "\"" fullfilename "\"" ))
+  (insert (concat "[[./images/blog/" filename "]]"))
+  (org-display-inline-images)
+)
+#+END_SRC
+
+=M-s= 可以截图，自动保存到...
+
+=M-x my-screenshot=
+
+
+** 模板
+***
+*** 自定义模板
+比如dot流程图范例，uml范例等，需要的时候使用 =C-x i= 直接导入
+** emacs中的图形
+1. 一般图表：graphviz
+2. uml: plantuml
+3. 统计图表：R
+
+** 大型写作
+*** include
+: #+INCLUDE: "./gateway.dot" src dot :file ./gateway.png :exports results
+*** 目录文件
+
+** org-mode发布
+** org-mode博客
+** vs pandoc
+瑞士军刀
+
+* 任务篇金
+
+** 事项的状态
+** 日期时间
+** 标签
+** 事项的层级——项目管理
+** 视图
+** 生成周报
+** 归档
+** 更方便的功能
+*** 便签：org-remember
+*** 移动端：MobileOrg
+* 编程篇木
+* 工具篇火
+** 收发邮件
+*** 工具选择
+
+gnus很慢，容易卡死。一般不用gnus直接接收邮件，而是fetchmail+procmail或者是getmAail在后台接收
+
+gnus配合fetchmail+exim4之类的最好，
+直接用gnus收发邮件是自己找不自在。
+
+如果你压根不上新闻组，还是用mew比较省事。
+
+
+选择：mew
+
+
+安装：
+
+1. brew install stunnel
+2. xxx
+
+
+w3m , html方式支持
+* 参考资料
+
+[fn:1] [[https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org][一年成为 Emacs 高手（像神一样使用编辑器）]]
+[fn:2] [[https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/emacs_cpp_developer_guide-en.org][Emacs for C++ developers]]
+
+
+* linux cook book
+The Linux Cookbook: Tips and Techniques for Everyday Use
+http://dsl.org/cookbook/cookbook_toc.html
+** Preface
+*** Format of Recipes
+*** Assumptions, Scope, and Exclusions
+*** Typographical Conventions
+*** Versions, Latest Edition, and Errata
+*** Acknowledgments
+** PART ONE: Working with Linux
+** Introduction
+*** Background and History
+**** What's Unix?
+**** What's Free Software?
+**** What's Open Source?
+**** What's Linux?
+**** What's Debian?
+**** Unix and the Tools Philosophy
+*** What to Try First
+*** If You Need More Help
+** What Every Linux User Knows
+*** Controlling Power to the System
+**** Powering Up the System
+**** Turning Off the System
+*** Accounts and Privileges
+**** Logging In to the System
+**** Logging Out of the System
+*** Console Basics
+**** Switching between Consoles
+**** Scrolling the Console Text
+**** Keys for Console Manipulation
+*** Running a Command
+*** Changing Your Password
+*** Listing User Activity
+**** Listing Your Username
+**** Listing Who Is on the System
+**** Listing Who Is on and What They're Doing
+**** Listing the Last Times a User Logged In
+*** Listing System Activity
+**** Listing Your Current Processes
+**** Listing All of a User's Processes
+**** Listing All Processes on the System
+**** Listing Processes by Name or Number
+*** Help Facilities
+**** Finding the Right Tool for the Job
+**** Listing a Description of a Program
+**** Listing the Usage of a Tool
+**** Reading a Page from the System Manual
+**** Using the GNU Info System
+**** Reading System Documentation and Help Files
+** The Shell
+*** Keys for Command Line Editing
+**** Passing Special Characters to Commands
+**** Letting the Shell Complete What You Type
+**** Repeating the Last Command You Typed
+**** Running a List of Commands
+*** Redirecting Input and Output
+**** Redirecting Input to a File
+**** Redirecting Output to a File
+**** Redirecting Error Messages to a File
+**** Redirecting Output to Another Command's Input
+*** Managing Jobs
+**** Suspending a Job
+**** Putting a Job in the Background
+**** Putting a Job in the Foreground
+**** Listing Your Jobs
+**** Stopping a Job
+*** Command History
+**** Viewing Your Command History
+**** Specifying a Command from Your History
+*** Recording a Shell Session
+*** Customizing Your Shell
+**** Changing the Shell Prompt
+**** Making a Command Alias
+**** Adding to Your Path
+**** Customizing Future Shells
+** The X Window System
+*** Running X
+**** Starting X
+**** Stopping X
+*** Running a Program in X
+**** Specifying Window Size and Location
+**** Specifying Window Colors
+**** Specifying Window Font
+**** Specifying Additional Window Attributes
+*** Manipulating X Client Windows
+**** Moving a Window
+**** Resizing a Window
+**** Destroying a Window
+**** Minimizing a Window
+**** Maximizing a Window
+*** Moving around the Desktop
+*** Running a Shell in X
+*** Configuring X
+**** Switching between Video Modes
+**** Running X Clients Automatically
+**** Changing the Root Window Parameters
+**** Choosing a Window Manager
+** PART TWO: Files
+** Files and Directories
+** Naming Files and Directories
+** Making an Empty File
+** Making a Directory
+** Making a Directory Tree
+** Changing Directories
+** Changing to Your Home Directory
+** Changing to the Last Directory You Visited
+** Getting the Name of the Current Directory
+** Listing Directories
+** Listing File Attributes
+** Listing Directories Recursively
+** Listing Newest Files First
+** Listing Hidden Files
+** Listing Directories in Color
+** Listing Directory Tree Graphs
+** Additional Directory Listing Options
+** Copying Files and Directories
+** Moving Files and Directories
+** Changing File Names to Lowercase
+** Renaming Multiple Files with the Same Extension
+** Removing Files and Directories
+** Removing a File with a Strange Name
+** A Safe Way to Remove a File
+** Giving a File More than One Name
+** Specifying File Names with Patterns
+** Browsing Files
+** Sharing Files
+** Groups and How to Work in Them
+** Listing the Groups a User Belongs To
+** Listing the Members of a Group
+** File Ownership
+** Determining the Ownership of a File
+** Changing the Ownership of a File
+** Controlling Access to Files
+** Listing the Permissions of a File
+** Changing the Permissions of a File
+** Write-Protecting a File
+** Making a File Private
+** Making a File Public
+** Making a File Executable
+** Finding Files
+** Finding All Files That Match a Pattern
+** Finding Files in a Directory Tree
+** Finding Files in a Directory Tree by Name
+** Finding Files in a Directory Tree by Size
+** Finding Files in a Directory Tree by Modification Time
+** Finding Files in a Directory Tree by Owner
+** Running Commands on the Files You Find
+** Finding Files by Multiple Criteria
+** Finding Files in Directory Listings
+** Finding the Largest Files in a Directory
+** Finding the Smallest Files in a Directory
+** Finding the Smallest Directories
+** Finding the Largest Directories
+** Finding the Number of Files in a Listing
+** Finding Where a Command Is Located
+** Managing Files
+** Determining File Type and Format
+** Changing File Modification Time
+** Splitting a File into Smaller Ones
+** Comparing Files
+** Determining Whether Two Files Differ
+** Finding the Differences between Files
+** Patching a File with a Difference Report
+** Compressed Files
+** Compressing a File
+** Decompressing a File
+** File Archives
+** Creating a File Archive
+** Listing the Contents of an Archive
+** Extracting Files from an Archive
+** Tracking Revisions to a File
+** Checking In a File Revision
+** Checking Out a File Revision
+** Viewing a File's Revision Log
+** PART THREE: Text
+** Viewing Text
+** Perusing Text
+** Perusing a Text File
+** Perusing Multiple Text Files
+** Commands Available While Perusing Text
+** Outputting Text
+** Showing Non-printing Characters
+** Outputting a Beginning Part of a Text
+** Outputting an Ending Part of a Text
+** Outputting a Middle Part of a Text
+** Outputting the Text between Strings
+** Outputting Text in a Dialect
+** Streaming Text
+** Viewing a Character Chart
+** Text Editing
+** Choosing the Perfect Text Editor
+** Emacs
+** Getting Acquainted with Emacs
+** Basic Emacs Editing Keys
+** Making Abbreviations in Emacs
+** Recording and Running Macros in Emacs
+** Inserting Special Characters in Emacs
+** Running a Vi Tutorial
+** Selecting Text
+** Cutting Text
+** Pasting Text
+** Editing Streams of Text
+** Concatenating Text
+** Writing Text to Files
+** Appending Text to a File
+** Inserting Text at the Beginning of a File
+** Including Text Files
+** Grammar and Reference
+** Spelling
+** Finding the Correct Spelling of a Word
+** Listing the Misspellings in a Text
+** Keeping a Spelling Word List
+** Interactive Spell Checking
+** Spell Checking in Emacs
+** Dictionaries
+** Listing Words that Match a Pattern
+** Listing the Definitions of a Word
+** Listing the Synonyms of a Word
+** Listing the Antonyms of a Word
+** Listing the Hypernyms of a Word
+** Online Dictionaries
+** Checking Grammar
+** Checking Text for Misused Phrases
+** Checking Text for Doubled Words
+** Checking Text for Readability
+** Checking Text for Difficult Sentences
+** Checking Text for Long Sentences
+** Word Lists and Reference Files
+** Analyzing Text
+** Counting Text
+** Counting the Characters in a Text
+** Counting the Words in a Text
+** Counting the Lines in a Text
+** Counting the Occurrences of Something
+** Counting Lines per Page in Emacs
+** Making a Concordance of a Text
+** Text Relevance
+** Sorting Text in Order of Relevance
+** Listing Relevant Files in Emacs
+** Finding Anagrams in Text
+** Finding Palindromes in Text
+** Text Cut-Ups
+** Making Simple Text Cut-Ups
+** Making Random Word Cut-Ups
+** Making Cut-Ups in Emacs
+** Formatting Text
+** Spacing Text
+** Eliminating Extra Spaces in Text
+** Single-Spacing Text
+** Double-Spacing Text
+** Triple-Spacing Text
+** Adding Line Breaks to Text
+** Adding Margins to Text
+** Swapping Tab and Space Characters
+** Paginating Text
+** Placing Headers on Each Page
+** Placing Text in Columns
+** Options Available When Paginating Text
+** Underlining Text
+** Sorting Text
+** Numbering Lines of Text
+** Reversing Text
+** Searching Text
+** Searching for a Word or Phrase
+** Regular Expressions -- Matching Text Patterns
+** Matching Lines Beginning with Certain Text
+** Matching Lines Ending with Certain Text
+** Matching Lines of a Certain Length
+** Matching Lines That Contain Any of Some Regexps
+** Matching Lines That Contain All of Some Regexps
+** Matching Lines That Don't Contain a Regexp
+** Matching Lines That Only Contain Certain Characters
+** Finding Phrases Regardless of Spacing
+** Finding Patterns in Certain Contexts
+** Using a List of Regexps to Match From
+** Regexps for Common Situations
+** Searching More than Plain Text Files
+** Matching Lines in Compressed Files
+** Matching Lines in Web Pages
+** Outputting the Context of a Search
+** Searching and Replacing Text
+** Searching Text in Emacs
+** Searching Incrementally in Emacs
+** Searching for a Phrase in Emacs
+** Searching for a Regexp in Emacs
+** Searching and Replacing in Emacs
+** Searching Text in Less
+** Typesetting and Word Processing
+** Choosing the Right Typesetting System for the Job
+** Converting Plain Text for Output
+** Outputting Text in a Font
+** Outputting Text as a Poster or Sign
+** Outputting Text with Language Highlighting
+** Outputting Text with Fancy Headers
+** Outputting Text in Landscape Orientation
+** Outputting Multiple Copies of Text
+** Selecting the Pages of Text to Output
+** Additional PostScript Output Options
+** LyX Document Processing
+** Features of LyX
+** Writing Documents with LyX
+** Learning More about LyX
+** Typesetting with TeX and Friends
+** Is It a TeX or LaTeX File?
+** Processing TeX Files
+** Processing LaTeX Files
+** Writing Documents with TeX and LaTeX
+** TeX and LaTeX Document Templates
+** Writing Documents with SGMLtools
+** Elements of an SGML Document
+** Checking SGML Document Syntax
+** Generating Output from SGML
+** Other Word Processors and Typesetting Systems
+** Fonts
+** X Fonts
+** Selecting an X Font Name
+** Listing Available X Fonts
+** Displaying the Characters in an X Font
+** Resizing the Xterm Font
+** Console Fonts
+** Setting the Console Font
+** Displaying the Characters in a Console Font
+** Text Fonts
+** Horizontal Text Fonts
+** Making a Text Banner
+** Other Font Tools
+** PART FOUR: Images
+** Viewing Images
+** Previewing Print Files
+** Previewing a DVI File
+** Previewing a PostScript File
+** Previewing a PDF File
+** Viewing an Image in X
+** Browsing Image Collections in X
+** Putting an Image in the Root Window
+** Browsing Images in a Console
+** Viewing an Image in a Web Browser
+** Browsing PhotoCD Archives
+** Additional Image Viewers
+** Editing Images
+** Transforming Images
+** Changing the Size of an Image
+** Rotating an Image
+** Adjusting the Colors of an Image
+** Annotating an Image
+** Adding Borders to an Image
+** Making an Image Montage
+** Combining Images
+** Morphing Two Images Together
+** Converting Images between Formats
+** Editing Images with the GIMP
+** Interactive Image Editors and Tools
+** Importing Images
+** Taking Screen Shots
+** Taking a Screen Shot in X
+** Taking a Screen Shot in a Console
+** Scanning Images
+** Listing Available Scanner Devices
+** Testing a Scanner
+** Scanning an Image
+** Extracting PhotoCD Images
+** Converting a PhotoCD Image
+** Removing PhotoCD Haze
+** PostScript
+** Manipulating PostScript Pages
+** Extracting DVI Pages to PostScript
+** Extracting Pages from a PostScript File
+** Combining PostScript Pages
+** Arranging PostScript Pages in Signatures
+** Manipulating PostScript Documents
+** Resizing a PostScript Document
+** Combining PostScript Documents
+** Arranging a PostScript Document in a Booklet
+** Converting PostScript
+** Converting PostScript to PDF
+** Converting PostScript to Plain Text
+** PART FIVE: Sound
+** Sound Files
+** Sound File Formats
+** Adjusting the Audio Controls
+** Listing the Current Audio Settings
+** Changing the Volume Level
+** Muting an Audio Device
+** Selecting an Audio Recording Source
+** Playing a Sound File
+** Playing an MP3 File
+** Playing a MIDI File
+** Recording a Sound File
+** Other Sound File Tools
+** Audio Compact Discs
+** Controlling CD Audio
+** Playing an Audio CD
+** Pausing an Audio CD
+** Stopping an Audio CD
+** Shuffling Audio CD Tracks
+** Displaying Information about an Audio CD
+** Ejecting an Audio CD
+** Sampling Sound from a CD
+** Writing an Audio CD-R
+** Other Audio CD Applications
+** Editing Sound Files
+** Working with Selections from Sound Files
+** Cutting Out Part of a Sound File
+** Pasting a Selection of Sound
+** Mixing Sound Files Together
+** Sound Effects
+** Changing the Amplitude of a Sound File
+** Changing the Sampling Rate of a Sound File
+** Adding Reverb to a Sound File
+** Adding Echo to a Sound File
+** Adding Flange to a Sound File
+** Adding Phase to a Sound File
+** Adding Chorus to a Sound File
+** Adding Vibro-Champ Effects to a Sound File
+** Reversing a Sound File
+** Converting Sound Files
+** Making an MP3 File
+** Converting MP3 to Another Format
+** Other Tools for Sound Editing
+** PART SIX: Productivity
+** Disk Storage
+** Listing a Disk's Free Space
+** Listing a File's Disk Usage
+** Floppy Disks
+** Formatting a Floppy Disk
+** Mounting a Floppy Disk
+** Unmounting a Floppy Disk
+** CD-ROMs
+** Mounting a CD-ROM
+** Unmounting a CD-ROM
+** Printing
+** Making and Managing Print Jobs
+** Sending a Print Job to the Printer
+** Printing Multiple Copies of a Job
+** Listing Your Print Jobs
+** Cancelling a Print Job
+** More Recipes for Printing
+** Printing in Emacs
+** Printing with Dvips
+** Printing the Contents of an Xterm Window
+** Preparing Files for Printing
+** Preparing a PostScript File for Printing
+** Preparing a DVI File for Printing
+** Preparing a PDF File for Printing
+** Preparing a Man Page for Printing
+** Cross-Platform Conversions
+** Using DOS and Windows Disks
+** Listing the Contents of a DOS Disk
+** Copying Files to and from a DOS Disk
+** Deleting Files on a DOS Disk
+** Formatting a DOS Disk
+** Using Macintosh Disks
+** Specifying the Macintosh Disk to Use
+** Listing the Contents of a Macintosh Disk
+** Copying Files to and from a Macintosh Disk
+** Deleting Files on a Macintosh Disk
+** Formatting a Macintosh Disk
+** Converting Text Files between DOS and Linux
+** Converting Microsoft Word Files
+** Converting Word to LaTeX
+** Converting Word to Plain Text
+** Reminders
+** Displaying the Date and Time
+** Playing an Audible Time Announcement
+** Calendars
+** Displaying a Calendar
+** Displaying a Calendar in Emacs
+** Managing Appointments
+** Making an Appointment File
+** Including Holidays in Your Reminders
+** Automatic Appointment Delivery
+** Contact Managers
+** Keeping a Free-Form Address List
+** Keeping a Contact Manager Database
+** Reminding Yourself of Things
+** Sending Yourself Email Reminders
+** Reminding Yourself When You Have to Leave
+** Running a Command on a Delay
+** Mathematics
+** Calculating Arithmetic
+** Making a Quick Arithmetic Calculation
+** Making Many Arithmetic Calculations
+** Outputting a Random Number
+** Listing a Sequence of Numbers
+** Finding Prime Factors
+** Converting Numbers
+** Converting an Amount between Units of Measurement
+** Converting an Arabic Numeral to English
+** Other Math Tools
+** PART SEVEN: Networking
+** Communications
+** Connecting to the Internet
+** Setting Up PPP
+** Controlling a PPP Connection
+** Faxing
+** Sending a Fax
+** Receiving a Fax
+** Receiving Faxes Automatically
+** Converting to and from Fax Format
+** Calling Out on a Modem
+** Email
+** Sending Mail
+** Mailing a User on the Same System
+** Mailing a File or the Output of a Command
+** Mailing the Contents of a URL
+** Special Mail Composition Keystrokes
+** Receiving Mail
+** Deleting Mail
+** Options Available while Reading Mail
+** Managing Mail
+** Viewing a Mail Folder
+** Setting Notification for New Mail
+** Counting How Many Messages You Have
+** Seeing Who Your Mail Is From
+** Verifying an Email Address
+** Mail Attachments
+** Reading a Mail Attachment
+** Sending a Mail Attachment
+** Making an Email Signature
+** Picking the Right Mail Application
+** The World Wide Web
+** Browsing the Web
+** Maintaining a List of Visited Web Sites
+** Opening a URL from a Script
+** Mozilla Browsing Tips
+** Viewing an Image from the Web
+** Reading Text from the Web
+** Perusing Text from the Web
+** Viewing a Site That Requires Authorization
+** Options Available while Browsing Text
+** Browsing the Web in Emacs
+** Getting Files from the Web
+** Saving a URL to a File
+** Archiving an Entire Web Site
+** Archiving Part of a Web Site
+** Reading the Headers of a Web Page
+** Writing HTML
+** Adding Parameters to Image Tags
+** Converting HTML to Another Format
+** Validating an HTML File
+** More Web Browsers and Tools
+** Other Internet Services
+** Connecting to Another System
+** Suspending a Connection with Another System
+** Connecting to Another System with Encryption
+** Transferring Files with Another System
+** Uploading a File
+** Downloading a File
+** Reading Usenet
+** Choosing a Newsreader
+** Finding Newsgroups for a Topic
+** Listing Online System and User Activity
+** Checking Whether a System Is Online
+** Checking Whether a User Is Online
+** Listing Who Is Logged In to a System
+** Finding the IP Address of a Host Name
+** Finding the Host Name of an IP Address
+** Listing the Owner of a Domain Name
+** Sending a Message to Another User's Terminal
+** Chatting with Other Users
+** Chatting Directly with a User
+** Chatting with Users on IRC
+** Chatting with Users on ICQ
+** Administrative Issues
+** Linux and Hardware Compatibility
+** Shutting Down the System
+** Shutting Down Immediately
+** Shutting Down at a Certain Time
+** Cancelling a Shutdown
+** Installing Software
+** Getting and Installing Debian
+** Installing a Debian Package
+** Upgrading a Debian Package
+** Installing a Shell Script
+** Administrating Users
+** Making a User Account
+** Letting Users Access Hardware Peripherals
+** Letting Users Mount Drives
+** Displaying Information about the System
+** How Long Has the System Been Up?
+** What Version of Linux Am I Running?
+** What Version of Debian Am I Running?
+** Linux Resources on the Web
+** License
+** Design Science License
+** Applying Copyleft to Your Work
+** Program Index
+** Concept Index

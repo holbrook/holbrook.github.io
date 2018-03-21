@@ -1,0 +1,177 @@
+
+* 标签
+
+    标签的基本知识
+
+    其实标签并不仅限于TODO Item，而是可以用在任何标题上。标签可以由所有字母，数字，和@构成，标签必须有一个前导的:并且还必须有一个后继的:，比如，看起来是这样的，‘:work:’，多个标签可以用:分开，例如：‘:work:urgent:’。
+
+    需要用到的标签可以预先在配置文件里定义，和增加TODO Item的状态的方法一样，唯一的区别是这里用到的变量是org-tag-faces.
+
+    Tag是有继承性的，也就是说，假如一级标题的tag有work，则该级标题以下的所有子标题无论是否显式注明，都自动具有work的标签。例如：
+
+    * Meeting with sb.               :work:
+    ** Summary with sb1.              :boss:notes:
+    *** TODO Prepare slides for him  :action:
+
+    这里，Summary with sb1的标签就是work, boss, notes，最后一项的标签就是work, boss, notes, action.
+    设置标签
+
+    首先当然可以手动在标题后设置标签，键入:后，M-Tab自动提供标签的补齐。
+
+    也可以用命令插入标签：
+
+    C-c C-q 为当前标题插入标签
+    C-c C-c 当光标在某标题栏时，为该标题插入标签（此时和C-c C-q功能一样）
+
+    默认情况下，org会动态维护一个Tag列表，即当前输入的标签若不在列表中，则自动加入列表以供下次补齐使用。
+
+    另一种方式是在配置文件中配置变量org-tag-alist全局性地预设一些tag，然后在org文件中设置：
+
+    #+TAGS: @work @home @tennisclub
+    #+TAGS: laptop car pc sailboat
+
+    这样，在该文件中只能使用个以上定义的7个标签。
+
+    如果想既使用预设的标签，又动态增加，则必须在文件中增加一个空的TAGS option.
+
+    #+TAGS:
+
+    在org中我们还可以给tag定义快捷键。对于全局的定义可以写在配置文件中：
+    ?View CodeLISP
+
+    1
+
+    	
+
+    (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
+
+    这样要标记@work，@home，laptop就只需要按w, h, l键即可。如果不是全局的定义，即指针对一个文件有效，我们可以在文件中定义，其中，\n表示换行，等效于分开写在两个TAGS里。
+
+    #+TAGS: @work(w) @home(h) @tennisclub(t) \n laptop(l) pc(p)
+
+    假如我们要让@work, @home, @tennisclub变成互斥的，则可以定义：
+
+    #+TAGS: { @work(w) @home(h) @tennisclub(t) } laptop(l) pc(p)
+
+    这也可以在配置文件中定义，但需要用dummy tag :startgroup和:endgroup包围起来。
+    ?View CodeLISP
+
+    1
+    2
+    3
+    4
+    5
+
+    	
+
+    (setq org-tag-alist '((:startgroup . nil)
+                          ("@work" . ?w) ("@home" . ?h)
+                          ("@tennisclub" . ?t)
+                          (:endgroup . nil)
+                          ("laptop" . ?l) ("pc" . ?p)))
+
+    C-c \ 可以用来查找某个tag下的所有项目
+    C-c / m 建立符合某tag的sparse tree
+    C-c a m 从所有agenda file里建立符合某tag的全局性列表
+    C-c a M 同上，但只检查TODO item或org-tags-match-list-sublevels里指定要检查的项目。
+
+
+* 标签的作用域 :a:b							  :a:
+
+
+** 标题
+在Org-mode中，可以对标题增加tag标记。标记的格式如下：
+
+    跟特留尼西特握手                    :苦差:薪水:逃不掉:
+
+而且Org-mode的标签自动按照大纲树的结构继承。即子标题自动继承父标题的标签。比如：
+
+    * Meeting with the French group     :work:
+    ** Summary by Frank                 :boss:notes:
+    *** TODO Prepare slides for him     :action:
+
+
+** 文档
+如果希望文档中的所有标题都具有某些标签，只需要定义文档元数据：
+
+    #+FILETAGS: :Peter:Boss:Secret:
+
+
+在当前文件头部定义
+
+这种方式预定义的标签只能在当前文件中使用。使用#+TAGS元数据进行标记，如：
+
+    #+TAGS: { 桌面(d) 服务器(s) }  编辑器(e) 浏览器(f) 多媒体(m) 压缩(z)    
+
+每项之间必须用空格分隔，可以在括号中定义一个快捷键；花括号里的为标签组，只能选择一个
+
+对标签定义进行修改后，要在标签定义的位置按 C-c C-c 刷新才能生效。
+
+** 全局
+    如果要在所有的.org 文件中生效，需要在 Emacs 配置文件 .emacs 中进行定义：
+
+    (setq org-tag-alist '(
+
+                        (:startgroup . nil)
+                             ("桌面" . ?d) ("服务器" . ?s)
+                        (:endgroup . nil)
+                        ("编辑器" . ?e)
+                        ("浏览器" . ?f) 
+                        ("多媒体" . ?m)
+                        ))    
+
+默认情况下，org会动态维护一个Tag列表，即当前输入的标签若不在列表中，则自动加入列表以供下次补齐使用。
+
+为了使这几种情况（默认列表、文件预设tags，全局预设tags）同时生效，需要在文件中增加一个空的TAGS定义：
+
+    #+TAGS:** agenda files(日程表视图）
+定义日程表视图需要收集的文件：
+(setq org-agenda-files (list "~/doc/org/linux.org"
+                     "~/doc/org/work.org"
+                     "~/doc/org/home.org"))
+
+- 如果列表中包含目录，则目录中所有的.org文件都会被收集
+- 如果不使用列表，而是单一的一个文件（语法？格式？），则在该文件中维护ageada文件列表
+
+使用命令动态维护列表(org-agenda-files)：
+
+C-c [     (org-agenda-file-to-front)
+    Add current file to the list of agenda files. The file is added to the front of the list. If it was already in the list, it is moved to the front. With a prefix argument, file is added/moved to the end.
+C-c ]     (org-remove-file)
+    Remove current file from the list of agenda files.
+C-'     (org-cycle-agenda-files)
+C-,
+    Cycle through agenda file list, visiting one file after the other.
+M-x org-iswitchb
+    Command to use an iswitchb-like interface to switch to and between Org buffers. 
+在org菜单中也可以找到相关的菜单项
+
+
+
+*** 针对局部（单个文件或文件的某个目录）使用日程表视图
+使用agenda命令，
+
+C-c C-x <     (org-agenda-set-restriction-lock)
+    Permanently restrict the agenda to the current subtree. When with a prefix argument, or with the cursor before the first headline in a file, the agenda scope is set to the entire file. This restriction remains in effect until removed with C-c C-x >, or by typing either < or > in the agenda dispatcher. If there is a window displaying an agenda view, the new restriction takes effect immediately.
+C-c C-x >     (org-agenda-remove-restriction-lock)
+    Remove the permanent restriction created by C-c C-x <. 
+
+
+
+[2] When using the dispatcher, pressing < before selecting a command will actually limit the command to the current file, and ignore org-agenda-files until the next dispatcher command.
+* 按tag搜索  :a:b:c
+
+使用标签可以更好的管理内容。org-mode提供了以下功能：
+  KEYS	COMMENT
+C-c \ 	按tag搜索标题
+C-c / m 	搜索并按树状结构显示
+C-c a m 	按标签搜索多个文件（需要将文件加入全局agenda)
+
+可以使用逻辑表达式限制条件，更准确灵活的搜索
+
+    +     和      a+b     同时有这两个标签
+    -     排除    a-b     有 a 但没有 b
+    |     或      a|b     有 a 或者有 b
+    &     和      a&b     同时有 a 和 b，可以用“+”替代
+
+在查询视图中 C-c C-c 退出

@@ -1,0 +1,555 @@
+最终极的文本标记语言解决方案是tex（包括latex），可以实现各种写作效果，包括数学公式，图表，引用，参考，编号等。latex还可以转化为info格式、html格式，docbook格式。 
+
+* 文本标记的选择
+http://blog.tomzheng.com/49.htm
+
+最终极的文本标记语言解决方案是tex（包括latex），可以实现各种写作效果，包括数学公式，图表，引用，参考，编号等。latex还可以转化为info格式、html格式，docbook格式。
+
+docbook是xml的解决方案，据说linux文档是用它写的。
+
+说句废话html是网页的终极文本标记语言。
+
+info格式是emacs和linux帮助手册的标记语言,info使用tex语法。man也是linux帮助的格式。
+
+轻量级文本标记语言（都具有结构化功能，也就是章节标记能力）：
+
+    restructuredtext是python编程语言社区提出的方案，作为python帮助的标记语言。能够较完整的实现latex的功能。restructuredtext也是最美观的轻量级文本标记语言。
+    markdown即不是wiki标记，也不是latex标记，只是单一网页的标记语言，以html为转换目标。是最简单的标记。由于最简单，因此，被广泛支持。textile是另一种以html为目标的标记语言。
+    mediawiki的标记语言是被广泛支持的wiki标记语言。适合wiki方式的文本组织。creole是试图对wiki标记语言进行统一的标准。
+
+标记语言的转化程序：
+
+pandoc是一个能够输入多种格式，并输出多种格式的转换程序。并对markdown进行了扩展。
+
+txt2tags有自己的标记语言，能够多格式输出。不能输入。
+
+* TEX
+http://zh.wikipedia.org/wiki/TeX
+TEX（正式写法TEX，发音：国际音标/tɛx/，音译“泰赫”），是一个由美国计算机教授高德纳（Donald E. Knuth）编写的功能强大的排版软件。它在学术界十分流行，特别是数学、物理学和计算机科学界。TEX被普遍认为是一个很好的排版工具，特别是在处理复杂的数学公式时。利用诸如是LaTeX等终端软件，TEX就能够排版出精美的文本。
+
+TEX（正式写法TEX，发音：国际音标/tɛx/，音译“泰赫”），是一个由美国计算机教授高德纳（Donald E. Knuth）编写的功能强大的排版软件。它在学术界十分流行，特别是数学、物理学和计算机科学界。TEX被普遍认为是一个很好的排版工具，特别是在处理复杂的数学公式时。利用诸如是LaTeX等终端软件，TEX就能够排版出精美的文本。
+目录  [隐藏] 
+1 历史
+2 质量
+3 名字
+4 衍生软件
+5 兼容工具
+6 范例
+6.1 数学公式范例
+6.2 LaTeX
+7 脚注
+8 参见
+9 外部链接
+10 参考文献
+[编辑]历史
+
+高德纳最早开始自行编写TEX的原因是当时十分粗糙的排版水平已经影响到他的巨著《计算机程序设计艺术》（The Art of Computer Programming）的印刷质量。他以典型的黑客思维模式，最终决定自行编写一个排版软件：TEX。他原本以为他只需要半年时间，在1978年下半年就能完成，但最终他用了超过十年时间，直到1989年TEX才最终停止修改。
+蓋伊·史提爾二世在高德纳编写其第一版的TEX程式时正好在高德纳所工作的斯坦福大学，当他回到MIT时他在ITS下重写了TEX的输出输入系统。
+TEX的第一版是用SAIL编程语言写成的，运行于PDP-10型计算机，操作系统是斯坦福大学的WAITS操作系统。在之后的TeX版本中，Knuth发明了所谓的“文学编程”（literate programming），一种从同一源文件自动生成可编译的源代码和高质量的文档的编程方法。这种语言被称为WEB，它所生成的源代码是使用Pascal编程语言。
+TEX的版本号码也十分有趣。从TEX第三版开始，之后的升级是在小数点后加入一个新数位，使之越来越接近圆周率的值。TEX目前的版本是3.1415926。这显示了TEX已经十分稳定，任何的升级都十分细微。高德纳曾表示“最后一次升级是（于我过世后）将版本数改为，那时任何余下的漏洞将被看作程序的功能。”
+TEX允许自由的再发布及修改，但禁止任何修改版本以TEX或任何其他相似的名字命名。
+[编辑]质量
+
+TEX是非常稳定的程序，高德纳悬赏奖励任何能够在TEX中发现程序漏洞（bug）的人。每一个漏洞的奖励金额从1美分开始，并每年翻倍，直到目前的327.68美元封顶。然而高德纳从未因此而损失大笔金钱，因为TEX中的漏洞少之又少，而真正发现漏洞的人在获得支票后，宁愿将其裱起来留作纪念也不愿拿去兑现！[1][2]
+到目前为止，关于TEX的最后一个bug是被高德纳自己发现的。
+[编辑]名字
+
+TEX这个词的标准发音为/tɛx/，其中/x/相当于普通话“赫”字的声母，或者苏格兰语“loch”一词中“ch”的发音（X其实是希腊字母χ）。音译“泰赫”。在英语和法语中实际通常读作/tɛk/，音译“泰克”。TEX这个词在希腊文中是“字”的意思，也是英语单词“text”（文字）的字源。书写时，三个字母都是大写，字母E应当低于其他两个字母。而不支援下标的系统则只能这样书写：“TeX”。
+TEX的用户喜欢创造一些和TEX有关的词汇，例如TeXnician（与英语单词technician，技工的发音相近，意为TEX用户），TeXhacker（TeX程序员，TeX黑客）和TeXnique（与英语单词technique，技巧的发音相近，意为TEX的使用技巧）等。另有人發明一詞曰TeXpert（TeX高手），但是高德納本人反對這一名稱，因為這裡TEX一詞的讀法是錯誤的[3]。
+[编辑]衍生软件
+
+有许多衍生出来的文档处理程序就是基于TEX的，主要的有：
+LaTeX（Lamport TeX）：流行的文档处理程序
+AMS-TeX：美国数学学会（American Mathematical Society）发表的TEX版本。绝大多数的AMS-TeX功能可以利用AMS包在上实现，称为AMS-TeX。
+jadeTeX
+Texinfo：GNU的文档处理系统
+MikTeX
+[编辑]兼容工具
+
+TeXmacs是一个所见即所得的科学文档编辑器，利用TEX字体作为显示字体，具有类似Emacs的编辑方式。它可以导出为TEX文本，PS，PDF文档，以及HTML，XML页面。LyX也是一个类似的工具。
+[编辑]范例
+
+此乃一简易的TEX文本范例。 首先建立一名为myfile.tex的纯文本，并载有以下内容：
+hello
+\bye
+然后激活命令行解释器（Command line interpreter，如MS-DOS），输入：
+tex myfile.tex
+之后TEX便会建立一名为myfile.dvi的档案。此檔可用如Yap之类的检视器检视。此档于检视器可见的是“hello”一词。“\bye”是一个TeX指令，相等于档案结束标记，是不会显示出来的。此DVI档可在检视器中直接打印或转换成更普遍的格式，例如PostScript。
+另外，使用以下指令亦能输出PDF檔。
+pdftex myfile.tex
+当初创造pdfTeX是因为把DVI转成PostScript再转成PDF所产生的字体显示质素很差（但打印则没问题）。这是由于TeX本身支持点阵字体（Type 3），而此远不及向量字体（Type 1）的显示质素好。
+[编辑]数学公式范例
+以二次方程为例，以下的输入
+ The quadratic formula is ${-b\pm\sqrt{b^2-4ac} \over {2a}}$
+ \bye
+会产生如下输出：
+
+所有方程式在TEX中都是以一对$符号括住。如果要使公式放在新行置中，那么就以$$取代$。例如：
+ The quadratic formula is $${-b\pm\sqrt{b^2-4ac} \over {2a}}$$
+ \bye
+输出结果：
+
+
+[编辑]LaTeX
+主条目：LaTeX
+LaTeX是一套以TEX描述的宏软件。LaTeX有很多预设的模版、样式。它比TEX更为结构化，如包含了供建立索引、表格、列表等的宏和公用软件。例如：
+\documentclass[a4paper]{book}
+\begin{document}
+\section{ ... a title }
+\subsection{ ... a subtitle}
+%% The text goes here
+\end{document}
+执行
+latex myfile.tex
+dvips myfile.dvi
+会建立一本为PostScript档的书。如要建立PDF档则可使用
+pdflatex myfile.tex
+
+** LaTeX
+http://zh.wikipedia.org/wiki/LaTeX
+维基百科，自由的百科全书
+汉漢▼
+
+
+原作者	Leslie Lamport
+平台	跨平台
+語言	多國語言
+類型	排版
+許可協議	LaTeX Project Public License（LPPL）
+網站	latex-project.org（英文）
+LaTeX（，音译“拉泰赫”）是一种基于TeX的排版系统，由美国电脑学家莱斯利·兰伯特（Leslie Lamport）在20世纪80年代初期开发，利用这种格式，即使使用者没有排版和程序设计的知识也可以充分发挥由TEX所提供的强大功能，能在几天，甚至几小时内生成很多具有书籍质量的印刷品。对于生成复杂表格和数学公式，这一点表现得尤为突出。因此它非常适用于生成高印刷质量的科技和数学类文档。这个系统同样适用于生成从简单的信件到完整书籍的所有其他种类的文档。
+使用TEX作为它的格式化引擎，当前的版本是LaTeX2ε。
+
+
+LaTeX 的读音和书写
+
+由于TEX一词应该读作“泰赫”（/tɛx/），所以一词可以音译为“拉泰赫”。
+在英语中，实际通常读作/ˈleɪ.tɛk/（音译“莱泰克”）或者/ˈlɑ.tɛk/（音译“拉泰克”）。
+在法语中，实际通常读作/latɛk/（音译“拉泰克”）。
+的开发者Lamport表示对的读音没有偏好。
+在写的名称时，最好能原样复制其图标（本页右上方）。如果做不到，则应该写成“LaTeX”。不要改变任何一个字母的大小写，以免和“latex”一词（英语和法语里都是“乳胶”的意思）相混。
+[编辑]中文化
+
+[编辑]CCT
+最早支持简体中文的TEX是CCT，这个是中國科學院数学与系统科学研究院的张林波研究员编写。最初，由于计算机内存以及运算速度等方面的限制，需要将符合CCT格式的.ctx文件预处理之后再使用LaTeX编译，生成的.dvi文件需要后处理。
+在最新版的CCT中，用cct.sty代替了原来的预处理程序，与CJK结合，直接使用.tex文件，而不必再使用.ctx文件，可以用直接编译，不再需要后处理.dvi文件。经过多年的发展，这套系统比较符合中国人的习惯，中文排版也比较符合时下中国印刷界的现行标准。
+[编辑]CJK
+让支持中文的另一种方法是使用CJK巨集包，由德国人Werner Lemberg编写。这个巨集包不仅仅支持繁简体中文、日文、朝鲜文等东亚语言，而且它也是一个多种语言支持包，另外还支持几十种其他不同的语言。
+
+
+約翰福音，使用LaTeX/CJK排版，第一页（部分）
+[编辑]中文套装
+现在简体中文用户使用的最广泛的TEX发行版是在Microsoft Windows平台下的CTeX中文套装，它也是最早的支持中文TEX的软件套装。hooklee制作的Chinatex发行版也非常不错，它集成了与TEX有关的许多软件，大大减小了初学者的安装配置困难。最有特色的是将TEX有关的命令都集成在WinTex编辑器的按钮中，鼠标一点，即可编译。
+[编辑]cwTeX
+繁体中文的用户可以使用cwTeX或PUTeX。cwTeX排版系统由吴聪敏（國立台灣大學經濟學系教授）、吴聪慧、翁鸿翎共同发展，cwTeX可以在MSDOS、Windows、Linux、FreeBSD等系统上执行，全部软件（含使用使用手册PDF文件及5套中文字型）可自网站上免费下载。
+[编辑]ChiTex
+適用於Big5及GB內碼之中文。此一Unix版可用於裝有teTeX的GNU/Linux，FreeBSD，Solaris，與SunOS系統。
+[编辑]PUTeX
+PUTeX由台中静宜大学资訊管理系蔡奇伟教授发展，是國家科學委員會八十六年度（1997）计划的成果（國家科學委員會计划编号：NSC-86-2213-E-126-005）。PUTeX以Christian Schenk先生的MiKTeX系统为基础，改写D. E. Knuth教授TeX程序的原始码，使之能够直接排版中文，并支持TrueType中文字型。PUTeX最大的特色就是可以直接采用安装在Microsoft Windows操作系统中的中文字型。
+[编辑]LaTeX在MS Office中的支援
+MS Office的域指令EQ支援部分类的格式，经测试可用于MS Office Word 2000、2002、2003、2007和2010。
+[编辑]XeLaTeX
+为了支持Unicode和现代字体，XeLaTeX被开发出来，其直接使用本地计算机中安装的字体的方法，大大降低了使用LaTex的难度。从效果看，生成的PDF文件与dvi文件相差不大。以下是XeLaTex文件及其编译的pdf文件截图。
+\documentclass[12pt]{article}
+\usepackage[cm-default]{fontspec}
+\usepackage{xunicode}
+\usepackage{amsmath}
+\title{\LaTeX}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+  \LaTeX{} is a document preparation system
+  for the \TeX{}   typesetting program. It offers
+  programmable desktop publishing features and
+  extensive facilities for automating most aspects
+  of typesetting and desktop publishing, including
+  numbering and cross-referencing, tables and figures,
+  page layout, bibliographies,   and much more.
+  \LaTeX{} was originally written in 1984 by Leslie
+  Lamport and has become the dominant method for
+  using \TeX; few people write in plain \TeX{} anymore.
+  The current version is  \LaTeXe.
+\setmainfont[BoldFont=Adobe Heiti Std]{SimSun}
+這是一個測試。                             \\
+\textbf{測試環境}：XeTeX TeXLive2008      \\
+  \begin{align}
+    E &= mc^2                              \\
+    m &= \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}
+  \end{align}
+\end{document}
+
+* Emacs 中的 TeX 排版系统
+http://emacser.com/auctex.htm
+
+** AucTeX 简介
+*** 关于 TeX
+
+关于 TeX 或是 LaTeX 的介绍和使用由于篇幅就不在本文的范围之内，如果需要了解详情可以访问 ctex 论坛。
+
+*** 为何选用 AucTeX？
+
+TeX 的编辑器很丰富，有跨平台的 TeXworks，Kile 以及 vim 的 LaTeX-suite 插件。选用 emacs+AucTeX 作为 tex 的编辑器与之相比还是有太多的优点。
+
+跨平台 AucTeX 作为 emacs 的插件，自然可以实现跨平台，只是由于外部工具的限制在 windows 实在有诸般限制。
+
+半 ‘WYSIWYG’ TeX 的工作方式为 WYTIWYG，但是其搭配 emacs，AucTeX 可以对 tex文件进行分析，并且提供一部分的可视化特性，例如可以以粗体显示章节目录，以斜体表示 \textit{} 中的文本。另外配合 preview 组件，还可以显示 tex 文件中的公式和图片。
+
+拓展性 AucTeX 是完全是 elisp 实现的，如果你觉得 AucTeX 不能很好的按照你预想的方式工作或是觉得 AucTeX 功能还是不够强大，你可以用 elisp 轻松的拓展其功能，当然这需要一定的 elisp 功力。
+
+** 安装
+*** 安装条件
+
+在 unix-like 上的手动安装比较方便，只需要 “./configure && make && make install” 即可，但是当前系统需要满足这些条件：
+
+可以工作的 TeX 目录树 在 unix 上 TeXLive 更加流行，当然各个 linux 发行版本也可以使用各自包管理系统安装 TeX，windows 上 MikTeX 更加流行。无论是如何安装，TeX 目录树都是很庞大的，你必须确保 TeX 可以编译。
+
+ghostscript AucTeX 的 preview 组件在 DVI 和 PDF 模式需要 ghostscript 的协作。
+
+*** windows 下的安装
+
+需要单独说明下 AucTeX 在 windows 下的配置，windows 下建议使用官方提供的预编译版本，如现在的版本为 “AucTeX-11.86-e23.1-msw.zip”。如果喜欢折腾自己的话，也可以选择在 windows 编译安装 AucTeX，但是除了满足之前叙述的安装前提外，你还需要一个可以工作的 shell，现在只有 MSYS 和 Cygwin 可供选择。最后还是再建议使用预编译的版本，更加建议你在 unix 下使用 emacs 和 TeX，可以免去太多的被折腾。
+
+*** 加载 AucTeX
+
+首先你需要把 AucTeX 加入到 load-path 中，然后加载 AucTeX 即可。如把 AucTeX 的预编译安装包解压至 “~/.emacs.d/AucTeX” 路径，相应的配置如下，其他的目录也可以相应修改。
+
+?View Code LISP
+(add-to-list 'load-path
+             "~/.emacs.d/lisps/AucTeX/site-lisp/site-start.d")
+(load "AucTeX.el" nil t t)
+(load "preview-latex.el" nil t t)
+(if (string-equal system-type "windows-nt")
+    (require 'tex-mik))
+另外，如果 emacs 是运行在多需折腾的 windows 平台上，系统会加载 “tex-mik”文件，这可以提供很多在 windows 上方便的设置。
+
+** 快速开始
+*** LaTeX 设置
+
+通常情况下，编译 tex 文件选用的多是 LaTeX，plainTeX 和 conTeXt 相对使用要少一些。因此本文默认只涉及对 LaTeX 模式相关的设置。
+
+为了使用 AucTeX 方便，为 LaTeX 模式 hook 自动换行，数学公式，reftex 和显示行号的功能。
+
+?View Code LISP
+(mapc (lambda (mode)
+      (add-hook 'LaTeX-mode-hook mode))
+      (list 'auto-fill-mode
+            'LaTeX-math-mode
+            'turn-on-reftex
+            'linum-mode))
+现在 TeX 对于中文的处理基本有两种方案，CJK 宏包和 xetex。如果使用 CJK 宏包需要对字体进行配置，这也是大部分面对 TeX 最折腾的地方。相比 CJK 宏包，xetex 要方便的多。本文也建议你设置 ‘TeX-engine’ 变量为 xetex 替代 latex 作为 tex 文件的默认排版引擎。
+
+在 LaTeX mode 中，默认开启 PDF mode，即默认使用 xelatex 直接生成 pdf 文件，而不用每次用 ‘C-c C-t C-p’ 进行切换。设置 ‘Tex-show-compilation’ 为 t，在另一个窗口显示编译信息，对于错误的排除很方便。另外，编译时默认直接保存文件，绑定补全符号到 TAB 键。
+
+?View Code LISP
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (setq TeX-auto-untabify t     ; remove all tabs before saving
+                  TeX-engine 'xetex       ; use xelatex default
+                  TeX-show-compilation t) ; display compilation windows
+            (TeX-global-PDF-mode t)       ; PDF mode enable, not plain
+            (setq TeX-save-query nil)
+            (imenu-add-menubar-index)
+            (define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)))
+*** 快速插入
+
+在 tex 文档中，为了结构化的需要，经常会需要插入 ‘\chapter’, ‘\section’,'\subsection’ 命令。在 AucTeX 中，这些命令都可以通过 ‘C-c C-s’ 一站式完成，你只需要告诉 AucTeX 你所需要插入章节层次(section level)，然后告诉 AucTeX 相应章节的标题，如果需要，你也可以添加相应的标签(可选)。
+
+类似的，在 tex 文档中，必不可少的 ‘\begin{document}’ 与 ‘\end{document}，以及众多的类似的各种各样的环境，自己在编辑 tex 文档时，经常会遗忘去匹配相应的环境，然后在编译时候要花费时间去修改。于 AucTeX 里你只需要键入’C-c C-e’ 然后告诉 AucTeX 你所希望插入文档的环境，例如你键入了 ‘math’，AucTeX 会悉心的插入数学环境 ‘\begin{math}’ 与 ‘\end{math}’。
+
+AucTeX 还提供了 ‘C-c C-m’ 快捷键供方便地插入宏命令，在大多数情况下 auxtex 都可以理解相应宏命令的参数个数并提示你一一输入。
+
+在使用这些快捷键时，你可以使用 TAB 自动补全，或是使用 ‘M-p’ 与 ‘M-n’浏览命令历史记录，也可以使用上下快捷键，但是相信众 emacs 党应该还是键盘流多，会更习惯前者。
+
+此处涉及的相关快捷键如下：
+
+C-c C-s	插入章节
+C-c C-e	插入 LaTex 环境
+C-c C-j	插入列表 item
+C-c ]	闭合 LaTeX 环境
+C-c C-m	插入 Tex 宏
+*** 快速更改字体
+
+AucTeX 也提供了一系列方便的快捷键用以方便的插入指定应该文本如何格式化的命令，这系列命令一致以 ‘C-c C-f’ 为前缀，以 ‘C- ‘ 结尾告诉 AucTeX 你具体需要如何排版文本。
+
+C-c C-f C-b	插入粗体文本
+C-c C-f C-i	插入斜体文本
+C-c C-f C-e	插入强调文本
+C-c C-f C-s	插入微斜体文本
+C-c C-f C-r	插入罗马体文本
+C-c C-f C-f	插入无衬线体文本
+C-c C-f C-t	插入打印机体字体
+C-c C-f C-c	插入小型大写文本
+C-c C-f C-d	删除字体信息
+默认情况下，输入以上的快捷键时，会假定插入新的相应格式化文本，如果你希望更改已存在文本的话，需要先设定区域，然后再使用这些快捷键。
+
+*** 一站式的编译、查看、打印服务
+
+如果你已经完成了 tex 文档的编写想查看排版后输出的 pdf，试着输入 ‘C-c C-c’，AucTeX 会询问你想调用那项命令，在大多数情形中，AucTeX 所建议给出的命令往往可以符合你的需要。例如，你刚刚完成对文档的修改，此时 AucTeX 所给出的建议命令为 ‘latex’，即建议你重新编译文档，而如果你已经完成对最新文档的编译，AucTeX 会建议你查看最新的 pdf，而不是再次对文档进行编译(如果需要更新文档的交叉索引信息，可能需要多次的编译)。
+
+如果 AucTeX 给出的建议命令不合适，你可以键入 TAB 查看当前可用的命令，然后再指定 AucTeX 运行相应的合适命令。
+
+在对于自定义查看文档命令的设置中，不推荐使用原来的’TeX-output-view-style’，而更推荐灵活性更强的 ‘TeX-view-program-list’与”TeX-view-program-selection”。’TeX-output-view-style’ 是直接绑定指定类型与相应的 viewer，而对于后者，在不同系统平台之间你需要定义阅读器，并且对于不同的类型灵活绑定。
+
+‘TeX-view-program-list’ 控制 AucTeX 预定义的 viewer，包括符号名与具体定义所调用的命令或函数，预定义为 ‘TeX-view-program-list-builtin’ 的内容，有兴趣可以查看一下该变量的内容。如果需要自定义，如在 windows 平台上，可能会定义 SumatraPDF 查看 pdf 文档，而把相应的符号名记为 SumatraPDF，那就可以使用如下的命令去定义。
+
+?View Code LISP
+(setq TeX-view-program-list
+      '(("SumatraPDF "SumatraPDF.exe %o")))
+当然仅仅只是定义了符号名，而对于该符号名所对应的具体 viewer 在该平台是否可用，是需要使用者自己去选择控制的。更通用而言，你可能需要同时使用Linux 与 Windows 系统，那你需要分别定义其上平台的 viewer，如下的设置中就分别定义了 SumatraPDF, Gsview 用于 Windows 平台，Okular, Evince, Firefox用于Linux 平台。
+
+?View Code LISP
+(setq TeX-view-program-list
+      '(("SumatraPDF" "SumatraPDF.exe %o")
+        ("Gsview" "gsview32.exe %o")
+        ("Okular" "okular --unique %o")
+        ("Evince" "evince %o")
+        ("Firefox" "firefox %o")))
+对于如上的示例而言，在 Windows 平台上绑定 SumatraPDF 为 pdf viewer，Miktex 的组件 Yap 为 dvi viewer，而在 Linux 平台上，或许需要 Okular 作为pdf 与 dvi 的 viewer。当然对于 Gnomer 而言，Evince 应该是比 Okular 更好的选择。
+
+PS:
+
+对于 windows 平台而言，需要确保命令在 PATH 路径下，如果没有在 PATH 路径下，请使用路径全名进行调用。
+
+由于自己没有 MacOsX 平台使用经验，所以没有对此作相关的 viewer 设置如果有需要，也可以自己设置。
+
+在设置好了 viewer 之后，就需要在不同类型的文件类型与相应的 viewer 之间进行绑定。’TeX-view-program-selection’ 变量用于指定如何用 viewer 查看指定类型的文件。
+
+?View Code LISP
+(cond
+ ((eq system-type 'windows-nt)
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (setq TeX-view-program-selection '((output-pdf "SumatraPDF")
+                                                 (output-dvi "Yap"))))))
+ 
+ ((eq system-type 'gnu/linux)
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (setq TeX-view-program-selection '((output-pdf "Okular")
+                                                 (output-dvi "Okular")))))))
+可以看出，使用后者绑定 viewer 与指定类型相对要更灵活的多，而 AucTeX 手册也推荐此种方式，而且感觉可读性也更好。而在以后的版本中，可能会移除’TeX-output-view-style’ 变量。
+
+** 进阶使用
+*** 编译片段文件
+
+编译片段文件是个很实用的功能，如果你的文档很庞大，但是你只是需要看一下最近编辑修改过的片段，这时就很有用。
+
+用快捷键设置好一个片段(region)，然后按下 ‘C-c C-r’ 编译文件，然后再按 ‘C-c C-r’ 就可以查看片段编译后的文件了。
+
+编译片段文件的过程中，AucTeX 先首先生成 _region_.tex 文件，然后再依次进行编译和查看的操作，当然你也可以设置 ‘TeX-region’ 控制生成的文件名。而为了生成 _region_.tex 文件，AucTeX 需要知道那些是文档开始需要的内容(例如文档类，载入的宏包和自定义信息)，那些是文档结束的内容。在 AucTeX 中，这两者是由变量’TeX-header-end’ 与 ‘TeX-trailer-start’ 控制的。前者在 LaTeX mode 中默认为 ‘\begin{document}，而后者默认为\end{document}，因此AucTeX 会截取文件开始到 ‘TeX-header-end’ 的内容和片段内容以及’TeX-trailer-start’ 的内容组成 _region_.tex 文件。也可以简单的理解成 AucTeX 把原来文件的文档内容替换成了片段内容的过程。
+
+此外，设置好 region，按 ‘C-c C-t C-r’ 可以固定一个 “region”，即使光标位置改变，设定的将要部分编译的”region”也不会改变，可以随时修改”region”中的内容，再按 ‘C-c C-t C-r’ 取消该”region”。
+
+*** 多文件管理
+
+在协作文档时，为了便于对文档进行管理，一般都会把文档根据内容拆分成几个部分，搭配使用 LaTeX 的 \include(\input in plainTeX) 命令对文件进行组织。
+
+举个例子，假设当前目录下有三个 tex 文件，master.tex, sectone.tex, secttwo.tex，其内容分别如下。
+
+master.tex:
+
+?Download master.tex
+\documentclass{article}
+\begin{document}
+\include{sectone}
+\include{secttwo}
+\end{document}
+sectone.tex:
+
+?Download sectone.tex
+\section{one}
+hello, world!
+secttwo.tex:
+
+?Download secttwo.tex
+\section{two}
+Don't be evil!
+用 AucTeX 编辑 secttwo.tex 文件时，编译文件时就会出错，因为 AucTeX 无法知道当前文件所属的 master 文件，因此需要通知 AucTeX master 文件的信息。
+
+为了便于对文件进行组织和管理，AucTeX 允许你为文件设置文件变量(file variables)。因此你可以把 sectwo.tex 修改成如下内容。
+
+?Download secttwo.tex
+\section{two}
+Don't be evil!
+%%% Local Variables:
+%%% TeX-master: "master"
+%%% End:
+现在再编译 secttwo.tex 文件，AucTeX 就可以知道 master.tex 文件为 master文件，AucTeX 会转去编译 master.tex 文件。因此，你需要在每个 tex 文件末尾添加相应的信息，文件一多，就会变得很繁琐。因此，AucTeX 提供了’TeX-master’ 变量，可以设置其为 “master”，这样就可以通知所有的文件 master 文件总为 master.tex 文件。
+
+?View Code LISP
+(setq-default TeX-master "master")
+当然，如果你不需要对多文件进行组织和管理，设置 ‘TeX-master’ 为 t 即可，即假设当前的文件总为 master 文件。
+
+** reftex 与 preview 的使用
+reftex 和 preview 是使用 tex 的两个很方便的插件，reftex 为是 emacs 内置的插件，preview 也是 AucTeX 的组成部件。这两个组件使用的不是很多，但还是很有用。此处仅仅是对它们多简要的介绍，如果需要，可以查看相应的文档。
+
+reftex 可以按文档目录结构浏览。在 LaTeX 缓冲中，按 C-c =，Emacs 会打开一个类似文档的目录的缓冲。
+
+当然 reftex 的功能远远比此强大，更方便之处是配合 bibtex 可以很方便的插入参考文献。
+
+preview 的好处是可以是 tex 文件中的数学公式和图片可视化，于相应的命令处用图片替代，当然这需要你的 emacs 开启图片支持和 ghostscript。
+
+
+评分: 8.1 (20次投票)
+标签：auctex, bigclean, Emacs, markdown, tex
+相关日志
+
+用Mew收发邮件 (86)
+关于 (20)
+Emacs下的多媒体系统 – EMMS (23)
+高亮C的所有变量和函数 (45)
+非程序员的Emacs使用心得 (25)
+分类: 中级, 配置
+评论 (16)Trackbacks (1)发表评论Trackback
+
+Shawn
+2011年4月22日10:16	 | #1 回复 | 引用
+用Ctex宏包+Xelatex写中文的情况下, 貌似不能用preview…
+从CJK宏包的话太费劲了.
+不知道有什么办法么?
+[回复]
+
+roowe
+2011年5月6日22:28	 | #2 回复 | 引用
+關於AucTeX的安裝可以參考這篇文章 
+[回复]
+
+roowe 回复:
+五月 6th, 2011 at 10:29 下午
+@roowe, 忘了給鏈接http://www.bimeichun.com/Linux/auctex.html
+[回复]
+
+earth
+2011年8月25日16:59	 | #3 回复 | 引用
+c-c c-m 例如includegraphics 没有，怎么解决？这个好常用
+[回复]
+
+b4yourback
+2011年9月21日11:22	 | #4 回复 | 引用
+你好，我照你的文章设置了，非常好。
+发现一个小错误，在“一站式的编译、查看、打印服务”设置SumatraPDF浏览的代码中少一个分号双引号，应该是
+‘((“SumatraPDF” “SumatraPDF.exe %o”)))
+[回复]
+
+b4yourback
+2011年9月21日11:25	 | #5 回复 | 引用
+不好意思，刚才写错了，“分号双引号”－－－－－－－“双引号”
+[回复]
+
+RMS&
+2012年5月2日20:37	 | #6 回复 | 引用
+您好，我在Ubuntu下使用的Preview预览LaTeX的公式时，按下”C-c C-p C-b”后，原来公式的前面总是出现了一个大大的红点，而且公式保持不变，无法预览，请问您了解这个情况吗？还有就是您说的需要GSiew的支持，但是我好像没有找到Ubuntu下的GSiew的安装方法。。。
+[回复]
+
+bigclean 回复:
+五月 4th, 2012 at 7:01 下午
+@RMS&, 刚刚在 Mac 下也重现了这个问题，AucTeX 预览只需要 ghostscript 的支持即可，这个问题只是 gs 的参数设置需要小作修改即可，现在已经可以正常预览。详细可以参考此处链接。
+[回复]
+
+
+
+* Auctex 使用笔记
+http://www.bimeichun.com/Linux/auctex.html
+安装
+
+$ cvs -z3 -d:pserver:anonymous@cvs.savannah.gnu.org:/sources/auctex co auctex
+$ cd auctex
+$ ./autogen.sh
+$ ./configure
+   --prefix=/home/bmc/.emacs.d/    # 最高层目录
+   --with-lispdir=/home/bmc/.emacs.d/site-lisp  # 安装目录的上一层目录
+   --with-packagelispdir=/home/bmc/.emacs.d/site-lisp/auctex  # 安装到那里
+$ make
+$ sudo make install
+安装 CJK 以使用中文;
+安装 scrot, sam2p 方便截图并转为 eps 格式，写一个脚本 seps 截图后自动生成 eps 格式文件：
+#!/bin/bash
+if [ $# -ne 0 ]; then
+name=$1
+else
+name=tmp
+fi
+scrot -s $name.jpg
+sam2p $name.jpg $name.eps
+rm $name.jpg
+赋予执行权限 chmod +x seps , 然后移动到 /usr/bin/ 下，这样可以在其他地方使用，直接 seps 文件名 就可以了。
+
+.emacs 中的设置:
+
+;;################### LaTeX ######################
+(load "auctex.el" nil t t)
+(load "latex.el" nil t t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(load "preview.el" nil t t)
+(add-hook 'LaTeX-mode-hook (lambda()
+        (define-key LaTeX-mode-map "\C-m" 'reindent-then-newline-and-indent)
+))
+(add-hook 'latex-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-auctex t)
+(global-set-key [f6] 'LaTeX-environment)
+
+;使用pdflatex编译文件
+(add-hook 'LaTeX-mode-hook (lambda()
+	     (add-to-list 'TeX-command-list '("pdflatex" "%`pdflatex%(mode)%' %t" TeX-run-TeX nil t))
+         (setq TeX-command-default "pdflatex")
+         (setq TeX-save-query  nil )
+         (setq TeX-show-compilation t)))
+快捷键
+
+快速插入
+
+C-c C-e	插入LaTeX环境
+C-c C-s	插入章节
+C-c C-j	插入列表
+C-c ]	闭合LaTeX环境
+C-c C-m	插入 TeX 宏包
+快速更换字体
+
+C-c C-f C-b	插入粗体文本
+C-c C-f C-i	插入斜体文本
+C-c C-f C-e	插入强调文本
+C-c C-f C-s	插入微斜体文本
+C-c C-f C-r	插入罗马体文本
+C-c C-f C-f	插入无衬线体文本
+C-c C-f C-t	插入打印机体字体
+C-c C-f C-c	插入小型大写文本
+C-c C-f C-d	删除字体信息
+C-c C-c 然后输入 pdflatex 编译文件，view 查看文件。可以使用Tab补全。
+
+使用 preview 预览公式
+
+请参看 这里 。
+
+
+------------------
+
+AUCTeX 使用手记
+
+                                      
+TeXer 们一直寻找的编辑 TeX 源文件的利器，AUCTeX 相信就是其中一个。结合在强大的编辑器 Emacs 中，AUCTeX 为我们展示了另一种风格的简洁与易用。
+
+AUCTeX 的安装
+
+在 Linux 中，有 tetex 的套装，有 Emacs，无论是 FC 还是 debian 里面都有现成的软件包可以方便的安装配制好。然后，AUCTeX 呢？其实也有配制好的软件包。这里就简单说明一下 Win32 里面需要的一些东西。当然，如果愿意，AUCTeX 的官方网站上提供了打包好的 Emacs。
+
+首先我们先到 sourceforge 上拖一个 NTEmacs 回来，为了较好的支持中文，建议用 Emacs 23 吧，尽管还是测试阶段，N 多的 bugs，但是为了中文，呵呵，冒冒险还是值得的。然后去 Sourceforge 的另一个项目 mingw 里面拖一个 msys 。最后下载 AUCTeX 的 tar ball（现在的版本好像把 preview-latex 集成了）。Emacs 展开就可以用了，为 runemacs.exe 创立一个快捷方式，并把工作目录设为自己用作 home directory 的地方，.emacs 文件放于其中。安装 msys，进入到它的 shell 中，并展开 AUCTeX 的包，cd 到对应的目录中，参考 INSTALL.windows 文件，首先 configure
+$ configure --prefix='D:/emacs' --with-texmf='D:/CTeX/localtexmf' \
+--with-texmf-dir='D:/CTeX/texmf'
+其中最后一项是因为我的 MikTeX 不能使用 kpsewhich 等命令定位路径，倒是 tetex 可以不用这项 -,-b。只要没错误，就可以 make 和 make install 了。
+
+我的 AUCTeX 版本为 11.83。
+配置 AUCTeX
+安装好后 Emacs 在打开 tex 文件时如果正常会自动进入对应的模式，否则编辑 .emacs 文件，加上
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+另外，AUCTeX 还带有 RefTeX 等模式，也可以在 .emacs 文件里面把这些模式预先打开，如
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+有一些宏包提供了对应 Emacs 的模式支持，可以在 .emacs 里面加入
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+从而让 Emacs 自动的调用对应的文件，比如 beamer 自己带的 beamer.el。

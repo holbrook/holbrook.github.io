@@ -1,0 +1,21 @@
+@startuml
+
+state contractor {
+  [*] -down-> Suspended : create 
+  Suspended -down-> Ready : schedule
+  Ready -> Suspended : cancel 
+t
+
+state worker {
+  
+  Ready --> Running : dispatched
+  Ready --> Waiting : block 
+  Waiting --> Running : unblock
+
+  Running --> Finished
+  Waiting --> [*] : abort
+
+}
+
+
+@enduml

@@ -1,0 +1,15 @@
+* 说明
+elisp教程，主要内容来自[[http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html][这里]].
+
+该教程还包括：
+
+- [[http://www.lisperati.com/casting.html][Common Lisp版]]
+- [[http://www.lisperati.com/clojure-spels/casting.html][Clojure Lisp版]]
+- [[http://www.ileriseviye.org/Makale/lisperati-tr/][Turkish版]]
+- [[http://www.rubyquiz.com/quiz49.html][Ruby版]]
+- [[http://jpmoresmau.blogspot.com/2006/11/my-first-haskell-adventure-game.html][Haskell版]]
+
+
+* Lisp
+
+[[./images/elisp/lisp-is-different.jpg]]

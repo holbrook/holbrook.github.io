@@ -1,0 +1,193 @@
+摘要：
+目前主要的java webservice框架剩下了axis2和cxf。本文对两个框架的目标、标准支持、开发和部署等方面进行了简单的对比。对于在现有web应用中发布webservice，本文建议使用cxf。
+更进一步，本文介绍了cxf的嵌入式代码和web容器两种发布方式。
+
+本文中的例子使用maven进行构建。
+
+
+* 对比Axis2和CXF
+jws的发布对java webservice框架产生了巨大的影响，经过大浪淘沙，目前java开发webservice的框架主要包括axis2和cxf。
+
+axis2和cxf都是apache旗下的产品，但是其目的不同，导致webservice开发方法也不一样。两个框架都得到了开发者的支持。有必要对二者进行以下对比。
+
+|                | Axis2                               | CXF                                                                |
+|----------------+-------------------------------------+--------------------------------------------------------------------|
+| 目标           | WebService引擎                      | 简易的SOA框架，可以作为ESB                                         |
+| ws* 标准支持   | 不支持WS-Policy                     | WS-Addressing，WS-Policy， WS-RM， WS-Security，WS-I Basic Profile |
+| 数据绑定支持   | XMLBeans、JiBX、JaxMe 、JaxBRI、ADB | JAXB, Aegis, XMLBeans, SDO, JiBX                                   |
+| spring集成     | 不支持                              | 支持                                                               |
+| 应用集成       | 困难                                | 简单                                                               |
+| 多语言         | 支持C/C++                           | 不支持                                                             |
+| 部署           | web应用                             | 嵌入式                                                             |
+| 服务监控和管理 | 支持                                | 不支持                                                             |
+
+结论：
+1. 如果希望以一种一致的方式实现webservice，特别是有跨语言的需求时，应该使用Axis2
+2. 如果需要在现有的java程序（包括web应用）中增加webservice支持，应该使用CXF
+
+* 编写服务类
+从Java6开始，WebService API从Java EE复制到了Java SE。并遵循了一系列的标准，比如JSR181(Web Service 元数据），JSR224（JAX-WS,基于XML的WebService API），JSR67（SAAJ，SOAP附件标准）等。
+并分别定义到javax.jws, javax.xml.ws 和 javax.xml.soap包中。
+
+JSR181支持使用标注（annotation）来定义WebService。在javax.jws中主要的标注类包括：
+| 标注        | 说明                                                                          |
+|-------------+-------------------------------------------------------------------------------|
+| WebService  | 将 Java 类标记为实现 Web Service，或者将 Java 接口标记为定义 Web Service 接口 |
+| WebMethod   | 定制Web Service方法                                                           |
+| WebParam    | 定制Web Service方法的参数                                                     |
+| WebResult   | 定制Web Service方法的返回值                                                   |
+| SOAPBinding | 指定WebService的SOAP映射样式                                                  |
+
+使用标注可以在不改变代码逻辑的前提下让外部代码能够获得更多的元数据。下面就用javax.jws定义的标注来声明一个WebService:
+
+- 创建maven工程
+  mvn archetype:create -DgroupId=com.mycompany -DartifactId=cxfdemo -DarchetypeArtifactId=maven-archetype-webapp
+
+- 增加CXF依赖
+  <dependency>
+    	<groupId>org.apache.cxf</groupId>
+    	<artifactId>apache-cxf</artifactId>
+    	<version>${cxf.version}</version>
+    	<type>pom</type>
+  </dependency>
+
+- 创建服务接口
+package cxfdemo;
+
+import javax.jws.WebService;
+
+@WebService
+public interface CXFDemo {
+	 public String sayHello(String foo);
+}
+
+- 实现服务类
+package cxfdemo;
+import javax.jws.WebService;
+
+@WebService()
+public class CXFDemoImpl implements CXFDemo {
+
+	public String sayHello(String foo) {
+		return "hello "+foo;
+	}
+
+}
+
+
+* 以endpoint发布
+到目前为止，使用的都是标准Java SE中的东西。下面要开始依赖CXF实现一些功能。
+
+首先是服务的发布。CXF不仅支持通过Web容器发布WebService，也可以在嵌入式代码中通过jetty发布WebService。
+
+下面的测试类包含了发布服务和客户端调用的代码：
+
+package cxfdemo.test;
+
+import javax.xml.ws.Endpoint;
+
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+
+import cxfdemo.CXFDemo;
+import cxfdemo.CXFDemoImpl;
+
+public class TestEndpoint extends TestCase {
+	
+	private static final String ADDRESS = "http://localhost:9000/cxfdemo"; 
+	protected void setUp() throws Exception {
+		super.setUp();
+		
+		System.out.println("Starting Server");  
+        CXFDemoImpl demo = new CXFDemoImpl();  
+        
+        Endpoint.publish(ADDRESS, demo);
+        System.out.println("Start success");
+	}
+	
+	public void testSayHello(){
+		
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setServiceClass(CXFDemo.class);
+		factory.setAddress(ADDRESS);
+		CXFDemo client = (CXFDemo)factory.create();
+		Assert.assertEquals(client.sayHello("foo"), "hello foo");
+	}
+}
+
+
+运行测试结果如下：
+$mvn test
+... ...
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running cxfdemo.test.TestEndpoint
+Starting Server
+2012-12-12 11:29:02 org.apache.cxf.service.factory.ReflectionServiceFactoryBean buildServiceFromClass
+??Ϣ: Creating Service {http://cxfdemo/}CXFDemoImplService from class cxfdemo.CXFDemo
+2012-12-12 11:29:03 org.apache.cxf.endpoint.ServerImpl initDestination
+??Ϣ: Setting the server's publish address to be http://localhost:9000/cxfdemo
+2012-12-12 11:29:04 org.eclipse.jetty.util.log.Slf4jLog info
+??Ϣ: jetty-7.4.2.v20110526
+2012-12-12 11:29:04 org.eclipse.jetty.util.log.Slf4jLog info
+??Ϣ: Started SelectChannelConnector@localhost:9000 STARTING
+2012-12-12 11:29:04 org.eclipse.jetty.util.log.Slf4jLog info
+??Ϣ: started o.e.j.s.h.ContextHandler{,null}
+Start success
+2012-12-12 11:29:04 org.apache.cxf.service.factory.ReflectionServiceFactoryBean buildServiceFromClass
+??Ϣ: Creating Service {http://cxfdemo/}CXFDemoService from class cxfdemo.CXFDemo
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.076 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+... ...
+
+
+* 在webapp中发布
+CXF提供了spring的集成，同时还提供了org.apache.cxf.transport.servlet.CXFServlet用于在web容器中发布WebService。
+前面的例子中增加了整个apache-cxf的依赖，所以会自动增加对srping的引用。只需要写beans配置文件和web.xml文件即可。
+
+- 在web.xml中配置CXFServlet
+
+      <servlet>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+
+- 在web.xml中增加spring的ContextLoaderListener并配置context-param
+      <context-param>
+ 		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/cxfdemo-beans.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+- beans配置文件内容如下
+cxfdemo-beans.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jaxws="http://cxf.apache.org/jaxws"
+xsi:schemaLocation="http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+	<jaxws:endpoint id="cxfDemo" implementor="cxfdemo.CXFDemoImpl" address="/cxfdemo" />
+</beans>
+
+
+
+如此，WebService就已经在web容器中发布了。启动web应用：
+$mvn jetty:run
+
+就可以在浏览器中看到已经发布的WebService:
+[[./images/cxf-services-list.png]]
+

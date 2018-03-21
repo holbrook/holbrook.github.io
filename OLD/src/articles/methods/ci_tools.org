@@ -1,0 +1,182 @@
+#+YAML/TITLE: 持续集成(CI)工具的作用
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE:  <2014-03-04 Tue>
+#+YAML/LAYOUT: post
+#+YAML/TAGS: CI
+#+OPTIONS: toc:t
+
+
+* 个人时代的软件开发
+
+众所周知，软件开发一般需要编码、构建、测试、打包、发布等步骤，如下图：
+
+#+CAPTION: 软件开发过程
+#+BEGIN_SRC dot :file assets/images/develop_process.png :exports results
+
+digraph G{
+   rankdir=LR
+  Code -> Build -> Test -> Package -> Deploy
+}
+
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/images/develop_process.png]]
+
+在“个人英雄”时代，一个人完成所有的事情，一切都不是问题。
+
+* 团队开发
+
+很快，软件的规模就上升到了个人无法完成的程度。这就需要团队开发。在团队开发模式中，一定要解决代码共享的问题:
+
+#+CAPTION: 团队软件开发
+#+BEGIN_SRC dot :file assets/images/develop_repositories1.png :exports results
+
+digraph G{
+  rankdir=LR
+
+  subgraph cluster_process {
+    label="开发过程"
+    graph [rankdir=LR]
+
+    Code -> Build -> Test -> Package -> Deploy
+  }
+
+  repo1 [shape="folder" label="代码库"]
+  repo2 [shape="folder" label="配置库"  style="dashed"]
+
+
+  Code -> repo1
+  Build -> repo2
+}
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/images/develop_repositories1.png]]
+
+
+
+图中的“代码库”，通常由版本管理软件负责，比如git,svn。
+
+对于软件的配置信息，开发团队通常不会很十分在意——要么随源代码一起放入版本库，要么由“实施人员”临时配置。
+
+* 开发和运维
+
+企业应用的环境中，通常开发团队和运维团队是分开的。这就形成了一堵墙:
+
+[[./assets/images/WallOfConfusion_Release.png]]
+
+当软件系统从墙的一端(Dev)传递到另一端(Ops)时，会发生各种各样不可预知的情况发生。这些“异常”通常是由于交付了不正确的东西：
+
+- 开发人员不清楚生成环境，而运维人员又搞不定即没有规范又没有文档的配置
+- 开发过程中的不成熟版本进入了生成环境
+- ……
+
+
+在开发团队和运维团队之间，也应该有一个信息交换和缓冲带，主要是：
+
+#+CAPTION: 软件开发过程
+#+BEGIN_SRC dot :file assets/images/develop_repositories2.png :exports results
+
+digraph G{
+  rankdir=LR
+
+  subgraph cluster_process {
+    label="开发过程"
+    graph [rankdir=LR]
+
+    Code -> Build -> Test -> Package -> Deploy
+  }
+
+  repo1 [shape="folder" label="代码库"]
+  repo2 [shape="folder" label="配置库"]
+  repo3 [shape="folder" label="交付库"]
+
+  Code -> repo1
+  Build -> repo2
+  Package -> repo3 -> Deploy
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/images/develop_repositories2.png]]
+
+
+- 配置库
+
+  有严格的环境(开发、测试、生产环境)区分，有版本管理的配置库，开发人员和运维人员各自维护自己需要的配置信息。
+
+- 交付库
+
+  经过测试，符合要求的软件版本，经过规范的打包后，才允许进入交付库。交付库的软件包是部署生成环境的唯一来源。
+
+
+* 自动化工具
+
+有了代码库、配置库和交付库，加上繁杂的管理规范、流程指南，额外配上检查员、管理员，大概就可以完成上述的过程。
+
+但是，我们需要自动化！持续集成(CI)工具就是时上述过程自动化的有力工具——以至于随时可以以很小的代价将上述过程跑一遍。
+
+持续集成工具的主要功能如下图：
+
+#+CAPTION: 持续集成工具的主要功能
+#+BEGIN_SRC dot :file assets/images/develop_ci.png :exports results
+
+digraph G{
+  graph [layout="dot"]
+
+  repo1 -> {Code m1}
+  Code -> Build -> Test -> Package -> Deploy
+//  Code -> repo1 -> m1
+
+  m2 -> Build
+  m4 -> {Build Test Package Deploy}
+  Package -> m3
+  m5 -> servers
+
+  repo1 [shape="folder" label="代码库"]
+  {rank=same; repo1; Code ; Build ; Test ; Package ; Deploy; servers}
+
+  subgraph cluster_ci {
+    label="持续集成"
+    {rank=same; m1; m2; m3; m4; m5}
+    m1 [label="工程管理" shape="rect"]
+    m2 [label="配置库" shape="folder"]
+    m3 [label="交付库" shape="folder"]
+    m4 [label="自动执行" shape="rect"]
+    m5 [label="发布管理" shape="rect"]
+  }
+
+  servers  [label="服务器" shape="box3d"]
+
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/images/develop_ci.png]]
+
+
+CI工具实现了与代码库关联的软件工程管理，能够自动执行构建、测试、打包、发布等操作。
+CI工具通常内置了配置库和交付库，在自动构建时可以从配置库获取配置信息，在自动发布时从交付库取得指定的软件版本并部署到服务器。
+此外，CI工具还会提供事件通知、生成报告等功能。
+
+* 常见的CI工具
+
+- [[http://hudson-ci.org/][Hudson]]
+
+这个大概是最流行的CI工具了，使用Java开发。
+
+[[./assets/images/ci-hudson.jpg]]
+
+- [[http://buildbot.net/][BuildBot]]
+
+  使用Python语言开发。好用，但是有点小众。
+
+  [[./assets/images/ci-buildbot.jpg]]
+
+- [[http://jenkins-ci.org/][Jenkins]]
+
+也是使用Java开发。
+[[./assets/images/12323PJW.png]]

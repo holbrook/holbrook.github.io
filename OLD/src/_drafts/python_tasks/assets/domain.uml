@@ -1,0 +1,14 @@
+@startuml
+
+class Channel
+class Worker
+class Task
+class Queue
+class Endpoint
+class Node
+class Minion
+class Master
+
+Node <|- Master
+Node <|- Minion
+@enduml

@@ -1,0 +1,1952 @@
+
+* Emacs vs IDE
+http://zh.wikipedia.org/wiki/%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83
+集成开发环境，
+- 编辑器(Editor), 工程浏览，语法高亮，代码定位，自动补全，build
+- 高级编辑：代码折叠，模板，
+- 编译支持，自带编译器或者能够调用外部编译器
+- 调试，debug支持
+- 其他，部署，版本管理，docs，图形化工具
+
+
+IDE的量级
+轻量：集成编辑
+重量：编译，调试，etc。扩展：插件实现版本控制，IM等功能
+
+
+Emacs:
+完全能够实现IDE的这些功能
+提供一致的体验——不管开发什么语言
+好处：
+1. 运行速度和资源消耗
+2. 加深对工程(project)的理解
+3. 效率（用鼠标的效率比较低）
+
+IDE进行开发的缺点和限制是显而易见的
+    1.你不得不了解各个IDE不同的用法，
+    2. 同时不得不接受各种Wizard强加给 你的代码,这些代码（尤其是经过改动之后）经常是丑陋且令人费解的。
+    3. 这些IDE一般都或多或少地使用了私有的工具 或库，对软件的可移植性埋下了隐患。
+    4. 最令我无法接受的是在我的机器 （PIII500,128M,NT4)上，JBuilder的速度实在无法令人满意（可能其他IDE在这方面好 一些）。
+
+使用emacs（本文使用emacs来代表GNU emacs或XEmacs)来开发程序显然是个 很好的选择，其效率、高度的可配置性和极其强大的功能足以让任何人爱不释手， 本人更是标准的hardcore-xemacs-fan。
+** Emacs作为编程环境的不足
+2011-03-17 08:33 by Ricepig, 5673 阅读, 69 评论, 收藏, 编辑
+写了一段时间的程序，感受过各种编程环境，也数次学习Emacs（或者Vi）并期望这两者能搞定大部分事情。不过，最后还是发现术业有专攻，作为编程环境的时候，某些情景这哥俩还真的不怎么适合，姑且称为不足吧，记录在这里。
+
+这里马上想说的是，我不是Emacs和Vi的粉丝，但是很喜欢两者的某些设计和功能。努力学习过他们，在生产环境中也经常用到，但并不精通。如果有我不知道或者说错的地方，敬请批评指正。另外，这贴无意于讨论IDE还是Notepad写程序谁更高明的问题。
+
+1、项目的组织方式
+
+Emacs首先是作为编辑器而存在而出名（我想Vi也一样），在不用插件时，它面向的是单个文件，若考虑split和tab方式，则是面向多个单独的文件。当使用了某些插件以后，它可以“看到”并“管理”目录树，部分变成了面向目录的管理方式。无论是面向文件的还是面向目录树的，Emacs都首先致力于对于单个文件内部编辑功能的强大。项目所用到文件之间的关联，在编译之前关联是松散的——Emacs把它们当做单独的一个一个文件，至多是以文件系统的目录树结构组织。这有的时候很好，确实符合KISS和工具高内聚低耦合的思路：通过文件系统组织项目，通过shell直接实现文件的操作以实现项目的管理。而现代的IDE基本都是面对“项目”这个概念。Emacs这种面向文件的方式，相对就有些不足：：
+
+调整项目的目录结构，Emacs靠的是命令，文件一多效率就可想而知；（不过这一点是典型的鼠标操作优势项目，有点作弊的嫌疑）
+依据当前符号在项目内跳转，比如点击函数定义，直接跳转到函数体，Emacs对C还支持，对其他语言就。。。；
+查找类的继承结构时，IDE会在项目中找到相应的符号并跳转。Emacs并没有“项目”这个视野，跳转或者类的继承结构有可能不完整；
+项目文件数目和种类都较多，并且分布在不同目录中时。这种情况下IDE一般会把文件按类型分门别类列好，也就是说，导航栏强大的多；
+IDE会根据对项目的操作（添加文件、删除文件、改名、改目录）自动变更项目文件或者Build脚本，而Emacs需要在做了这些变更以后，再慢慢到脚本里找到相应位置进行更行；
+想象一个极端场景吧，一个项目拥有100个文件，其中80个代码文件，放在一个目录中（叙述简单起见）。由于重构的需要，我们需要调整目录结构，根据命名空间将他们分门别类放进相应的目录，这些文件有若干个类，有几个类方法很多，参数复杂，类继承系统也超过3层。这种场景现代IDE相对能较快速的解决问题，这个时候Emacs搞不好还在来回翻查目录移动源代码或者是同步Build脚本。
+
+尤其是现在大家都在写着“胶水”代码，更注重“结构”而不会在一个文件中死磕很久（我相信做算法的牛人或许不是这样），Emacs的优势在弱化，而对于项目管理的劣势就更明显。前两天还看了篇文章说程序员真正在“写”程序的时间不会超过50%呢。
+
+2、缺失的功能和黑客的插件
+
+Emacs和Vi本身在文字处理方面的功能非常强大（低耦合高内聚嘛），由于某些非文字编辑功能的缺失而且系统又比较开放，各种插件层出不穷。可以说，没这些插件真就没有Emacs作作为编程环境的今天（其实裸奔Emacs对编程支持得还算友好啦，Vi裸奔基本什么都没有么），什么Colortheme，numberline，etags，CEDET，cscope等等等等的插件大大增强了Emacs在程序开发方面的能力（甚至有部分弥补了上面第一部分我说的不足）。相应的，Vi也有许许多多各种各样的插件（比如上推特啦，收邮件啦，聊Gtalk啦-_-）。但是，但是！这些插件有着相当浓厚的黑客味道：
+
+配置插件配置到你崩溃，不断改配置，重试，改配置，重试，直到你的Emacs再也起不来鸟~~~>_<~~~
+除了几个著名插件，其他插件的完成度真的比较让人怀疑，兴趣爱好么，写到一半没兴趣了怎么办？讲与时俱进讲了这么久了，插件还真是做不到与时俱进那。
+C和C++加上插件基本成套能用，其他语言那？记得有一次，一个html/css/js的项目写到一半，突发奇想用了一会儿vim+网上大牛推荐的几个著名插件，哎呦我的妈，这是回到了侏罗纪吗？基本的代码着色，代码缩进还能做的更差一点吗？
+当然，随着插件的完善，Emacs和Vim还是有更完美的希望的。也许什么时候Netbeans Eclipse这些都被干翻了，IBM和Oracle回到Emacs或者Vi怀抱，又或者Google被弄得没ide用了，这时候Emacs和Vim插件就有希望了。也就是说，Emacs作为开发环境缺乏大厂的支持，这是它的一个硬伤。
+
+3、高级特性
+
+下面这些高级特性上，Emacs和Vim的差距也比较大：
+
+首先要说的高级特性就是智能感知和补全，在微软叫Intellisense，在其他的厂，好吧，就叫Auto-Complete… 这个差距就大了去了。基本上Emacs在C和C++领域还能撑一下，只能说略输现代IDE一点，基于项目和语法分析的插件勉强赶上时代（勉强比Eclipse，Netbeans这种差一点，和VC和SlickEdit比那就是厕所里点灯）。其他语言的智能感知和补全基本上就是农业社会了——基本上就是基于单词表的，囧。其实Emacs也做得出来，不过这种东西没大厂雇一帮人，做个能用的蛮难。
+其次是重构啊，单元测试啊，源代码管理啊这些热点特性基本也没戏了，Emacs里只能Shell开起来，小碎步抖起来了。
+再然后是调试的支持。Emacs也好Vi也好，插件一个不落全装上，对GDB支持还是蛮好的。即使这样，GDB目前看起来调试功能和Visual Studio还是有一定差距（举个例子，VS好几年前开始支持泛型容器直接看内容了，可能我土鳖，不知道GDB也支持了）。然后，其他语言的调试，又是一片悲剧，插件又没跟上！
+最后再提一小点：对于类库、框架、插件的管理和支持。Eclipse，Netbeans，VisualStudio都有比较完善的插件管理机制，你要哪些插件，随你选，然后自动下载安装搞定。Emacs和Vi满世界找插件，下载以后改配置文件，没配置对还要悲剧。现代IDE对于某些程序需要的类库框架也是这种管理方式，搜索，下载，直接加入项目文件或者build文件，然后对于框架有较多的自动生成功能（比TextMate的Bundles高档多了，基于语法分析的一般）。不过说实话，这点写成Emacs的缺点还真有点心虚，因为这本来就是集市和大教堂的区别。
+总的来说，比较根本的缺点其实只有两个：面向文件而不是面向工程的管理方式；没有大厂支持。前者是由于Emacs（Vi）编辑器的本质造成的，后者，额，我也不知道是什么造成的。
+
+洋洋洒洒写了这么多，其实我还是挺喜欢Emacs也挺喜欢Vi的，他俩最吸引我的其实还是全键盘的操作方式——相当的装B啊，给别人演示的时候倍儿有面子——还有就是奇快的速度，拿来做一些小项目速度很快也很顺手。但是挨踢界确实也是一日千里，Emacs和Vi能迎头赶上就好。
+
+* 功能需求
+- 语法高亮
+- 自动对齐、自动缩进、tab
+- 显示行号
+- 括号自动匹配
+- IDE布局
+  + tab
+  + file explorer
+  + project
+  + outline
+- 代码折叠
+
+- 语言相关
+  + 专用编辑功能
+  + 代码补全
+- 集成环境
+  + 运行脚本
+  + unit test
+
+
+* 在vim中编写python
+1.代码自动补全
+上面引用的文章里面提到了关于python的自动完成功能，但是每次都要反复按Ctrl+N，略显麻烦，建议加上autocomplpop这个插件，这样就像Eclipse+PyDev一样，会自动弹出窗口提示补全代码。当然，还有SuperTab这个强大的插件供你选择。
+2.自动语法检查
+所需插件：python_check_syntax ，该插件需要pyflakes，Debian的用户直接
+aptitudeinstall pyflakes
+
+
+python_check_syntax默认是在python文件保存完之后开始执行检查，即运行完” :w “之后。检查语法的默认快捷键为cs[注] 。可以通过在vimrc里面添加以下两行来修改该快捷键和是否在保存时进行语法检查。
+
+g:pcs_hotkey      # run the checker, the default is  cs
+g:pcs_check_when_saving   # when true, the checker automaticlly run while saving, the default is true
+
+3.Python专用插件
+3.1 python_fn.vim
+提供了众多方便编辑Python效率的快捷键。比如选择整个class, function之类的，它的页面已经所得很详细，我就不多说了。
+3.2 python.vim
+Python语法高亮支持，具体不说了，看页面。
+4.Python调试
+vim里面调试，可以通过设置makeprg为python %。这样可以通过:make自动的对当前编辑的文件进行测试。关于Unix程序管道通讯的Buffer大小这篇文章为我们提供了一个更好的方法：python -u %，即在python.vim里面添加：
+setmakeprg=python -u%
+
+这样就可以了。
+5.推荐阅读文章
+关于vim方面的文章，推荐大家看一下
+手把手教你把Vim改装成一个IDE编程环境(图文)
+
+
+http://blog.csdn.net/wooin/archive/2007/10/31/1858917.aspx
+注：
+
+Vim 默认使用 作为|<LocalLeader>|，你可以通过在vimrc里面添加
+let maplocalleader = ";"
+
+来更改，这里将LocalLeader更改为” ; “，冒号，具体建议你看一下 VIM：map
+
+
+
+
+* 通用篇
+** 初步具备IDE的形态——ECB+CEDET
+** aaa 
+ECB代表的是“Emacs Code Browser”，顾名思义，用以浏览代码。ECB提供了四个窗口：
+²         Directories窗口：显示目录结构；
+²         Sources窗口：显示当前目录下的文件列表；
+²         Methods窗口：显示当前文件中的函数/类/成员列表；
+²         History窗口：显示最近访问过的文件。
+本文简单介绍ECB的安装与基本配置，希望本文对您有所帮助。主要参考ECB帮助文档。
+
+安装 ECB
+正如绝大多数Emacs插件，ECB同样要求版本兼容，具体内容参考帮助文档的Installation部分。由于ECB的显示需要semantic的支持，因此在安装ECB之前，必须正确安装cedet/semantic，可参考《在Emacs中使用CEDET》。一切准备工作就绪以后，即可下载ECB包，并将其解压到Emacs插件存放的位置，如～/.emacs.d/site-lisp/。向.emacs文件添加以下内容，将ECB的安装目录加入到Emacs的load-path中，并且在Emacs启动时加载并自动启动ECB，同时屏蔽扰人的每日提示。
+(add-to-list 'load-path "/home/pydeng/.emacs.d/site-lisp/ecb-2.40")
+(require 'ecb)
+ 
+;;;; 自动启动ecb，并且不显示每日提示
+(setq ecb-auto-activate t
+      ecb-tip-of-the-day nil)
+重新启动Emacs，就可以看到ECB提供的四个窗口。这时候，可以在Emacs执行“M-x ecb-byte-complie”编译，加快ECB的运行速度。
+
+鼠标的支持
+默认情况下，使用鼠标点击ECB窗口中的内容，不起作用。可以在Emacs中执行“M-x ecb-customize-most-important”，找到“Ecb Primary Secondary Mouse Buttons”选项，将其设为“Primary: mouse-1, secondary: mouse-2”，并且以“Save for Future Sessions”保存。
+
+关于 ECB窗口的基本操作
+在.emacs文件中加入如下按键绑定，方便执行ECB窗口的基本操作，包括窗口间切换、显示/隐藏ECB窗口、使ECB窗口最大化等。
+;;;; 各窗口间切换
+(global-set-key [M-left] 'windmove-left)
+(global-set-key [M-right] 'windmove-right)
+(global-set-key [M-up] 'windmove-up)
+(global-set-key [M-down] 'windmove-down)
+ 
+;;;; 隐藏和显示ecb窗口
+(define-key global-map [(control f1)] 'ecb-hide-ecb-windows)
+(define-key global-map [(control f2)] 'ecb-show-ecb-windows)
+ 
+;;;; 使某一ecb窗口最大化
+(define-key global-map "/C-c1" 'ecb-maximize-window-directories)
+(define-key global-map "/C-c2" 'ecb-maximize-window-sources)
+(define-key global-map "/C-c3" 'ecb-maximize-window-methods)
+(define-key global-map "/C-c4" 'ecb-maximize-window-history)
+;;;; 恢复原始窗口布局
+(define-key global-map "/C-c`" 'ecb-restore-default-window-sizes)
+
+** 安装
+1.确保你已经安装了JDK
+2.确保你安装了Maven
+3.安装Emacs:sudo apt-get install emacs
+4.下载jdee-bin-2.4.0.1.zip和依赖文件elib-1.0.zip,地址在这里：http://sourceforge.net/projects/jdee/files/
+5.将两个文件解压到/opt/emacs_plugins/目录下面
+6.还需要下载ecb-2.40和ecb.el，也放在emacs_plugins目录下
+7.下载javadoc-help的javadoc-help.el文件放在/opt/emacs_plugins/java目录下面 http://javadochelp.sourceforge.net/
+
+** 配置.emacs
+配置JDEE
+[plain] view plaincopyprint?
+
+	1. ;;JDEE configuration  
+	2. (add-to-list 'load-path (expand-file-name "/opt/emacs_plugins/jdee-2.4.0.1/lisp"))  
+	3. ﻿﻿(load-file "/opt/emacs_plugins/cedet-1.0pre7/common/cedet.el")  
+	4. (add-to-list 'load-path (expand-file-name "/opt/emacs_plugins/elib-1.0"))  
+	5. (add-to-list 'load-path (expand-file-name "/opt/emacs_plugins/ecb-2.40"))  
+	6. ;;(add-to-list 'load-path (expand-file-name "/opt/emacs_plugins/jde-jalopy"))  
+	7.   
+	8. (load-file (expand-file-name "/opt/emacs_plugins/ecb-2.40/ecb.el"))  
+	9.   
+	10. (require 'font-lock)  
+	11. (require 'ecb)  
+	12. (require 'ecb-autoloads)  
+	13. (require 'jde)  
+	14.   
+	15. (custom-set-variables  
+	16.  '(browse-url-browser-function (quote browse-url-generic))  
+	17.  '(browse-url-generic-program "chromium-browser")  
+	18.  '(column-number-mode t)  
+	19.   
+	20.  '(jde-complete-function (quote jde-complete-menu))  
+	21.  '(jde-debugger (quote ("jdb")))  
+	22.  '(jde-jdk-registry (quote (("1.6.0_29" . "/usr/jdk1.6.0_29"))))  
+	23.  '(jde-resolve-relative-paths-p t)  
+	24.  '(jde-run-option-debug (quote ("Server" "Socket" "javadebug" nil "5005" t))))  
+
+
+查看API文档可惜的是javadoc-helper不能检索jdk文档。自己在浏览器里面保留一个书签代替吧。
+[plain] view plaincopyprint?
+
+	1. ;; Java document support  
+	2. (add-to-list 'load-path (expand-file-name "/opt/emacs_plugins/java"))  
+	3. (require 'javadoc-help)  
+	4. (javadoc-set-predefined-urls '("/opt/java_docs/common-cache-1.0.0-javadoc"  
+	5.                                "/opt/java_docs/commons-codec-1.4-javadoc"  
+	6.                                "/opt/java_docs/commons-logging-1.1.1-javadoc"  
+	7.                                "/opt/java_docs/ehcache-server-1.0.0-javadoc"  
+	8.                                "/opt/java_docs/gson-1.7.1-javadoc"  
+	9.                                "/opt/java_docs/jcommander-1.12-javadoc"  
+	10.                                "/opt/java_docs/jersey-apache-client-1.9.1-javadoc"  
+	11.                                "/opt/java_docs/jersey-client-1.9.1-javadoc"  
+	12.                                "/opt/java_docs/jersey-core-1.9.1-javadoc"  
+	13.                                "/opt/java_docs/joda-time-1.6.2-javadoc"  
+	14.                                "/opt/java_docs/junit-4.8.2-javadoc"  
+	15.                                "/opt/java_docs/logback-classic-1.0.0-javadoc"  
+	16.                                "/opt/java_docs/logback-core-1.0.0-javadoc"  
+	17.                                "/opt/java_docs/lombok-0.10.4-javadoc"  
+	18.                                "/opt/java_docs/mongo-java-driver-2.7.2-javadoc"  
+	19.                                "/opt/java_docs/mybatis-3.0.5-javadoc"  
+	20.                                "/opt/java_docs/slf4j-api-1.6.4-javadoc"  
+	21.                                "/opt/java_docs/snakeyaml-1.6-javadoc"  
+	22.                                "/opt/java_docs/testng-6.1.1-javadoc"))  
+	23.   
+	24. (global-set-key [(f1)]          'javadoc-lookup)  ; F1 to lookup  
+	25. (global-set-key [(shift f1)]    'javadoc-help)    ; Shift-F1 to bring up menu  
+
+
+注意，上面的文档目录都是自己从互联网上下载的，如果使用maven构建项目，可以很方便的用一个脚本文件将文件jar包下载下来，并且复制到/opt/java_docs/目录下。
+[plain] view plaincopyprint?
+
+	1. mvn clean  
+	2. mvn dependency:resolve -Dclassifier=javadoc  
+	3. rm -rf /opt/java_docs  
+	4. mkdir /opt/java_docs  
+	5. cp $(find ~/.m2/repository/ -name *javadoc.jar) /opt/java_docs/  
+
+
+
+下面这个脚本可以帮助我把所有jar文件解压到同名目录下。
+[plain] view plaincopyprint?
+
+	1. #!bin/sh  
+	2. path=/opt/java_docs  
+	3. for f in $(ls $path/*.jar);  
+	4. do  
+	5.     name=`basename $f`  
+	6.     name2=`echo $name | sed 's/\.jar//g'`  
+	7.     echo $name2  
+	8.     mkdir $path/$name2  
+	9.     cd $path/$name2  
+	10.     jar xvf $path/$name  
+	11. done  
+	12.   
+	13. rm -f *.jar  
+
+
+这个脚本可以生成需要配置的目录路径，用在.emacs中。
+[plain] view plaincopyprint?
+
+	1. path=/opt/java_docs  
+	2. for f in $(ls $path/);  
+	3. do  
+	4.     name=`basename $f`  
+	5.   
+	6.     echo \"/opt/java_docs/$name\"  
+	7. done  
+
+
+配置工程文件为每一个Maven工程目录里面创建一个prj.el文件。下面的是一个例子。/opt/jdk_src的jdk源代码文件是从jdk目录的src.zip解压而来。
+jde-global-classpath里面列出了本项目使用的jar包。注意是绝对路径。
+'(jde-db-option-connect-socket (quote (nil "5005"))) 指的是远程调试的连接端口，后面调试一节再细讲。
+'jde-sourcepath 里面指定了源代码路径
+手动配置这些东西的确有点麻烦，将来可以学点lisp编程，在Emacs里面自动产生这个文件。先凑合着用吧。
+[plain] view plaincopyprint?
+
+	1. (jde-project-file-version "1.0")  
+	2. (jde-set-variables  
+	3.  '(jde-db-source-directoiries "/opt/jdk_src")  
+	4.  '(jde-global-classpath (quote ("./target/classes"  
+	5.                                 "./target/test-classes"  
+	6.                                 "/home/chenshu/.m2/repository/joda-time/joda-time/1.6.2/joda-time-1.6.2.jar"  
+	7.                                 "/home/chenshu/.m2/repository/com/sun/jersey/jersey-client/1.9.1/jersey-client-1.9.1.jar"  
+	8.                                 "/home/chenshu/.m2/repository/org/testng/testng/6.0.1/testng-6.0.1.jar")))  
+	9.  '(jde-db-option-connect-socket (quote (nil "5005")))  
+	10.  '(jde-sourcepath (quote ("./src/main/java/com/freebird/business"  
+	11.                           "./src/test/java/com/freebird/test"  
+	12.                            ))))  
+
+
+
+Windows7 下的配置
+最后附一个windows7的配置，当时整了好久，早算cedet不报错，勉强能用。
+[plain] view plaincopyprint?
+
+	1. (setq debug-on-error t)  
+	2. (global-set-key [f5] (lambda() (interactive) (revert-buffer t t)))  
+	3. (setq c-basic-offset 4)  
+	4. (show-paren-mode)  
+	5.   
+	6. ;;JDEE configuration  
+	7.   
+	8. (add-to-list 'load-path (expand-file-name "c:/emacs_plugins/jdee-2.4.0.1/lisp"))  
+	9. (add-to-list 'load-path (expand-file-name "c:/emacs_plugins/cedet-1.0/common"))  
+	10. (load-file "c:/emacs_plugins/cedet-1.0/common/cedet.el")  
+	11. (add-to-list 'load-path (expand-file-name "c:/emacs_plugins/cedet-1.0/semantic"))  
+	12. (add-to-list 'load-path (expand-file-name "c:/emacs_plugins/cedet-1.0/eieio"))  
+	13. (add-to-list 'load-path (expand-file-name "c:/emacs_plugins/cedet-1.0/speedbar"))  
+	14. (add-to-list 'load-path (expand-file-name "c:/emacs_plugins/elib-1.0"))  
+	15. (add-to-list 'load-path (expand-file-name "c:/emacs_plugins/ecb-2.40"))  
+	16. (load-file (expand-file-name "c:/emacs_plugins/ecb-2.40/ecb.el"))  
+	17. (require 'font-lock)  
+	18. (require 'ecb)  
+	19. (require 'ecb-autoloads)  
+	20. (require 'jde)  
+	21.   
+	22. (custom-set-variables  
+	23.  '(browse-url-browser-function (quote browse-url-generic))  
+	24.  '(browse-url-generic-program "chromium-browser")  
+	25.  '(column-number-mode t)  
+	26.  '(jde-gen-buffer-boilerplate (quote (nil "////////////////////////////////////////////////////////////////////////////////  
+	27. //Copyright (c) 2011-2012 Esri  
+	28. // Esri (Beijing) Software Research and Development Center  
+	29. //  
+	30. // All rights reserved under the copyright laws of the United States.  
+	31. ////////////////////////////////////////////////////////////////////////////////")))  
+	32.  '(jde-complete-function (quote jde-complete-menu))  
+	33.  '(jde-debugger (quote ("jdb")))  
+	34.  '(jde-db-option-connect-socket (quote (nil "9009")))  
+	35.  '(jde-jdk-registry (quote (("1.6.0_29" . "C:/Program Files/Java/jdk1.6.0_29"))))  
+	36.  '(jde-resolve-relative-paths-p t)  
+	37.  '(jde-run-option-debug (quote ("Server" "Socket" "javadebug" nil "5005" t))))  
+	38.   
+	39. (setq tab-width 4)  
+	40. (setq c-basic-offset 2)  
+
+
+由于公司规定，里面增加了开发用的文件头的说明。
+** 常用方法JDEE的用法可以参考官方网站，我这里只列出自己最常用的。由于我不用Ant了，所以基本上编译都直接采用mvn命令，这些就不劳驾JDEE.java doc生成，也通过maven plugin来完成，不需要JDEE帮忙。
+
+创建类输入命令：jde-gen-class-buffer
+然后按照向导提示完成创建类文件的过程。相对比较简单，但是能用了。
+
+智能提示在需要提示的地方按下组合键：Ctrl c v .
+智能提示有几种方式（弹出窗口用于桌面版本，其他两种可以用于服务器纯字符界面），具体参见官方文档。
+
+源代码跳转在需要跳转的地方按下组合键：Ctrl c v y
+前提是你正确配置了源代码路径。
+
+注释生成在方法或者类的那行按下：Ctrl c v j
+
+注意，在有模板类的情况下无法使用。遗憾啊！
+import语句命令jde-import-organize 可以帮助重新组织当前java文件里面的import语句。而且也跟据字典顺序进行排序。排序可以定制，参考JDEE文档。
+命令jde-import-kill-extra-imports 可以删除当前Java文件里面多余的import语句。
+命令jde-import-all, C-c C-v z 可以导入当前java文件所有缺少的import语句。
+
+查看API文档在要查看的类上直接按F1,会弹出一个窗口让你选择究竟是哪个文档，选择后，Emacs打开Chromium浏览器（前面配置好了）。
+
+重构代码简单修改一个类名，可以用JDE的菜单。不过大规模的重构最好还是用现代IDE来做，所以我通常都会装一个NetBeans7.0.1，来帮我重构代码。
+
+如何调试调试非常重要，我们可以通过命令行方式调试，不过JDEE提供了比较方便的功能，可以随着单步命令的进行让指针指向当前源代码位置。下面列出三种常用调试。
+
+查找源代码用命令jde-find，很牛的，试试看。
+当然也可以切换到eshell,然后直接用grep -n -R '关键字' ./
+
+普通Java application调试确保.emacs文件中有：
+(custom-set-variables
+  '(jde-debugger (quote ("jdb")))
+
+获得更多信息：http://jdee.sourceforge.net/jdedoc/html/jdb-ug/jdb-ug-frame.html
+
+Maven工程默认情况下：maven-compiler-plugin的debug属性被设置为true,这样编译出来的文件已经可以调试了。
+
+通过jde-run-application-class来指定调试启动时的主类名称。
+比如：
+(jde-set-variables
+  '(jde-run-application-class "com.exactor.bulkupload.App")
+...
+
+如果调试启动时要传递参数，可以通过jde-db-option-application-args来指定。
+
+设置断点：C-c C-a C-b
+
+运行程序，打开App.java文件，然后按键：
+C-c C-v C-d
+
+然后用jdb命令吧，run 或者 cont等。
+
+TestNG调试启动testng实例：
+mvn -Dmaven.surefire.debug test
+
+确保prj.el或者~/.emacs文件中包含了：
+'(jde-db-option-connect-socket (quote (nil "5005")))
+
+输入命令：jde-jdb-attach-via-socket
+或者 选择菜单（我不喜欢用鼠标）jdb->external process->attach via socket
+
+设置断点吧
+然后输入run命令
+
+Web程序调试1)假定你已经成功把web程序部署到glassfish 3.1 server上。并且jde-globalclasspath设置正确。
+2)通过maven命令以调试方式启动glasfish server
+mvn org.glassfish.maven.plugin:maven-glassfish-plugin:start-domain
+3)在浏览器中打开网站
+4)选择 Jdb->External Process->Attach To 菜单.
+jde-db-option-connect-socket 允许你设置默认的远程连接的地址和端口号.
+5)设置断点C-c C-a C-b.
+6)在网页上执行一些操作，使得程序停在你的断点上。
+断点命中： "thread=http-thread-pool-8080-(2)", com.webt.pagebean.LoginPage.clickLoginButton(), line=94 bci=0
+常用方法JDEE的用法可以参考官方网站，我这里只列出自己最常用的。由于我不用Ant了，所以基本上编译都直接采用mvn命令，这些就不劳驾JDEE.java doc生成，也通过maven plugin来完成，不需要JDEE帮忙。
+
+创建类输入命令：jde-gen-class-buffer
+然后按照向导提示完成创建类文件的过程。相对比较简单，但是能用了。
+
+智能提示在需要提示的地方按下组合键：Ctrl c v .
+智能提示有几种方式（弹出窗口用于桌面版本，其他两种可以用于服务器纯字符界面），具体参见官方文档。
+
+源代码跳转在需要跳转的地方按下组合键：Ctrl c v y
+前提是你正确配置了源代码路径。
+
+注释生成在方法或者类的那行按下：Ctrl c v j
+
+注意，在有模板类的情况下无法使用。遗憾啊！
+import语句命令jde-import-organize 可以帮助重新组织当前java文件里面的import语句。而且也跟据字典顺序进行排序。排序可以定制，参考JDEE文档。
+命令jde-import-kill-extra-imports 可以删除当前Java文件里面多余的import语句。
+命令jde-import-all, C-c C-v z 可以导入当前java文件所有缺少的import语句。
+
+查看API文档在要查看的类上直接按F1,会弹出一个窗口让你选择究竟是哪个文档，选择后，Emacs打开Chromium浏览器（前面配置好了）。
+
+重构代码简单修改一个类名，可以用JDE的菜单。不过大规模的重构最好还是用现代IDE来做，所以我通常都会装一个NetBeans7.0.1，来帮我重构代码。
+
+如何调试调试非常重要，我们可以通过命令行方式调试，不过JDEE提供了比较方便的功能，可以随着单步命令的进行让指针指向当前源代码位置。下面列出三种常用调试。
+
+查找源代码用命令jde-find，很牛的，试试看。
+当然也可以切换到eshell,然后直接用grep -n -R '关键字' ./
+
+普通Java application调试确保.emacs文件中有：
+(custom-set-variables
+  '(jde-debugger (quote ("jdb")))
+
+获得更多信息：http://jdee.sourceforge.net/jdedoc/html/jdb-ug/jdb-ug-frame.html
+
+Maven工程默认情况下：maven-compiler-plugin的debug属性被设置为true,这样编译出来的文件已经可以调试了。
+
+通过jde-run-application-class来指定调试启动时的主类名称。
+比如：
+(jde-set-variables
+  '(jde-run-application-class "com.exactor.bulkupload.App")
+...
+
+如果调试启动时要传递参数，可以通过jde-db-option-application-args来指定。
+
+设置断点：C-c C-a C-b
+
+运行程序，打开App.java文件，然后按键：
+C-c C-v C-d
+
+然后用jdb命令吧，run 或者 cont等。
+
+TestNG调试启动testng实例：
+mvn -Dmaven.surefire.debug test
+
+确保prj.el或者~/.emacs文件中包含了：
+'(jde-db-option-connect-socket (quote (nil "5005")))
+
+输入命令：jde-jdb-attach-via-socket
+或者 选择菜单（我不喜欢用鼠标）jdb->external process->attach via socket
+
+设置断点吧
+然后输入run命令
+
+Web程序调试1)假定你已经成功把web程序部署到glassfish 3.1 server上。并且jde-globalclasspath设置正确。
+2)通过maven命令以调试方式启动glasfish server
+mvn org.glassfish.maven.plugin:maven-glassfish-plugin:start-domain
+3)在浏览器中打开网站
+4)选择 Jdb->External Process->Attach To 菜单.
+jde-db-option-connect-socket 允许你设置默认的远程连接的地址和端口号.
+5)设置断点C-c C-a C-b.
+6)在网页上执行一些操作，使得程序停在你的断点上。
+断点命中： "thread=http-thread-pool-8080-(2)", com.webt.pagebean.LoginPage.clickLoginButton(), line=94 bci=0
+
+** tabbar
+下载tabbar.el放到你合适的位置。 
+
+
+添加如下内容到你的.emacs文件
+
+
+(add-to-list 'load-path "/home/backfire/emacs/tabbar") 这里你的tabbar.el所在的文件夹
+(require 'tabbar)
+(tabbar-mode)
+(global-set-key [(meta right)] 'tabbar-backward-group)
+(global-set-key [(meta left)] 'tabbar-forward-group)
+(global-set-key [(meta up)] 'tabbar-backward)
+(global-set-key [(meta down)] 'tabbar-forward)
+
+
+然后就可以使用 ALT 和方向键去切换buffer了
+
+tabbar会按照你buffer的major mode把buffer分组。
+
+
+Emacs 默认没有标签栏，使用 tabbar 这个扩展可以给emacs添加标签栏。参见王垠所写的 emacs elisp 扩展中关于 tabbar.el 的部分或 tabbar mode on Emacs Wiki 。
+
+    在 debian/ubuntu 下，包 emacs-goodies-el 即包含众多好用的 emacs 扩展，也包括 tabbar。安装好tabbar后，默认的外观比较素，可通过设置 tabbar-button, tabbar-selected, tabbar-highlight, tabbar-separator (具体各部分的名字可参考 tabbar.el 源文件) 等部分定制tabbar的外观，以配合 color-theme 的外观风格。我在 .emacs 中通过：
+	
+;;;; 设置tabbar外观
+;; 设置默认主题: 字体, 背景和前景颜色，大小
+(set-face-attribute 'tabbar-default nil
+                    :family "Vera Sans YuanTi Mono"
+                    :background "gray80"
+                    :foreground "gray30"
+                    :height 1.0
+                    )
+;; 设置左边按钮外观：外框框边大小和颜色
+(set-face-attribute 'tabbar-button nil
+                    :inherit 'tabbar-default
+                    :box '(:line-width 1 :color "gray30")
+                    )
+;; 设置当前tab外观：颜色，字体，外框大小和颜色
+(set-face-attribute 'tabbar-selected nil
+                    :inherit 'tabbar-default
+                    :foreground "DarkGreen"
+                    :background "LightGoldenrod"
+                    :box '(:line-width 2 :color "DarkGoldenrod")
+                    ;; :overline "black"
+                    ;; :underline "black"
+                    :weight 'bold
+                    )
+;; 设置非当前tab外观：外框大小和颜色
+(set-face-attribute 'tabbar-unselected nil
+                    :inherit 'tabbar-default
+                    :box '(:line-width 2 :color "gray70")
+                    )
+
+** 语言相关
+工程管理：
+倾向于由专门的工具而不是开发工具本身来管理
+  c:make/Cons/SCons
+  java:maven
+  python：zc.buildout
+
+* java篇
+
+** EmacsWiki: Java Development Environment
+http://emacswiki.org/emacs/JavaDevelopmentEnvironment
+
+
+
+JavaDevelopmentEnvironment
+
+The Java Development Environment for Emacs (JDEE) is an integrated development environment for Emacs. It interfaces Emacs to command-line Java development tools, for instance Sun’s JDK.
+Contents
+
+    Advisory
+    Features
+        Core
+        JDEE Extensions and Plugins
+    JDEE's features explained and demonstrated
+    Installation notes
+    Distributions
+    JDEE compared with other IDEs
+    Frequently Given Answers (FGA)
+    Alternatives
+        malabar-mode
+        Eclim
+    Comments
+
+Advisory
+
+The information on this page may be out of date. While the community updates it, please go to the new project site:
+
+    http://jdee.sourceforge.net/
+
+The current state of the project is gaining momentum after a few years of atrophy. Once development is back on track, documentation here and on the project web site will be updated.
+
+    The last version prior to the move to sourceforge (2.3.5.1) is very old and has lots of known bugs.
+    The most recent release since the move (2.4.0.1) is a large improvement, but is still very old. It works fine with Emacs 22.2.1, CEDET-1.0pre6, and ECB-2.40.
+    If you want to use JDEE with emacs versions >=23, you are best to build from the SVN trunk. Patches are gladly accepted to help move things along.
+
+Features
+Core
+
+From the webpage:
+
+    JDEE menu with compile, run, debug, build, browse, project, and help commands
+    syntax coloring
+    auto indentation
+    compile error to source links
+    source-level debugging
+    source code browsing
+    make file support
+    ant support
+    automatic code generation
+    Java source interpreter (Pat Niemeyer’s BeanShell)
+
+JDEE Extensions and Plugins
+
+    Integration with other tools
+        Jdee-Eclipse-integration: different ways to profit from both IDEs or share configuration
+        JdeeAndMavenPom: how to load Maven’s pom.xml
+        JdeeAndMaven2Pom: same, for Maven 2
+        JdeeMaven: still another version for Maven
+        JdeeDecompile: Integrate with JAD, a decompiler
+    Problem searchers
+        JdeeFlymake: on-the-fly syntax checker
+        JdeeFindbugs: looks for bugs in Java code
+        JdeeLint: detects issues with locking, threading, performance, scalability, serialization, …
+    Edition tools
+        JdeeJalopy: a Java source code, formatter, beautifier, pretty printer
+    Information providers
+        JdeeUsages: finds callers of a method, subclasses, overrides, and other information about your Java classes
+    Programming helpers
+        JDIBUG, a new debugger for Java written in Elisp
+
+And more.
+JDEE's features explained and demonstrated
+
+    Quick tour through the basic features
+    Emacs Java Tutorial: lots of screenshots which show autocompletion, compilation, Ant, code generation, jump to source, wizards, documentation, debugging (even remote debugging of a servlet in Tomcat 5)
+    The neverending argument: more about important features, including performance, JSP support, Maven, projects, refactoring.
+
+Others (not so graphical):
+
+    Emacs and JDEE as software development environment: uncomplete, outdated (from 2003)
+    JDEE's user guide (2004)
+
+Link to your success stories here!
+
+    emacs java(jdee) completion note (korean)
+    Emacs 23 on Linux, JDE, Maven and few additional pieces of software work together
+
+Installation notes
+
+See http://forums.fedoraforum.org/showthread.php?t=280711 for notes on installing JDEE and CEDET with Emacs 24.
+
+Install notes for Gnu Emacs 23. This will help you get (require ‘jde) running. No guarantee on anything else.
+
+jde depends: cedet, elib.
+
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/cedet-common/")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/cedet-contrib/")
+;;for jde
+(require 'cedet)
+
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/elib/")
+
+Then you need to edit jdel.el in lisp dir.
+
+Remove or comment out the following lines, because autoload is now part of emacs, and there is no jde-autoloads.el in jde src.
+
+(require 'jde-autoload)
+....
+(unless 
+    (and jde-xemacsp
+	 (file-exists-p 
+	  (expand-file-name 
+	   "jde/auto-autoloads.el"
+	   (jde-root))))
+	 (require 'jde-autoload))
+
+For jde itself, add these to .emacs, change the dirs to fit your install of course:
+
+;;--------------------
+;; jde
+
+(add-to-list 'load-path "~/.emacs.d/jde-current/")
+(require 'jde)
+(setq jde-web-browser "firefox")
+(setq jde-doc-dir "~/d/jdk-6-doc/")
+
+I don’t know much about it myself. I guess there are more problems waiting.
+
+How to load JDE in Emacs >=23.2 (after CEDET integration into Emacs trunk): I fear it is complex, as the CEDET inclusion changed package names but JDEE is still using the old ones (tested in branches 2.4 and trunk). For instance (require ‘semantic-ctxt) is the old name (standalone CEDET), but in the Emacs-included CEDET it should be transformed to (require ‘semantic/ctxt). Someone must update JDEE. 24.m3.2010, DanielClemente
+
+I finally got JDE to work (mostly) with emacs 23.2. Here is what I did:
+
+1) Download trunk source from svn. 2) Extract the source 3) ant configure 4) ant
+
+here is my init file… There a few ‘tricks’ in here:
+
+;; Update the Emacs load-path to include the path to
+;; the JDE and its require packages. This code assumes
+(add-to-list 'load-path (expand-file-name "~/Documents/elisp/jdee/lisp"))
+
+ (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                      global-semanticdb-minor-mode
+                                      global-semantic-idle-summary-mode
+				      global-semantic-decoration-mode
+				      global-semantic-highlight-func-mode
+				      global-semantic-stickyfunc-mode
+                                      global-semantic-mru-bookmark-mode))
+
+(add-to-list 'load-path (expand-file-name "~/Documents/elisp/jdibug-0.2"))
+(setq semantic-load-turn-everything-on t)
+(semantic-mode 1)
+(require 'semantic/senator)
+(require 'semantic)
+(require 'semantic/ia)
+(require 'semantic/wisent)
+(require 'semantic/wisent/java-tags)
+
+;; Use the full Java 1.5 grammer to parse Java
+(autoload 'wisent-java-default-setup "wisent" "Hook run to setup Semantic in 'java-mode'." nil nil)
+
+(setq jde-auto-parse-enable nil)
+(setq jde-enable-senator nil)
+(load "jde-autoload")
+
+;; load jde-testng
+(require 'jde-testng)
+
+;; load jde-maven
+(require 'jde-maven2)
+
+
+(require 'jdibug)
+
+;; If you want Emacs to defer loading the JDE until you open a 
+;; Java file, edit the following line
+(setq defer-loading-jde nil)
+;; to read:
+;;
+;;  (setq defer-loading-jde t)
+;;
+
+(if defer-loading-jde
+    (progn
+      (autoload 'jde-mode "jde" "JDE mode." t)
+      (setq auto-mode-alist
+	    (append
+	     '(("\\.java\\'" . jde-mode))
+	     auto-mode-alist)))
+  (require 'jde))
+
+(setq 
+ jde-sourcepath '( "/Users/ldangelo/Development" )
+ jde-db-option-connect-socket '(nil "28380")
+ jde-jdk-registry (quote (
+			  ("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5/")
+			  ("1.6" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.6/")
+			  )
+			 )
+ jde-jdk `("1.6")
+
+)
+
+
+;; Include the following only if you want to run
+;; bash as your shell.
+
+;; Setup Emacs to run bash as its primary shell.
+(setq shell-file-name "bash")
+(setq shell-command-switch "-c")
+(setq explicit-shell-file-name shell-file-name)
+(setenv "SHELL" shell-file-name)
+(setq explicit-sh-args '("-login" "-i"))
+(if (boundp 'w32-quote-process-args)
+  (setq w32-quote-process-args ?\")) ;; Include only for MS Windows.
+
+
+;; Location of you emacs directory
+(setq my-emacs-dir (concat (getenv "HOME") "/.emacs.d/tmp/emacs-jde"))
+
+;; save all the semantic.cache files to one place
+(when (locate-library "semantic")
+  (let ((semcach (concat my-emacs-dir "/semantic-cache")))
+    (unless (file-directory-p semcach)
+      (make-directory semcach))
+    (setq semanticdb-default-save-directory semcach)))
+
+(define-key jde-mode-map [f8]   'jdibug-step-over) 
+(define-key jde-mode-map [M-f8] 'jdibug-step-into) 
+(define-key jde-mode-map [f7]   'jdibug-step-out) 
+(define-key jde-mode-map [M-f7] 'jdibug-resume)
+
+(require 'flymake)
+
+(defun skip-cleanup())
+
+;; function does not exist in emacs 23.2
+(defun semantic-parse())
+
+(defun flymake-java-ecj-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                       'jde-ecj-create-temp-file))
+         (local-file  (file-relative-name
+                       temp-file
+                       (file-name-directory buffer-file-name))))
+    ;; Change your ecj.jar location here
+    (list "java" (list "-jar" "/Users/ldangelo/Development/ecj.jar" "-Xemacs" "-d" "/dev/null"
+                       "-source" "1.5" "-target" "1.5" "-proceedOnError"
+                       "-classpath"
+                       (jde-build-classpath jde-global-classpath) local-file))))
+ 
+(defun flymake-java-ecj-cleanup ()
+  "Cleanup after `flymake-java-ecj-init' -- delete temp file and dirs."
+  (flymake-safe-delete-file flymake-temp-source-file-name)
+  (when flymake-temp-source-file-name
+    (flymake-safe-delete-directory (file-name-directory flymake-temp-source-file-name))))
+
+(defun jde-ecj-create-temp-file (file-name prefix)
+  "Create the file FILE-NAME in a unique directory in the temp directory."
+  (file-truename (expand-file-name (file-name-nondirectory file-name)
+                                   (expand-file-name  (int-to-string (random)) (flymake-get-temp-dir)))))
+ 
+(push '(".+\\.java$" flymake-java-ecj-init flymake-java-ecj-cleanup) flymake-allowed-file-name-masks)
+ 
+(push '("\\(.*?\\):\\([0-9]+\\): error: \\(.*?\\)\n" 1 2 nil 2 3 (6 compilation-error-face)) compilation-error-regexp-alist)
+ 
+(push '("\\(.*?\\):\\([0-9]+\\): warning: \\(.*?\\)\n" 1 2 nil 1 3 (6 compilation-warning-face)) compilation-error-regexp-alist)
+
+;; Sets the basic indentation for Java source files
+;; to two spaces.
+(defun my-jde-mode-hook ()
+  "Hook for running java file..."
+  (message " Loading my-jde-mode-hook...")
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'statement-case-open 0)
+  (c-set-offset 'case-label '+)
+ (wisent-java-default-setup)
+ (flymake-mode)
+  (setq 
+   indent-tabs-mode nil
+   tab-width 4
+   c-basic-offset 2
+   tempo-interactive t
+   ))
+
+(add-hook 'jde-mode-hook 'my-jde-mode-hook)
+
+
+Distributions
+
+    Debian Etch - installed and loaded correctly
+    Ubuntu 7.10 (Gutsy Gibbon) - requires a patch JDE Ubuntu Patch
+
+Note from 2004: If you use the Debian Sid jde package with CVS Emacs, you may need to apply this patch.
+JDEE compared with other IDEs
+
+    JdeeVsEclipse. Still to write
+
+Frequently Given Answers (FGA)
+
+Did you install it correctly as documented? The website says: “Nearly all the JDEE problems that I have seen are caused by faulty setups,” and “Most problems reported by users are installation/setup problems.” See the Trouble Shooting Guide (Dead link).
+Alternatives
+malabar-mode
+
+malabar-mode is an effort to create a better Java mode for Emacs.
+Eclim
+
+Eclim uses Eclipse as a backend to provide intelligent Java completion and coding support in Emacs
+Comments
+
+I’m happy to see that somebody is investigating the current status of JDE! Thanks, DanielClemente. – AlexSchroeder
+
+JDEE development continues (slowly) on the trunk of the sourceforge repository (http://jdee.svn.sourceforge.net/viewvc/jdee/trunk/jdee/), you are more likely to find something that works with current emacs there. Please submit patches to the sourceforge jdee mailing list to help move things forward. – LenTrigg?
+
+Stupid Question Time Really, I am not as helpless as this message is going to make me sound. I just upgraded to 23.1.50.1 (Ubuntu 9.4 incase that makes any difference) and have been beating my head against getting JDEE to install. I have CEDET 1.0pre7 (from cvs), elib 1.0 (built on the local system with 23), and I even got ecb to work (2.41 (or 2.40…the internal version numbers are not consistent with the messages) from cvs) by commenting out the jde.
+
+I got the svn of jdee and put version 2.40 in the load path and went to town. Sort of.
+
+So, what is the problem? When processing efc.el (eieio foundation classes), the byte-compiling of the definition of efc-coll-add craps out. The error is all about wrong number of arguments and includes three lines of character codes. By looking at the backtrace it appears that the problem is in processing the string passed to error. That is,
+
+(error "Tried to add an item of type %s to a list of items of type %s" (typep item) (oref this elem-type))
+
+is being processed. When the (typep item) is passed to byte-optimize-form (and on down to byte-optimize-form-walker and compiler-macroexpand) things go badly awry. I have not hacked elisp for many a moon so I am lost, lost, lost. Any hints would be greatly appreciated. It took me most of a day to get this much information and I don’t have a lot of time to go deeper, though I really want jdee to work with 23. – drbcladd
+
+The problem seems to be a typo, looks like whoever wrote that error message intended to write
+
+(type-of item)
+
+, not
+
+(typep item)
+
+. The former would naturally fit the error’s description and would, in fact require only one parameter (typep requires two). This said, it complied for me with the above fix. – wvxvw 
+** Emacs开发Java
+
+工具：
+Emacs，ECB，JDE， maven， TestNG/junit,  svn/git, gdb, 
+
+** 使用emacs-jde进行Java开发
+
+
+由于Java的特性一些特性，使用emacs这样的纯 编辑器来进行Java开发也有其不方便之处，对于较大的项目，源文件经常分布在繁多的 目录中（/com/foo/bar/.....），如果使用emacs进行开发，需要频繁的敲入冗长的目录 名，这是一大不方便之处。其次，在Java编译和运行调试，我们需要向编译器，虚拟机 传递一些参数，当然，可以使用Makefile来实现，但这些参数大多并不复杂，使用make 这样功能强大的工具有些破费了。还有，对于一些经常使用的功能或语句如（System.out .println,implements)每次使用都自己敲显然太烦琐。最后，对于一个OO语言来说，有 一个类浏览器也是很方便的。
+现在，使用jde可以基本克服所有这些缺点，将IDE的功能和emacs的优点完美地 结合起来。jde是一个使用emacs-lisp编写的ide软件包，主要部分有Paul Kinnucan开发,在emacs中安装jde后可以基本实现大多数商业IDE系统所提供的功能。由其主要特性有:
+针对Java的语法高亮显示和缩进。
+关键字及类方法等的自动补全(SourceInsight?，目前还不很成熟).
+编译错误定位。
+框架代码自动产生（Listener,println等）
+工程文件（记录编译运行调试参数）
+树状类和文件浏览器显示
+集成帮助(javadoc)及调试功能(jdb+gud)
+除了这些特征外，jde当然具有emacs的一切优秀特征，如可移植性（几乎一切 OS)，可配置性（几乎是无限的，黑客的生命,:-)）。下面将具体介绍jde的安装及使用
+** 安装
+由于jde是一个emacs-lisp语言包，它的安装是非常方便的，当然，需要具有 emacs配置的基本知识。首先，需要满足其安装要求，
+emacs,GNU Emacs 或XEmacs 19 版以上，软硬件平台不限。
+确认安装了jde需要的一些emacs-lisp包（package），有speedbar（类浏览器），semantic（语法分析），eieio(OO lisp),elib(Emacs lisp Utilities)，另外，有些功能需要beanshell(什么是beanshell?www.beanshell.org) ,在XEmacs下运行需要安装FSF-compat包
+将jde包解开到某目录，修改你的.emacs配置文件增加以下一些内容：
+    ;; Set the debug option to enable a backtrace when a
+     ;; problem occurs.
+     ;; 当有问题出现显示错误信息，便于调试
+     (setq debug-on-error t)
+     ;; Update the Emacs load-path to include the path to
+     ;; the JDE and its require packages. This code assumes
+     ;; that you have installed the packages in the emacs/site
+     ;; subdirectory of your home directory.
+     ;; 加载所需的package
+     (add-to-list 'load-path (expand-file-name "~/emacs/semantic-1.3.3"))
+     (add-to-list 'load-path (expand-file-name "~/emacs/speedbar-0.13"))
+     (add-to-list 'load-path (expand-file-name "~/emacs/eieio-0.16"))
+     (add-to-list 'load-path (expand-file-name "~/emacs/jde/lisp"))
+     (add-to-list 'load-path (expand-file-name "~/emacs/elib-1.0"))
+     ;; If you want Emacs to defer loading the JDE until you open a
+     ;; Java file, edit the following line
+     ;; 不自动加载jde-mode
+     (setq defer-loading-jde t)
+     ;; to read:
+     ;;
+     ;;  (setq defer-loading-jde t)
+     ;;
+     ;; 编辑.java文件时加载jde
+     (if defer-loading-jde
+        (progn
+          (autoload 'jde-mode "jde" "JDE mode." t)
+          (setq auto-mode-alist
+                (append
+                 '(("\\.java\\'" . jde-mode))
+                 auto-mode-alist)))
+      (require 'jde))
+
+如果安装无误的话，使用emacs打开java文件时将自动进入jde-mode，过程可能 需要几秒钟，因为jde将调用semantic对整个文件进行语法分析。
+
+** 使用jde
+进入jde-mode后，我们自然可以发现与普通Java-Mode有一些不同，首先是语法 的高亮显示更加"Java"化，一目了然。xemacs顶部的菜单也有了一些变化多了三个菜单项 ，"JDE","Classes","Senator",JDE菜单里包括了JDE提供的所有功能，下面将详细介绍， "Classes"是JDE对Java文件进行语法分析后生成的，包括了当前文件中的所有类，变量， 方法，可以通过选择菜单的方式访问相应的代码。而Senator菜单是由semantic包生成的， 可以通过token的方式对源文件进行搜索定位。下面我们来看看emacs-lisp为我们提供了什 么样的功能：
+JavaDoc支持:JavaDoc是JDK提供的文档生成工具，通过遵循一定的规范对源代码进行注 释，JavaDoc可以生成整个程序的Java风格文档。在jde中，我们只需要将光标定位在某 method的开始，按C-c C-v j,jde将自动生成Javadoc框架注释，在相应的部分写好说明后 ，可以使用javadoc工具生成Java风格的文档。
+自动补全:将变量jde-enable-abbrev-mode变量设置为t,jde可以实现自动补全的功能， 避免我们手工输入的烦琐和易错，补全主要有三种类型，首先关键字补全，即可以自动 补全Java语言的关键字，如我们敲入"impl"，jde就会自动补全成为implements(一个本人 经常拼错的关键字).其他的如abstract可以用"ab"来补全,当然，这只是emacs-lisp雕虫 小技罢了，但重要的是，你可以通过对变量jde-mode-abbrevations变量的修改来自己定义 那些关键字应补全，应应怎样补全(这样太方便了!)。
+下面介绍对控制流结构的补全，即if-else等结构的补全，可以避免控制结构写大 了以后结构发生错误，不过本人体会只要你有良好的编程习惯，这个东西用处不是太大。 比较有用的还有变量名的补全，如我们在某Java文件中定义了名字较长的变量，名为 "variablenametoolong",在后面需要引用时，我们不必记住变量的名字，在输入头几个字 母后，按M-/键，jde将自动补全为相应的变量名，如果有多个选择，多次按M-/可以找到你 需要的。SourceInsight式的全局method补全功能目前jde通过beanshell实现，还不够成熟 。
+代码框架:jde可以自动生成特定类和代码段的框架代码，不需要用户多次重复输入，目 前支持的有:
+import自动生成，即不需要知道某class到底是在什么package里，敲入其名字后 按C-c C-v C-z,jde会自动调用beanshell找到相应的package并自动加入import;method重 载自动生成，即可以根据当前继承的类来自动生成重载函数的框架;
+interface自动生成，根据所implements的interface,自动生成所需要的重载 的函数（太方便了，不需要自己对着文档一个一个地实现了）;根据模版生成某特定类型 类的框架，目前有WindowListener,ActionListener,Get/Set等等。以上这些模版都可以 根据需要自己来修改，great!
+项目文件:将所有编译，运行参数一次存储起来，设置好classpath,sourcepath ,mainclass...之后我们可以在任一文件的Buffer中按C-c C-v C-c对当前文件进行编译， 按C-c C-v C-r可以自动运行项目，或按C-c C-v C-d进行调试。
+集成帮助:设置好帮助文件的URL后，可以使用C-c C-v C-n自动运行启动Browser 来查看帮助，最好安装emacs-w3m,这样看帮助非常方便，更方便的是设置好Class的帮助文 件后可以实现上下文敏感的帮助。在某符号上调用jde-help-symbol,可以自动显示该符号 的帮助。
+类和文件的浏览:jde提供了三种方法，第一种即我们已提过的Class菜单，第二 种是使用etags,第三种最强大的是使用speedbar实现的树状浏览器。几乎和商业IDE使用的 没有任何区别，可以用图形方式快速地访问文件，类的方法及变量及其所依赖的包等等。
+调试:jde通过gud提供了对jdb的支持，同时为了更好地发挥jde的功能，jde的作者们还专门写了一个自己的调试器JDEbug。遗憾的是对此本人研究不够。
+
+
+** 配置
+jde拥有几乎无限的可配置性，最基础可以修改与jde相关的变量和key-binding等，深 入一些的可以修改模版等，当然最深入的就是直接Hack其源码了。
+回页首
+总结
+本文简要介绍了emacs下的Java IDE-jde的安装使用和基本功能，希望更多的朋友能喜欢 上emacs和jde.以上只是一最简要的介绍，具体功能和妙处还需要在使用中体会。 需要说明的一点是使用jde首先必须具有emacs的基本知识，其次要有一点Hack精神，如 果需要一个上手快的傻瓜式的IDE，那jde可能就不能满足要求了。 关于jde有关的资料，maillist等其他信息，可以访问jde主页http://jde.sunsite.dk。
+
+关于作者
+王挺昊（ bachg@sina.com），男，23 岁，清华大学硕士，主要从事利用 Java,XML,CORBA 等技术进行 CAD/CG 等相关领域的开发。是自由软件项目－－ JCad (http://jcad.gnuchina.org) 的创始人以及主要开发人员。
+
+** 安装JDEE这个不乖巧的Emacs插件
+
+按照官方网站上的说法，安装JDEE需要有事先安装好的elib，而且更重要的是要有``合适的''JDK。elib的安装还是挺简单的，直接输入sudo make install就可以了，而JDK则要选择一个合适的版本。我的系统中本来安装的是OpenJDK，不过不知道是我真的没有安装相应的开发工具，还是JDEE这个工具不支持OpenJDK，反正我是没有用OpenJDK成功地设置过，因此我又从Oracle的网站下载了一个Java安装包回来，不过因为版本太新，所以又配置Emacs失败，最后，下载了JDK 6回来用，终于成功了。如果有哪位读者也用OpenJDK成功配置好JDEE的，还请不吝告诉我方法。
+
+除了准备好使用JDEE所必须的依赖，还要对Emacs进行配置，添加到.emacs中的代码如下
+
+(require 'jde)
+(setq jde-jdk-registry
+     '(("1.6.0" . "~/installer/jdk1.6.0_26/")))
+(setq jde-jdk '("1.6.0"))
+
+当然，你需要先保证在load-path变量所包含的路径之中可以找到求值(require 'jde)表达式所必须的elisp文件。我的配置代码是结合了JDEE自带的README文件和官方网站中的安装指导的内容所写出来的，配置jde-jdk-registry和jde-jdk可以使用Emacs所提供的图形方式的配置方法，不过我更喜欢这种自己写代码的方式，因此在.emacs文件中显式地给出。好了，关于JDEE的使用方法和优点什么的，我还没开始探索，等日后需要写Java程序的时候我再来亲自实践好了。
+
+** 使用Emacs-JDE进行Java开发
+============================================================================ 
+本文的最初版本可于http://forum.ubuntu.org.cn/viewtopic.php?t=109439看到（三楼）。 
+http://www.ibm.com/developerworks/cn/java/joy-emacs/在这里可以看到JDEE的部分优点。 
+http://jdee.sunsite.dk/jdedoc/html/jde-ug/jde-ug.html此为JDEE使用手册（英文）。 
+============================================================================ 
+本文参照了http://www.ibm.com/developerworks/cn/java/joy-emacs/以及http://jdee.sourceforge.net/install.html上的资料。（推荐想安装这个东东的人看一下这两个网站……尽管非本人完全独立实现，但是转载请注明出处……嗯嗯，我是为了给咱们的Ubuntu中文作宣传……） 
+============================================================================ 
+所需文件： 
+1、cedet-1.0pre4.tar.gz （可以从http://sourceforge.net/project/showfiles.php?group_id=17886&release_id=513873取得。） 
+2、elib-1.0（从http://jdee.sunsite.dk/elib-1.0.tar.gz取得。） 
+3、JDEE（从http://sourceforge.net/project/showfiles.php?group_id=210946取得。） 
+============================================================================ 
+步骤： 
+1、下载elib，解压到某文件夹中（比如我就是/home/lavender/Install/Java-Emacs。据说放到Emacs的安装目录下更好，但由于本人没有找到这个目录，所以……）。 
+2、下载cedet、JDEE，解压到某目录中（建议和elib放到同样位置）。 
+3、在终端下定位到cedet的目录下，make（通过cedet下的INSTALL可获得更多信息。）。 
+4、现在你应该有cedet、jde和elib三个文件夹了。打开.emacs，加入如下代码（在这里假定它们三个文件夹都在/home/lavender/Install/Java-Emacs下。）： 
+
+代码:
+;; Set the debug option to enable a backtrace when a
+;; problem occurs.
+;; 当有问题出现显示错误信息，便于调试
+(setq debug-on-error t)
+;; Update the Emacs load-path to include the path to
+;; the JDE and its require packages. This code assumes
+;; that you have installed the packages in the emacs/site
+;; subdirectory of your home directory.
+;; 加载所需的package
+
+
+(add-to-list 'load-path "~/Install/Java-Emacs/cedet-1.0pre4/eieio")
+(add-to-list 'load-path "~/Install/Java-Emacs/cedet-1.0pre4/semantic")
+(add-to-list 'load-path (expand-file-name "~/Install/Java-Emacs/jde-2.3.5.1/lisp"))
+(add-to-list 'load-path (expand-file-name "~/Install/Java-Emacs/cedet-1.0pre4/common"))
+(load-file (expand-file-name "~/Install/Java-Emacs/cedet-1.0pre4/common/cedet.el"))
+(add-to-list 'load-path (expand-file-name "~/Install/Java-Emacs/elib-1.0"))
+
+
+;; If you want Emacs to defer loading the JDE until you open a
+;; Java file, edit the following line
+;; 不自动加载jde-mode
+(setq defer-loading-jde t)
+;; to read:
+;;
+;;  (setq defer-loading-jde t)
+;;
+;; 编辑.java文件时加载jde
+(if defer-loading-jde
+    (progn
+      (autoload 'jde-mode "jde" "JDE mode." t)
+      (setq auto-mode-alist
+       (append
+        '(("\\.java\\'" . jde-mode))
+        auto-mode-alist)))
+  (require 'jde))
+
+中间独立的一部分的内容是因机器而异的。其实它们分别是：cedet下的eieio、cedet下的semantic、jde下面的lisp、cedet下面的common、common下的cedet.el以及elib的位置。 
+5、保存。 
+============================================================================ 
+从此以后就可以在Emacs中舒服地写Java程序了……C-c C-v C-c编译并检查错误，C-c C-v C-r运行程序！当然，费了这么多精力得到的回报远远不止是这一点……请访问http://www.ibm.com/developerworks/cn/java/joy-emacs/及http://jdee.sunsite.dk/jdedoc/html/jde-ug/jde-ug.html获得详细信息……
+
+** 生成Emacs JDEE工程文件的maven2插件
+Posted on 2009-06-08 by
+http://code.google.com/p/m2jdee/
+
+Create a Emacs JDEE project for a maven2 based project
+
+Getting started
+0.
+
+svn checkout http://m2jdee.googlecode.com/svn/trunk/ m2jdee
+下载好的文件[m2jdee.zip]
+cd m2jdee
+mvn install
+
+1. Update the ~/.m2/settings.xml, add
+
+<pluginGroups>
+<pluginGroup>org.apache.maven.plugins</pluginGroup>
+</pluginGroups>
+
+2. Generate your jdee project
+
+cd YOUR_M2_PROJECT
+mvn jdee:jdee
+
+To clean the jdee project
+
+mvn jdee:clean
+
+最后再做一点小修改，将生成的class文件统一放到target中：
+打开生成的prj.el，添加两行
+
+(setq jde-compile-option-directory "abs-path/target/classes")
+(setq jde-run-working-directory "abs-path/target/classes")
+
+
+
+* python篇
+** Emacs中打造强大的Python IDE
+本文将介绍，在Emacs中，通过各种扩展，打造强大的Python IDE环境，包括Snippet工具，智能提示，自动补全，重构工具，调试以及GAE的调试，等等。以下各工具的安装前提是你对Emacs的配置文件有一定的了解，所有相关的el文件都必须放在load_path能够加载的地方。
+1. YASnippetsnippet工具，可自定义一些模板，必不可少的好东西！看了下面这个很酷的演示动画就明白了：
+
+http://yasnippet.googlecode.com/files/yasnippet.avi
+
+安装方法：
+
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/plugins/yasnippet-0.6.1c/snippets")
+复制代码
+
+2. AutoComplete自动完成工具，会像VS里一样，弹出一个列表框让你去选择。
+'
+
+安装方法：
+(require 'auto-complete)
+(require 'auto-complete-config)
+(global-auto-complete-mode t)
+(setq-default ac-sources '(ac-source-words-in-same-mode-buffers))
+(add-hook 'emacs-lisp-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-symbols)))
+(add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
+(set-face-background 'ac-candidate-face "lightgray")
+(set-face-underline 'ac-candidate-face "darkgray")
+(set-face-background 'ac-selection-face "steelblue") ;;; 设置比上面截图中更好看的背景颜色
+(define-key ac-completing-map "\M-n" 'ac-next)  ;;; 列表中通过按M-n来向下移动
+(define-key ac-completing-map "\M-p" 'ac-previous)
+(setq ac-auto-start 2)
+(setq ac-dwim t)
+(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+复制代码
+
+3. Rope and Ropemacs非常棒的重构工具，比如rename,move,extract method等等。还有非常好用的goto difinition(跳到定义)，show documents(显示文档)等等。安装Ropemacs前，必须先安装rope和pymacs 。
+rope的安装方法：
+python setup.py install
+pymacs的安装方法：
+
+python setup.py install
+.emacs中：
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+复制代码
+Ropmacs的安装方法：
+
+python setup.py install
+.emacs中：
+
+(pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport t)
+复制代码
+
+4. pycomplete
+一个更加强大的智能提示工具，比如，输入time.cl 然后按TAB键，会列出time模块所有cl开头的函数名。在调用函数时，还会在mini buffer中提示函数的参数类型。这个东西需要先安装pymacs。
+
+安装方法：
+
+1. 拷贝 python-mode.el and pycomplete.el 到Emacs的load_path中。
+2. 拷贝 pycomplete.py 到PYTHONPATH (比如： c:/python25/Lib/site-packages)
+
+3. .emacs中添加：
+
+(require 'pycomplete)
+(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+(autoload 'python-mode "python-mode" "Python editing mode." t)
+(setq interpreter-mode-alist(cons '("python" . python-mode)
+                           interpreter-mode-alist))
+复制代码
+
+
+5. pdb调试
+在Emacs中，通过M-x pdb可调出pdb对python代码进行调试。但是发现在Windows系统中，总进入不了调试模式。主要原因有：
+1. windows中，找不到pdb.py位置。需自己制定pdb的路径。可以通过下面的方法设置pdb的路径：
+;; pdb setup, note the python version
+(setq pdb-path 'c:/python25/Lib/pdb.py
+       gud-pdb-command-name (symbol-name pdb-path))
+ (defadvice pdb (before gud-query-cmdline activate)
+   "Provide a better default command line when called interactively."
+   (interactive
+    (list (gud-query-cmdline pdb-path
+                 (file-name-nondirectory buffer-file-name)))))
+复制代码
+
+2. windows中，调用pdb时，未使用python -i 参数。
+
+针对上面两个问题，我的解决办法是，不设置pdb具体路径，M-x pdb 回车后，出现下面命令:
+Run pdb (like this): pdb 
+然后手动修改一下：
+
+Run pdb (like this): python -i -m pdb test.py
+这样就搞定了。
+
+6. 如何调试GAE程序GAE是一个Web应用，需要跨线程进行调试，而pdb本身对线程调试支持不好。使用pdb进行线程调试时，只有在需要调试的地方插入下面代码：
+import pdb
+pdb.set_trace()
+复制代码
+然后直接运行被调试代码，而不是通过python pdb来执行，就可以多线程代码进行调试了。
+但是Google App Engine这样的Web应用，使用这个方法还是不能调试，和stdin和stdout有关，最后找到一个很好的解决方法：
+def set_trace():
+    import pdb, sys
+    debugger = pdb.Pdb(stdin=sys.__stdin__,
+        stdout=sys.__stdout__)
+    debugger.set_trace(sys._getframe().f_back)
+复制代码
+
+在任何需要调试的地方，调用上面的set_trace()函数。
+
+如果你还有更好玩的东西，一定要告诉我！
+
+参考文档：
+
+http://www.emacswiki.org/emacs/PythonMode
+
+http://www.enigmacurry.com/2008/05/09/emacs-as-a-powerful-python-ide/ 
+http://jjinux.blogspot.com/2008/05/python-debugging-google-app-engine-apps.html 
+作者：CoderZh（CoderZh的技术博客 - 博客园）
+微博：http://t.sina.com.cn/coderzh
+出处：http://coderzh.cnblogs.com
+文章版权归本人所有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。
+** Emacs 设置 Python 编辑模式下的自动补全
+1. 安装 pymacs
+
+从 http://pymacs.progiciels-bpi.ca/ 下载 pymacs，解压，安装过程分两步。
+
+1) python 部分的安装
+
+进入 pymacs 目录，在命令行下执行
+> python setup.py install
+可以通过如下方法检验是否安装正确，进入 python 环境，执行
+from Pymacs import lisp
+如果没有报错，说明 pymacs 已经装上。
+
+2) emacs 部分的安装
+
+将 pymacs.el 文件复制到 emacs 安装目录的 /site-lisp/ 下，启动 emacs, 执行
+M-x byte-compile-file RET pymacs.el RET
+此命令将生成 pymacs.elc 文件。
+可以通过如下方法检验是否安装正确，启动 emacs, 执行
+M-x load-library RET pymacs RET
+
+在 _emacs 文件中添加以下几行代码：
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+
+ok, 现在可以检查 pymacs 是否可用，启动 emacs, 执行
+M-x pymacs-eval RET
+emacs 将提示你输入 python 表达式，输入
+repr(2L**111) RET
+emacs 应该显示 "2596148429267413814265248164610048L"
+
+2. 安装 pycomplete
+
+将 python-mode.el 和 pycomplete.el 两个文件复制到 emacs/site-lisp/ 目录下
+其中，
+python-mode.el 从 http://www.rwdev.eu/python/pycomplete/python-mode.el 下载
+pycomplete.el 从 http://www.rwdev.eu/python/pycomplete/pycomplete.el 下载
+
+将 pycomplete.py 复制到 python 安装目录的 /site-packages/ 下
+此文件从 http://www.rwdev.eu/python/pycomplete/pycomplete.py 下载
+
+编辑 _emacs，添加以下几行代码：
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
+(require 'pycomplete)
+
+现在，所有的安装都已经完成了，可以试试 python 的自动补全，
+输入 time.cl -> 按 TAB 键，emacs 将自动生成 time.clock
+输入 time. -> 按 TAB 键，emacs 将列出所有可能的选项
+输入 time.strftime( ，emacs 将提示 strftime(format[, tuple]) -> string
+
+** Emacs Python IDE
+1. YASnippet
+
+snippet工具，可自定义一些模板：
+
+http://yasnippet.googlecode.com/files/yasnippet.avi
+上面是演示demo
+
+.emacs 配置如下
+?
+1
+2
+3
+	
+(add-to-list 'load-path "~/.emacs.d/yasnippet")
+(require 'yasnippet) ;; not yasnippet-bundle
+(yas/global-mode 1)
+
+ 
+2. AutoComplete
+
+自动完成工具，其实只是一个前端工具。当然也可以用ropemacs 作为它补全的后端使用。
+
+image
+
+.emacs 配置如下：
+?
+1
+2
+3
+4
+	
+(add-to-list 'load-path "~/.emacs.d/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(ac-config-default)
+
+ 
+3. Python-mode
+
+安装python-mode ：
+
+http://www.loveshack.ukfsn.org/emacs/#python.el 下载后直接丢到load-path 中
+
+4.Rope and Ropemacs
+
+Ropemacs非常棒的重构工具，比如rename,move,extract method等等。还有非常好用的goto difinition(跳到定义)，show documents(显示文档)、代码补全等等。安装Ropemacs前，必须先安装rope和pymacs 实际上还要安装rope-mode。
+
+rope的安装方法：
+?
+1
+	
+python setup.py install
+
+pymacs的win上安装方法：
+?
+1
+2
+	
+python pppp -C ppppconfig.py pppp.rst.in pymacs.el.in \  pymacs.rst.in Pymacs contrib tests
+python setup.py install
+
+注意此处：我git pymacs到本地后无法install成功，后来别人给一个pymacs包，我放在git的pymacs里，重新执行上面的安装方法后，成功。pymacs包见本文尾
+
+如果成功，则在python环境中输入以下，不会报错：
+?
+1
+	
+from Pymacs import lisp
+
+.emacs中：
+?
+1
+2
+3
+4
+5
+	
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+
+注意完成后，将下图552行的Pymacs.pymacs 改成Pymacs
+
+image
+
+Ropmacs的安装方法：
+?
+1
+	
+python setup.py install
+
+.emacs中：
+?
+1
+2
+3
+	
+(require 'pymacs)
+(pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport t)
+
+注意：ropemacs时，先将ropemacs解压缩，然后将刚刚安装好的ropemode拷贝进去，再执行安装，否则会出错。C:\Python27\Lib\site-packages\ropemacs
+
+基本操作
+?
+1
+2
+3
+	
+rope-code-assist, M-/   
+Code completionrope-rename, C-c r r  
+Rename a variable, function, etc.
+
+5.程序调试
+
+在Emacs中，通过M-x pdb可调出pdb对python代码进行调试。但是发现在Windows系统中，总进入不了调试模式。主要原因有：
+
+1. windows中，找不到pdb.py位置。需自己制定pdb的路径。可以通过下面的方法设置pdb的路径：
+?
+1
+2
+3
+4
+5
+6
+7
+8
+	
+;; pdb setup, note the python version
+(setq pdb-path 'c:/python25/Lib/pdb.py
+       gud-pdb-command-name (symbol-name pdb-path))
+ (defadvice pdb (before gud-query-cmdline activate)
+   "Provide a better default command line when called interactively."
+   (interactive
+    (list (gud-query-cmdline pdb-path
+                 (file-name-nondirectory buffer-file-name)))))
+
+ 
+
+2. windows中，调用pdb时，未使用python -i 参数。
+
+针对上面两个问题，我的解决办法是，不设置pdb具体路径，M-x pdb 回车后，出现下面命令:
+?
+1
+	
+Run pdb (like this): pdb
+
+然后手动修改一下：
+?
+1
+	
+Run pdb (like this): python -i -m pdb test.py
+
+6.代码检查
+
+基本上都是flymake+pyflakes 或者 flymake +pylint模式，我选择了前者。并安装了pep8
+
+flymake是emacs自带的，下载pyflakes 和pep8 安装好后，按下面配置好即可：
+
+c-c c-w是执行命令！
+
+注意pyflakes 和pep8 都是在cmd中执行命令的。
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+	
+;pycheck grammer ; indent something
+(add-to-list 'load-path "~/.emacs.d/")
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+               'flymake-create-temp-inplace))
+       (local-file (file-relative-name
+            temp-file
+            (file-name-directory buffer-file-name))))
+      (list "pychecker"  (list local-file))))
+   (add-to-list 'flymake-allowed-file-name-masks
+             '("\\.py\\'" flymake-pyflakes-init)))
+(load-library "flymake-cursor")
+;(global-set-key [f10] 'flymake-goto-prev-error)
+;(global-set-key [f11] 'flymake-goto-next-error)
+(setq python-check-command "pyflakes")
+
+ 
+
+然后创建一个pychecker.bat的文档 丢到python里面，我的目录是c:\python27
+?
+1
+2
+	
+python C:\Python27\runpyflakes.py  %*
+pep8 --ignore=E221,E701,E202 --repeat %*
+
+再在该目录创建一个runpyflakes.py的程序
+?
+1
+2
+	
+from pyflakes.scripts.pyflakes
+import mainmain()
+
+效果如下：
+
+image
+
+ 
+
+7.文档帮助
+
+我还是喜欢firefox直接上官方文档库查找。
+
+emacs wiki 也给出了sphinx后格式的文档下载，可以直接在emacs info里查看帮助。
+
+具体链接请见本文末尾处效果可以看最后一个链接。
+
+ 
+
+8.段落注解：
+
+Comment/Uncomment Region
+
+If you have ‘transient-mark-mode’ on, you can just use ‘comment-dwim’:
+
+select a region and hit ‘M-;’.
+
+The DoWhatIMean means that it will comment or uncomment the region as appropriate.
+
+If you do not have ‘transient-mark-mode’ on by default, you can hit C-SPC twice to activate it temporarily.
+
+( doesn’t python-mode.el offer `py-comment-region? --CH )
+
+You can also use “rectangles” with comment/uncomment region (among other things that you can do with rectangles).
+
+See RectangleCommands or “(emacs) Rectangles” in the Emacs manual.
+
+9.框架支持
+
+django： https://code.djangoproject.com/wiki/Emacs" 如果不是很熟悉的话，还是建议用pycharm来写吧。
+
+10.测试
+
+待完善，下面的link中含有。
+
+** emacs-PDB
+
+* Clojure篇
+因为我习惯Emacs，所以Clojure Box很完美
+** 64位window7下配置Clojure+Emacs开发环境
+为了学习Clojure，我最近特别在windows下配置了基于Emacs的Clojure开发环境。把过程做个记录，跟大家分享一下。过程不算太复杂，关键是要多使用Google来解决问题，有些版本问题比较难解决，耐心多尝试就能成功。很多同学都说使用linux更合适等等，我觉得确实有道理，但windows毕竟是很多程序员每天工作必用的工具，使用起来方便的多，所以还是有必要折腾一把。
+ 
+开始了，首先我的操作系统是64位的windows7，英文版。随着现在内存的价格下降，64位win7系统已经开始成为程序员的主要工作平台，所以我们配置的开发环境也要能支持64位win7才算合格。
+ 
+具体步骤：
+1.   安装jdk，因为Clojure是基于JVM的语言，所以java开发环境肯定是必装的。我们直接下载Oracle官方的64位安装包，1.7的最新版本：jdk-7u2-windows-x64.exe。下载完毕后双击安装即可。
+安装完毕，添加环境变量JAVA_HOME，内容为jdk的系统路径。
+例如：
+JAVA_HOME => D:\Program Files\Java\jdk1.7.0_02
+PATH =>  D:\Program Files\Java\jdk1.7.0_02\bin 
+ 
+打开终端，测试，输入java –version回车
+ 	     
+ 
+ 
+2.   安装maven2，maven是java开发常用的项目构建工具，提供jar包的管理功能，因为leiningen需要使用maven的软件仓库进行包的管理，因此，我们先要安装maven2。从官方下载压缩包，我下载的是2.2.1版
+下载网站：http://maven.apache.org/download.html
+下载完毕，解压到本地目录，我放置在D:\new\apache-maven-2
+ 
+添加环境变量：各位同学请输入自己的路径
+M2_HOME => D:\new\apache-maven-2
+M2 => D:\new\apache-maven-2\bin
+MAVEN_OPTS => -Xms256m -Xmx512m
+PATH => %M2%
+ 
+打开终端，测试，输入mvn --version回车
+
+ 
+3.   安装leiningen，leiningen是基于Clojure的项目构建工具，可以为Clojure项目打包解决项目依赖，这也是我们这次配置中要使用的主要工具。
+下载leiningen的windows压缩包和jar包（这里注意，不要用1.62的安装脚本安装，运行后面步骤时会出现错误），我下载的是：
+leiningen-1.5.2-win.zip和leiningen-1.7.0-SNAPSHOT-standalone.jar
+下载网站：https://github.com/technomancy/leiningen/downloads
+下载完毕，leiningen-1.5.2-win.zip解压缩到本地目录。我放置在D:\new\lein，同时把leiningen-1.7.0-SNAPSHOT-standalone.jar拷贝到这个文件夹下面
+ 
+添加环境变量：各位同学请输入自己的路径
+Path => D:\new\lein
+LEIN => D:\new\lein
+LEIN_JAR => d:\new\lein\leiningen-1.7.0-SNAPSHOT-standalone.jar
+打开终端，测试，输入 lein version回车
+
+ 
+安装leiningen插件：
+swank-clojure，用于Emacs的repl插件，集成了SLIME功能。使用命令
+lein plugin install swank-clojure 1.4.0回车
+lein会自动下载相关依赖并安装swank-clojure
+至此，lein安装完毕
+ 
+4.   安装Emacs，Emacs是一个多功能的文本编辑工具，可谓大名顶顶，是Hacker们的最爱。我们下载最新的Emacs2.4版。
+下载地址：https://code.google.com/p/emacs-for-windows/updates/list
+压缩包解压到本地路径。
+安装Clojure插件clojure-mode
+下载地址https://github.com/jochu/clojure-mode
+只下clojure-mode.el即可，下载完毕放到Emacs的默认插件目录下面
+在win7下，Emacs的默认插件目录是C:\Users\用户名\AppData\Roaming\.emacs.d\
+由于AppData是隐藏文件，要注意。我放置的路径是C:\Users\Adam\AppData\Roaming\.emacs.d\clojure-mode\clojure-mode.el
+Emacs的默认配置文件夹是C:\Users\用户名\AppData\Roaming，配置文件名是.emacs。如果文件不存在，可以手动创建一个。
+编辑.emacs文件，添加如下内容：
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/clojure-mode")
+ 
+(require 'clojure-mode)
+其他插件可选择性的安装，关于Emacs插件的安装和配置，这里就不多讲了，大家多Google即可。记住一点，开源东西bug不少，版本兼容性差，大家一定要耐得住性子才能成功啊。坚持，再坚持，哈哈，痛苦的过程。
+推荐安装的插件：auto-complete, paredit,color-theme
+全部的配置如下:
+ 
+
+ 1 (add-to-list 'load-path "~/.emacs.d")
+ 2 (add-to-list 'load-path "~/.emacs.d/clojure-mode")
+ 3 (add-to-list 'load-path "~/.emacs.d/color-theme")
+ 4 (add-to-list 'load-path "~/.emacs.d/auto-complete")
+ 5  
+ 6 (require 'clojure-mode)
+ 7  
+ 8 (require 'color-theme)
+ 9 (color-theme-initialize)
+10 (color-theme-xemacs)
+11  
+12 (require 'auto-complete-config)
+13 (ac-config-default)
+14 (add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/dict")
+15       
+16 (autoload 'paredit-mode "paredit"
+17       "Minor mode for pseudo-structurally editing Lisp code." t)
+18     (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
+19     (add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
+20     (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
+21     (add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
+22     (add-hook 'clojure-mode-hook           (lambda () (paredit-mode +1)))
+23     (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
+24 (defun override-slime-repl-bindings-with-paredit ()
+25             (define-key slime-repl-mode-map
+26                 (read-kbd-macro paredit-backward-delete-key) nil))
+27                 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)  
+28  
+29 (custom-set-variables
+30  ;; custom-set-variables was added by Custom.
+31  ;; If you edit it by hand, you could mess it up, so be careful.
+32  ;; Your init file should contain only one such instance.
+33  ;; If there is more than one, they won't work right.
+34  '(tool-bar-mode nil))
+35 (custom-set-faces
+36  ;; custom-set-faces was added by Custom.
+37  ;; If you edit it by hand, you could mess it up, so be careful.
+38  ;; Your init file should contain only one such instance.
+39  ;; If there is more than one, they won't work right.
+40  '(default ((t (:inherit nil :stipple nil :background "gray80" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "outline" :family "Consolas")))))
+41  
+42 (show-paren-mode 1)
+43 (setq visible-bell nil)
+44 (setq scroll-step 1
+45         scroll-margin 3
+46         scroll-conservatively 10000)
+47 (global-linum-mode 'linum-mode) ;
+48 (set-scroll-bar-mode nil) ;去掉滚动条
+49 (auto-save-mode nil) ;;禁止自动保存
+50 (global-set-key (kbd "C-|") 'other-window);
+51 (setq frame-title-format 
+52       '("%S" (buffer-file-name "%f" 
+53                    (dired-directory dired-directory "%b"))))
+
+ 
+ 
+5.   好了，安装完毕，经过一大堆的配置，现在我们要开始享受劳动成果了。
+1） 新建一个文件夹，我用的是D:\new\ClojCodes\
+2） 进入终端，输入以下命令：
+cd d: 回车
+cd new\ClojCodes\ 回车
+lein new Project1回车
+3） 这时，会创建一个D:\new\ClojCodes\ Project1的项目文件夹
+我们打开这个文件下的project1.clj把内容修改为：
+1 (defproject SwankProject "1.0.0-SNAPSHOT"
+2   :description "FIXME: write description"
+3   :dependencies [[org.clojure/clojure "1.3.0"]
+4                  [org.clojure/clojure-contrib "1.2.0"]])
+ 
+保存。
+ 
+4） 终端下进入这个文件夹，输入
+lein deps回车
+lein将通过maven的仓库管理，自动下载依赖的jar包并更新
+可能需要较长时间的等待，请耐心。
+ 
+5） 启动Emacs，打开我们修改过的project1.clj，按下alt+x，Emacs的表示法为M-x，在提示处输入clojure-jack-in，稍候片刻，就会出现slime的repl界面，然后我们可以输入简单的clojure代码进行测试和编程了。
+文章结束，祝大家玩的开心。
+最后的截图：
+ 
+ 
+标签: Clojure, Emacs, Leiningen
+绿色通道： 好文要顶 关注我 收藏该文与我联系 
+巫云
+关注 - 5
+粉丝 - 7
++加关注
+1 0
+(请您对文章做出评价)
+« 博主前一篇：开张第一日
+» 博主后一篇：关于Lisp的真相
+posted on 2012-02-20 17:25 巫云 阅读(672) 评论(1) 编辑 收藏
+
+评论
+
+#1楼 2012-03-16 10:01 @mark  
+太好了。clojure居家旅行杀人越货，开发入门必备。膜拜下
+
+
+* Scala篇
+
+* 其他篇
+** xml
+最近想用emacs打造一个小型的Java开发环境，Java开发的mode肯定是选jde了，在IBM的网站上有一篇文章介绍了jde的使用文章《使用emacs-jde进行Java开发》需要注意的是ede、eieio、semantic、speedbar都在cedet这个包中，elib还需要单独下载，这里就不再缀述。
+做为Java开发环境，一个称手的xml编辑器少不了。网上很多介绍使用psgml-mode来编辑xml的，但我发现psgml的使用比较麻烦，似乎还不支持xsd校验，只支持dtd校验。于是找到了nXML-mode，经过测试，nXML-mode再配合RNC schema可以实现对xml文件格式的校验和代码自动完成。
+nXML-mode安装配置过程如下：
+下载nXML-mode及相关的工具软件
+nXML-mode
+自动生成RNC schema的工具Trang
+nXML使用RNC schema来实现对xml的校验，而不是直接使用dtd或xsd，在nXML-mode的包中带了一些常用格式的RNC文件，如DocBook、XHTML、XSLT、DTD等。
+Trang这个工具可以根据DTD生成对应的RNC文件。
+将 W3C XML Schema 转换为 RELAX NG格式的工具rngconv
+这个工具能是将xsd转换成RNG格式，然后可以用Trang将RNG转换为RNC。
+修改.emacs，以加载nXML-mode
+配置无法贴出，贴出后出现排版错误，可以参见nXML-mode的README
+ 添加对Hibernate hbm文件的支持
+根据Hibernate 3 的DTD生成RNC文件
+命令
+java -jar trang.jar http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd hibernate-mapping-3.0.rnc  
+将生成的hibernate-mapping-3.0.rnc复制到emacs的nXML-mode安装目录。
+修改nXML-mode安装目录下的schema/schema.xml。在文件中增加一种新的文件类型对质，在文件中加入：
+xml 代码
+<typeId id="Hibernate HBM" uri="hibernate-mapping-3.0.rnc"/>  
+在schema.xml文件中加入hbm的一种识别方式，这里将根据文件名以hbm.xml结尾，来识别这是一个Hibernate HBM类型的文件：
+xml 代码
+ 
+<uri pattern="*.hbm.xml" typeId="Hibernate HBM"/>  
+这样在打开hbm.xml结尾的文件时，将自动加载前面生成的rnc文件。
+添加对Maven2 pom文件的支持
+根据Maven2的xsd生成rng文件
+命令
+java -jar rngconv.jar http://maven.apache.org/maven-v4_0_0.xsd >> maven2.rng  
+根据rng生成rnc
+命令
+java -jar trang.jar maven2.rng maven2.rnc  
+将maven2.rnc复制到nXML-mode安装目录中。修改schema.xml增加一种新的类型
+xml 代码
+<typeId id="Maven2" uri="maven2.rnc"/>  
+修改schema.xml，加入自动识别pom文件的功能，这里不通过文件名来识别，而是使用namespace来识别
+xml 代码
+<namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Maven2" />  
+这样在打开pom时，将自动加载maven2.rnc文件。
+现在可以编辑hbm或者pom文件进行测试。nXML-mode是即时进行校验的，按Ctrl+return可以自动完成标签或属性。
+
+** 在Emacs中使用gdb调试程序
+1 引言
+Emacs除了具有强大的编辑功能，还可以作为调试工具gdb的前端，对程序进行调试。使用Emacs进行调试，可以将程序的编写与调试统一到Emacs中，并利用Emacs强大的功能辅助调试，是将Emacs作为IDE使用的一项必备功能。
+本文假定读者具有基本的程序调试知识，希望知道在Emacs下进行基本调试的对应操作。水平有限，欢迎拍砖。
+2 准备工作：将调试信息编译在程序中
+要使程序能被gdb调试，需要在编译时加入调试所需的信息。如果使用gcc/g++进行编译，需要使用参数-g，如：
+?View Code BASH
+gcc prog.c -g -o prog
+
+如果使用 ./confiugre && make 的编译流程，可以将使用如下方式引入-g参数：
+?View Code BASH
+1
+2
+
+CFLAGS="-g" ./configure
+make
+注意：不要加入任何优化参数（例如-O、-O2），不然调试时会有很灵异的现象发生……
+3 开始：开启Emacs的调试模式GUD
+3.1 运行gdb
+在编译好程序后，就可以开始调试了。直接运行gdb命令M-x gdb RET 在minibuffer中会出现需要执行的gdb命令。例如：gdb –annotate=3 prog 如果当前目录下有可执行文件（通常恰好是需要调试的文件），gdb会在其后自动补上可执行文件，否则需要在minibuffer中补上要调试的程序文件名。
+继续回车，Emacs的GUD（Grand Unified Debugger）就会关联到gdb并加载要调试的程序了。
+3.2 gdb界面
+启动gdb后，Emacs的界面会变成下面两种之一：
+GDB单窗格模式
+GDB多窗格模式
+可以通过gdb-many-windows来切换这两种界面布局。
+如果界面被打乱了（例如，在minibuffer中使用补全，查看帮助，重新编译程序），可以使用gdb-restore-windows来恢复界面布局。
+3.3 小结
+命令功能gdb启动gdb进行调试gdb-many-windows切换单窗格/多窗格模式gdb-restore-windows恢复窗格布局接下来就要开始调试程序了。
+4 调试：设置断点，控制程序流程
+4.1 设置、删除断点
+首先将断点设置在要调试的地方。有两种方法：
+第一种，在要设置断点的行左边的fringe上单击一下（就是文本左边与滚动条之间空出的那一块）。隐藏了fringe的朋友可以M-x fringe-mode显示它。
+第二种，使用默认快捷键C-x C-a C-b, 或者 C-x <SPC>。它们都关联到命令gud-break。
+无论使用哪种方法，fringe上都会在设置了断点的行上显示一个红点，表示这行设了断点：
+
+同时，在断点buffer中也会显示已有的断点信息：
+断点buffer
+要删除断点，同样有两种对应的方法：在fringe的断点上单击一下，或者使用快捷键C-x C-a C-d（对应命令gud-remove）。
+可以在断点buffer上单击某个断点切换到断点所在位置。将光标移动到断点处回车也有同样的效果。
+在断点buffer上按空格键可以切换断点的激活和禁用状态。
+4.2 运行程序
+设置好断点后就可以运行程序了。单击工具栏上的就开始运行了。也可以使用gud-go命令来运行。奇怪的是没有任何默认快捷键绑定。
+当程序运行到断点时，程序会在断点处停下来，并自动打开停下的语句所在的代码文件。同时在fringe上在停下的语句处有三角形的指示器。
+
+现在，我们来一步步运行程序。
+4.3 单步执行、运行到光标处
+在调试中最常用的功能就是单步执行了。单步执行有两种：将函数调用作为一条语句执行（Next）和遇到函数时进入函数中进行调试（Step）。
+要使用第一种方式，默认快捷键是C-x C-a C-n，对应命令为gud-next。也可以单击工具栏上的  。
+第二种方式的默认快捷键是C-x C-a C-s，对应命令为gud-step。也可以单击工具栏上的  。
+如果想跳出当前函数，可以使用命令gud-finish，默认快捷键为C-x C-a C-f，工具栏上有  可用。
+在Emacs中还可以运行到光标所在的行。使用命令gud-until即可，默认快捷键为C-x C-a C-u。1
+也可以直接把当前语句指示器拖到任意一行，程序会运行到那一行再停下来。
+4.4 继续运行程序
+在程序中断后要继续运行程序，依然是使用gud-go命令或  ，也可以使用命令gud-cont，对应快捷键为C-x C-a C-r。
+4.5 小结
+功能命令默认快捷键添加断点gud-breakC-x C-a C-b 或 C-x <SPC>删除断点gud-removeC-x C-a C-d运行/继续程序gud-go无单步执行，无视函数gud-nextC-x C-a C-n单步执行，进入函数gud-stepC-x C-a C-s跳出当前函数gud-finishC-x C-a C-f运行到光标所在语句gud-untilC-x C-a C-u继续运行程序gud-contC-x C-a C-r
+5 察看变量的值
+调试的过程中免不了要查看变更的值。Emacs提供了方便地功能让我们查看变量的值。
+5.1 本地变量buffer
+如果打开了gdb-many-windows，在右上角会显示Locals buffer，其中显示了当前局部变量的值。如果显示的是寄存器（Register）buffer，单击左边的Locals就可以切换到Locals　buffer了。在其中可以方便地观察到各变量的值。
+如果没有打开gdb-many-windows，也可以使用gdb-display-locals-buffer来显示该buffer。
+5.2 察看变量值
+遇到一些Locals里没有显示的变量，或者比较复杂的结构，就需要用到观察变量的功能了。
+将光标停留在要观察的变量上，执行命令gud-watch，可以将变量加入观察列表中。默认的快捷键是C-x C-a C-w。也可以使用工具栏上的 。
+被观察的变量将在Speedbar中显示。对于复杂结构，可以单击Speedbar上的+号将其展开或收缩。在+号上按空格键也有相同的效果。2
+有时候Emacs观察的变量不是你所想要的，一般是a->b这类的情况。这时可以将要观察的部分选中，再使用上述方法即可。
+
+5.3 用工具提示显示变量值
+可以用gud-tooltip-mode开启或关闭工具提示。开启后将鼠标指针停留在变量名上时将在工具提示中显示变量的值。
+
+5.4 小结
+功能命令默认快捷键观察变量gud-watchC-x C-a C-w展开/收缩变量<SPC>开启/关闭工具提示gud-tooltip-mode
+6 输入输出
+如果程序需要与标准输入/输出交互，那么你很可能需要用到下面要介绍的功能。
+6.1 单独的IO buffer
+默认来说，程序的输入输出是在gdb buffer里显示的。这样输出信息和gdb信息混合在一起，阅读起来非常不便。这时候，你需要把输入输出单独显示在一个buffer里，方便查看。
+使用gdb-use-separate-io-buffer，可以在程序代码buffer右侧新建一个IO buffer，程序对标准输入输出的操作都会重定向到这里。再执行一次该命令则会隐藏。
+
+6.2 输入数据
+需要输入数据的时候，只需要在IO buffer中输入数据回车即可。已经输入的数据会被加粗，以和输出信息区分开来。
+6.3 重定向到文件
+有时候我们已经准备好了用于输入的数据在文件中，以避免调试时烦琐的输入。这时候就需要在调试时进行输入输出重定向了。
+要进行重定向，只能使用gdb自带的功能。在gdb buffer中输入 run < data.in > data.out 就可以将标准输入重定向到data.in，将标准输出重定向到data.out了。
+7 按键绑定
+说实话，gud自带的按键绑定实在是麻烦，使用一个功能要三次组合键才行，小姆指按Ctrl都按酸了。所以一般将常用的按键绑定在方便的位置，这样才能有和另的IDE一样的快感。
+以下是将F5、F7、F8分别绑定到gud-go、gud-step和gud-next的代码：
+?View Code LISP
+1
+2
+3
+4
+
+(add-hook 'gdb-mode-hook '(lambda ()
+                            (define-key c-mode-base-map [(f5)] 'gud-go)
+                            (define-key c-mode-base-map [(f7)] 'gud-step)
+                            (define-key c-mode-base-map [(f8)] 'gud-next)))
+之所以绑定到c-mode-base-map上，是因为我基本上在代码buffer中调试。如果要在gdb-buffer中使用的话，需要使用gud-mode-map。如果想在所有buffer上使用的话，可以绑定到全局按键中：
+?View Code LISP
+(global-set-key [(f5)] 'gud-go)
+8 结尾
+有了调试功能，Emacs作为一个IDE才算是完整了。本文介绍了在Emacs下使用gdb调试的基本方法，Emacs的调试功能还远不止这些，进一步学习可参阅 Emacs Manual 的 Debuggers 一节。
+由于我也是边学边写，一定有许多不足或者错误，还请各位多多指教。
+Footnotes:
+1 注：我在使用时只有光标所在的行在当前行之后并且位于同一函数内才行，否则会跳到很奇怪的地方，还请高手指教。
+2 我在使用过程中经常出现展开没反应，或者加入新元素后才展开，运行几步才展开的情况，求高人讲解。
+** 1 引言
+Emacs除了具有强大的编辑功能，还可以作为调试工具gdb的前端，对程序进行调试。使用Emacs进行调试，可以将程序的编写与调试统一到Emacs中，并利用Emacs强大的功能辅助调试，是将Emacs作为IDE使用的一项必备功能。
+本文假定读者具有基本的程序调试知识，希望知道在Emacs下进行基本调试的对应操作。水平有限，欢迎拍砖。
+2 准备工作：将调试信息编译在程序中
+要使程序能被gdb调试，需要在编译时加入调试所需的信息。如果使用gcc/g++进行编译，需要使用参数-g，如：
+?View Code BASH
+gcc prog.c -g -o prog
+
+如果使用 ./confiugre && make 的编译流程，可以将使用如下方式引入-g参数：
+?View Code BASH
+1
+2
+
+CFLAGS="-g" ./configure
+make
+注意：不要加入任何优化参数（例如-O、-O2），不然调试时会有很灵异的现象发生……
+3 开始：开启Emacs的调试模式GUD
+3.1 运行gdb
+在编译好程序后，就可以开始调试了。直接运行gdb命令M-x gdb RET 在minibuffer中会出现需要执行的gdb命令。例如：gdb –annotate=3 prog 如果当前目录下有可执行文件（通常恰好是需要调试的文件），gdb会在其后自动补上可执行文件，否则需要在minibuffer中补上要调试的程序文件名。
+继续回车，Emacs的GUD（Grand Unified Debugger）就会关联到gdb并加载要调试的程序了。
+3.2 gdb界面
+启动gdb后，Emacs的界面会变成下面两种之一：
+GDB单窗格模式
+GDB多窗格模式
+可以通过gdb-many-windows来切换这两种界面布局。
+如果界面被打乱了（例如，在minibuffer中使用补全，查看帮助，重新编译程序），可以使用gdb-restore-windows来恢复界面布局。
+3.3 小结
+命令功能gdb启动gdb进行调试gdb-many-windows切换单窗格/多窗格模式gdb-restore-windows恢复窗格布局接下来就要开始调试程序了。
+4 调试：设置断点，控制程序流程
+4.1 设置、删除断点
+首先将断点设置在要调试的地方。有两种方法：
+第一种，在要设置断点的行左边的fringe上单击一下（就是文本左边与滚动条之间空出的那一块）。隐藏了fringe的朋友可以M-x fringe-mode显示它。
+第二种，使用默认快捷键C-x C-a C-b, 或者 C-x <SPC>。它们都关联到命令gud-break。
+无论使用哪种方法，fringe上都会在设置了断点的行上显示一个红点，表示这行设了断点：
+
+同时，在断点buffer中也会显示已有的断点信息：
+断点buffer
+要删除断点，同样有两种对应的方法：在fringe的断点上单击一下，或者使用快捷键C-x C-a C-d（对应命令gud-remove）。
+可以在断点buffer上单击某个断点切换到断点所在位置。将光标移动到断点处回车也有同样的效果。
+在断点buffer上按空格键可以切换断点的激活和禁用状态。
+4.2 运行程序
+设置好断点后就可以运行程序了。单击工具栏上的就开始运行了。也可以使用gud-go命令来运行。奇怪的是没有任何默认快捷键绑定。
+当程序运行到断点时，程序会在断点处停下来，并自动打开停下的语句所在的代码文件。同时在fringe上在停下的语句处有三角形的指示器。
+
+现在，我们来一步步运行程序。
+4.3 单步执行、运行到光标处
+在调试中最常用的功能就是单步执行了。单步执行有两种：将函数调用作为一条语句执行（Next）和遇到函数时进入函数中进行调试（Step）。
+要使用第一种方式，默认快捷键是C-x C-a C-n，对应命令为gud-next。也可以单击工具栏上的  。
+第二种方式的默认快捷键是C-x C-a C-s，对应命令为gud-step。也可以单击工具栏上的  。
+如果想跳出当前函数，可以使用命令gud-finish，默认快捷键为C-x C-a C-f，工具栏上有  可用。
+在Emacs中还可以运行到光标所在的行。使用命令gud-until即可，默认快捷键为C-x C-a C-u。1
+也可以直接把当前语句指示器拖到任意一行，程序会运行到那一行再停下来。
+4.4 继续运行程序
+在程序中断后要继续运行程序，依然是使用gud-go命令或  ，也可以使用命令gud-cont，对应快捷键为C-x C-a C-r。
+4.5 小结
+功能命令默认快捷键添加断点gud-breakC-x C-a C-b 或 C-x <SPC>删除断点gud-removeC-x C-a C-d运行/继续程序gud-go无单步执行，无视函数gud-nextC-x C-a C-n单步执行，进入函数gud-stepC-x C-a C-s跳出当前函数gud-finishC-x C-a C-f运行到光标所在语句gud-untilC-x C-a C-u继续运行程序gud-contC-x C-a C-r
+5 察看变量的值
+调试的过程中免不了要查看变更的值。Emacs提供了方便地功能让我们查看变量的值。
+5.1 本地变量buffer
+如果打开了gdb-many-windows，在右上角会显示Locals buffer，其中显示了当前局部变量的值。如果显示的是寄存器（Register）buffer，单击左边的Locals就可以切换到Locals　buffer了。在其中可以方便地观察到各变量的值。
+如果没有打开gdb-many-windows，也可以使用gdb-display-locals-buffer来显示该buffer。
+5.2 察看变量值
+遇到一些Locals里没有显示的变量，或者比较复杂的结构，就需要用到观察变量的功能了。
+将光标停留在要观察的变量上，执行命令gud-watch，可以将变量加入观察列表中。默认的快捷键是C-x C-a C-w。也可以使用工具栏上的 。
+被观察的变量将在Speedbar中显示。对于复杂结构，可以单击Speedbar上的+号将其展开或收缩。在+号上按空格键也有相同的效果。2
+有时候Emacs观察的变量不是你所想要的，一般是a->b这类的情况。这时可以将要观察的部分选中，再使用上述方法即可。
+
+5.3 用工具提示显示变量值
+可以用gud-tooltip-mode开启或关闭工具提示。开启后将鼠标指针停留在变量名上时将在工具提示中显示变量的值。
+
+5.4 小结
+功能命令默认快捷键观察变量gud-watchC-x C-a C-w展开/收缩变量<SPC>开启/关闭工具提示gud-tooltip-mode
+6 输入输出
+如果程序需要与标准输入/输出交互，那么你很可能需要用到下面要介绍的功能。
+6.1 单独的IO buffer
+默认来说，程序的输入输出是在gdb buffer里显示的。这样输出信息和gdb信息混合在一起，阅读起来非常不便。这时候，你需要把输入输出单独显示在一个buffer里，方便查看。
+使用gdb-use-separate-io-buffer，可以在程序代码buffer右侧新建一个IO buffer，程序对标准输入输出的操作都会重定向到这里。再执行一次该命令则会隐藏。
+
+6.2 输入数据
+需要输入数据的时候，只需要在IO buffer中输入数据回车即可。已经输入的数据会被加粗，以和输出信息区分开来。
+6.3 重定向到文件
+有时候我们已经准备好了用于输入的数据在文件中，以避免调试时烦琐的输入。这时候就需要在调试时进行输入输出重定向了。
+要进行重定向，只能使用gdb自带的功能。在gdb buffer中输入 run < data.in > data.out 就可以将标准输入重定向到data.in，将标准输出重定向到data.out了。
+7 按键绑定
+说实话，gud自带的按键绑定实在是麻烦，使用一个功能要三次组合键才行，小姆指按Ctrl都按酸了。所以一般将常用的按键绑定在方便的位置，这样才能有和另的IDE一样的快感。
+以下是将F5、F7、F8分别绑定到gud-go、gud-step和gud-next的代码：
+?View Code LISP
+1
+2
+3
+4
+
+(add-hook 'gdb-mode-hook '(lambda ()
+                            (define-key c-mode-base-map [(f5)] 'gud-go)
+                            (define-key c-mode-base-map [(f7)] 'gud-step)
+                            (define-key c-mode-base-map [(f8)] 'gud-next)))
+之所以绑定到c-mode-base-map上，是因为我基本上在代码buffer中调试。如果要在gdb-buffer中使用的话，需要使用gud-mode-map。如果想在所有buffer上使用的话，可以绑定到全局按键中：
+?View Code LISP
+(global-set-key [(f5)] 'gud-go)
+8 结尾
+有了调试功能，Emacs作为一个IDE才算是完整了。本文介绍了在Emacs下使用gdb调试的基本方法，Emacs的调试功能还远不止这些，进一步学习可参阅 Emacs Manual 的 Debuggers 一节。
+由于我也是边学边写，一定有许多不足或者错误，还请各位多多指教。
+Footnotes:
+1 注：我在使用时只有光标所在的行在当前行之后并且位于同一函数内才行，否则会跳到很奇怪的地方，还请高手指教。
+2 我在使用过程中经常出现展开没反应，或者加入新元素后才展开，运行几步才展开的情况，求高人讲解。
+** 版本控制
+

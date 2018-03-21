@@ -1,0 +1,46 @@
+<section class="slide level1">
+<h1>Set the location of Reveal.js</h1>
+<p>默认位置： <code>./reveal.js</code></p>
+<pre class="emacs"><code>
+(setq org-reveal-root &quot;file:///d:/reveal.js&quot;)
+#+REVEAL_ROOT: file:///d:/reveal.js
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/2.5.0/
+
+</code></pre>
+</section>
+<section class="slide level1">
+<h1>Heading 2</h1>
+<p>HLevel 参数： 默认为1， H1 左右， H2,H3...均竖直排列</p>
+<p>改变：</p>
+<pre class="emacs"><code>
+(setq org-reveal-hlevel 2)
+#+REVEAL_HLEVEL 2
+
+</code></pre>
+<h2>Sub-Heading 2.1</h2>
+<p>强制分页：如果内容较多：</p>
+<p>,#+REVEAL: split</p>
+<p>这是第二页</p>
+<h2>Sub-Heading 2.2</h2>
+<p>更改切换样式：</p>
+<pre class="emacs"><code>
+#+REVEAL_THEME
+#+REVEAL_TRANS
+#+REVEAL_SPEED
+
+</code></pre>
+</section>
+<section class="slide level1">
+<h1>Set Slide Background</h1>
+<p>Slide background can be set to a color, an image or a repeating image array by setting heading properties.</p>
+<h2>Single Colored Background</h2>
+<p>Set property reveal<sub>background</sub> to either an RGB color value, or any supported CSS color format.</p>
+<p>,*** Single Colored Background</p>
+<h2>Single Image Background</h2>
+<p>Set property reveal<sub>background</sub> to an URL of background image. Set property reveal<sub>backgroundtrans</sub> to slide to make background image sliding rather than fading.</p>
+<p>,*** Single Image Background</p>
+<h2>Repeating Image Background</h2>
+<p>Resize background image by setting property reveal<sub>backgroundsize</sub> to a number.</p>
+<p>Set property reveal<sub>backgroundrepeat</sub> to repeat to repeat image on the background.</p>
+<p>,*** Repeating Image Background</p>
+</section>

@@ -1,0 +1,95 @@
+ Moving completed project trees to an archive file keeps the system compact and fast.
+* 属性和列视图
+** 属性
+
+属性是一些与条目关联的键值对。它们位于一个名为 PROPERTIES 的特殊抽屉中。第一个属性都单独一行，键在前（被冒号包围），值在后：
+
+\* CD collection
+\** Classic
+\*** Goldberg Variations
+    \:PROPERTIES:
+    :Title:    Goldberg Variations
+    :Composer: J.S. Bach
+    :Publisher: Deutsche Grammophon
+    :NDisks:   1
+    :END:
+
+通过设置属性 “:Xyz_ALL:” ，你可以为属性 “:Xyz:” 设置所有合法的值。这个特定的属性是有继承性的，即，如果你是在第 1 级别设置的，那么会被应用于整个树。当合法
+的值设定之后，设置对应的属性就很容易了，并且不容易出现打字错误。用CD唱片集为例，我们可以预定义发行商和盒中的光盘数目：
+
+\* CD collection
+  \:PROPERTIES:
+  :NDisks_ALL: 1 2 3 4
+  :Publisher_ALL: "Deutsche Grammophon" Philips EMI
+  :END:
+
+也可以在全局设置 org-global-properties ，或者在文件级别设置：
+
+#+PROPERTY: NDisks_ALL 1 2 3 4
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+ C-c C-x p  设置一个属性。会询问属性名和属性值。  
+────────────────────────
+ C-c C-c d  从当前项中删除一个属性。              
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+要基于选择的属性创建稀疏树或者特殊列表，跟标签搜索的命令相同（见第6.3节）。搜索字符串的语法在第10.3.3节中详述。
+
+** 列视图
+C-c C-x C-c 进入列视图；按 q 退出：
+[[files/org11.png]]
+在文件头部设置列：
+
+#+COLUMNS: %101ITEM  %10PRIORITY2 %15TODO3 %65TAGS4   
+
+1
+	百分数表示该列所占宽度
+
+2
+	优先级
+
+3
+	事件状态
+
+4
+	标签
+C-c C-x C-c 	进入列视图
+r|g 	刷新
+q 	退出
+left|right 	在列间移动
+S-left|S-right 	改变当前列的值
+n|p
+1~9,0 	用编号选择值
+v 	查看当前值
+
+
+* 任务间的依赖关系
+有些任务需要以其他任务的完成作为前提，这称为任务间的依赖关系。Org-mode完全支持这种关系。
+
+
+     * TODO Blocked until (two) is done
+     ** DONE one
+     ** TODO two
+     
+     * Parent
+       :PROPERTIES:
+       :ORDERED: t
+       :END:
+     ** TODO a
+     ** TODO b, needs to wait for (a)
+     ** TODO c, needs to wait for (a) and (b)
+C-c C-x o     (org-toggle-ordered-property)
+Toggle the ORDERED property of the current entry. A property is used for this behavior because this should be local to the current entry, not inherited like a tag. However, if you would like to track the value of this property with a tag for better visibility, customize the variable org-track-ordered-property-with-tag.
+C-u C-u C-u C-c C-t
+Change TODO state, circumventing any state blocking.
+If you set the variable org-agenda-dim-blocked-tasks, TODO entries that cannot be closed because of such dependencies will be shown in a dimmed font or even made invisible in agenda views (see Agenda Views).
+
+You can also block changes of TODO states by looking at checkboxes (see Checkboxes). If you set the variable org-enforce-todo-checkbox-dependencies, an entry that has unchecked checkboxes will be blocked from switching to DONE.
+
+If you need more complex dependency structures, for example dependencies between entries in different trees or files, check out the contributed module org-depend.el.
+
+
+* 项目管理-敏捷？Scrum
+As a project planning environment, Org works by adding metadata to outline nodes. Based on this data, specific entries can be extracted in queries and
+create dynamic agenda views.
+

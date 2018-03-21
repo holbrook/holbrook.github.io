@@ -1,0 +1,7 @@
+* Organize Party [%]
+** Call people [0/2]
+*** REPORT [#B] Peter
+*** TODO Sarah
+    - State "TODO"       from "FIXED"      [2012-04-14 Sat 21:13]
+ ** Buy food
+ ** Talk to neighbor

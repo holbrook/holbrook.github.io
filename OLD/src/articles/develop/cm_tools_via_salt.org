@@ -1,0 +1,89 @@
+#+YAML/TITLE: 基于salt开发配置管理工具
+#+AUTHOR: Holbrook(wanghaikuo@gmail.com)
+#+DATE: <2014-04-29 Tue>
+#+YAML/LAYOUT: post
+#+YAML/TAGS: salt
+#+OPTIONS: toc:t
+
+* 需求
+T2，是某厂商开发的ESB产品，用于证券公司交易相关系统之间的互相调用。该产品的设计思路是一套核心的组件实现消息通信，
+通过不同的插件实现ESB的协议转换、消息路由、访问控制等功能。每个节点基于xml配置不同的插件，即可扮演不同的角色。
+
+恰恰由于这种灵活性，导致其配置非常复杂，人工进行配置修改和检查很容易出错。再加上每个架构角色可能会有多个节点，重复性的工作让人厌烦。
+
+为此，我想通过salt进行自动化的配置。主要需求如下：
+
+- 只定义最基本的、非冗余的数据，从这些数据生成所有的配置
+- 支持多个版本的部署
+- 自动实现停止服务、部署、启动服务等一系列操作
+- 支持升级包的部署
+
+* 机制
+
+salt适合固定的配置(state)部署多个实例(minion)的场景。尽管可以在pillar、state中使用python脚本，但仍无法满足本场景中需要的复杂度。
+所以拟构建python应用，通过salt client API与salt master进行交互。
+
+为了降低对使用者的要求，需要实现一个web界面。拟采用[[/2014/04/28/bottle_startup.html][bottle.py]] 。
+
+* 设计
+
+salt的“三驾马车”是 =state= 、 =pillar= 、 =grains= 。其中：
+
+- state是配置项(CI)的集合。配置项即可以是固定的内容，也可以是模板+数据，还可以是命令和脚本
+- pillar中定义数据并分配给minion。这些数据可以用于state中模板的上下文(context)数据
+- grains记录minion自身的属性。可以作为为minion分配pillar和state的依据，也可以用于模板的上下文
+
+针对本文提到的场景，关系如下：
+
+#+INCLUDE: "./graph/t2_salt.dot" src dot :file ./assets/images/t2_salt.png :exports results
+
+- CI: 在svn中维护各个版本的所有配置项
+- datas: 在文件中维护部署需要的数据
+- pillars.top: 根据datas和各节点的grains数据，组合出每个minion的pillars
+- states.top: 根据各节点的grains和pillars数据，将CI分配到minion
+- pillars: 节点数据，其中可以引用grains
+- states: 节点状态，其中可以引用grains, pillars
+
+** pillar_roots目录结构
+
+=pillar_roots= 是 =/etc/salt/master= 中配置的参数，指定所有可用pillar的保存位置。
+salt中可以按照环境划分不同的pillars，比如 =base= ， =dev= , =prod= 等, 还可以指定多个pillar, 比如 =ext_pillar= 。
+
+本文的场景中，不需要在salt中区分各种环境，故只使用 =base= 目录。其默认值为 =/srv/pillar= 。设计的目录结构如下：
+#+BEGIN_SRC bash
+/srv/pillar
+ ├─ dev.yaml
+ ├─ uat.yaml
+ ├─ prod.yaml
+ ├─ xxx.yaml
+ └─ top.sls
+#+END_SRC
+
+其中，yaml是部署配置，通过工具编辑； top.sls是pillar分配，通过脚本生成。
+
+** file_root目录结构
+
+=file_root= 是 =/etc/salt/master= 中配置的参数，指定所有可用state的保存位置。
+salt中可以按照环境划分不同的states，比如 =base= ， =dev= , =prod= 等。
+
+本文的场景中，不需要在salt中区分各种环境，故只使用 =base= 目录。其默认值为 =/srv/salt= 。设计的目录结构如下：
+
+#+BEGIN_SRC bash
+/srv/salt
+ ├─ v0.1/
+ │ ├─ config items/     配置项，可能是多个目录
+ │ └─ states/           salt state定义。会引用上面的 config item。
+ ├─ v1.0/
+ ├─ v1.0.1/
+ ├─ vx.x.x/
+ └─ top.sls             状态分配，通过脚本生成
+#+END_SRC
+
+** 流程
+
+1. 从svn中获取需要的各个版本，放入 =/srv/salt/=
+2. 编辑 =/srv/pillar= 中的各个部署配置
+3. 生成 =/srv/pillar/top.sls= 和 =/srv/salt/top.sls=
+4. 调用salt client API进行部署
+
+* 实现要点(TODO)

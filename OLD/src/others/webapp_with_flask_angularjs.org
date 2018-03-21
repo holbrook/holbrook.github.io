@@ -1,0 +1,55 @@
+* 选型
+** Flask
+
+[[http://docs.jinkan.org/docs/flask/index.html][中文文档]]
+*** 插件
+
+| 模块                                      | Flash插件             | 说明                                                                |
+|-------------------------------------------+-----------------------+---------------------------------------------------------------------|
+| SQLAlchemy(v0.9.7)                        | Flask-SQLAlchemy(2.0) | ORM                                                                 |
+|                                           | [[http://flask-restful.readthedocs.org/en/0.3.1/][Flask-RESTful]](v0.3.1) | RESTful API                                                         |
+| [[http://marshmallow.readthedocs.org/en/latest/index.html][marshmallow]] (v)                           |                       | 序列化为python对象,可以考虑使用Flask-RESTful的[[ http://flask-restful.readthedocs.org/en/latest/quickstart.html#data-formatting][marshal_with() 装饰器]] |
+| [[http://wtforms.readthedocs.org/en/latest/][WTForms]](v2.0.2), [[https://wtforms-alchemy.readthedocs.org/en/latest/][WTForms-Alchemy]](v0.13.0) | Flask-WTF             | 表单处理                                                            |
+|                                           |                       |                                                                     |
+
+
+** AngularJS
+
+*** 插件
+
+| 包                  | 说明        |
+|---------------------+-------------|
+| [[https://github.com/mgonto/restangular][restangular]](v1.4.0) | RESTful支持 |
+
+
+
+
+* 要点
+
+** 认证和授权
+
+
+* 基本流程
+
+** 模型(models)
+** 序列化()
+** 表单(flask forms)
+** API视图(flask views)
+** http测试
+** angularjs rest
+
+
+
+#+BEGIN_SRC bash
+yo angular:factory bizcategory
+#+END_SRC
+
+** 模板(angularjs views)
+** 表单(angularjs form)
+** 权限控制(前端/后端)
+
+* 部署到SAE
+
+* 参考资料
+
+- Building a blog using Flask and AngularJS, [[http://blog.john.mayonvolcanosoftware.com/building-a-blog-using-flask-and-angularjs-part-1/][Part 1]] 和 [[http://blog.john.mayonvolcanosoftware.com/building-a-blog-using-flask-and-angularjs-part-2/][Part 2]]

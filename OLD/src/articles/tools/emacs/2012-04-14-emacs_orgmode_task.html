@@ -1,0 +1,458 @@
+---
+title: org-mode，最强的任务管理利器，没有之一
+tags:
+  - emacs
+  - org-mode
+layout: post
+---
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 定义任务和子任务</a></li>
+<li><a href="#sec-2">2. 定义任务状态</a></li>
+<li><a href="#sec-3">3. 设置任务优先级</a></li>
+<li><a href="#sec-4">4. 跟踪子任务完成情况</a></li>
+<li><a href="#sec-5">5. 用复选框标记非标题类型的子任务</a></li>
+<li><a href="#sec-6">6. 查询任务</a></li>
+<li><a href="#sec-7">7. 任务的时间计划</a>
+<ul>
+<li><a href="#sec-7-1">7.1. 时间戳</a></li>
+<li><a href="#sec-7-2">7.2. 时间/日期段</a></li>
+<li><a href="#sec-7-3">7.3. 计划时间和截止时间</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8. 全局任务文件清单</a></li>
+<li><a href="#sec-9">9. 全局 TODO 列表</a></li>
+<li><a href="#sec-10">10. 日程表</a></li>
+<li><a href="#sec-11">11. 小结</a></li>
+</ul>
+</div>
+</div>
+<p>
+程序员对于“TODO”这个词一定不陌生。一个TODO意味着有一件事情需要去做。更深入一步来说，TODO是一个未完成的任务。
+</p>
+
+<p>
+Org-mode能够完美解决任务管理的各种问题，包括任务/子任务的划分，关键时间的设定，任务状态变化的跟踪，以及任务的检索和查询。
+再配合<a href="/emacs_orgmode_editor.html">Org-mode的强大编辑功能</a> 能够实现很多功能，比如时间管理（GTD），项目计划和管理，工作日志等。
+</p>
+
+<p>
+本文介绍Org-mode强大的任务管理功能。
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 定义任务和子任务</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Org-mode认为，每一个任务通常会需要附带一些文字说明。所以Org-mode将标题作为任务的载体。通过在标题上增加状态标记，来定义任务。
+由于大纲是分级的，所以将标题定义为任务天然支持了子任务：可以在子标题上标记子任务。
+</p>
+
+<p>
+使用 <code>C-c C-t</code> 或者 <code>S-LEFT/RIGTH</code> 可以为标题增加或改变任务标记。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 定义任务状态</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Org-mode内置的任务状态只有两种：TODO和DONE。如果需要更多的状态，需要自己定义。
+</p>
+
+<p>
+可以在文件内部定义任务状态：
+关键字应该各不相同，这样对于一个选项 Org 才知道该用哪个状态序列（集合）。
+例子中也给出了快速使用一个关键字的方法，就是在关键字后面括号中给出快捷字母
+——当用 <code>C-c C-t</code> 时，会询问，让你输入一个字母。
+</p>
+
+<p>
+要自定义任务状态，可以使用文档元数据 <code>#+SEQ_TODO</code> ，可以在文档的任何地方定义，但是建议统一定义在文档头部：
+</p>
+
+<pre class="example">
+#+SEQ_TODO: REPORT(r) BUG(b) KNOWNCAUSE(k) | FIXED(f)
+#+SEQ_TODO: TODO(T!) | DONE(D@)3  CANCELED(C@/!)
+</pre>
+
+<p>
+将光标放在这些内容上，输入 <code>C-c C-c</code> 可以直接生效。此时再用 <code>C-c C-t</code> 设定任务时，会打开一个新的缓冲区：
+</p>
+
+
+<div class="figure">
+<p><img src="/./assets/images/orgmode/todo1.png" alt="todo1.png" />
+</p>
+</div>
+
+<p>
+对照前面的定义不难发现：
+</p>
+
+<ul class="org-ul">
+<li>可以定义多组状态序列，每个 <code>#+SEQ_TODO</code> 行定义一组
+</li>
+<li>状态之间用空格分隔
+</li>
+<li>可以在（）中定义附加选项，包括：
+<ul class="org-ul">
+<li>字符：该状态的快捷键
+</li>
+<li>！：切换到该状态时会自动增加时间戳
+</li>
+<li>@ ：切换到该状态时要求输入文字说明
+</li>
+<li>如果同时设定@和！，使用 <code>@/!</code> 
+</li>
+</ul>
+</li>
+<li>用 <code>|</code> 分隔未完成状态和已完成状态。未完成状态在查询待办事项时会列出。
+</li>
+</ul>
+
+<p>
+使用C-c C-t 或者 S-LEFT/RIGTH 切换一些状态后，任务会变成这个样子：
+</p>
+
+
+<div class="figure">
+<p><img src="/./assets/images/orgmode/todo2.png" alt="todo2.png" />
+</p>
+</div>
+
+<p>
+会自动生成时间戳，提示填写说明。从而留下完整的记录。
+</p>
+
+
+<p>
+上面的任务状态设置只适用于当前文档。如果希望设定所有 <code>.org</code> 文档的默认任务状态，需要在 <code>.emacs</code> 配置文件中定义。
+上面的任务状态在配置文件中的等效设置为：
+</p>
+
+<pre class="example">
+(setq org-todo-keywords
+    '((sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
+      (sequence "TODO(T!)" "|" "DONE(D@)3" "CANCELED(C@/!)")
+     ))
+</pre>
+
+
+<p>
+除了状态序列外，还可以定义type，来标记任务的分类。可以参考<a href="http://orgmode.org/manual/TODO-types.html#TODO-types">这里</a>。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 设置任务优先级</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+在Org-mode中，还针对任务设定了A，B，C三种优先级，在安排日程的时候可以按照优先级进行排序。为任务设定优先级是通过快捷键 <code>S-UP/DOWN</code> 。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 跟踪子任务完成情况</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+对于有多个子任务的上级任务，很常见的一个需求是随时跟踪子任务的完成情况。
+Org-mode支持在上级任务上增加标记，当子任务的状态发生改变时自动更新上级任务的完成情况。
+支持百分比和分数两种形式，类似 <code>[66%]</code> 或者 <code>[2/3]</code> 。
+</p>
+
+<p>
+可以在上级任务标题中的任意位置插入 <code>[%]</code> 或者 <code>[/]</code>, 当子任务的状态发生变化时，会自动更新该位置的值。
+比如：
+</p>
+
+<pre class="example">
+* Organize Party [%]
+** Call people [/]
+*** Peter
+*** Sarah
+** Buy food
+** Talk to neighbor
+</pre>
+
+<p>
+注意：
+</p>
+<ol class="org-ol">
+<li>当改变子任务状态时，只更新上一级任务的完成情况，不可级联。
+</li>
+<li>即使所有的子任务都完成，也只是标记上一级任务的完成情况为100%，而不能自动更新上级任务的完成状态。如果需要自动设定为完成，可以在.emacs中增加如下配置：
+</li>
+</ol>
+
+<pre class="example">
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 用复选框标记非标题类型的子任务</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+前面的任务和子任务都是标题形式。Org-mode还支持非标题形式的子任务。对于以 <code>[ ]</code> 开头的<i>列表</i> 会被当作复选框。这样就形成了局部的子任务，
+适用于将一个任务划分成几个简单的步骤。
+下面是一个例子：
+</p>
+
+<pre class="example">
+*** 一个任务 [0/2]
+该任务包含几个步骤：
+- [-] 步骤1 [1/2]
+  - [X] 步骤1.1
+  - [ ] 步骤1.2
+- [-] 步骤2 [1/2]
+  - [X] 步骤2.1
+  - [ ] 步骤2.2
+</pre>
+
+<p>
+与子任务类似，步骤的状态变化会改变上级步骤/任务的完成情况。
+下面是复选框相关的命令：
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">KEYS</th>
+<th scope="col" class="left">COMMENT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">C-c C-c</td>
+<td class="left">改变复选框状态</td>
+</tr>
+
+<tr>
+<td class="left">M-S-RET</td>
+<td class="left">增加一个子项</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 查询任务</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+在<a href="/./emacs_orgmode_editor.html">Org-mode的编辑功能</a> 中介绍过大纲的检索功能：
+</p>
+
+<pre class="example">
+C-c /           只列出包含搜索结果的大纲，并高亮，支持多种搜索方式
+</pre>
+
+<p>
+该功能可以按照多种方式检索，其中针对任务有两种方式：todo 和 TODO key words，分别实现高亮所有TODO和具有特定关键字的TODO。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 任务的时间计划</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Org-mode中的任务还可以设置计划时间（SCHEDULED）和截止时间（DEADLINE），方便任务的管理和排程。
+</p>
+</div>
+
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 时间戳</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+在Org-mode中，将带有日期和时间信息的特定格式的字符串称为时间戳。时间戳使用”&lt; &gt;“进行标记，比如：
+</p>
+
+<pre class="example">
+&lt;2005-10-01 Tue&gt;
+&lt;2003-09-16 Tue 09:39&gt;
+&lt;2003-09-16 Tue 12:00-12:30&gt;
+</pre>
+
+<p>
+时间戳分为两种，上面的例子中的时间戳都标记了一个”时间点“，另外一种时间戳标记重复出现的多个时间点。
+使用时间点+ 间隔（ 天（d）、周（w）、月（m）或者年（y））来表示。比如：
+</p>
+
+<pre class="example">
+&lt;2007-05-16 Wed 12:30 +1w&gt;
+</pre>
+
+<p>
+表示从2007-05-16 12:30开始，每周重复一次。
+</p>
+
+<p>
+时间戳可以放在标题或正文的任何部分。
+</p>
+
+<p>
+输入时间戳时，可以手工输入符合格式的标记，也可以使用快捷键 <code>C-c</code> . 来创建。
+</p>
+
+<p>
+如果要快速输入日期无需选择，可以直接用 <code>C-c &lt;</code> 。
+</p>
+
+<p>
+<code>C-c &gt;</code> 可以查看日历。
+</p>
+
+<p>
+如果仅仅想输入一个日期/时间，与任务没有任何关系，可以用 <code>C-c !</code> 。
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">S-left,S-right</td>
+<td class="left">以天为单位调整时间戳时间</td>
+</tr>
+
+<tr>
+<td class="left">S-up,S-down</td>
+<td class="left">调整光标所在时间单位；如果光标在时间戳之外，调整时间戳类型（是否在日程表中显示）</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-sec-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> 时间/日期段</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+两个时间戳用 <code>--</code> 连接起来就定义了一个时间段：
+</p>
+
+<pre class="example">
+&lt;2004-08-23 Mon&gt;--&lt;2004-08-26 Thu&gt;
+</pre>
+
+<p>
+连续使用 <code>C-c</code> . 可以创建时间段
+</p>
+
+<p>
+<code>C-c C-y</code> 计算时间段的间隔
+</p>
+</div>
+</div>
+<div id="outline-container-sec-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> 计划时间和截止时间</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+Org-mode可以为任务设定一个计划时间(SCHEDULED), 输入 <code>C-c C-s</code> ，就可以设定光标所在位置所属的任务的计划时间。
+而 <code>C-c C-d</code> 是输入截止时间（DEADLINE）。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 全局任务文件清单</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+前面的内容都是关于单个 <code>.org</code> 文件的任务管理。Org-mode还支持将多个 <code>.org</code> 文件组合起来进行管理。这带来很多好处：
+</p>
+
+<p>
+你可以按照不同的用途将任务放在不同的文件中进行组织，比如项目，个人事务，家庭等等。
+</p>
+
+<p>
+要让Org-mode知道需要把哪些文件视为全局任务的组成部分，需要设定一个清单，可以在 <code>.emacs</code> 中这样设置：
+</p>
+
+<pre class="example">
+(setq org-agenda-files (list "~/.todos/work.org"
+                             "~/.todos/projects.org"
+                             "~/.todos/home.org"
+                             "~/Documents/todo/"
+                             ))
+</pre>
+
+<p>
+清单中可以加入文件或目录。如果是目录，该目录下的所有 <code>.org</code> 文件都会被加入清单。
+</p>
+
+
+<p>
+除了预定义的清单文件，还可以在编辑任务文件( <code>.org</code> )时随时使用 <code>C-c [</code> 和 <code>C-c ]</code> 将文件加入/移出清单。
+</p>
+
+<p>
+可以随时通过 <code>C-c '/</code> , 循环打开所有的清单文件。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 全局 TODO 列表</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+全局TODO列表列出所有全局任务文件中的未完成任务。通过快捷键 <code>C-c a t</code> 进入全局 TODO 列表。
+</p>
+
+<p>
+在全局TODO列表中，用 <code>t</code> 键改变任务状态，；按 <code>RET</code> 跳到该条目所在的源文件。
+</p>
+
+<p>
+如果提示 <code>C-c a</code> 快捷键未定义，是因为Org-mode的快捷键没有启用，需要在 <code>.emacs</code> 中增加配置：
+</p>
+
+<pre class="example">
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> 日程表</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+有时候可能需要根据未完成任务显示日程安排，通过 <code>C-c a a</code> 可以进入日程表视图。
+日程表根据任务的计划时间列出每天的任务。
+</p>
+
+<p>
+在日程表视图中按 "l"(小写字母L) 显示日志。这样就会显示你所有已经完成的任务和他们完成的时间。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> 小结</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+这里涉及到的都是关于Org-mode任务管理的一些基本使用，正是这些强有力的基础，使得Org-mode可以用于时间管理（GTD）、项目计划和管理、
+工作日志等各种用途。
+</p>
+</div>
+</div>

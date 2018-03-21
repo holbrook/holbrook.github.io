@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------
+# Menu Settings
+# ---------------------------------------------------------------
+
+# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash from link value (/archives -> archives).
+# Usage: `Key: /link/ || icon`
+# Key is the name of menu item. If translate for this menu will find in languages - this translate will be loaded; if not - Key name will be used. Key is case-senstive.
+# Value before `||` delimeter is the target link.
+# Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
+menu:
+  home: / || home
+  #about: /about/ || user
+  tags: /tags/ || tags
+  categories: /categories/ || th
+  archives: /archives/ || archive
+  #schedule: /schedule/ || calendar
+  #sitemap: /sitemap.xml || sitemap
+  #commonweal: /404/ || heartbeat
+
+# Enable/Disable menu icons / item badges.
+menu_settings:
+  icons: true
+  badges: false
+
+# ---------------------------------------------------------------
+# Scheme Settings
+# ---------------------------------------------------------------
+
+# Schemes
+#scheme: Muse
+#scheme: Mist
+#scheme: Pisces
+scheme: Gemini
+
+custom_file_path:
+  # Default paths: layout/_custom/*
+  #head: source/_data/head.swig
+  header: source/_data/header.swig
+  #sidebar: source/_data/sidebar.swig
+
+  # Default path: source/css/_variables/custom.styl
+  #variables: source/_data/variables.styl
+  # Default path: source/css/_mixins/custom.styl
+  #mixins: source/_data/mixins.styl
+  # Default path: source/css/_custom/custom.styl
+  #styles: source/_data/styles.styl
+
+
+# ---------------------------------------------------------------
+# Scheme Settings
+# ---------------------------------------------------------------
+# Baidu Analytics ID
+baidu_analytics: 16d951e9b49ded5f2e821a0e61d77797
+
+# JiaThis 分享服务
+jiathis: true
+
+disqus:
+  enable: true
+  shortname:
+  count: true

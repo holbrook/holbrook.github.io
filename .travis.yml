@@ -1,0 +1,37 @@
+language: node_js
+node_js: stable
+
+# Travis-CI Caching
+cache:
+  directories:
+    - node_modules
+
+
+# S: Build Lifecycle
+install:
+  - npm install
+
+#before_script:
+#  - npm install -g gulp
+
+script:
+  - cp templates/html.tpl node_modules/hexo-ipynb/
+  - hexo clean && hexo g -d
+
+after_script:
+  - cd dist
+  - git init
+  - git config user.name "holbrook"
+  - git config user.email "wanghaikuo@tsinghua.org.cn"
+  - git add .
+  - git commit -m "Update docs"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+# E: Build LifeCycle
+
+branches:
+  only:
+    - master
+env:
+ global:
+   - GH_REF: github.com/holbrook/holbrook.github.io
+   - secure: "nvY19brtChju6NXeucDCpo7l3irOaI22vqlef2PLalNN0iiOpsBgHQwxZILdTHGjfPuRG3aC28JcSx6Q1DT+FpVGHlOCSTOxsBt5AIC5B8vpt0CummpLxhF/LUcyzcObS0vf34WHctqktWQ3qL7c98SAhCSsm3/Fsksob055V8Z32hNm/SHE5Z+cIMmG8KDvCbxmTsfYAxRw9/glOdI6I3AtD4aZqMCRwYlTdxk9WJqFJ20NFM4d0VQyDaCslr4cL9dv9xrC7TWbCB5shCs69hGdVC+NeCrmaV2q6zPXfaTC/F+ZpX7LIgCHzMANSd/4HFaQcct0SjhKiNRqcmN1nXcEK2rweC+z6wIrz/bJ5916+Zm1pqgcnjdgZmcGuimEzhB26xQcX6cfR96H72Vzoyd8uYpULdkL0ElZtIyT2f6uLZph71yL2O5EEa7P4YKdzKMZIhP8PeDTwMGSkXZOSUsZrwXMvaNCtXHj+GPk2fnrloBgdeoPxjYCpkfgAcwGh82YLbI4gbnSjiIFdGXOy73OhQSOOZ0TJm345bopdSW/DOWUOw+44huc7NllQ/2HgUt5iq86asV7xFMEqbuJXKqEz2I93cFAm+fewVkI2xYh6cnifMeg+znSlO5tFoRPxKn4kgF/W4FMtmspUJHuLEpHSroay7mt4oUhckmHFrc="

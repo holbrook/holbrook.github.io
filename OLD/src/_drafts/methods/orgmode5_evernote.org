@@ -1,0 +1,96 @@
+#+TITLE: 在Emacs中使用Evernote
+#+AUTHOR:Holbrook Wong
+#+EMAIL: wanghaikuo@gmail.com
+#+KEYWORDS: emacs, org-mode, evernote-mode, evernote
+
+
+如果你还不是特别的out，肯定尝试过[[http://www.evernote.com/][Evernote]]。 或许你还正在用Evernote的浏览器插件收集本文（*_*)。
+
+#+BEGIN_QUOTE
+: Evernote 是一套用来记笔记和查询笔记的软件和服务.Evernote 中的笔记可以是一段文字,一个网页或网页片断,一幅图片,声音,或者手绘墨迹,而且笔记可以有PDF之类的附件. 
+: 已有笔记可以支持以下搜索方式:文件夹,标签,是否有附件,是否有图片,是否email发送,是否是todo,据说,搜索还可以支持搜索图片内的文字. 
+: 可谓,功能强大,同时,方便易用,实乃是居家旅行,看书学习必备之工具.
+: 
+: Evernote 有免费版和专业版.Evernote 免费版每个月提供60M上传流量(即上传的笔记总大小不能超过60M),如果需要更多上传流量可以考虑付费版.
+#+END_QUOTE
+
+
+除了Evernote官方提供的各种客户端，还可以在Emacs中使用Evernote。这就是[[http://code.google.com/p/emacs-evernote-mode/][evernote-mode]]。
+
+* 安装
+evernote-mode的安装与其他emacs插件有所不同，包括了ruby脚本和.el文件。从http://emacs-evernote-mode.googlecode.com/svn/trunk/ checkout之后，
+首先要安装gdbm库，再安装evernote-mode:
+
+$sudo gem install gdbm
+$sudo ruby ruby/setup.rb
+
+尽管是可选的，但通常还是要安装[[http://w3m.sourceforge.net/index.en.html][w3m]] 。
+
+最后将evernote-mode.el放到emacs的load path中，并进行配置：
+#+BEGIN_QUOTE
+: (setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8"))
+: (add-to-list 'load-path "<your load path>")
+: (require 'evernote-mode)
+: (global-set-key "\C-cec" 'evernote-create-note)
+: (global-set-key "\C-ceo" 'evernote-open-note)
+: (global-set-key "\C-ces" 'evernote-search-notes)
+: (global-set-key "\C-ceS" 'evernote-do-saved-search)
+: (global-set-key "\C-cew" 'evernote-write-note)
+: (global-set-key "\C-cep" 'evernote-post-region)
+: (global-set-key "\C-ceb" 'evernote-browser)
+#+END_QUOTE
+
+上面的配置除了加载evernote-mode之外，还定义了一些快捷键。
+
+* 使用
+
+| 快捷键  | 命令                            | 说明                             |
+|---------+---------------------------------+----------------------------------|
+| C-c e c | evernote-create-note            | 新建笔记                         |
+| C-c e o | evernote-open-note              | 打开笔记                         |
+| C-x C-s | evernote-save-note              | 保存笔记                         |
+| C-c e w | evernote-write-note             | 从当前buffer创建新笔记           |
+| C-c e p | evernote-post-region            | 使用当前选中的区域的内容创建笔记 |
+| C-c e t | evernote-edit-tags              | 修改当前笔记的标签      |
+| C-c e e | evernote-change-edit-mode       | 改变编辑模式 (TEXT,XHTML可选) |
+| C-c e r | evernote-rename-note            | 重命名当前笔记            |
+| C-c e d | evernote-delete-note            | 删除当前笔记               |
+| C-c e s | evernote-search-notes           | 搜索                           |
+| C-c e S | evernote-do-saved-search        | 使用已保存的搜索条件进行笔记搜索 |
+|         | evernote-create-search          | 为一个搜索分配一个名字,以备后用 |
+|         | evernote-edit-search            | 编辑已保存搜索的搜索条件 |
+| C-x C-q | evernote-toggle-read-only       | 设置笔记的只读属性      |
+|         | evernote-enml-formatter-command | 格式化XHTML笔记             |
+| C-c e b | evernote-browser                | 打开evernote-browser           |
+
+
+* evernote-browser
+最常用的功能是evernote-broswer，可以打开四种视图：
+
+- 笔记本列表： 笔记本列表页面是Evernote上创建的所有笔记本的列表.
+- 笔记列表：笔记列表页面,符合某个搜索条件的笔记.
+- 标签树： 按层次结构列出所有标签 图的形式列出Evernote服务中的标签列表,在标签名字上C-m会打开符合此tag的笔记列表页.
+- 搜索列表：已保存搜索是在Evernote中已创建的一系列搜索条件,在某个搜索上按键C-m会打开符合相应的搜索结果的笔记.
+
+在evernote-browser中可以使用的快捷键：
+
+| b | 移动到前一页                                          |
+| f | 移动到后一页                                          |
+| t | 创建一个标签列表页面并显示.如果已存在标签页面,直接将其打开. |
+| S | 创建一个搜索列表页面并显示.如果已存在,将其打开. |
+| s | 输入搜索条件,并显示符合搜索结果的笔记列表. |
+| N | 创建一个笔记本列表页面.如果笔记本列表已经存在,将其打开. |
+| o | 等同\C-m,但是光标并不移动到打开的笔记buffer. |
+| n | 如果在笔记列表,打开当前笔记,并移动到下一行. |
+| p | 如果在笔记列表,打开当前笔记,并移动到前一行 |
+| d | 从Evernote Browser删除当前页面.                      |
+
+* TEXT模式和XHTML模式
+对于Evernote默认的笔记，在evernote-mode认为其是XHTML格式，需要[[http://www.cnblogs.com/holbrook/archive/2012/04/10/2440763.html][安装w3m]] 才能打开。
+
+如果在Emacs中创建笔记，比如使用[[http://www.cnblogs.com/holbrook/archive/2012/04/12/2444992.html][org-mode]] , 则可以保存为TEXT格式。
+
+* 不足
+- 没有本地缓存，所有的操作都需要在线进行，如果网速不给力，用起来就会不爽。
+
+--------------
