@@ -18,6 +18,7 @@
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0",
     "hexo-tag-plantuml": "^1.0.0",
-    "hexo-viz": "^0.1.0"
+    "hexo-viz": "^0.1.0",
+    "markdown-it-katex": "^2.0.3"
   }
 }
