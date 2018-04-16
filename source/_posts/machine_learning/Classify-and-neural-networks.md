@@ -1,6 +1,6 @@
 ---
 title: 分类问题与神经网络
-postslug: Classify-and-neural-networks
+postslug: classify-and-neural-networks
 date: 2018-02-23
 category: 机器学习
 tags: [神经网络, 分类问题]
@@ -25,11 +25,11 @@ tags: [神经网络, 分类问题]
 
 	空间中有两群点，一群是圆点“〇”，一群是叉点“X”。我们希望从空间中选出一个分离边界，将这两群点分开。
 
-{% asset_img achine_learning/classify-and-neural-networks/logistic01.png 逻辑回归原理 %}
+{% asset_img logistic01.png 逻辑回归原理 %}
 
 具体过程如下图：
 
-{% asset_img achine_learning/classify-and-neural-networks/logistic02.jpg 逻辑回归过程 %}
+{% asset_img logistic02.jpg 逻辑回归过程 %}
 
 # 神经网络原理
 
@@ -37,7 +37,7 @@ tags: [神经网络, 分类问题]
 
 一个心理学家弗兰克· 罗森布拉特(Frank Rosenblatt)构想了感知机，使用简化的数学模型解释大脑神经元如何工作：
 
-{% asset_img achine_learning/classify-and-neural-networks/perceptron.jpg 感知机 %}
+{% asset_img perceptron.jpg 感知机 %}
 
 
 取一组二进制输入值$x_i$（附近的神经元） ，将每个输入值乘以一个连续值权重$w_i$（每个附近神经元的突触强度），并设立一个阈值，如果这些加权输入值的和超过这个阈值，就输出1，否则输出0（同理于神经元是否放电）。
@@ -63,7 +63,7 @@ tags: [神经网络, 分类问题]
 
 则感知机就有了记忆和学习的功能。
 
-{% asset_img achine_learning/classify-and-neural-networks/perceptron2.jpg 可学习的感知机 %}
+{% asset_img perceptron2.jpg 可学习的感知机 %}
 
 
 从数学角度来看，感知机的函数为：
@@ -77,7 +77,7 @@ $$f = \sum_{i=0}^{n}w_ix_i+b$$
 单个感知机智能处理二元的逻辑分类。如果由多个感知机组合，就可以处理多分类问题：
 
 
-{% asset_img achine_learning/classify-and-neural-networks/ANN.jpg 人工神经网络 %}
+{% asset_img ANN.jpg 人工神经网络 %}
 
 如上图，将多个感知机连接起来，使得所有的感知机输入都相同，但调节后每次只有一个感知机输出，
 就形成了一个多元的分类器。这种结构称为人工神经网络（ANN，Artificial Neural Networks）。
