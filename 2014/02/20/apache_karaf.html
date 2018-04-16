@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OSGi," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为什么需要“OSGi中间件” 尽管在OSGi Runtime(Felix, Equinox等)的基础上，OSGi组织又规定了Blueprint规范以实现OSGi环境下的依赖注入， 但这还不够——没有提供类似Web开发框架那样的一些“平台级”的功能。比如日志，控制台，配置文件等。 很难想象没有Tomcat这样的Web中间件，开发Java Web应用的工作量有多大。同样的，OSGi应用也需要一种“中">
+<meta name="keywords" content="OSGi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Karaf：OSGi中间件">
+<meta property="og:url" content="http://holbrook.github.io/2014/02/20/apache_karaf.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="为什么需要“OSGi中间件” 尽管在OSGi Runtime(Felix, Equinox等)的基础上，OSGi组织又规定了Blueprint规范以实现OSGi环境下的依赖注入， 但这还不够——没有提供类似Web开发框架那样的一些“平台级”的功能。比如日志，控制台，配置文件等。 很难想象没有Tomcat这样的Web中间件，开发Java Web应用的工作量有多大。同样的，OSGi应用也需要一种“中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/02/20/apache_karaf/Karaf.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2014/02/20/apache_karaf/karaf1.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/02/20/apache_karaf/karaf2.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apache Karaf：OSGi中间件">
+<meta name="twitter:description" content="为什么需要“OSGi中间件” 尽管在OSGi Runtime(Felix, Equinox等)的基础上，OSGi组织又规定了Blueprint规范以实现OSGi环境下的依赖注入， 但这还不够——没有提供类似Web开发框架那样的一些“平台级”的功能。比如日志，控制台，配置文件等。 很难想象没有Tomcat这样的Web中间件，开发Java Web应用的工作量有多大。同样的，OSGi应用也需要一种“中">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/02/20/apache_karaf/Karaf.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/02/20/apache_karaf.html"/>
+
+
+
+
+
+  <title>Apache Karaf：OSGi中间件 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/02/20/apache_karaf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Apache Karaf：OSGi中间件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-02-20T00:00:00+08:00">
+                2014-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/02/20/apache_karaf.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/02/20/apache_karaf.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="为什么需要osgi中间件"><a class="markdownIt-Anchor" href="#为什么需要osgi中间件"></a> 为什么需要“OSGi中间件”</h1>
+<p>尽管在OSGi Runtime(Felix, Equinox等)的基础上，OSGi组织又规定了<a href="/2014/01/22/osgi_blueprint_container.html">Blueprint规范以实现OSGi环境下的依赖注入</a>，<br>
+但这还不够——没有提供类似Web开发框架那样的一些“平台级”的功能。比如日志，控制台，配置文件等。</p>
+<p>很难想象没有Tomcat这样的Web中间件，开发Java Web应用的工作量有多大。同样的，OSGi应用也需要一种“中间件”，来实现各应用共性的一些功能，并管理应用的部署。</p>
+<p><a href="http://karaf.apache.org/" target="_blank" rel="noopener">Apache Karaf</a>就是这样的一个&quot;OSGi中间件&quot;。最早，Karaf只是<a href="http://servicemix.apache.org/" target="_blank" rel="noopener">Apache ServiceMix</a>的Kernel子项目，后来独立出来成为Apache的顶级项目。<br>
+目前，Apache Karaf已经用于Apache Geronimo, Apache ServiceMix, Fuse ESB等项目。</p>
+<p>Apache Karaf的主要竞争对手是<a href="http://www.eclipse.org/virgo/" target="_blank" rel="noopener">Eclipse Virgo</a>。</p>
+<h1 id="apache-karaf的功能"><a class="markdownIt-Anchor" href="#apache-karaf的功能"></a> Apache Karaf的功能</h1>
+<img src="/2014/02/20/apache_karaf/Karaf.jpg">
+<p>Apache Karaf提供了如下“开箱即用”的功能：</p>
+<ul>
+<li>
+<p>热部署</p>
+<p>尽管OSGi支持热部署，但并不是自动热部署，需要调用一些API去执行插拔的动作。Karaf在运行时可以自动处理<code>[home]/deploy</code>文件夹中的OSGi bundle，能够自动加载并在满足依赖关系时自动启动。</p>
+</li>
+<li>
+<p>动态配置</p>
+<p>Karaf在<code>$KARAF_HOME/etc</code>文件夹中存储配置文件。这些配置内容可以在Karaf运行时动态修改。</p>
+</li>
+<li>
+<p>日志处理</p>
+<p>基于Log4J的日志系统，同时支持多种日志API，如JDK 1.4, JCL, SLF4J, Avalon, Tomcat, OSGi等。</p>
+</li>
+<li>
+<p>系统服务</p>
+<p>Karaf可以作为系统服务运行。</p>
+</li>
+<li>
+<p>控制台</p>
+<p>可以在控制台进行服务管理、安装bundle等操作。还可以扩展自己的控制台命令。</p>
+<p>可以通过SSH远程访问其他服务器上的Karaf控制台。</p>
+</li>
+<li>
+<p>多实例管理</p>
+<p>一个服务器上可以运行多个Karaf实例。对实例的管理可以在Karaf控制台中进行。</p>
+</li>
+<li>
+<p>Bundle仓库</p>
+<p>Karaf中内置了<a href="https://ops4j1.jira.com/wiki/display/paxurl/Pax+URL" target="_blank" rel="noopener">Pax URL</a>的MVN协议，可以从Maven中央仓库安装bundle。</p>
+</li>
+<li>
+<p>Bundle集合(Feature)</p>
+<p>类似于Eclipse的Feature，Karaf中也支持Feature，即bundle的集合。使用Feature可以简化OSGi应用的部署。</p>
+</li>
+</ul>
+<h1 id="karaf初体验"><a class="markdownIt-Anchor" href="#karaf初体验"></a> Karaf初体验</h1>
+<p>安装好Java环境，加压缩Karaf，执行<code>$KARAF_HOME/bin/karaf</code>，可以看到Karaf的启动界面：</p>
+<img src="/2014/02/20/apache_karaf/karaf1.png">
+<p>如图的提示，使用<code>&lt;tab&gt;</code>可以列出所有可用的命令，所有的命令支持<code>--help</code>参数。</p>
+<p>如果执行<code>list</code>命令，可以列出所有的bundles:</p>
+<img src="/2014/02/20/apache_karaf/karaf2.png">
+<p>还有很多其他的命令，比如</p>
+<ul>
+<li><code>bundle:install</code> 安装bundle</li>
+<li><code>feature:repo-add</code> 安装feature库</li>
+<li><code>feature:install</code> 安装feature</li>
+</ul>
+<p>等等。详情可以参考官方的<a href="http://karaf.apache.org/manual/latest/quick-start.html" target="_blank" rel="noopener">Quick Start</a>。</p>
+<p>如果查看Karaf的目录，可以看到如下的目录结构：</p>
+<ul>
+<li><code>/bin</code>: 启动、停止、登录karaf控制台的脚本</li>
+<li><code>/etc</code>: 配置文件</li>
+<li><code>/data</code>: 存放运行时的工作文件，清空这个目录可以使Karaf回到初始状态</li>
+<li><code>/cache</code>: OSGi framework的bundle缓存</li>
+<li><code>/generated-bundles</code>: 开发用的临时目录</li>
+<li><code>/log</code>: 日志</li>
+<li><code>/deploy</code>: 用于bundle的热部署</li>
+<li><code>/instances</code>: 存放karaf的各个实例用到的数据</li>
+<li><code>/lib</code>: 启动Karaf时需要的一些库</li>
+<li><code>/lib/ext</code>: Karaf需要的扩展库</li>
+<li><code>/lib/endorsed</code>: Karaf对其他API的再封装(背书)的一些jar包</li>
+<li><code>/system</code>: OSGi bundles库，使用Maven 2仓库的结构</li>
+</ul>
+<h1 id="karaf启动模式和实例"><a class="markdownIt-Anchor" href="#karaf启动模式和实例"></a> Karaf启动模式和实例</h1>
+<ul>
+<li>常规模式(regular mode) 使用命令<code>bin/karaf</code>，可以在前端启动Karaf并进入控制台</li>
+<li>服务模式(server mode) 使用命令<code>bin/karaf server</code>，可以在前端启动Karaf，但不进入控制台</li>
+<li>后台模式(background mode) 使用命令<code>bin/start</code>，可以在后台启动Karaf。</li>
+</ul>
+<p>如果安装了service-wrapper(可以在Karaf中执行<code>feature:install service-wrapper</code>)，还可以将<br>
+Karaf安装为系统服务。</p>
+<p>一个Karaf节点可以运行多个&quot;Karaf实例&quot;。实际上，默认情况下Karaf会启动一个名为<code>root</code>的实例。<br>
+实例是包含单独的配置文件、数据文件等信息的一个Karaf副本，每个实例可以单独启动或部署bundle。</p>
+<p>Karaf控制台中提供了一些管理实例的命令：</p>
+<ul>
+<li><code>instance:create</code> 创建实例</li>
+<li><code>instance:clone</code> 从现有的实例克隆一个新的实例</li>
+<li><code>instance:start</code> 启动实例</li>
+<li><code>instance:status</code> 查看实例状态</li>
+<li><code>instance:connect</code> 连接(切换)到某个实例</li>
+<li><code>instance:stop</code> 停止实例</li>
+<li><code>instance:destroy</code> 删除实例</li>
+</ul>
+<h1 id="ssh-客户端和web控制台"><a class="markdownIt-Anchor" href="#ssh-客户端和web控制台"></a> ssh、客户端和Web控制台</h1>
+<p>Karaf内置了一个SSHd server，可以通过ssh远程访问Karaf控制台。<br>
+要启动远程控制台服务，需要在控制台中启动bundle: <code>bundle:restart -f org.apache.karaf.shell.ssh</code>。此时，远端可以使用ssh远程访问控制台，比如: <code>ssh -p 8101 karaf@localhost</code>。默认karaf用户的密码也是karaf。ssh的用户、密码、端口等都可以在<code>etc/org.apache.karaf.shell.cfg</code>中配置。</p>
+<p>Karaf的客户端’bin/client’即可以连接本地控制台，也可以通过ssh连接远程控制台，甚至可以执行单个的命令。比如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin<span class="built_in">/client </span>-u karaf -p karaf -a 8101 hostname osgi:shutdown</span><br></pre></td></tr></table></figure>
+<p>Karaf还可以安装Web控制台(<code>feature:install webconsole</code>)。通过Web控制台能够管理<br>
+Karaf的bundle、feature、实例、配置以及查看日志。启动web控制台后，默认可以通过<a href="http://localhost:8181/system/console" target="_blank" rel="noopener">http://localhost:8181/system/console</a><br>
+访问web控制台，默认的用户名/密码为<code>karaf/karaf</code>。Web控制台的配置文件位于<code>etc/org.ops4j.pax.web.cfg</code>。</p>
+<h1 id="bundle-url和bundle仓库"><a class="markdownIt-Anchor" href="#bundle-url和bundle仓库"></a> bundle URL和bundle仓库</h1>
+<p>Karaf在安装bundle时，可以使用多种URL来定位bundle，比如：</p>
+<ul>
+<li>
+<p>http <code>http://repo1.maven.org/maven2/org/apache/servicemix/nmr/org.apache.servicemix.nmr.api/1.0.0-m2/org.apache.servicemix.nmr.api-1.0.0-m2.jar</code></p>
+</li>
+<li>
+<p>file <code>file:base/bundles/org.apache.servicemix.nmr.api-1.0.0-m2.jar</code></p>
+</li>
+<li>
+<p>maven库 <code>mvn:org.apache.servicemix.nmr/org.apache.servicemix.nmr.api/1.0.0-m2</code></p>
+</li>
+</ul>
+<p>其中，maven库方式是使用maven库作为bundle仓库，从其中检索需要的bundle。与maven类似，可以自动解决bundle之间的依赖问题。<br>
+Karaf提供了OBR (OSGi Bundle Repository)，能够管理bundle仓库。在控制台使用命令<code>feature:install obr</code>安装OBR之后，就可以：</p>
+<ul>
+<li>
+<p>增加新的bundle仓库</p>
+<p><code>obr:url-add file:///user/.m2/repository/repository.xml</code></p>
+</li>
+<li>
+<p>查看已安装的bundle仓库</p>
+<p><code>obr:url-list</code></p>
+</li>
+<li>
+<p>刷新仓库</p>
+<p><code>obr:url-refresh</code></p>
+</li>
+<li>
+<p>删除仓库</p>
+<p><code>obr:url-remove</code></p>
+</li>
+<li>
+<p>列出所有可用的bundle</p>
+<p><code>obr:list</code></p>
+</li>
+<li>
+<p>查找bundle</p>
+<p><code>obr:find</code></p>
+</li>
+</ul>
+<h1 id="osgi应用karaf-feature和kar"><a class="markdownIt-Anchor" href="#osgi应用karaf-feature和kar"></a> OSGi应用，Karaf Feature和KAR</h1>
+<p>OSGi运行的基本单元是bundle，bundle之间有依赖关系。一组满足依赖关系的bundle集合，加上相关的配置信息，称为一个“OSGi应用”。<br>
+将OSGi应用部署到Karaf的行为称为“provisioning”。</p>
+<p>为了简化OSGi应用的部署，Karaf定义了feature，用于描述OSGi应用的部署信息，包括：</p>
+<ul>
+<li>名称</li>
+<li>版本号</li>
+<li>描述信息</li>
+<li>bundle集合</li>
+<li>配置文件信息</li>
+<li>依赖的其他feature</li>
+</ul>
+<p>可以看出，Karaf中的feature与Eclipse Feature非常类似。</p>
+<p>Karaf控制台中提供了一系列的feature和feature库的管理命令，包括：</p>
+<ul>
+<li>feature:info</li>
+<li>feature:install</li>
+<li>feature:list</li>
+<li>feature:repo-add</li>
+<li>feature:repo-list</li>
+<li>feature:repo-refresh</li>
+<li>feature:repo-remove</li>
+<li>feature:uninstall</li>
+<li>feature:version-list</li>
+</ul>
+<p>由于feature中可能使用远端的bundle，Karaf提出了<code>KAR</code>格式，可以把一个bundle相关的所有资源打包在一起。<br>
+这类似于使用maven定义的web工程，和最终打包的war文件之间的关系。<br>
+Karaf控制台中，可以打包(<code>kar:create</code>)、安装(<code>kar:install</code>)、卸载(<code>kar:uninstall</code>)或列出(<code>kar:list</code>)KAR文件。</p>
+<h1 id="企业级特性"><a class="markdownIt-Anchor" href="#企业级特性"></a> 企业级特性</h1>
+<p>Karaf提供了一系列的功能，以支持企业级应用的开发，包括：</p>
+<ul>
+<li>
+<p>日志</p>
+<p>Karaf提供了<a href="http://karaf.apache.org/manual/latest/users-guide/log.html" target="_blank" rel="noopener">灵活的日志系统</a>，支持</p>
+<ul>
+<li>OSGi Log Service</li>
+<li>Log4j</li>
+<li>Commons Logging</li>
+<li>Logback</li>
+<li>SLF4J</li>
+<li>java Util Logging</li>
+</ul>
+<p>等日志框架。不管应用中使用了上述哪种日志框架，Karaf中都可以进行统一的管理，如log level, appender等。</p>
+</li>
+<li>
+<p>安全</p>
+<p>Karaf提供了基于JAAS(Java Authentication and Authorization Service)的<a href="http://karaf.apache.org/manual/latest/users-guide/security.html" target="_blank" rel="noopener">安全框架</a>，可以控制对OSGi service、控制台命令、JMX、Web控制台等资源的访问。并且在应用中也可以使用Karaf的安全框架。</p>
+</li>
+<li>
+<p>Web</p>
+<p>Karaf可以<a href="http://karaf.apache.org/manual/latest/users-guide/webcontainer.html" target="_blank" rel="noopener">作为Web容器</a>使用，完全支持JSP/Servlet规范。<br>
+Karaf的Web容器同时支持WAR和WAB的部署。</p>
+</li>
+<li>
+<p>JNDI</p>
+<p>Karaf<a href="http://karaf.apache.org/manual/latest/users-guide/jndi.html" target="_blank" rel="noopener">支持OSGi中的JNDI服务</a>。</p>
+</li>
+<li>
+<p>JDBC、JPA和JTA</p>
+<p>Karaf中即可以<a href="http://karaf.apache.org/manual/latest/users-guide/jdbc.html" target="_blank" rel="noopener">使用JDBC</a>直接连接数据库，<br>
+也可以<a href="http://karaf.apache.org/manual/latest/users-guide/jpa.html" target="_blank" rel="noopener">使用JPA</a>作为持久层框架。Karaf可以通过Blueprint管理JPA的persist Unit。</p>
+<p>Karaf支持<a href="http://karaf.apache.org/manual/latest/users-guide/jta.html" target="_blank" rel="noopener">JTA</a>，以实现容器管理的事务。</p>
+</li>
+<li>
+<p>其他</p>
+<p>Karaf还支持<a href="http://karaf.apache.org/manual/latest/users-guide/ejb.html" target="_blank" rel="noopener">EJB</a>、<a href="http://karaf.apache.org/manual/latest/users-guide/cdi.html" target="_blank" rel="noopener">CDI</a>、<a href="http://karaf.apache.org/manual/latest/users-guide/monitoring.html" target="_blank" rel="noopener">JMX</a>、<a href="http://karaf.apache.org/manual/latest/users-guide/jms.html" target="_blank" rel="noopener">JMS</a>等企业级特性。</p>
+<p>Karaf内置支持主备方式的部署，以保证高可用。使用<a href="http://karaf.apache.org/index/subprojects/cellar.html" target="_blank" rel="noopener">Apache Karaf Cellar</a>可以实现Karaf的集群部署。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/02/17/graphviz_intro.html" rel="next" title="Graphviz概述">
+                <i class="fa fa-chevron-left"></i> Graphviz概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/03/04/ci_tools.html" rel="prev" title="持续集成(CI)工具的作用">
+                持续集成(CI)工具的作用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要osgi中间件"><span class="nav-number">1.</span> <span class="nav-text"> 为什么需要“OSGi中间件”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-karaf的功能"><span class="nav-number">2.</span> <span class="nav-text"> Apache Karaf的功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#karaf初体验"><span class="nav-number">3.</span> <span class="nav-text"> Karaf初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#karaf启动模式和实例"><span class="nav-number">4.</span> <span class="nav-text"> Karaf启动模式和实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh-客户端和web控制台"><span class="nav-number">5.</span> <span class="nav-text"> ssh、客户端和Web控制台</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bundle-url和bundle仓库"><span class="nav-number">6.</span> <span class="nav-text"> bundle URL和bundle仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#osgi应用karaf-feature和kar"><span class="nav-number">7.</span> <span class="nav-text"> OSGi应用，Karaf Feature和KAR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#企业级特性"><span class="nav-number">8.</span> <span class="nav-text"> 企业级特性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/02/20/apache_karaf.html';
+          this.page.identifier = '2014/02/20/apache_karaf.html';
+          this.page.title = 'Apache Karaf：OSGi中间件';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

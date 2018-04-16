@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件过程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="个人时代的软件开发 众所周知，软件开发一般需要编码、构建、测试、打包、发布等步骤，如下图：       G    Code  Code    Build  Build    Code&amp;#45;&amp;gt;Build      Test  Test    Build&amp;#45;&amp;gt;Test      Package  Package    Test&amp;#45;&amp;gt;Package      Depl">
+<meta name="keywords" content="软件过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="持续集成(CI)工具的作用">
+<meta property="og:url" content="http://holbrook.github.io/2014/03/04/ci_tools.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="个人时代的软件开发 众所周知，软件开发一般需要编码、构建、测试、打包、发布等步骤，如下图：       G    Code  Code    Build  Build    Code&amp;#45;&amp;gt;Build      Test  Test    Build&amp;#45;&amp;gt;Test      Package  Package    Test&amp;#45;&amp;gt;Package      Depl">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/03/04/ci_tools/WallOfConfusion_Release.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/03/04/ci_tools/ci-hudson.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2014/03/04/ci_tools/ci-buildbot.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2014/03/04/ci_tools/12323PJW.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="持续集成(CI)工具的作用">
+<meta name="twitter:description" content="个人时代的软件开发 众所周知，软件开发一般需要编码、构建、测试、打包、发布等步骤，如下图：       G    Code  Code    Build  Build    Code&amp;#45;&amp;gt;Build      Test  Test    Build&amp;#45;&amp;gt;Test      Package  Package    Test&amp;#45;&amp;gt;Package      Depl">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/03/04/ci_tools/WallOfConfusion_Release.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/03/04/ci_tools.html"/>
+
+
+
+
+
+  <title>持续集成(CI)工具的作用 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/03/04/ci_tools.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">持续集成(CI)工具的作用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-03-04T00:00:00+08:00">
+                2014-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件工程/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/03/04/ci_tools.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/03/04/ci_tools.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="个人时代的软件开发"><a class="markdownIt-Anchor" href="#个人时代的软件开发"></a> 个人时代的软件开发</h1>
+<p>众所周知，软件开发一般需要编码、构建、测试、打包、发布等步骤，如下图：</p>
+<div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="501pt" height="44pt" viewbox="0.00 0.00 500.51 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-40 496.5111,-40 496.5111,4 -4,4"/>
+<!-- Code -->
+<g id="node1" class="node">
+<title>Code</title>
+<ellipse fill="none" stroke="#000000" cx="31.4204" cy="-18" rx="31.341" ry="18"/>
+<text text-anchor="middle" x="31.4204" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Code</text>
+</g>
+<!-- Build -->
+<g id="node2" class="node">
+<title>Build</title>
+<ellipse fill="none" stroke="#000000" cx="131.3418" cy="-18" rx="32.502" ry="18"/>
+<text text-anchor="middle" x="131.3418" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Build</text>
+</g>
+<!-- Code&#45;&gt;Build -->
+<g id="edge1" class="edge">
+<title>Code&#45;&gt;Build</title>
+<path fill="none" stroke="#000000" d="M63.0361,-18C71.0845,-18 79.8704,-18 88.38,-18"/>
+<polygon fill="#000000" stroke="#000000" points="88.5546,-21.5001 98.5546,-18 88.5546,-14.5001 88.5546,-21.5001"/>
+</g>
+<!-- Test -->
+<g id="node3" class="node">
+<title>Test</title>
+<ellipse fill="none" stroke="#000000" cx="227.5047" cy="-18" rx="27.8248" ry="18"/>
+<text text-anchor="middle" x="227.5047" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Test</text>
+</g>
+<!-- Build&#45;&gt;Test -->
+<g id="edge2" class="edge">
+<title>Build&#45;&gt;Test</title>
+<path fill="none" stroke="#000000" d="M163.8981,-18C172.1879,-18 181.1674,-18 189.6947,-18"/>
+<polygon fill="#000000" stroke="#000000" points="189.7952,-21.5001 199.7952,-18 189.7952,-14.5001 189.7952,-21.5001"/>
+</g>
+<!-- Package -->
+<g id="node4" class="node">
+<title>Package</title>
+<ellipse fill="none" stroke="#000000" cx="334.3752" cy="-18" rx="43.4183" ry="18"/>
+<text text-anchor="middle" x="334.3752" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Package</text>
+</g>
+<!-- Test&#45;&gt;Package -->
+<g id="edge3" class="edge">
+<title>Test&#45;&gt;Package</title>
+<path fill="none" stroke="#000000" d="M255.3047,-18C263.1282,-18 271.9126,-18 280.7054,-18"/>
+<polygon fill="#000000" stroke="#000000" points="280.9743,-21.5001 290.9743,-18 280.9742,-14.5001 280.9743,-21.5001"/>
+</g>
+<!-- Deploy -->
+<g id="node5" class="node">
+<title>Deploy</title>
+<ellipse fill="none" stroke="#000000" cx="453.0475" cy="-18" rx="39.4273" ry="18"/>
+<text text-anchor="middle" x="453.0475" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Deploy</text>
+</g>
+<!-- Package&#45;&gt;Deploy -->
+<g id="edge4" class="edge">
+<title>Package&#45;&gt;Deploy</title>
+<path fill="none" stroke="#000000" d="M377.8905,-18C386.1676,-18 394.8877,-18 403.3401,-18"/>
+<polygon fill="#000000" stroke="#000000" points="403.4695,-21.5001 413.4695,-18 403.4694,-14.5001 403.4695,-21.5001"/>
+</g>
+</g>
+</svg>
+</div>
+<p>在“个人英雄”时代，一个人完成所有的事情，一切都不是问题。</p>
+<h1 id="团队开发"><a class="markdownIt-Anchor" href="#团队开发"></a> 团队开发</h1>
+<p>很快，软件的规模就上升到了个人无法完成的程度。这就需要团队开发。在团队开发模式中，一定要解决代码共享的问题:</p>
+<div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="549pt" height="139pt" viewbox="0.00 0.00 548.79 139.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 135)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-135 544.7911,-135 544.7911,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_process</title>
+<polygon fill="none" stroke="#000000" points="8,-46 8,-123 532.7911,-123 532.7911,-46 8,-46"/>
+<text text-anchor="middle" x="270.3956" y="-106.4" font-family="Times,serif" font-size="14.00" fill="#000000">开发过程</text>
+</g>
+<!-- Code -->
+<g id="node1" class="node">
+<title>Code</title>
+<ellipse fill="none" stroke="#000000" cx="47.4204" cy="-72" rx="31.341" ry="18"/>
+<text text-anchor="middle" x="47.4204" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Code</text>
+</g>
+<!-- Build -->
+<g id="node2" class="node">
+<title>Build</title>
+<ellipse fill="none" stroke="#000000" cx="147.3418" cy="-72" rx="32.502" ry="18"/>
+<text text-anchor="middle" x="147.3418" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Build</text>
+</g>
+<!-- Code&#45;&gt;Build -->
+<g id="edge1" class="edge">
+<title>Code&#45;&gt;Build</title>
+<path fill="none" stroke="#000000" d="M79.0361,-72C87.0845,-72 95.8704,-72 104.38,-72"/>
+<polygon fill="#000000" stroke="#000000" points="104.5546,-75.5001 114.5546,-72 104.5546,-68.5001 104.5546,-75.5001"/>
+</g>
+<!-- repo1 -->
+<g id="node6" class="node">
+<title>repo1</title>
+<polygon fill="none" stroke="#000000" points="176.0568,-36 173.0568,-40 152.0568,-40 149.0568,-36 118.6268,-36 118.6268,0 176.0568,0 176.0568,-36"/>
+<text text-anchor="middle" x="147.3418" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">代码库</text>
+</g>
+<!-- Code&#45;&gt;repo1 -->
+<g id="edge5" class="edge">
+<title>Code&#45;&gt;repo1</title>
+<path fill="none" stroke="#000000" d="M70.5955,-59.4756C82.2124,-53.1975 96.5724,-45.437 109.7171,-38.3333"/>
+<polygon fill="#000000" stroke="#000000" points="111.441,-41.3802 118.5744,-33.5466 108.1129,-35.2219 111.441,-41.3802"/>
+</g>
+<!-- Test -->
+<g id="node3" class="node">
+<title>Test</title>
+<ellipse fill="none" stroke="#000000" cx="251.6447" cy="-72" rx="27.8248" ry="18"/>
+<text text-anchor="middle" x="251.6447" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Test</text>
+</g>
+<!-- Build&#45;&gt;Test -->
+<g id="edge2" class="edge">
+<title>Build&#45;&gt;Test</title>
+<path fill="none" stroke="#000000" d="M180.0577,-72C190.7424,-72 202.6973,-72 213.7313,-72"/>
+<polygon fill="#000000" stroke="#000000" points="213.9566,-75.5001 223.9566,-72 213.9565,-68.5001 213.9566,-75.5001"/>
+</g>
+<!-- repo2 -->
+<g id="node7" class="node">
+<title>repo2</title>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="287.2496,-36 284.2496,-40 263.2496,-40 260.2496,-36 216.0398,-36 216.0398,0 287.2496,0 287.2496,-36"/>
+<text text-anchor="middle" x="251.6447" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">配置库</text>
+</g>
+<!-- Build&#45;&gt;repo2 -->
+<g id="edge6" class="edge">
+<title>Build&#45;&gt;repo2</title>
+<path fill="none" stroke="#000000" d="M171.271,-59.6113C182.1119,-53.9987 195.2813,-47.1806 207.7959,-40.7015"/>
+<polygon fill="#000000" stroke="#000000" points="209.4789,-43.7715 216.7502,-36.0657 206.2605,-37.5552 209.4789,-43.7715"/>
+</g>
+<!-- Package -->
+<g id="node4" class="node">
+<title>Package</title>
+<ellipse fill="none" stroke="#000000" cx="366.6552" cy="-72" rx="43.4183" ry="18"/>
+<text text-anchor="middle" x="366.6552" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Package</text>
+</g>
+<!-- Test&#45;&gt;Package -->
+<g id="edge3" class="edge">
+<title>Test&#45;&gt;Package</title>
+<path fill="none" stroke="#000000" d="M279.4855,-72C289.6663,-72 301.5553,-72 313.2198,-72"/>
+<polygon fill="#000000" stroke="#000000" points="313.3642,-75.5001 323.3641,-72 313.3641,-68.5001 313.3642,-75.5001"/>
+</g>
+<!-- Deploy -->
+<g id="node5" class="node">
+<title>Deploy</title>
+<ellipse fill="none" stroke="#000000" cx="485.3275" cy="-72" rx="39.4273" ry="18"/>
+<text text-anchor="middle" x="485.3275" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Deploy</text>
+</g>
+<!-- Package&#45;&gt;Deploy -->
+<g id="edge4" class="edge">
+<title>Package&#45;&gt;Deploy</title>
+<path fill="none" stroke="#000000" d="M410.1705,-72C418.4476,-72 427.1677,-72 435.6201,-72"/>
+<polygon fill="#000000" stroke="#000000" points="435.7495,-75.5001 445.7495,-72 435.7494,-68.5001 435.7495,-75.5001"/>
+</g>
+</g>
+</svg>
+</div>
+<p>图中的“代码库”，通常由版本管理软件负责，比如git,svn。</p>
+<p>对于软件的配置信息，开发团队通常不会很十分在意——要么随源代码一起放入版本库，要么由“实施人员”临时配置。</p>
+<h1 id="开发和运维"><a class="markdownIt-Anchor" href="#开发和运维"></a> 开发和运维</h1>
+<p>企业应用的环境中，通常开发团队和运维团队是分开的。这就形成了一堵墙:</p>
+<img src="/2014/03/04/ci_tools/WallOfConfusion_Release.png">
+<p>当软件系统从墙的一端(Dev)传递到另一端(Ops)时，会发生各种各样不可预知的情况发生。这些“异常”通常是由于交付了不正确的东西：</p>
+<ul>
+<li>开发人员不清楚生成环境，而运维人员又搞不定即没有规范又没有文档的配置</li>
+<li>开发过程中的不成熟版本进入了生成环境</li>
+<li>……</li>
+</ul>
+<p>在开发团队和运维团队之间，也应该有一个信息交换和缓冲带，主要是：</p>
+<div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="549pt" height="139pt" viewbox="0.00 0.00 548.79 139.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 135)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-135 544.7911,-135 544.7911,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_process</title>
+<polygon fill="none" stroke="#000000" points="8,-46 8,-123 532.7911,-123 532.7911,-46 8,-46"/>
+<text text-anchor="middle" x="270.3956" y="-106.4" font-family="Times,serif" font-size="14.00" fill="#000000">开发过程</text>
+</g>
+<!-- Code -->
+<g id="node1" class="node">
+<title>Code</title>
+<ellipse fill="none" stroke="#000000" cx="47.4204" cy="-72" rx="31.341" ry="18"/>
+<text text-anchor="middle" x="47.4204" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Code</text>
+</g>
+<!-- Build -->
+<g id="node2" class="node">
+<title>Build</title>
+<ellipse fill="none" stroke="#000000" cx="147.3418" cy="-72" rx="32.502" ry="18"/>
+<text text-anchor="middle" x="147.3418" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Build</text>
+</g>
+<!-- Code&#45;&gt;Build -->
+<g id="edge1" class="edge">
+<title>Code&#45;&gt;Build</title>
+<path fill="none" stroke="#000000" d="M79.0361,-72C87.0845,-72 95.8704,-72 104.38,-72"/>
+<polygon fill="#000000" stroke="#000000" points="104.5546,-75.5001 114.5546,-72 104.5546,-68.5001 104.5546,-75.5001"/>
+</g>
+<!-- repo1 -->
+<g id="node6" class="node">
+<title>repo1</title>
+<polygon fill="none" stroke="#000000" points="176.0568,-36 173.0568,-40 152.0568,-40 149.0568,-36 118.6268,-36 118.6268,0 176.0568,0 176.0568,-36"/>
+<text text-anchor="middle" x="147.3418" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">代码库</text>
+</g>
+<!-- Code&#45;&gt;repo1 -->
+<g id="edge5" class="edge">
+<title>Code&#45;&gt;repo1</title>
+<path fill="none" stroke="#000000" d="M70.5955,-59.4756C82.2124,-53.1975 96.5724,-45.437 109.7171,-38.3333"/>
+<polygon fill="#000000" stroke="#000000" points="111.441,-41.3802 118.5744,-33.5466 108.1129,-35.2219 111.441,-41.3802"/>
+</g>
+<!-- Test -->
+<g id="node3" class="node">
+<title>Test</title>
+<ellipse fill="none" stroke="#000000" cx="251.6447" cy="-72" rx="27.8248" ry="18"/>
+<text text-anchor="middle" x="251.6447" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Test</text>
+</g>
+<!-- Build&#45;&gt;Test -->
+<g id="edge2" class="edge">
+<title>Build&#45;&gt;Test</title>
+<path fill="none" stroke="#000000" d="M180.0577,-72C190.7424,-72 202.6973,-72 213.7313,-72"/>
+<polygon fill="#000000" stroke="#000000" points="213.9566,-75.5001 223.9566,-72 213.9565,-68.5001 213.9566,-75.5001"/>
+</g>
+<!-- repo2 -->
+<g id="node7" class="node">
+<title>repo2</title>
+<polygon fill="none" stroke="#000000" points="287.2496,-36 284.2496,-40 263.2496,-40 260.2496,-36 216.0398,-36 216.0398,0 287.2496,0 287.2496,-36"/>
+<text text-anchor="middle" x="251.6447" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">配置库</text>
+</g>
+<!-- Build&#45;&gt;repo2 -->
+<g id="edge6" class="edge">
+<title>Build&#45;&gt;repo2</title>
+<path fill="none" stroke="#000000" d="M171.271,-59.6113C182.1119,-53.9987 195.2813,-47.1806 207.7959,-40.7015"/>
+<polygon fill="#000000" stroke="#000000" points="209.4789,-43.7715 216.7502,-36.0657 206.2605,-37.5552 209.4789,-43.7715"/>
+</g>
+<!-- Package -->
+<g id="node4" class="node">
+<title>Package</title>
+<ellipse fill="none" stroke="#000000" cx="366.6552" cy="-72" rx="43.4183" ry="18"/>
+<text text-anchor="middle" x="366.6552" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Package</text>
+</g>
+<!-- Test&#45;&gt;Package -->
+<g id="edge3" class="edge">
+<title>Test&#45;&gt;Package</title>
+<path fill="none" stroke="#000000" d="M279.4855,-72C289.6663,-72 301.5553,-72 313.2198,-72"/>
+<polygon fill="#000000" stroke="#000000" points="313.3642,-75.5001 323.3641,-72 313.3641,-68.5001 313.3642,-75.5001"/>
+</g>
+<!-- Deploy -->
+<g id="node5" class="node">
+<title>Deploy</title>
+<ellipse fill="none" stroke="#000000" cx="485.3275" cy="-72" rx="39.4273" ry="18"/>
+<text text-anchor="middle" x="485.3275" y="-67.8" font-family="Times,serif" font-size="14.00" fill="#000000">Deploy</text>
+</g>
+<!-- Package&#45;&gt;Deploy -->
+<g id="edge4" class="edge">
+<title>Package&#45;&gt;Deploy</title>
+<path fill="none" stroke="#000000" d="M410.1705,-72C418.4476,-72 427.1677,-72 435.6201,-72"/>
+<polygon fill="#000000" stroke="#000000" points="435.7495,-75.5001 445.7495,-72 435.7494,-68.5001 435.7495,-75.5001"/>
+</g>
+<!-- repo3 -->
+<g id="node8" class="node">
+<title>repo3</title>
+<polygon fill="none" stroke="#000000" points="513.0939,-36 510.0939,-40 489.0939,-40 486.0939,-36 457.561,-36 457.561,0 513.0939,0 513.0939,-36"/>
+<text text-anchor="middle" x="485.3275" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">交付库</text>
+</g>
+<!-- Package&#45;&gt;repo3 -->
+<g id="edge7" class="edge">
+<title>Package&#45;&gt;repo3</title>
+<path fill="none" stroke="#000000" d="M395.9899,-58.6517C411.7111,-51.498 431.2453,-42.6093 448.0347,-34.9695"/>
+<polygon fill="#000000" stroke="#000000" points="449.9009,-37.9657 457.5533,-30.6382 447.0016,-31.5943 449.9009,-37.9657"/>
+</g>
+<!-- repo3&#45;&gt;Deploy -->
+<g id="edge8" class="edge">
+<title>repo3&#45;&gt;Deploy</title>
+<path fill="none" stroke="#000000" d="M485.3275,-36.1406C485.3275,-38.6226 485.3275,-41.1046 485.3275,-43.5865"/>
+<polygon fill="#000000" stroke="#000000" points="481.8276,-43.7901 485.3275,-53.7902 488.8276,-43.7902 481.8276,-43.7901"/>
+</g>
+</g>
+</svg>
+</div>
+<ul>
+<li>
+<p>配置库</p>
+<p>有严格的环境(开发、测试、生产环境)区分，有版本管理的配置库，开发人员和运维人员各自维护自己需要的配置信息。</p>
+</li>
+<li>
+<p>交付库</p>
+<p>经过测试，符合要求的软件版本，经过规范的打包后，才允许进入交付库。交付库的软件包是部署生成环境的唯一来源。</p>
+</li>
+</ul>
+<h1 id="自动化工具"><a class="markdownIt-Anchor" href="#自动化工具"></a> 自动化工具</h1>
+<p>有了代码库、配置库和交付库，加上繁杂的管理规范、流程指南，额外配上检查员、管理员，大概就可以完成上述的过程。</p>
+<p>但是，我们需要自动化！持续集成(CI)工具就是时上述过程自动化的有力工具——以至于随时可以以很小的代价将上述过程跑一遍。</p>
+<p>持续集成工具的主要功能如下图：</p>
+<div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="576pt" height="157pt" viewbox="0.00 0.00 575.61 156.80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 152.8)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-152.8 571.6073,-152.8 571.6073,4 -4,4"/>
+<g id="clust4" class="cluster">
+<title>cluster_ci</title>
+<polygon fill="none" stroke="#000000" points="48.6073,-64 48.6073,-140.8 478.6073,-140.8 478.6073,-64 48.6073,-64"/>
+<text text-anchor="middle" x="263.6073" y="-124.2" font-family="Times,serif" font-size="14.00" fill="#000000">持续集成</text>
+</g>
+<!-- repo1 -->
+<g id="node1" class="node">
+<title>repo1</title>
+<polygon fill="none" stroke="#000000" points="57.3223,-36 54.3223,-40 33.3223,-40 30.3223,-36 -.1077,-36 -.1077,0 57.3223,0 57.3223,-36"/>
+<text text-anchor="middle" x="28.6073" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">代码库</text>
+</g>
+<!-- Code -->
+<g id="node2" class="node">
+<title>Code</title>
+<ellipse fill="none" stroke="#000000" cx="106.6073" cy="-18" rx="31.341" ry="18"/>
+<text text-anchor="middle" x="106.6073" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Code</text>
+</g>
+<!-- repo1&#45;&gt;Code -->
+<g id="edge1" class="edge">
+<title>repo1&#45;&gt;Code</title>
+<path fill="none" stroke="#000000" d="M57.2479,-18C59.7424,-18 62.2369,-18 64.7314,-18"/>
+<polygon fill="#000000" stroke="#000000" points="64.9865,-21.5001 74.9865,-18 64.9864,-14.5001 64.9865,-21.5001"/>
+</g>
+<!-- m1 -->
+<g id="node3" class="node">
+<title>m1</title>
+<polygon fill="none" stroke="#000000" points="128.4493,-108 56.7653,-108 56.7653,-72 128.4493,-72 128.4493,-108"/>
+<text text-anchor="middle" x="92.6073" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000">工程管理</text>
+</g>
+<!-- repo1&#45;&gt;m1 -->
+<g id="edge2" class="edge">
+<title>repo1&#45;&gt;m1</title>
+<path fill="none" stroke="#000000" d="M44.9746,-36.4133C52.4507,-44.8239 61.436,-54.9323 69.5782,-64.0923"/>
+<polygon fill="#000000" stroke="#000000" points="67.1978,-66.6825 76.4574,-71.8314 72.4297,-62.032 67.1978,-66.6825"/>
+</g>
+<!-- Build -->
+<g id="node4" class="node">
+<title>Build</title>
+<ellipse fill="none" stroke="#000000" cx="188.6073" cy="-18" rx="32.502" ry="18"/>
+<text text-anchor="middle" x="188.6073" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Build</text>
+</g>
+<!-- Code&#45;&gt;Build -->
+<g id="edge3" class="edge">
+<title>Code&#45;&gt;Build</title>
+<path fill="none" stroke="#000000" d="M138.3182,-18C140.8045,-18 143.2907,-18 145.7769,-18"/>
+<polygon fill="#000000" stroke="#000000" points="145.998,-21.5001 155.998,-18 145.998,-14.5001 145.998,-21.5001"/>
+</g>
+<!-- Test -->
+<g id="node5" class="node">
+<title>Test</title>
+<ellipse fill="none" stroke="#000000" cx="266.6073" cy="-18" rx="27.8248" ry="18"/>
+<text text-anchor="middle" x="266.6073" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Test</text>
+</g>
+<!-- Build&#45;&gt;Test -->
+<g id="edge4" class="edge">
+<title>Build&#45;&gt;Test</title>
+<path fill="none" stroke="#000000" d="M221.2089,-18C223.7027,-18 226.1965,-18 228.6903,-18"/>
+<polygon fill="#000000" stroke="#000000" points="228.9427,-21.5001 238.9426,-18 228.9426,-14.5001 228.9427,-21.5001"/>
+</g>
+<!-- Package -->
+<g id="node6" class="node">
+<title>Package</title>
+<ellipse fill="none" stroke="#000000" cx="355.6073" cy="-18" rx="43.4183" ry="18"/>
+<text text-anchor="middle" x="355.6073" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Package</text>
+</g>
+<!-- Test&#45;&gt;Package -->
+<g id="edge5" class="edge">
+<title>Test&#45;&gt;Package</title>
+<path fill="none" stroke="#000000" d="M294.4198,-18C296.907,-18 299.3943,-18 301.8815,-18"/>
+<polygon fill="#000000" stroke="#000000" points="302.1068,-21.5001 312.1068,-18 302.1068,-14.5001 302.1068,-21.5001"/>
+</g>
+<!-- Deploy -->
+<g id="node7" class="node">
+<title>Deploy</title>
+<ellipse fill="none" stroke="#000000" cx="456.6073" cy="-18" rx="39.4273" ry="18"/>
+<text text-anchor="middle" x="456.6073" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Deploy</text>
+</g>
+<!-- Package&#45;&gt;Deploy -->
+<g id="edge6" class="edge">
+<title>Package&#45;&gt;Deploy</title>
+<path fill="none" stroke="#000000" d="M399.0057,-18C401.6308,-18 404.2559,-18 406.881,-18"/>
+<polygon fill="#000000" stroke="#000000" points="407.0063,-21.5001 417.0062,-18 407.0062,-14.5001 407.0063,-21.5001"/>
+</g>
+<!-- m3 -->
+<g id="node10" class="node">
+<title>m3</title>
+<polygon fill="none" stroke="#000000" points="388.3737,-108 385.3737,-112 364.3737,-112 361.3737,-108 332.8409,-108 332.8409,-72 388.3737,-72 388.3737,-108"/>
+<text text-anchor="middle" x="360.6073" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000">交付库</text>
+</g>
+<!-- Package&#45;&gt;m3 -->
+<g id="edge12" class="edge">
+<title>Package&#45;&gt;m3</title>
+<path fill="none" stroke="#000000" d="M356.886,-36.4133C357.4229,-44.1442 358.0594,-53.3097 358.6528,-61.8545"/>
+<polygon fill="#000000" stroke="#000000" points="355.1611,-62.0979 359.3456,-71.8314 362.1443,-61.6129 355.1611,-62.0979"/>
+</g>
+<!-- m2 -->
+<g id="node8" class="node">
+<title>m2</title>
+<polygon fill="none" stroke="#000000" points="218.2122,-108 215.2122,-112 194.2122,-112 191.2122,-108 147.0024,-108 147.0024,-72 218.2122,-72 218.2122,-108"/>
+<text text-anchor="middle" x="182.6073" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000">配置库</text>
+</g>
+<!-- m2&#45;&gt;Build -->
+<g id="edge7" class="edge">
+<title>m2&#45;&gt;Build</title>
+<path fill="none" stroke="#000000" d="M184.1214,-71.8314C184.7631,-64.131 185.5261,-54.9743 186.2392,-46.4166"/>
+<polygon fill="#000000" stroke="#000000" points="189.7302,-46.6694 187.0729,-36.4133 182.7544,-46.088 189.7302,-46.6694"/>
+</g>
+<!-- m4 -->
+<g id="node9" class="node">
+<title>m4</title>
+<polygon fill="none" stroke="#000000" points="315.0877,-108 236.1269,-108 236.1269,-72 315.0877,-72 315.0877,-108"/>
+<text text-anchor="middle" x="275.6073" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000">自动执行</text>
+</g>
+<!-- m4&#45;&gt;Build -->
+<g id="edge8" class="edge">
+<title>m4&#45;&gt;Build</title>
+<path fill="none" stroke="#000000" d="M253.6535,-71.8314C241.7612,-61.9894 226.9945,-49.7687 214.5381,-39.4599"/>
+<polygon fill="#000000" stroke="#000000" points="216.6749,-36.6852 206.7395,-33.0059 212.2119,-42.078 216.6749,-36.6852"/>
+</g>
+<!-- m4&#45;&gt;Test -->
+<g id="edge9" class="edge">
+<title>m4&#45;&gt;Test</title>
+<path fill="none" stroke="#000000" d="M273.3362,-71.8314C272.3737,-64.131 271.2291,-54.9743 270.1594,-46.4166"/>
+<polygon fill="#000000" stroke="#000000" points="273.6224,-45.9019 268.909,-36.4133 266.6764,-46.7702 273.6224,-45.9019"/>
+</g>
+<!-- m4&#45;&gt;Package -->
+<g id="edge10" class="edge">
+<title>m4&#45;&gt;Package</title>
+<path fill="none" stroke="#000000" d="M295.7947,-71.8314C306.0749,-62.5792 318.691,-51.2247 329.682,-41.3327"/>
+<polygon fill="#000000" stroke="#000000" points="332.2499,-43.7305 337.3414,-34.4393 327.5671,-38.5274 332.2499,-43.7305"/>
+</g>
+<!-- m4&#45;&gt;Deploy -->
+<g id="edge11" class="edge">
+<title>m4&#45;&gt;Deploy</title>
+<path fill="none" stroke="#000000" d="M306.9764,-71.9985C312.4405,-69.1556 318.1293,-66.375 323.6073,-64 359.7129,-48.3466 370.4667,-49.0085 407.6073,-36 410.466,-34.9987 413.4134,-33.9521 416.3777,-32.8891"/>
+<polygon fill="#000000" stroke="#000000" points="417.6032,-36.1678 425.8148,-29.473 415.2206,-29.5857 417.6032,-36.1678"/>
+</g>
+<!-- m5 -->
+<g id="node11" class="node">
+<title>m5</title>
+<polygon fill="none" stroke="#000000" points="470.7123,-108 406.5023,-108 406.5023,-72 470.7123,-72 470.7123,-108"/>
+<text text-anchor="middle" x="438.6073" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000">发布管理</text>
+</g>
+<!-- servers -->
+<g id="node12" class="node">
+<title>servers</title>
+<polygon fill="none" stroke="#000000" points="567.6073,-36 517.6073,-36 513.6073,-32 513.6073,0 563.6073,0 567.6073,-4 567.6073,-36"/>
+<polyline fill="none" stroke="#000000" points="563.6073,-32 513.6073,-32 "/>
+<polyline fill="none" stroke="#000000" points="563.6073,-32 563.6073,0 "/>
+<polyline fill="none" stroke="#000000" points="563.6073,-32 567.6073,-36 "/>
+<text text-anchor="middle" x="540.6073" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">服务器</text>
+</g>
+<!-- m5&#45;&gt;servers -->
+<g id="edge13" class="edge">
+<title>m5&#45;&gt;servers</title>
+<path fill="none" stroke="#000000" d="M464.3462,-71.8314C477.151,-62.7927 492.7982,-51.7476 506.5792,-42.0198"/>
+<polygon fill="#000000" stroke="#000000" points="508.7253,-44.7891 514.8766,-36.1628 504.6885,-39.0703 508.7253,-44.7891"/>
+</g>
+</g>
+</svg>
+</div>
+<p>CI工具实现了与代码库关联的软件工程管理，能够自动执行构建、测试、打包、发布等操作。<br>
+CI工具通常内置了配置库和交付库，在自动构建时可以从配置库获取配置信息，在自动发布时从交付库取得指定的软件版本并部署到服务器。<br>
+此外，CI工具还会提供事件通知、生成报告等功能。</p>
+<h1 id="常见的ci工具"><a class="markdownIt-Anchor" href="#常见的ci工具"></a> 常见的CI工具</h1>
+<ul>
+<li><a href="http://hudson-ci.org/" target="_blank" rel="noopener">Hudson</a></li>
+</ul>
+<p>这个大概是最流行的CI工具了，使用Java开发。</p>
+<img src="/2014/03/04/ci_tools/ci-hudson.jpg">
+<ul>
+<li>
+<p><a href="http://buildbot.net/" target="_blank" rel="noopener">BuildBot</a></p>
+<p>使用Python语言开发。好用，但是有点小众。</p>
+<img src="/2014/03/04/ci_tools/ci-buildbot.jpg">
+</li>
+<li>
+<p><a href="http://jenkins-ci.org/" target="_blank" rel="noopener">Jenkins</a></p>
+<p>也是使用Java开发。</p>
+<img src="/2014/03/04/ci_tools/12323PJW.png">
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件过程/" rel="tag"># 软件过程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/02/20/apache_karaf.html" rel="next" title="Apache Karaf：OSGi中间件">
+                <i class="fa fa-chevron-left"></i> Apache Karaf：OSGi中间件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/03/10/fuse_develop_adapter.html" rel="prev" title="开发Camel组件">
+                开发Camel组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#个人时代的软件开发"><span class="nav-number">1.</span> <span class="nav-text"> 个人时代的软件开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#团队开发"><span class="nav-number">2.</span> <span class="nav-text"> 团队开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发和运维"><span class="nav-number">3.</span> <span class="nav-text"> 开发和运维</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动化工具"><span class="nav-number">4.</span> <span class="nav-text"> 自动化工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的ci工具"><span class="nav-number">5.</span> <span class="nav-text"> 常见的CI工具</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/03/04/ci_tools.html';
+          this.page.identifier = '2014/03/04/ci_tools.html';
+          this.page.title = '持续集成(CI)工具的作用';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="markdown,写作," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对于熟悉markdown的人来说，用gitbook写电子书是很自然的选择。当然，sphinx也非常不错。">
+<meta name="keywords" content="markdown,写作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用gitbook制作电子书">
+<meta property="og:url" content="http://holbrook.github.io/2017/11/10/ebook_with_gitbook.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="对于熟悉markdown的人来说，用gitbook写电子书是很自然的选择。当然，sphinx也非常不错。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用gitbook制作电子书">
+<meta name="twitter:description" content="对于熟悉markdown的人来说，用gitbook写电子书是很自然的选择。当然，sphinx也非常不错。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2017/11/10/ebook_with_gitbook.html"/>
+
+
+
+
+
+  <title>用gitbook制作电子书 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/11/10/ebook_with_gitbook.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用gitbook制作电子书</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T00:00:00+08:00">
+                2017-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/方法工具/" itemprop="url" rel="index">
+                    <span itemprop="name">方法工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/10/ebook_with_gitbook.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/10/ebook_with_gitbook.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对于熟悉markdown的人来说，用gitbook写电子书是很自然的选择。当然，sphinx也非常不错。</p>
+<a id="more"></a>
+<h1 id="需求和工具选择"><a class="markdownIt-Anchor" href="#需求和工具选择"></a> 需求和工具选择</h1>
+<p>制作电子书的需求，来自要为自己开发的策略平台编写用户文档，几个要求如下：</p>
+<ul>
+<li>使用轻量级标记语言</li>
+<li>能够预览</li>
+<li>能够生成html和pdf</li>
+<li>能够嵌入公式</li>
+<li>能够嵌入graphviz, plantuml等图形描述语言</li>
+</ul>
+<p>我找到了<a href="https://www.gitbook.com/" target="_blank" rel="noopener">GitBook</a> 和 <a href="http://www.sphinx-doc.org/en/stable/" target="_blank" rel="noopener">Sphinx Doc</a>。主要的区别在于：</p>
+<ul>
+<li>设计目的<br>
+GitBook的目的就是制作电子书，而Sphinx Doc的目的是为python项目编写文档</li>
+<li>开发语言<br>
+GitBook使用javascript开发，Sphinx Doc使用python开发</li>
+<li>标记语言<br>
+GitBook支持markdown, Sphinx Doc最开始只支持rst, 现在同时也支持markdown</li>
+</ul>
+<p>应该说，两个工具都很棒。二者都可以通过进行插件扩展，所以在功能上没有本质上的区别：一方能有的功能，另一方也可以有。</p>
+<p>这里，先整理一下 GitBook 的使用。</p>
+<h1 id="快速开始"><a class="markdownIt-Anchor" href="#快速开始"></a> 快速开始</h1>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gitbook-cli</span><br></pre></td></tr></table></figure>
+<h2 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h2>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> mybook</span><br><span class="line"><span class="built_in">cd</span> mybook</span><br><span class="line">gitbook init</span><br></pre></td></tr></table></figure>
+<h2 id="预览"><a class="markdownIt-Anchor" href="#预览"></a> 预览</h2>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gitbook serve</span></span><br></pre></td></tr></table></figure>
+<p>可以用浏览器访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
+<h2 id="生成"><a class="markdownIt-Anchor" href="#生成"></a> 生成</h2>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 生成html,到 `_book/` 文件夹</span><br><span class="line">gitbook build</span><br><span class="line"></span><br><span class="line"># 生成pdf, 需要先安装 gitbook-pdf</span><br><span class="line">npm install gitbook-pdf -g</span><br><span class="line">gitbook pdf</span><br></pre></td></tr></table></figure>
+<h2 id="发布"><a class="markdownIt-Anchor" href="#发布"></a> 发布</h2>
+<p>可以发布到<a href="https://www.gitbook.com/" target="_blank" rel="noopener">GitBook</a>, 当然也可以把 html 发布到 github。</p>
+<h2 id="编辑器"><a class="markdownIt-Anchor" href="#编辑器"></a> 编辑器</h2>
+<p>最好使用 vim 等文本编辑器，如果不习惯，GitBook 也提供了专门的<a href="https://www.gitbook.com/editor" target="_blank" rel="noopener">编辑器</a>。但这个编辑器对<a href="https://www.gitbook.com/" target="_blank" rel="noopener">GitBook网站</a>的绑定太过，不用也罢。</p>
+<h1 id="扩展"><a class="markdownIt-Anchor" href="#扩展"></a> 扩展</h1>
+<h2 id="配置"><a class="markdownIt-Anchor" href="#配置"></a> 配置</h2>
+<p>每本电子书都可以通过 <code>book.json</code>文件进行配置，比如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"gitbook"</span>: <span class="string">"2.x.x"</span>,</span><br><span class="line">  <span class="attr">"title"</span>: <span class="string">"Demo演示"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"验证GitBook的功能"</span>,</span><br><span class="line">  <span class="attr">"language"</span>: <span class="string">"zh"</span>,</span><br><span class="line">  <span class="attr">"structure"</span>: &#123;</span><br><span class="line">    <span class="attr">"readme"</span>: <span class="string">"README.md"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"pluginsConfig"</span>: &#123;</span><br><span class="line">    <span class="attr">"fontSettings"</span>: &#123;</span><br><span class="line">      <span class="attr">"theme"</span>: <span class="string">"white"</span>,</span><br><span class="line">      <span class="attr">"family"</span>: <span class="string">"msyh"</span>,</span><br><span class="line">      <span class="attr">"size"</span>: <span class="number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"plugins"</span>: [</span><br><span class="line">      <span class="string">"yahei"</span>,</span><br><span class="line">      <span class="string">"katex"</span>,</span><br><span class="line">      <span class="string">"-search"</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"pdf"</span>: &#123;</span><br><span class="line">    <span class="attr">"toc"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"pageNumbers"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"fontSize"</span>: <span class="number">12</span>,</span><br><span class="line">    <span class="attr">"paperSize"</span>: <span class="string">"a4"</span>,</span><br><span class="line">    <span class="attr">"margin"</span>: &#123;</span><br><span class="line">      <span class="attr">"right"</span>: <span class="number">30</span>,</span><br><span class="line">      <span class="attr">"left"</span>: <span class="number">30</span>,</span><br><span class="line">      <span class="attr">"top"</span>: <span class="number">30</span>,</span><br><span class="line">      <span class="attr">"bottom"</span>: <span class="number">50</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="math"><a class="markdownIt-Anchor" href="#math"></a> Math</h2>
+<p>GitBook v2.1.0 开始，内置了<a href="https://plugins.gitbook.com/plugin/mathjax" target="_blank" rel="noopener">Mathjax插件</a>支持 数学公式。</p>
+<p>需要在 <code>book.json</code>中配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"plugins"</span>: [<span class="string">"mathjax"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>可以用 <code>{ % math %}...{ % endmath %}</code> 或 <code>$$...$$</code> 标记公式：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">When &#123; % math %&#125;a \<span class="keyword">ne</span> <span class="number">0</span>&#123; % endmath %&#125;, there are two solutions to &#123; % math %&#125;(ax^<span class="number">2</span> + bx + c = <span class="number">0</span>)&#123; % endmath %&#125; <span class="keyword">and</span> they are &#123; % math %&#125;x = &#123;-b \pm \<span class="built-in">sqrt</span>&#123;b^<span class="number">2</span><span class="number">-4</span>ac&#125; \over <span class="number">2</span>a&#125;.&#123; % endmath %&#125;</span><br><span class="line"></span><br><span class="line">When<span class="symbol">$</span><span class="symbol">$</span>a \<span class="keyword">ne</span> <span class="number">0</span><span class="symbol">$</span><span class="symbol">$</span>, there are two solutions to<span class="symbol">$</span><span class="symbol">$</span>(ax^<span class="number">2</span> + bx + c = <span class="number">0</span>)<span class="symbol">$</span><span class="symbol">$</span><span class="keyword">and</span> they are<span class="symbol">$</span><span class="symbol">$</span>x = &#123;-b \pm \<span class="built-in">sqrt</span>&#123;b^<span class="number">2</span><span class="number">-4</span>ac&#125; \over <span class="number">2</span>a&#125;.<span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+<h2 id="graphviz"><a class="markdownIt-Anchor" href="#graphviz"></a> graphviz</h2>
+<p>使用插件<a href="https://github.com/darvasd/gitbook-plugin-graphviz" target="_blank" rel="noopener">gitbook-plugin-graphviz</a></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"plugins"</span>: [</span><br><span class="line">    <span class="string">"graphviz@git+https://github.com/darvasd/gitbook-plugin-graphviz.git"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">digraph G &#123;</span><br><span class="line">  A -&gt; B -&gt; C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="plantuml"><a class="markdownIt-Anchor" href="#plantuml"></a> plantuml</h2>
+<ul>
+<li>gitbook-plugin-uml<br>
+可以使用前面提到的<a href="https://github.com/vowstar/gitbook-plugin-uml" target="_blank" rel="noopener">gitbook-plugin-uml</a></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> gitbook-<span class="keyword">plugin</span>-uml</span><br></pre></td></tr></table></figure>
+<p>在 <code>book.json</code>中配置插件：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"plugins"</span>: [<span class="string">"uml"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">    Class Stage</span><br><span class="line">    Class Timeout &#123;</span><br><span class="line">        +constructor:function(cfg)</span><br><span class="line">        +timeout:function(ctx)</span><br><span class="line">        +overdue:function(ctx)</span><br><span class="line">        +stage: Stage</span><br><span class="line">    &#125;</span><br><span class="line">    Stage &lt;|-- Timeout</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p>也可以使用引用的方式：</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name">uml</span> src="test.uml" %&#125;</span><span class="xml"></span><span class="template-tag">&#123;% <span class="name">enduml</span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<p>另外一个插件是<a href="https://plugins.gitbook.com/plugin/plantuml" target="_blank" rel="noopener">gitbook-plugin-plantuml</a>, 大体类似。</p>
+<h2 id="模板"><a class="markdownIt-Anchor" href="#模板"></a> 模板</h2>
+<p>(TODO)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/markdown/" rel="tag"># markdown</a>
+          
+            <a href="/tags/写作/" rel="tag"># 写作</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/25/cloud_computing.html" rel="next" title="云计算简介">
+                <i class="fa fa-chevron-left"></i> 云计算简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/10/ebook_with_sphinx.html" rel="prev" title="用Sphinx制作电子书">
+                用Sphinx制作电子书 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#需求和工具选择"><span class="nav-number">1.</span> <span class="nav-text"> 需求和工具选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">2.</span> <span class="nav-text"> 快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.</span> <span class="nav-text"> 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预览"><span class="nav-number">2.3.</span> <span class="nav-text"> 预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成"><span class="nav-number">2.4.</span> <span class="nav-text"> 生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布"><span class="nav-number">2.5.</span> <span class="nav-text"> 发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑器"><span class="nav-number">2.6.</span> <span class="nav-text"> 编辑器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展"><span class="nav-number">3.</span> <span class="nav-text"> 扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.1.</span> <span class="nav-text"> 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#math"><span class="nav-number">3.2.</span> <span class="nav-text"> Math</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graphviz"><span class="nav-number">3.3.</span> <span class="nav-text"> graphviz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plantuml"><span class="nav-number">3.4.</span> <span class="nav-text"> plantuml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板"><span class="nav-number">3.5.</span> <span class="nav-text"> 模板</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2017/11/10/ebook_with_gitbook.html';
+          this.page.identifier = '2017/11/10/ebook_with_gitbook.html';
+          this.page.title = '用gitbook制作电子书';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

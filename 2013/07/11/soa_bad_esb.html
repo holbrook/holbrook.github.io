@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SOA,ESB," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="技术领域又出现了无奈的一幕：最糟糕的技术被贴上最耀眼的标签，被推送到用户面前，免费赠送的还有厂商滔滔不绝的口水，让用户相信这才是最好的。">
+<meta name="keywords" content="SOA,ESB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="糟糕的ESB">
+<meta property="og:url" content="http://holbrook.github.io/2013/07/11/soa_bad_esb.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="技术领域又出现了无奈的一幕：最糟糕的技术被贴上最耀眼的标签，被推送到用户面前，免费赠送的还有厂商滔滔不绝的口水，让用户相信这才是最好的。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="糟糕的ESB">
+<meta name="twitter:description" content="技术领域又出现了无奈的一幕：最糟糕的技术被贴上最耀眼的标签，被推送到用户面前，免费赠送的还有厂商滔滔不绝的口水，让用户相信这才是最好的。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/07/11/soa_bad_esb.html"/>
+
+
+
+
+
+  <title>糟糕的ESB | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/07/11/soa_bad_esb.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">糟糕的ESB</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-07-11T00:00:00+08:00">
+                2013-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/07/11/soa_bad_esb.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/07/11/soa_bad_esb.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>技术领域又出现了无奈的一幕：最糟糕的技术被贴上最耀眼的标签，被推送到用户面前，免费赠送的还有厂商滔滔不绝的口水，让用户相信这才是最好的。</p>
+<a id="more"></a>
+<h1 id="esb的定位"><a class="markdownIt-Anchor" href="#esb的定位"></a> ESB的定位</h1>
+<p>不存在“ESB是什么”这样的问题，只存在“需要把什么样的职责放到ESB中”，也就是“ESB的定位”问题。</p>
+<p>在IBM的<a href="http://www.ibm.com/developerworks/cn/webservices/ws-soa-term1/#N100F7" target="_blank" rel="noopener">SOA Foundation 参考模型</a>中，</p>
+<p>企业中的服务(Service)被分组为多个功能区，而ESB能够联通各个功能区中的服务，如下图所示：</p>
+
+<p>联通性很重要。就像企业内部如果沟通不畅，小则降低效率增加成本，大则导致企业分裂或死亡。</p>
+<p>很荣幸，ESB承担了这项伟大的责任；同样也很不幸，由于ESB位高权重，很多厂商通过贿赂ESB上马了很多稀奇古怪的功能，他们希望你购买类似让员工与火星人沟通这样的功能！</p>
+<p>不明真相的IT部门被厂商的顾问反复洗脑，花大价钱购买了ESB产品，开始满怀希望的尝试用ESB捆绑各种有用的没用的功能的解决各种稀奇古怪的问题——</p>
+<p>终于，ESB被滥用了。在厂商成功的兜售下一个概念（比如私有云？）之前，ESB可能已经成为IT部门永远的痛。</p>
+<p>是时候回归本质了。ESB最初的定位，就是要解决企业中服务的联通问题！</p>
+<h1 id="拼凑esb"><a class="markdownIt-Anchor" href="#拼凑esb"></a> 拼凑ESB</h1>
+<p>最初，服务的生产者和消费者可以自由交换：大家约定好交易地点（比如socket, http)，交易方式（如二进制，xml, json)以及交易内容（具体的服务）就可以了。在一个较小的范围内，每个参与者都能得到满足，而且交易成本很低。<br>
+如果一定要给出zhuangbility的名字，可以把三个方面分别叫做传输层，协议层和接口层。</p>
+<p>由于服务的双方可能使用不同的语言，所以关于服务的内容通常用一种第三方的中立语言来定义。<br>
+这种中立的语言叫做<a href="http://zh.wikipedia.org/wiki/%E6%8E%A5%E5%8F%A3%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">IDL(Interface description language,接口描述语言)</a>。<br>
+常见的IDL如CORBA、SOAP，以及最近出现的<a href="http://thrift.apache.org/docs/idl/" target="_blank" rel="noopener">ThriftIDL</a>等。</p>
+<p>让服务的双方理解IDL有两种方式：</p>
+<ol>
+<li>代码生成。针对每个具体的服务定义，通过工具生成服务端和客户端的原生语言包。这种方式通常也生成了协议层和传输层的代码。</li>
+<li>解析。通过每种语言通用的传输层和协议层API,可以获取到描述了服务内容的数据包。再通过通用的API可以解析获取数据包中的数据。</li>
+</ol>
+<p>至此，服务的联通问题已经解决，一个自由市场形成了。</p>
+<p>一天，至高无上的“神”瞥了一眼人世间的繁华，发现竟然无法一眼掌握所有的服务交换。于是，神说：“点对点是不好的，需要一个星形结构的拓扑来连接所有的服务生产者和消费者。”。然后噩梦就开始了。。。</p>
+<p>神的仆从们仿照以太网设计了一种结构，将中心节点叫做ESB。然后开始将各种各样的东西塞入ESB。</p>
+<p>开始的时候，ESB只是类似一个交换机。可是很快发现[MOM(Message-Oriented Middleware，面向消息的中间件)已经具备这样的功能，而且做得更多，甚至能够将消息持久化；</p>
+<p>好吧，那么ESB可以是一个路由器。为了让ESB有必要称为一个路由器，必须假设服务请求者根本不知道是谁提供的服务。事实是否如此并不重要，就假设不知道吧。这个假设引起了两个个麻烦：</p>
+<ol>
+<li>
+<p>如果不知道谁在提供服务，也就不知道提供了哪些服务。这个也不重要，刚好可以再引入一个新的玩意儿登记所有的“服务目录”。唔~，就叫<a href="http://zh.wikipedia.org/wiki/UDDI" target="_blank" rel="noopener">UDDI(Universal Description, Discovery, and Integration, 统一描述、发现和集成)</a>好了，名字越长越显得功能强大；</p>
+</li>
+<li>
+<p>如果不知道提供了哪些服务，也就不知道以什么样的协议和方式传输数据。这实在是太好了，ESB中还可以加上协议转换和传输适配的功能。</p>
+</li>
+</ol>
+<p>也许这时候神已经满足了，但是神的仆从们仍不满足。既然所有的请求都经过ESB，为何不增加一些管控的功能？再为ESB加上可靠性保证，负载均衡，流量控制，缓存，事务控制，加密传输，异常处理，服务调用及消息数据记录，系统及服务的状态监控，甚至统一安全管理。ESB又变成了防火墙。</p>
+<p>既然ESB已经够复杂了，再复杂一些又何妨？我们还可以将ESB当做应用服务器：把挂载到ESB上的服务简单（只能是简单）拼凑一下就可以当做新的服务了！还要起一个好听的名字，叫做服务编排如何？</p>
+<p>够了够了，已经够多了，看起来ESB的性能不会太好。而且那个叫BPM的家伙开始抱怨ESB的服务编排抢了它的生意，算了，就这样吧。</p>
+<h1 id="esb的实现"><a class="markdownIt-Anchor" href="#esb的实现"></a> ESB的实现</h1>
+<p>如上所述，一个组合了交换机、路由器、防火墙和应用服务器的东西，真的很难实现。不过什么都难不倒神的仆从，我们还是有办法去愚弄那些愚蠢的人类：</p>
+<ol>
+<li>
+<p>绑定Web Service<br>
+web service是 IBM 和 M$媾合的产物。性能低下，标准混乱，正好可以掩盖ESB本身的复杂和无序。我们可以鼓吹Web Service是最通用的——J2EE 和 .Net 可以无缝连接！</p>
+</li>
+<li>
+<p>使用中间件的方式</p>
+<p>中间件“就好比是不断将新思想一股脑儿浇在老方法上的一碗意大利面条”， 用来实现ESB再好不过了。可以让愚蠢的人类再也分不清什么是好的，什么是坏的；什么是新的，什么是旧的。</p>
+</li>
+</ol>
+<p>可能还有一些不为人知的内幕，怎奈肉眼凡胎无法识别。只好就此打住。</p>
+<p>最终，厂商们在一个糟糕的框架之下对一些细枝末节进行了“标准之争”，给出一打&quot;WS*&quot;规范。之后心满意足的去制造各自的ESB了。于是技术领域又出现了无奈的一幕：最糟糕的技术被贴上最耀眼的标签，被推送到用户面前，免费赠送的还有厂商滔滔不绝的口水，让用户相信这才是最好的。</p>
+<h1 id="后记"><a class="markdownIt-Anchor" href="#后记"></a> 后记</h1>
+<p>先别急着喷口水，本文只是关于ESB的反面，另一篇文章会说说正面。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SOA/" rel="tag"># SOA</a>
+          
+            <a href="/tags/ESB/" rel="tag"># ESB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/07/09/statistics_intro_5.html" rel="next" title="《统计学》读书笔记(5/17:简单统计推断：总体参数的估计)">
+                <i class="fa fa-chevron-left"></i> 《统计学》读书笔记(5/17:简单统计推断：总体参数的估计)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/07/16/ha_keepalived.html" rel="prev" title="keepalived实现双机互备">
+                keepalived实现双机互备 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#esb的定位"><span class="nav-number">1.</span> <span class="nav-text"> ESB的定位</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拼凑esb"><span class="nav-number">2.</span> <span class="nav-text"> 拼凑ESB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#esb的实现"><span class="nav-number">3.</span> <span class="nav-text"> ESB的实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">4.</span> <span class="nav-text"> 后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/07/11/soa_bad_esb.html';
+          this.page.identifier = '2013/07/11/soa_bad_esb.html';
+          this.page.title = '糟糕的ESB';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

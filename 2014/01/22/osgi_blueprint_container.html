@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,OSGi," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？现在，这些都不再是问题！ 曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。 你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？ 现在，这些都不">
+<meta name="keywords" content="java,OSGi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blueprint：OSGi的依赖注入(DI)容器">
+<meta property="og:url" content="http://holbrook.github.io/2014/01/22/osgi_blueprint_container.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？现在，这些都不再是问题！ 曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。 你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？ 现在，这些都不">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/22/osgi_blueprint_container/Blueprint_Container_Specification_list.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/22/osgi_blueprint_container/blueprint_config.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blueprint：OSGi的依赖注入(DI)容器">
+<meta name="twitter:description" content="曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？现在，这些都不再是问题！ 曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。 你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？ 现在，这些都不">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/01/22/osgi_blueprint_container/Blueprint_Container_Specification_list.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/01/22/osgi_blueprint_container.html"/>
+
+
+
+
+
+  <title>Blueprint：OSGi的依赖注入(DI)容器 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/22/osgi_blueprint_container.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Blueprint：OSGi的依赖注入(DI)容器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-22T00:00:00+08:00">
+                2014-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/01/22/osgi_blueprint_container.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/01/22/osgi_blueprint_container.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？现在，这些都不再是问题！</p>
+<p>曾几何时，你在Spring和OSGi之间摇摆不定；曾几何时，你对SpringDM感到迷惑不解。<br>
+你是否向往OSGi的动态特性，又为遗留代码（尤其是基于Spring的代码）感到不舍？</p>
+<p>现在，这些都不再是问题！</p>
+<p>在<a href="http://www.osgi.org/Release4/HomePage" target="_blank" rel="noopener">OSGi Service Platform Release 4</a> V4.2中，<br>
+提到了很多的<a href="http://www.osgi.org/download/r4v42/r4.enterprise.pdf" target="_blank" rel="noopener">企业级规范(Enterprise Specification)</a>，<br>
+其中包括了规范121：Blueprint容器规范(Container Specification)。</p>
+<p>Buleprint容器规范规定了一个OSGi容器(不是OSGi rumtime)的方方面面：</p>
+<img src="/2014/01/22/osgi_blueprint_container/Blueprint_Container_Specification_list.png">
+<p>Buleprint(或者说，OSGi Enterprise)目前有两个主要的实现：<a href="http://www.eclipse.org/gemini/" target="_blank" rel="noopener">Eclipse Gemini</a>和<a href="http://aries.apache.org/" target="_blank" rel="noopener">Apache Aries</a>。</p>
+<p>其中Gemini的代码最初来自Spring DM，其实Blueprint规范的最早版本也来自Spring；而Aries已经用在Apache的众多企业级产品中。</p>
+<p>在本文中，使用Aries Blueprint。</p>
+<h1 id="依赖注入"><a class="markdownIt-Anchor" href="#依赖注入"></a> 依赖注入</h1>
+<p>Blueprint Container 规范为 OSGi 定义了一个 依赖性注入（DI,Dependency Injection）框架，可以处理OSGi 的动态特性。<br>
+与<a href="/2014/01/12/dependency_injection_in_e4.html#menuIndex2">OSGi服务</a>或<a href="/2014/01/12/dependency_injection_in_e4.html#menuIndex3">OSGi Declarative Service</a>，不同，Blueprint依赖注入可以处理POJO对象的装配，使得POJO能够在OSGi中跨bundle访问。</p>
+<p>这与<a href="http://thinkinside.tk/2013/12/31/jsr330.html" target="_blank" rel="noopener">JSR330:Java依赖注入规范</a>很像，是该规范在OSGi环境下的扩展。<br>
+这也就是Spring DM(Spring Dynamic Modules)干的事情。实际上，Buleprint容器规范最初就来自于Spring，<br>
+而其Gemini实现更是来自SpringDM的捐赠。</p>
+<p>无奈，如今<a href="http://www.infoq.com/cn/news/2012/11/spring-osgi-gradle" target="_blank" rel="noopener">Spring已经宣布放弃OSGi</a>正所谓造化弄人，让人唏嘘不已。</p>
+<h1 id="blueprint-xml"><a class="markdownIt-Anchor" href="#blueprint-xml"></a> Blueprint XML</h1>
+<p>Blueprint使用XML文件描述装配关系，下面是一个例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"no"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">blueprint</span> <span class="attr">xmlns</span>=<span class="string">"http://www.osgi.org/xmlns/blueprint/v1.0.0"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Bean Manager Examples --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountOne"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.Account"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">value</span>=<span class="string">"#1 account"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountTwo"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.StaticAccountFactory"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">factory-method</span>=<span class="string">"createAccount"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"2"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">value</span>=<span class="string">"#2 account"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountFactory"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.AccountFactory"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"account factory"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountThree"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">factory-ref</span>=<span class="string">"accountFactory"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">factory-method</span>=<span class="string">"createAccount"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"3"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">value</span>=<span class="string">"#3 account"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"prototypeAccount"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.Account"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">scope</span>=<span class="string">"prototype"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"4"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"singletonAccount"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.Account"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">scope</span>=<span class="string">"singleton"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"5"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountFour"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.Account"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">init-method</span>=<span class="string">"init"</span> <span class="attr">destroy-method</span>=<span class="string">"destroy"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"6"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">value</span>=<span class="string">"#6 account"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Service Manager Examples --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myAccount"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.MyAccount"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"7"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">value</span>=<span class="string">"MyAccount"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">id</span>=<span class="string">"serviceOne"</span> <span class="attr">ref</span>=<span class="string">"myAccount"</span> <span class="attr">interface</span>=<span class="string">"java.io.Serializable"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">id</span>=<span class="string">"serviceTwo"</span> <span class="attr">ref</span>=<span class="string">"myAccount"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">interfaces</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>java.io.Serializable<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">interfaces</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">id</span>=<span class="string">"serviceThree"</span> <span class="attr">ref</span>=<span class="string">"myAccount"</span> <span class="attr">auto-export</span>=<span class="string">"all-classes"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">id</span>=<span class="string">"serviceFour"</span> <span class="attr">ref</span>=<span class="string">"myAccount"</span> <span class="attr">auto-export</span>=<span class="string">"all-classes"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">service-properties</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"mode"</span> <span class="attr">value</span>=<span class="string">"shared"</span>/&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"active"</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">value</span> <span class="attr">type</span>=<span class="string">"java.lang.Boolean"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">service-properties</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">id</span>=<span class="string">"serviceFive"</span> <span class="attr">ref</span>=<span class="string">"myAccount"</span> <span class="attr">auto-export</span>=<span class="string">"all-classes"</span> <span class="attr">ranking</span>=<span class="string">"3"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span> <span class="attr">id</span>=<span class="string">"serviceSix"</span> <span class="attr">ref</span>=<span class="string">"myAccount"</span> <span class="attr">auto-export</span>=<span class="string">"all-classes"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">registration-listener</span></span></span><br><span class="line"><span class="tag">             <span class="attr">registration-method</span>=<span class="string">"register"</span> <span class="attr">unregistration-method</span>=<span class="string">"unregister"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.RegistrationListener"</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">registration-listener</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Service Reference Manager Examples --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">reference-list</span> <span class="attr">id</span>=<span class="string">"serviceReferenceListTwo"</span> <span class="attr">interface</span>=<span class="string">"java.io.Serializable"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">availability</span>=<span class="string">"optional"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">reference-listener</span></span></span><br><span class="line"><span class="tag">             <span class="attr">bind-method</span>=<span class="string">"bind"</span> <span class="attr">unbind-method</span>=<span class="string">"unbind"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.ReferenceListener"</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">reference-listener</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">reference-list</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Environmental Manager Example --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountManagerOne"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.AccountManager"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"managerBundle"</span> <span class="attr">ref</span>=<span class="string">"blueprintBundle"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Object Values Examples --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountManagerTwo"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.AccountManager"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"managedAccount"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">ref</span> <span class="attr">component-id</span>=<span class="string">"accountOne"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountManagerThree"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.AccountManager"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"managedAccount"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.Account"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">argument</span> <span class="attr">value</span>=<span class="string">"10"</span>/&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">value</span>=<span class="string">"Inlined Account"</span>/&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountManagerFour"</span> <span class="attr">class</span>=<span class="string">"org.apache.aries.samples.AccountManager"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"accountNumbers"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">value</span>&gt;</span>123<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">value</span>&gt;</span>456<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">value</span>&gt;</span>789<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">blueprint</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看出，这个文件与Spring的配置文件非常类似。</p>
+<p>Blueprint XML中可以标记<code>bean</code>，<code>service</code>、<code>reference-list</code>等元素，用于bean管理、service管理和service引用管理。</p>
+<img src="/2014/01/22/osgi_blueprint_container/blueprint_config.png">
+<ul>
+<li>
+<p>Bean管理</p>
+<p>通过<code>&lt;bean&gt;</code>标签定义Bean，容器可以创建bean、设置属性。bean的创建可以基于构造函数、静态工厂或工厂方法；属性可以是基本类型，也可以引用其他的bean。可以设置bean的scope为singleton或prototype。</p>
+</li>
+<li>
+<p>Service管理</p>
+<p>bean只能在当前bundle中使用。要跨bundle引用，必须定义服务。服务可以依赖bean或其他服务。</p>
+<p>服务管理用于在OSGi服务注册表中注册服务。容器会根据服务的依赖关系是否满足，自动注册或注销服务。</p>
+</li>
+<li>
+<p>Service引用管理</p>
+<p>通过<code>&lt;reference&gt;</code>和<code>&lt;reference-list&gt;</code>标签可以引用其他bundle中发布的服务。两个标签分布用于引用单个服务和引用服务列表。</p>
+</li>
+</ul>
+<p>一个bundle可以有一个或多个xml配置，通常位于<code>OSGI-INF/blueprint/</code>目录下，也可以在<code>META-INF/MANIFEST.MF</code>文件中通过<br>
+<code>Bundle-Blueprint</code>属性进行指定。</p>
+<p>更多关于Blueprint XML配置的内容和例子，可以参考<a href="http://aries.apache.org/documentation/tutorials/blueprinthelloworldtutorial.html" target="_blank" rel="noopener">Apache Aries官方的例子</a>，以及<a href="https://www.ibm.com/developerworks/cn/opensource/os-osgiblueprint/" target="_blank" rel="noopener">developerWorks上的这篇文章</a></p>
+<h1 id="工作原理"><a class="markdownIt-Anchor" href="#工作原理"></a> 工作原理</h1>
+<p>Blueprint Container 使用扩展器（extender）模式，监视OSGi框架中的bundle的状态。当新的bundle被激活时，<br>
+Blueprint根据该bundle是否有Blueprint XML配置文件判断是否需要容器进行处理。</p>
+<p>处理的过程是为该bundle创建一个容器，通过容器解析XML文件，并将组件装配到一起。如果bundle中的服务依赖得到满足，容器还会调用<a href="/2014/01/12/dependency_injection_in_e4.html#menuIndex3">OSGi DS</a>发布服务。</p>
+<p>在停止bundle时，也会进行相反的销毁过程。</p>
+<h1 id="在eclipse中运行和调试"><a class="markdownIt-Anchor" href="#在eclipse中运行和调试"></a> 在Eclipse中运行和调试</h1>
+<p>可以在前面<a href="/2014/01/21/tycho_vs_maven_bundle_plugin.html#menuIndex2">通过maven手工创建Felix运行环境</a>的基础上，<br>
+增加Blueprint需要的bundle:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- for aries blueprint --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.aries.blueprint<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.aries.blueprint<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.aries.proxy<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.aries.proxy<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.aries<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.aries.util<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.felix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.felix.configadmin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.ops4j.pax.logging<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pax-logging-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.ops4j.pax.logging<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pax-logging-service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="使用apache-felix-karaf"><a class="markdownIt-Anchor" href="#使用apache-felix-karaf"></a> 使用Apache Felix Karaf</h1>
+<p>自己搭建的Felix+Blueprint环境功能很有限，比如缺失了很多必要的基础组件和管理功能。更好的选择是使用<a href="http://karaf.apache.org/" target="_blank" rel="noopener">Apache Felix Karaf</a>。</p>
+<p>Karaf在Felix和Blueprint的基础上，还增加了一些插件，以提供认证和登录、热部署、动态配置、控制台以及一些管理功能。</p>
+<p>更贴心的是，Karaf还提供了Eclipse插件：<a href="http://karaf.apache.org/index/subprojects/eik.html" target="_blank" rel="noopener">Eclipse Integration for Karaf (EIK)</a>，从而可以：</p>
+<ul>
+<li>Custom Eclipse perspective for Apache Karaf development:
+<ul>
+<li>places valuable Karaf runtime information in one location</li>
+</ul>
+</li>
+<li>Apache Karaf installation management in your workspace:
+<ul>
+<li>Karaf installations are managed as workspace projects giving the developer visibility in to the runtime</li>
+<li>each Karaf installation is automatically synchronized with your workspace, including additional bundles, configuration files</li>
+</ul>
+</li>
+<li>Run and debug Karaf installations with a single Eclipse Launcher:
+<ul>
+<li>the launch configuration allows developers to fine tune how Karaf will launch</li>
+</ul>
+</li>
+<li>Automatic deployment of workspace plugin projects:
+<ul>
+<li>create plugin-projects and have them deployed automatically</li>
+</ul>
+</li>
+<li>Advanced instrumentation of the running Karaf instance:
+<ul>
+<li>watch bundles deploy in real time and examine the OSGi service registry from within the Eclipse IDE</li>
+</ul>
+</li>
+<li>Access Eclipse platform IDE plugins from within a running Karaf instance:
+<ul>
+<li>all Eclipse plugins are presented as an OBR</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/21/tycho_vs_maven_bundle_plugin.html" rel="next" title="OSGi构建工具：Tycho还是Maven-Bundle-Plugin？">
+                <i class="fa fa-chevron-left"></i> OSGi构建工具：Tycho还是Maven-Bundle-Plugin？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/23/develop_a_fuse_webservice.html" rel="prev" title="JBoss Fuse：开发和部署Web Service">
+                JBoss Fuse：开发和部署Web Service <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入"><span class="nav-number">1.</span> <span class="nav-text"> 依赖注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#blueprint-xml"><span class="nav-number">2.</span> <span class="nav-text"> Blueprint XML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作原理"><span class="nav-number">3.</span> <span class="nav-text"> 工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在eclipse中运行和调试"><span class="nav-number">4.</span> <span class="nav-text"> 在Eclipse中运行和调试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用apache-felix-karaf"><span class="nav-number">5.</span> <span class="nav-text"> 使用Apache Felix Karaf</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/01/22/osgi_blueprint_container.html';
+          this.page.identifier = '2014/01/22/osgi_blueprint_container.html';
+          this.page.title = 'Blueprint：OSGi的依赖注入(DI)容器';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="spring," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用注解的好处是减少配置。结合基于Java代码的容器配置，可以实现“零配置”。">
+<meta name="keywords" content="spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sping中的注解">
+<meta property="og:url" content="http://holbrook.github.io/2014/01/05/spring_annotations.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="使用注解的好处是减少配置。结合基于Java代码的容器配置，可以实现“零配置”。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sping中的注解">
+<meta name="twitter:description" content="使用注解的好处是减少配置。结合基于Java代码的容器配置，可以实现“零配置”。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/01/05/spring_annotations.html"/>
+
+
+
+
+
+  <title>Sping中的注解 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/05/spring_annotations.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Sping中的注解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-05T00:00:00+08:00">
+                2014-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/01/05/spring_annotations.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/01/05/spring_annotations.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>使用注解的好处是减少配置。结合基于Java代码的容器配置，可以实现“零配置”。</p>
+<a id="more"></a>
+<p><a href="/2013/12/31/jsr330.html">前面</a>提到<a href="http://spring.io/" target="_blank" rel="noopener">Spring</a>支持<br>
+<a href="https://jcp.org/en/jsr/detail?id=330" target="_blank" rel="noopener">JSR330</a>中定义的<a href="/2013/12/31/jsr330.html#menuIndex3">依赖注入的标准注解</a>。</p>
+<p>Spring从2.5开始，还支持<a href="https://jcp.org/en/jsr/detail?id=250" target="_blank" rel="noopener">JSR250</a>(Common Annotations for the JavaTM Platform)注解，以及[JSR317](JavaTM Persistence 2.0)中的<a href="/2012/12/30/JPA.html">JPA注解</a>。</p>
+<p>不仅如此，Spring还扩展了自己的一些注解，能够进行更精细的声明。</p>
+<p>使用注解的好处是减少配置。结合<a href="/2014/01/01/spring_Java_based_container_configuration.html">基于Java代码的容器配置</a>，可以实现“零配置”。</p>
+<p>本文介绍Spring中定义的一些注解。</p>
+<h1 id="标记bean"><a class="markdownIt-Anchor" href="#标记bean"></a> 标记bean</h1>
+<p><a href="https://jcp.org/en/jsr/detail?id=330" target="_blank" rel="noopener">JSR330</a>中没有约定bean的注解，需要注入（<code>@Inject</code>）的地方，通过<code>[@Named](/2013/12/31/jsr330.html#menuIndex3)</code>限定器指定需要注入的接口类型。</p>
+<p>在Spring中，定义了<code>@Component</code>、<code>@Repository</code>、<code>@Service</code>、<code>@Controller</code>等注解，用于标记bean：</p>
+<ul>
+<li><code>@Component</code>： 是一个泛化的概念，仅仅表示一个组件 (Bean) ，可以作用在任何层次。</li>
+<li><code>@Service</code>： 通常作用在业务层，但是目前该功能与 @Component 相同。</li>
+<li><code>@Controller</code>： 通常作用在控制层，但是目前该功能与 @Component 相同。</li>
+<li><code>@Repository</code>：通常用在数据访问层的DAO类上。Spring会将该注解标记的类中抛出的数据访问异常封装为 Spring 的数据访问异常类型。</li>
+</ul>
+<p>可以在标记Bean时使用<code>@Lazy</code>注解标记该Bean可以延迟初始化。</p>
+<p>此外，Spring还允许自定义bean的注解类型。比如，如果自定义一个@Cache的注解来表示缓存类:</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//定义注解类型</span></span><br><span class="line"><span class="keyword">package</span> my.app.stereotype;</span><br><span class="line">……</span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Cache&#123;</span><br><span class="line">      String value() <span class="keyword">default</span> <span class="string">""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用自定义注解</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Cache(<span class="meta-string">"cache"</span>)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="bean作用域"><a class="markdownIt-Anchor" href="#bean作用域"></a> bean作用域</h1>
+<p><a href="https://jcp.org/en/jsr/detail?id=330" target="_blank" rel="noopener">JSR330</a>中只定义了<code>[@Singleton](/2013/12/31/jsr330.html#menuIndex3)</code>，标记singleton作用域；<br>
+spring提供“singleton”和“prototype”两种基本作用域，以及“request”、“session”、“global session”三种web作用域；<br>
+Spring还允许用户定制自己的作用域。作用域的作用是标记Bean对象相对于其他Bean对象的请求可见范围。</p>
+<ul>
+<li>
+<p>基本作用域</p>
+<ul>
+<li>
+<p>singleton</p>
+<p>Bean在容器中只有一个实例，其整个生命周期交由容器管理。Spring使用注册表模式实现singleton模式，不需要在bean代码中用编程方式实现。</p>
+</li>
+<li>
+<p>prototype</p>
+<p>每次请求bean时容器创建并返回该bean的一个新的实例。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Web作用域</p>
+<p>Web作用域只有在应用处于Web环境、并且在Web容器中配置对应的监听器或拦截器之后才会生效。包括：</p>
+<ul>
+<li>
+<p>request</p>
+<p>每个http请求创建一个新的Bean，比如Form表单数据对象。</p>
+</li>
+<li>
+<p>session</p>
+<p>表示每个会话创建一个新的Bean。比如当前用户的用户信息对象。</p>
+</li>
+<li>
+<p>globalSession</p>
+<p>用于portlet环境。如果在非portlet环境，等同于session作用域。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>在Spring中，作用域用<code>@Scpoe</code>进行标记。比如：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Scope</span>(<span class="string">"prototype"</span>)</span><br><span class="line"><span class="variable">@Repository</span></span><br><span class="line">public class Demo &#123; … &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="自动装配"><a class="markdownIt-Anchor" href="#自动装配"></a> 自动装配</h1>
+<p>自动装配是指根据一定的策略，自动注入依赖对象，无需人工参与。使用自动装配可以减少构造器注入和setter注入配置。</p>
+<p>Spring可以使用<a href="">JSR250规定的<code>@Resource</code>、<code>@Qualifier</code>注解</a>处理自动装配，<br>
+也可以使用Spring自身的<code>@Autowired</code>和<code>@Qualifier</code>的组合。</p>
+<p><code>@Autowired</code>用于根据类型进行装配，可以用于Setter方法、构造函数、字段，甚至普通方法，前提是方法必须有至少一个参数。</p>
+<p><code>@Autowired</code>可以用于数组和使用泛型的集合类型。然后 Spring 会将容器中所有类型符合的 Bean 注入进来。</p>
+<p><code>@Autowired</code>标注作用于 Map 类型时，如果 Map 的 key 为 String 类型，则 Spring 会将容器中所有类型符合 Map 的 value 对应的类型的 Bean 增加进来，用 Bean 的 id 或 name 作为 Map 的 key。</p>
+<p><code>@Autowired</code>标注作用于普通方法时，会产生一个副作用，就是在容器初始化该 Bean 实例的时候就会调用该方法。当然，前提是执行了自动装配，对于不满足装配条件的情况，该方法也不会被执行。</p>
+<p>当标注了<code>@Autowired</code>后，自动注入不能满足，则会抛出异常。可以给 @Autowired 标注增加一个 required=false 属性，以改变这个行为。<br>
+如果出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者。</p>
+<p>另外，每一个类中只能有一个构造函数的 @Autowired.required() 属性为 true。否则就出问题了。如果用 @Autowired 同时标注了多个构造函数，那么，Spring 将采用贪心算法匹配构造函数 ( 构造函数最长 )。</p>
+<p>@Autowired 还有一个作用就是，如果将其标注在 BeanFactory 类型、ApplicationContext 类型、ResourceLoader 类型、ApplicationEventPublisher 类型、MessageSource 类型上，那么 Spring 会自动注入这些实现类的实例，不需要额外的操作。</p>
+<p>JSR330中只定义了一个<code>@Named</code>注解，可以根据bean的ID进行限定；当容器中存在多个 Bean 的类型与需要注入的相同时，注入将不能执行。<br>
+Spring中定义了<code>@Qualifier</code>标注，可以提供更细致的限制粒度。比如：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Autowired</span>(required=false)</span><br><span class="line"><span class="variable">@Qualifier</span>(<span class="string">"ppp"</span>)</span><br><span class="line">public void setPerson(person p)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>@Qualifier 甚至可以作用于方法的参数 ( 对于方法只有一个参数的情况，我们可以将 @Qualifer 标注放置在方法声明上面，但是推荐放置在参数前面 )，举例如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Autowired</span>(required=false)</span><br><span class="line">public void sayHello(<span class="variable">@Qualifier</span>(<span class="string">"ppp"</span>)Person p,String name)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>如果 @Autowired 注入的是 BeanFactory、ApplicationContext、ResourceLoader 等系统类型，那么则不需要 @Qualifier，此时即使提供了 @Qualifier 注解，也将会被忽略；而对于自定义类型的自动装配，如果使用了 @Qualifier 注解并且没有名字与之匹配的 Bean，则自动装配匹配失败。</p>
+<h1 id="依赖检查"><a class="markdownIt-Anchor" href="#依赖检查"></a> 依赖检查</h1>
+<p>使用自动装配，很可能发生没有装配成功的情况。通常，在运行时(runtime)才会发现错误（比如空指针异常）。</p>
+<p>为了能够提前发现装配错误，Spring提供了<code>@Required</code>注解用于依赖检查。</p>
+<p><code>@Required</code>注解应用在setter方法上，其机制 <strong>不是</strong> 判断字段值是否存在，<br>
+而是判断是否调用了setter方法。<code>@Required</code>也不检查setter方法的有效性。即使注入了&quot;null&quot;，也认为执行了注入。</p>
+<p>如果标注了<code>@Required</code>的Setter方法没有被调用，则 Spring 在解析的时候会抛出异常。</p>
+<p><code>@DependsOn</code>注解则影响Bean初始化及销毁时的顺序。</p>
+<h1 id="使用表达式"><a class="markdownIt-Anchor" href="#使用表达式"></a> 使用表达式</h1>
+<p>通常，依赖关系是静态的。但是Spring还提供了<code>@Value</code>注解，能够按照SpEL表达式进行依赖注入。该注解可以用于字段、方法或参数。比如：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于字段</span></span><br><span class="line"><span class="meta">@Value(value = <span class="meta-string">"#&#123;message&#125;"</span>)</span></span><br><span class="line"><span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用于标记了@Autowired的方法的参数上</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">public</span> void initMessage(<span class="meta">@Value(value = <span class="meta-string">"#&#123;message&#125;#&#123;message&#125;"</span>)</span> String message) &#123;</span><br><span class="line">    <span class="keyword">this</span>.message = message;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用于标记了@Autowired的构造器的参数上</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> TestBean43(<span class="meta">@Value(value = <span class="meta-string">"#&#123;message&#125;#&#123;message&#125;"</span>)</span> String message) &#123;</span><br><span class="line">    <span class="keyword">this</span>.message = message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="注解与xml配置的结合"><a class="markdownIt-Anchor" href="#注解与xml配置的结合"></a> 注解与XML配置的结合</h1>
+<p>使用注解和<a href="/2014/01/01/spring_Java_based_container_configuration.html">基于Java代码配置Spring容器</a>并不是为了完全取代XML，<br>
+将二者结合起来能收到更好的效果。详细资料参考<a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-spring-iocannt/#major6" target="_blank" rel="noopener">这里</a>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spring/" rel="tag"># spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/05/unit_tests_within_spring.html" rel="next" title="Spring对单元测试的支持">
+                <i class="fa fa-chevron-left"></i> Spring对单元测试的支持
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/06/integration_tests_within_spring.html" rel="prev" title="Spring对集成测试的支持">
+                Spring对集成测试的支持 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#标记bean"><span class="nav-number">1.</span> <span class="nav-text"> 标记bean</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bean作用域"><span class="nav-number">2.</span> <span class="nav-text"> bean作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动装配"><span class="nav-number">3.</span> <span class="nav-text"> 自动装配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖检查"><span class="nav-number">4.</span> <span class="nav-text"> 依赖检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用表达式"><span class="nav-number">5.</span> <span class="nav-text"> 使用表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解与xml配置的结合"><span class="nav-number">6.</span> <span class="nav-text"> 注解与XML配置的结合</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/01/05/spring_annotations.html';
+          this.page.identifier = '2014/01/05/spring_annotations.html';
+          this.page.title = 'Sping中的注解';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,chart," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="目标 在R学习笔记中，展示了这样一张图表：  现在需要在Eclipse e4应用中实现这样的图表。  SWT图表组件的选择 在RCP/JFace/SWT中，可以选择的图表组件包括：   Eclipse BIRT Eclipse BIRT是Eclipse平台下的报表框架。其中的图表组件可以单独使用。 由于BIRT依赖于GEF、EMF等Eclipse插件，所以非常重，不适合简单轻量的应用。   SW">
+<meta name="keywords" content="java,chart">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在SWT中用JFreeChart实现K线图">
+<meta property="og:url" content="http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="目标 在R学习笔记中，展示了这样一张图表：  现在需要在Eclipse e4应用中实现这样的图表。  SWT图表组件的选择 在RCP/JFace/SWT中，可以选择的图表组件包括：   Eclipse BIRT Eclipse BIRT是Eclipse平台下的报表框架。其中的图表组件可以单独使用。 由于BIRT依赖于GEF、EMF等Eclipse插件，所以非常重，不适合简单轻量的应用。   SW">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick/2.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick/sample1.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick/sample2.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在SWT中用JFreeChart实现K线图">
+<meta name="twitter:description" content="目标 在R学习笔记中，展示了这样一张图表：  现在需要在Eclipse e4应用中实现这样的图表。  SWT图表组件的选择 在RCP/JFace/SWT中，可以选择的图表组件包括：   Eclipse BIRT Eclipse BIRT是Eclipse平台下的报表框架。其中的图表组件可以单独使用。 由于BIRT依赖于GEF、EMF等Eclipse插件，所以非常重，不适合简单轻量的应用。   SW">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick/2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick.html"/>
+
+
+
+
+
+  <title>在SWT中用JFreeChart实现K线图 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">在SWT中用JFreeChart实现K线图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-18T00:00:00+08:00">
+                2014-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/01/18/swt_jfreechart_candlestick.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/01/18/swt_jfreechart_candlestick.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="目标"><a class="markdownIt-Anchor" href="#目标"></a> 目标</h1>
+<p>在<a href="/2013/05/03/r_notes_1_what.html">R学习笔记</a>中，展示了这样一张图表：</p>
+<img src="/2014/01/18/swt_jfreechart_candlestick/2.png">
+<p>现在需要在Eclipse e4应用中实现这样的图表。</p>
+<h1 id="swt图表组件的选择"><a class="markdownIt-Anchor" href="#swt图表组件的选择"></a> SWT图表组件的选择</h1>
+<p>在RCP/JFace/SWT中，可以选择的图表组件包括：</p>
+<ul>
+<li>
+<p>Eclipse BIRT</p>
+<p><a href="http://www.eclipse.org/birt/phoenix/" target="_blank" rel="noopener">Eclipse BIRT</a>是Eclipse平台下的报表框架。其中的图表组件可以单独使用。<br>
+由于BIRT依赖于GEF、EMF等Eclipse插件，所以非常重，不适合简单轻量的应用。</p>
+</li>
+<li>
+<p>SWT Chart</p>
+<p>从名字就可以看出，<a href="http://www.swtchart.org/" target="_blank" rel="noopener">SWT Chart</a>是专为SWT环境开发的报表组件。设计很清晰，使用起来也方便。但是目前支持的图表类型比较少。</p>
+</li>
+<li>
+<p>JFreeChart</p>
+<p><a href="http://www.jfree.org/jfreechart/" target="_blank" rel="noopener">JFreeChart</a>是Java世界的老牌图表组件，其强大无以言表。JFreeChart支持AWT、Swing等<br>
+GUI环境，也可以生成图片在Web环境中使用。后来又增加了对SWT环境的支持，从此不再需要SWT_AWT的桥接方式。</p>
+</li>
+</ul>
+<p>综上所述，这里选择JFreeChart作为绘图组件。</p>
+<h1 id="获取股票数据"><a class="markdownIt-Anchor" href="#获取股票数据"></a> 获取股票数据</h1>
+<p>由于需要的数据量比较大，不能再使用<a href="">前面</a>的模拟数据方法了。这里使用<a href="http://finance.yahoo.com/" target="_blank" rel="noopener">雅虎财经</a>的数据。</p>
+<p>雅虎财经提供了查询股票历史数据的接口：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="string">//table.finance.yahoo.com/table.csv</span>?ignore=<span class="string">.csv</span>&amp;<span class="string">....</span></span><br></pre></td></tr></table></figure>
+<p>参数包括：</p>
+<ul>
+<li>s: 股票代码/名称。对于国内的股票，使用类似<code>000001.ss</code>的编码</li>
+<li>a、b、c: 开始时间的月、日、年</li>
+<li>d、e、f: 结束时间的月、日、年</li>
+<li>g：时间周期，分别为<code>d</code>:日， <code>w</code>:周，<code>m</code>：月， <code>v</code>:dividends only</li>
+</ul>
+<p>其中，月份是从0开始。比如，9月数据写为08。</p>
+<p>本文中使用2013年上证综合指数的日线数据：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//table.finance.yahoo.com/table.csv?ignore=.csv&amp;s=000001.ss&amp;a=00&amp;b=01&amp;c=2013&amp;d=11&amp;e=31&amp;f=2013&amp;g=d</span></span><br></pre></td></tr></table></figure>
+<p>获取到的CSV文件包含的数据列为<code>Date,Open,High,Low,Close,Volume,Adj Close</code>，其中Date的格式为<code>yyyy-MM-dd</code>。数据按照日期倒序排列。</p>
+<p>处理代码如下：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">OHLCSeries ohlcSeries = <span class="keyword">new</span> <span class="type">OHLCSeries</span>(<span class="string">""</span>);</span><br><span class="line">TimeSeries volumeSeries =<span class="keyword">new</span> <span class="type">TimeSeries</span>(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	URL url = <span class="keyword">new</span> <span class="type">URL</span>(<span class="string">"http://table.finance.yahoo.com/table.csv?ignore=.csv&amp;s=000001.ss&amp;a=00&amp;b=01&amp;c=2013&amp;d=11&amp;e=31&amp;f=2013&amp;g=d"</span>);</span><br><span class="line">	InputStream is = url.openStream();</span><br><span class="line">	InputStreamReader reader = <span class="keyword">new</span> <span class="type">InputStreamReader</span>(is,<span class="string">"UTF-8"</span>);</span><br><span class="line"></span><br><span class="line">	BufferedReader buffer = <span class="keyword">new</span> <span class="type">BufferedReader</span>(reader);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">String</span> <span class="keyword">new</span><span class="type">Line</span> = buffer.readLine();<span class="comment">// 标题行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> ((<span class="keyword">new</span><span class="type">Line</span> = buffer.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">           <span class="keyword">String</span> item[] = <span class="keyword">new</span><span class="type">Line</span>.trim().split(<span class="string">","</span>);</span><br><span class="line">           Date date = df.parse(item[<span class="number">0</span>]);</span><br><span class="line">           float open = <span class="keyword">Float</span>.valueOf(item[<span class="number">1</span>]);</span><br><span class="line">           float high = <span class="keyword">Float</span>.valueOf(item[<span class="number">2</span>]);</span><br><span class="line">           float low = <span class="keyword">Float</span>.valueOf(item[<span class="number">3</span>]);</span><br><span class="line">           float close = <span class="keyword">Float</span>.valueOf(item[<span class="number">4</span>]);</span><br><span class="line">           float volume = <span class="keyword">Float</span>.valueOf(item[<span class="number">5</span>]);</span><br><span class="line">           float adj_close = <span class="keyword">Float</span>.valueOf(item[<span class="number">6</span>]);</span><br><span class="line"></span><br><span class="line">           ohlcSeries.add(<span class="keyword">new</span> <span class="type">Day</span>(date), open,high,low,close);</span><br><span class="line">           volumeSeries.add(<span class="keyword">new</span> <span class="type">Day</span>(date),volume);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="联合图表"><a class="markdownIt-Anchor" href="#联合图表"></a> 联合图表</h1>
+<p>目标中的图表是一种联合图表(Combined Chart)：多个图表共用横坐标或纵坐标。JFreeChart中提供了<code>CombinedDomainXYPlot</code>和<code>CombinedRangeXYPlot</code>，分别用于联合横坐标和联合纵坐标的图表。</p>
+<p>由于各种图表类型都有可能组成联合图表，JFreeChart没有在<code>ChartFactory</code>中提供工厂方法进行创建，<br>
+只能按照<a href="/2014/01/17/jfreechart.html#menuIndex1">JFreeChart中的图表模型</a>进行手工创建。下面是例子：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建横坐标轴，作为联合坐标</span></span><br><span class="line">DateAxis timeAxis = <span class="keyword">new</span> <span class="type">DateAxis</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建两个纵坐标，用于上下两个Plot</span></span><br><span class="line">NumberAxis ohlcAxis = <span class="keyword">new</span> <span class="type">NumberAxis</span>();</span><br><span class="line">NumberAxis volumeAxis = <span class="keyword">new</span> <span class="type">NumberAxis</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建两个Plot对应的Renderer</span></span><br><span class="line">CandlestickRenderer ohlcRenderer = <span class="keyword">new</span> <span class="type">CandlestickRenderer</span>();</span><br><span class="line">XYBarRenderer volumeRenderer = <span class="keyword">new</span> <span class="type">XYBarRenderer</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建K线图的Plot，使用“数据”一节中的ohlcSeries</span></span><br><span class="line"><span class="comment">////其中横坐标设为"null"，以使用联合横坐标</span></span><br><span class="line">OHLCSeriesCollection ohlcDataset = <span class="keyword">new</span> <span class="type">OHLCSeriesCollection</span>();</span><br><span class="line">ohlcDataset.addSeries(ohlcSeries);</span><br><span class="line">XYPlot ohlcPlot = <span class="keyword">new</span> <span class="type">XYPlot</span>(ohlcDataset,timeAxis,ohlcAxis,ohlcRenderer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建成交量柱状图的Plot，使用“数据”一节中的volumeSeries</span></span><br><span class="line"><span class="comment">//其中横坐标设为"null"，以使用联合横坐标</span></span><br><span class="line">TimeSeriesCollection volumeDataset = <span class="keyword">new</span> <span class="type">TimeSeriesCollection</span>();</span><br><span class="line">volumeDataset.addSeries(timeSeries);</span><br><span class="line">XYPlot volumePlot=<span class="keyword">new</span> <span class="type">XYPlot</span>(volumeDataset,<span class="literal">null</span>,volumeAxis,volumeRenderer;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建联合图表</span></span><br><span class="line">CombinedDomainXYPlot combineddomainxyplot = <span class="keyword">new</span> <span class="type">CombinedDomainXYPlot</span>(timeAxis());</span><br><span class="line"></span><br><span class="line"><span class="comment">//上下两个图表占据的高度比例为2:1，间隔为10</span></span><br><span class="line">combineddomainxyplot.add(ohlcPlot, <span class="number">2</span>);</span><br><span class="line">combineddomainxyplot.add(volumePlot, <span class="number">1</span>);</span><br><span class="line">combineddomainxyplot.setGap(<span class="number">10</span>);</span><br><span class="line">JFreeChart chart = <span class="keyword">new</span> <span class="type">JFreeChart</span>(<span class="string">"xx股票"</span>, JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>创建的图表如下所示：</p>
+<img src="/2014/01/18/swt_jfreechart_candlestick/sample1.png">
+<h1 id="设置样式"><a class="markdownIt-Anchor" href="#设置样式"></a> 设置样式</h1>
+<p>上面的图表默认样式与国内的习惯不大一样。不过JFreeChart提供了丰富的API进行样式的设置。下面对样式进行简单调整(目前对SWT的支持不够完全。比如，颜色值仍需要使用AWT的<code>Color</code>类)：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//图表</span></span><br><span class="line"><span class="selector-tag">chart</span><span class="selector-class">.setBackgroundPaint</span>(Color.BLACK);</span><br><span class="line"><span class="selector-tag">chart</span><span class="selector-class">.getTitle</span>()<span class="selector-class">.setPaint</span>(Color.WHITE);</span><br><span class="line"><span class="selector-tag">chart</span><span class="selector-class">.setBorderVisible</span>(false);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Plot</span></span><br><span class="line"><span class="selector-tag">combineddomainxyplot</span><span class="selector-class">.setBackgroundPaint</span>(Color.BLACK);</span><br><span class="line"><span class="selector-tag">ohlcPlot</span><span class="selector-class">.setBackgroundPaint</span>(Color.BLACK);</span><br><span class="line"><span class="selector-tag">volumePlot</span><span class="selector-class">.setBackgroundPaint</span>(Color.BLACK);</span><br><span class="line"></span><br><span class="line"><span class="comment">//渲染</span></span><br><span class="line"><span class="selector-tag">ohlcRenderer</span><span class="selector-class">.setUpPaint</span>(Color.RED);</span><br><span class="line"><span class="selector-tag">ohlcRenderer</span><span class="selector-class">.setDownPaint</span>(Color.GREEN);</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">volumeRenderer</span><span class="selector-class">.setShadowVisible</span>(false);</span><br><span class="line"></span><br><span class="line"><span class="comment">//坐标轴</span></span><br><span class="line"><span class="selector-tag">timeAxis</span><span class="selector-class">.setTickLabelPaint</span>(Color.GRAY);</span><br><span class="line"><span class="selector-tag">ohlcAxis</span><span class="selector-class">.setTickLabelPaint</span>(Color.GRAY);</span><br><span class="line"><span class="selector-tag">volumeAxis</span><span class="selector-class">.setTickLabelPaint</span>(Color.GRAY);</span><br></pre></td></tr></table></figure>
+<p>调整后的图表如下所示：</p>
+<img src="/2014/01/18/swt_jfreechart_candlestick/sample2.png">
+<h1 id="去除非交易时段"><a class="markdownIt-Anchor" href="#去除非交易时段"></a> 去除非交易时段</h1>
+<p>前面的例子中，K线是不连续的，因为会有非交易日的存在。如果是小时、分钟级别的K线图，该问题会更加明显。</p>
+<p>要去除非交易时段，使得K线连续，大体有两个思路：</p>
+<ul>
+<li>实现一个自定义的<code>DateAxis</code>，根据数据的序号产生坐标，根据实际时间产生标签</li>
+<li>实现一个<code>Timeline</code>，并设置给<code>DateAxis</code></li>
+<li>更改Renderer</li>
+</ul>
+<p>看起来方法1更容易，但由于没有相关的文档，需要自己分析<code>DateAxis</code>的代码，类似一种“Hack”的模式，很难保证向后兼容；<br>
+方法2是官方指定的方法，可行性更高，但是要同时支持日线、小时线、分钟/5分钟线，实现起来有点难度。<br>
+此外，<a href="http://www.jfree.org/jfreechart/api/javadoc/org/jfree/chart/axis/Timeline.html" target="_blank" rel="noopener">Timeline的接口说明</a>读起来有些费解；方法3需要改变数据源(Dataset)，使用序号作为数据，设置Renderer的<code>ItemLabelGenerator</code>，根据序号产生时间格式的坐标标签。</p>
+<p>这里采用方法3，实例代码如下：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TODO</span></span><br></pre></td></tr></table></figure>
+<h1 id="修正高度和宽度todo"><a class="markdownIt-Anchor" href="#修正高度和宽度todo"></a> 修正高度和宽度(TODO)</h1>
+<ul>
+<li>
+<p>固定每根K线的宽度，根据图表宽度决定显示多少根K线</p>
+</li>
+<li>
+<p>使用“时间窗口”作为数据</p>
+</li>
+</ul>
+<h1 id="横向滚动和实时曲线todo"><a class="markdownIt-Anchor" href="#横向滚动和实时曲线todo"></a> 横向滚动和实时曲线(TODO)</h1>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/chart/" rel="tag"># chart</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/17/jfreechart.html" rel="next" title="JFreeChart概述">
+                <i class="fa fa-chevron-left"></i> JFreeChart概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/20/about_fuse_esb.html" rel="prev" title="JBOSS FUSE:你必须知道的那些事">
+                JBOSS FUSE:你必须知道的那些事 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text"> 目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#swt图表组件的选择"><span class="nav-number">2.</span> <span class="nav-text"> SWT图表组件的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取股票数据"><span class="nav-number">3.</span> <span class="nav-text"> 获取股票数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联合图表"><span class="nav-number">4.</span> <span class="nav-text"> 联合图表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置样式"><span class="nav-number">5.</span> <span class="nav-text"> 设置样式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#去除非交易时段"><span class="nav-number">6.</span> <span class="nav-text"> 去除非交易时段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修正高度和宽度todo"><span class="nav-number">7.</span> <span class="nav-text"> 修正高度和宽度(TODO)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#横向滚动和实时曲线todo"><span class="nav-number">8.</span> <span class="nav-text"> 横向滚动和实时曲线(TODO)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/01/18/swt_jfreechart_candlestick.html';
+          this.page.identifier = '2014/01/18/swt_jfreechart_candlestick.html';
+          this.page.title = '在SWT中用JFreeChart实现K线图';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

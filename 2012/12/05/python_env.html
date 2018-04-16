@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,pip,virtualenv," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="用python开发软件时，由于操作系统中可能存在多个不同的python版本，并且在不同版本、不同目录下安装了各种各样的python包，导致开发环境的不一致，也会带来发布软件时运行环境的问题。通过python的包管理器pip和环境管理器virtualenv，可以很容易解决这些问题。">
+<meta name="keywords" content="python,pip,virtualenv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python的环境管理">
+<meta property="og:url" content="http://holbrook.github.io/2012/12/05/python_env.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="用python开发软件时，由于操作系统中可能存在多个不同的python版本，并且在不同版本、不同目录下安装了各种各样的python包，导致开发环境的不一致，也会带来发布软件时运行环境的问题。通过python的包管理器pip和环境管理器virtualenv，可以很容易解决这些问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2013-06-19T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python的环境管理">
+<meta name="twitter:description" content="用python开发软件时，由于操作系统中可能存在多个不同的python版本，并且在不同版本、不同目录下安装了各种各样的python包，导致开发环境的不一致，也会带来发布软件时运行环境的问题。通过python的包管理器pip和环境管理器virtualenv，可以很容易解决这些问题。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2012/12/05/python_env.html"/>
+
+
+
+
+
+  <title>python的环境管理 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2012/12/05/python_env.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python的环境管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-12-05T00:00:00+08:00">
+                2012-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/12/05/python_env.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2012/12/05/python_env.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>用python开发软件时，由于操作系统中可能存在多个不同的python版本，并且在不同版本、不同目录下安装了各种各样的python包，导致开发环境的不一致，也会带来发布软件时运行环境的问题。通过python的包管理器pip和环境管理器virtualenv，可以很容易解决这些问题。</p>
+<a id="more"></a>
+<h1 id="包管理器pip"><a class="markdownIt-Anchor" href="#包管理器pip"></a> 包管理器pip</h1>
+<p>任何强大的体系结构都是提供一个基本的框架，并制定扩展的规范。<br>
+随着成千上万的开发者在其框架的基础上开发出越来越多的扩展，又提出了针对这些扩展进行管理的工具，<br>
+并建设出一个中心的“仓库”进行统一的登记以便检索和获取。</p>
+<p>我们能举出很多这样的例子：</p>
+<p>大到操作系统，可以有linux + 包管理器(apt, yum)， iOS + App Store, Android + Market;</p>
+<p>应用软件，如 eclipse + marketplace, R + <a href="http://cran.r-project.org/mirrors.html" target="_blank" rel="noopener">CRAN</a>,</p>
+<p>编程语言如 perl + cpan, ruby + gem, python + easy_install/pip。</p>
+<p>为了分享和管理用python开发的大量模块，python阵营也建立了PyPI(the Python Package Index)仓库 ，并且在setuptools包中提供了easy_install命令，可以与PyPI配合实现python模块的自动安装。</p>
+<p>pip是easy_install的改进版, 提供更好的提示信息，删除package等功能。</p>
+<p>pip的主要用法：</p>
+<ul>
+<li>
+<p>搜索模块</p>
+<figure class="highlight plain"><figcaption><span>search <package_name>```</package_name></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 安装模块</span><br><span class="line"></span><br><span class="line">  ```pip install &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>install <package_name></package_name></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 升级模块 (如果不提供version号，升级到最新版本）</span><br><span class="line"></span><br><span class="line">```pip install --upgrade &lt;package_name&gt;&gt;=&lt;version&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>卸载模块</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall <span class="tag">&lt;<span class="name">package_name</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>老版本的python中只有easy_install, 没有pip。但是我们可以用easy_install来安装pip:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> easy_install pip</span><br></pre></td></tr></table></figure>
+<h1 id="环境管理器virtualenv"><a class="markdownIt-Anchor" href="#环境管理器virtualenv"></a> 环境管理器virtualenv</h1>
+<p>有了包管理器确实方便，但却难免乐极生悲。当我们在很多项目中快乐的下载安装python模块时，系统的环境已经变得一团糟。</p>
+<p>更加麻烦的是，对于类UNIX系统，Python通常作为操作系统的组成部分。我们即可以使用操作系统的包管理器(apt,yum)安装python模块，<br>
+也可以通过pip进行安装。但是两个来源的模块可能会安装到不同的路径，使得模块的管理更加混乱。</p>
+<p>如果再考虑不同版本的python并存的问题，我们似乎已经无法使用python进行开发工作了。</p>
+<p>于是就有了virtualenv——python的环境管理器（类似于ruby的gemset)。</p>
+<p>virtualenv可以创建很多个独立的python运行环境，用于不同的用途。每个运行环境都有自己的模块路径，可以互不干扰。</p>
+<p>不同的运行环境还可以使用不同版本的python。</p>
+<p>你可以为每个python项目创建一个干净的环境进行开发和调试。</p>
+<p>virtualenv的使用举例如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装virtualenv</span></span><br><span class="line">sudo pip install virtualenv</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 为虚拟环境创建目录</span></span><br><span class="line">mkdir /PATH/TO/YOUR/VIRTUAL_ENV</span><br><span class="line">cd /PATH/TO/YOUR/VIRTUAL_ENV</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建一个虚拟环境，不使用系统的site-packages中的模块</span></span><br><span class="line">virtualenv --no-site-packages ENV_NAME</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 激活虚拟环境，注意激活后命令行的提示符变化</span></span><br><span class="line">source /PATH/TO/YOUR/VIRTUAL_ENV/ENV_NAME/bin/active</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在虚拟环境安装需要的模块</span></span><br><span class="line">pip install MODULE_NAME</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进行一些操作</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ...</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出虚拟环境</span></span><br><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+<h1 id="复制环境"><a class="markdownIt-Anchor" href="#复制环境"></a> 复制环境</h1>
+<p>尽管virtualenv创建虚拟环境很容易，但是在协同开发时要保证环境的同步还是比较麻烦。</p>
+<p>包管理器pip可以为创建虚拟环境提供支持。</p>
+<p>pip有一个子命令<code>pip freeze</code>，可以查看当前环境中包的清单，比如：</p>
+<blockquote>
+<p>Django==1.3</p>
+</blockquote>
+<blockquote>
+<p>distribute==0.6.14</p>
+</blockquote>
+<blockquote>
+<p>wsgiref==0.1.2</p>
+</blockquote>
+<blockquote>
+<p>yolk==0.4.1</p>
+</blockquote>
+<p>我们可以将该内容重定向到一个文本文件：<code>pip freeze &gt; req.txt</code>,<br>
+然后在另一个环境中按照该文件中的内容安装需要的包：<code>pip install -r req.txt</code>。</p>
+<p>只要将这个文件加入到版本控制，所有开发者的环境就很容易保持一致。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/pip/" rel="tag"># pip</a>
+          
+            <a href="/tags/virtualenv/" rel="tag"># virtualenv</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/11/06/cep_about.html" rel="next" title="CEP：鱼与熊掌可以兼得">
+                <i class="fa fa-chevron-left"></i> CEP：鱼与熊掌可以兼得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/12/05/algorithm_of_pattern_match.html" rel="prev" title="规则引擎中常用的模式匹配算法">
+                规则引擎中常用的模式匹配算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#包管理器pip"><span class="nav-number">1.</span> <span class="nav-text"> 包管理器pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境管理器virtualenv"><span class="nav-number">2.</span> <span class="nav-text"> 环境管理器virtualenv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复制环境"><span class="nav-number">3.</span> <span class="nav-text"> 复制环境</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2012/12/05/python_env.html';
+          this.page.identifier = '2012/12/05/python_env.html';
+          this.page.title = 'python的环境管理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

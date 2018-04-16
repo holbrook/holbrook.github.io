@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="EDA," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="zeroMQ不是TCP，不是socket，也不是消息队列，而是这些的综合体。">
+<meta name="keywords" content="EDA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZeroMQ简介">
+<meta property="og:url" content="http://holbrook.github.io/2013/07/03/zeromq_intro.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="zeroMQ不是TCP，不是socket，也不是消息队列，而是这些的综合体。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/07/03/zeromq_intro/logo.gif">
+<meta property="og:image" content="http://holbrook.github.io/2013/07/03/zeromq_intro/zmq-mongrel2.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ZeroMQ简介">
+<meta name="twitter:description" content="zeroMQ不是TCP，不是socket，也不是消息队列，而是这些的综合体。">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/07/03/zeromq_intro/logo.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/07/03/zeromq_intro.html"/>
+
+
+
+
+
+  <title>ZeroMQ简介 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/07/03/zeromq_intro.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ZeroMQ简介</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-07-03T00:00:00+08:00">
+                2013-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/07/03/zeromq_intro.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/07/03/zeromq_intro.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>zeroMQ不是TCP，不是socket，也不是消息队列，而是这些的综合体。</p>
+<a id="more"></a>
+<p>zeroMQ不是TCP，不是socket，也不是消息队列，而是这些的综合体。</p>
+<img src="/2013/07/03/zeromq_intro/logo.gif" title="ZeroMQ">
+<h1 id="zeromq是什么"><a class="markdownIt-Anchor" href="#zeromq是什么"></a> ZeroMQ是什么</h1>
+<p><a href="http://www.zeromq.org/" target="_blank" rel="noopener">ZeroMQ</a>以嵌入式网络编程库的形式实现了一个并行开发框架（concurrency framework），<br>
+能够提供进程内(inproc)、进程间(IPC)、网络(TCP)和广播方式的消息信道，<br>
+并支持扇出(fan-out)、发布-订阅(pub-sub)、任务分发（task distribution）、请求/响应（request-reply）等通信模式。<br>
+ZeroMQ的性能足以用来构建集群产品，<br>
+其异步I/O模型能够为多核消息系统提供足够的扩展性。<br>
+ZeroMQ支持30多种语言的API，可以用于绝大多数操作系统。<br>
+在提供这些优秀特性的同时，ZeroMQ是开源的，遵循LGPLv3许可。</p>
+<p>ZeroMQ的明确目标是“成为标准网络协议栈的一部分，之后进入Linux内核”。</p>
+<h1 id="zero-之禅the-zen-of-zero"><a class="markdownIt-Anchor" href="#zero-之禅the-zen-of-zero"></a> Zero 之禅（The Zen of Zero）</h1>
+<p>ZeroMQ是一个很有个性的项目，其名称也暗合禅意：</p>
+<ul>
+<li>Ø 是一种权衡：让一些丹麦人恼火，但是“Ø”本身也降低了google搜索的命中率以及twitter上的关注度</li>
+<li>Ø 暗合“零代理(broker)”、“零延迟”</li>
+<li>Ø 的目标是“零管理、零消耗、零浪费”</li>
+<li>Ø 符合简约主义：力量的源泉是降低复杂度，而不是增加新功能</li>
+</ul>
+<h1 id="zeromq对socket-api的封装"><a class="markdownIt-Anchor" href="#zeromq对socket-api的封装"></a> ZeroMQ对socket API的封装</h1>
+<p>与libevent, ACE等项目不同，使用ZeroMQ时可以不关注网络细节。<br>
+ZeroMQ的API提供了对于传统socket API的封装，对于套接字类型、连接处理、帧、甚至路由的底层细节都进行了抽象，<br>
+使得一套API可以用于进程内通讯、IPC、TCP和广播等多种消息信道。</p>
+<p>ZeroMQ自己定位为“智能传输层”（The Intelligent Transport Layer），位于网络层和应用层之间。<br>
+ZeroMQ使得构建大型并发应用时，可以将基本单元随意的“组装”，由ZeroMQ解决通信的弹性伸缩，</p>
+<p>ZeroMQ的这种设计大大简化了应用程序消息通信的实现，使得在多种场景下重用相同的交互模式成为可能。<br>
+使用ZeroMQ可以让编写高性能网络应用程序极为简单和有趣。</p>
+<p>与socket相比，ZeroMQ API的特征如下：</p>
+<ul>
+<li>在后台线程中异步地处理IO。后台线程使用无需锁的数据结构与应用线程通信，所以ZeroMQ应用程序不需要锁、信号量，或者其他等待状态。</li>
+<li>组件可以动态地加入和退出，ZeroMQ会自动重新连接。这意味着可以以任何次序启动组件。可以创建“面向服务架构（service-oriented architectures)”，其中的服务可以在任何时候加入或者退出网络。</li>
+<li>在需要的时候自动对消息排队。这种处理是智能的，在排队前会尽量让消息靠近接收者。</li>
+<li>有处理队列溢出的方法（“高水位标记”）。队列满的时候，ZeroMQ会自动阻塞发送者，或者丢弃消息，取决于你正在使用的消息传递类型（模式）。</li>
+<li>ZeroMQ让应用程序可以使用传输端点相互交流：TCP、多播、进程内、进程间。使用不同的传输端点时不用修改代码。</li>
+<li>根据消息传递模式的不同，使用不同的策略来安全地处理慢速/阻塞的接收者。</li>
+<li>使用请求-应答、发布-订阅等多种模式来路由消息。这些模式定义了如何创建网络拓扑结构。</li>
+<li>需要降低互联的各部分间的复杂性的时候，可以在网络中放置模式扩展的“设备”（小的代理）。</li>
+<li>通过在线路中使用简单的帧，可以精确地传递整个消息。发送10K的消息，则会收到10K的消息。</li>
+<li>不对消息格式做任何假定。消息是从零到数G字节的块。需要在高层使用其他产品来表示数据，如Google的Protocol Buffers、XDR等等。</li>
+<li>智能地处理网络错误。有时候重试，有时候告诉你操作失败。</li>
+<li>降低能耗。使用较少的CPU时间来做更多事情意味着使用更少的能源，而且较老的机器可以使用更长的时间。</li>
+</ul>
+<h1 id="zeromq的通信协议"><a class="markdownIt-Anchor" href="#zeromq的通信协议"></a> ZeroMQ的通信协议</h1>
+<p>ZeroMQ定义了<a href="http://rfc.zeromq.org/spec:13" target="_blank" rel="noopener">ZMTP（ZeroMQ Message Transport Protocol, ZeroMQ消息传输协议）</a>，在TCP协议之上定义了向后兼容性的规则，可扩展的安全机制，命令和消息分帧，连接元数据，以及其他传输层功能。</p>
+<p>相对于其他的消息传输协议/通信协议，ZeroMQ有明显的优势：</p>
+<ul>
+<li>TCP：ZeroMQ基于消息，使用消息模式而不是字节流。</li>
+<li>XMPP：ZeroMQ更简单、快速、更底层。Jabber可建在ØMQ之上。</li>
+<li>AMQP：完成相同的工作，ZeroMQ要快100倍，而且不需要代理（规范更简洁——比AMQP的规范文档少278页）</li>
+<li>IPC：ZeroMQ可以跨主机通信</li>
+<li>CORBA：ZeroMQ不会将复杂到恐怖的消息格式强加于你。</li>
+<li>RPC：ZeroMQ完全是异步的，你可以随时增加/删除参与者。</li>
+<li><a href="http://www.faqs.org/rfcs/rfc1149.html" target="_blank" rel="noopener">RFC 1149</a>：ZeroMQ比它快多了！</li>
+<li>29west LBM：ZeroMQ是自由软件！</li>
+<li>IBM Low-latency：ZeroMQ是自由软件！</li>
+<li>Tibco：ZeroMQ仍然是自由软件！</li>
+</ul>
+<h1 id="zeromq不是消息队列"><a class="markdownIt-Anchor" href="#zeromq不是消息队列"></a> ZeroMQ不是消息队列</h1>
+<p>在摩尔定律的魔咒下，“分布式处理”逐渐成为主流，随之而来的是关于消息通讯、消息中间件的项目层出不穷。</p>
+<p>其中最有名的应该是ZeroMQ和RabbitMQ，Thrift。<br>
+<a href="http://www.rabbitmq.com/" target="_blank" rel="noopener">RabbitMQ</a>是符合<a href="http://www.amqp.org/" target="_blank" rel="noopener">AMQP(Advanced Message Queuing Protocol, 高级消息队列协议)</a>的消息中间件，<br>
+而<a href="http://thrift.apache.org/" target="_blank" rel="noopener">Thrift</a>是出自于Facebook的跨语言服务访问的框架。</p>
+<p>2011年，<a href="http://zh.wikipedia.org/wiki/%E6%AD%90%E6%B4%B2%E6%A0%B8%E5%AD%90%E7%A0%94%E7%A9%B6%E7%B5%84%E7%B9%94" target="_blank" rel="noopener">欧洲核子研究组织（CERN）</a><br>
+调查了统一用于操作CERN加速器的中间件解决方案的方式，欧洲核子研究组织的研究比较了<br>
+<a href="http://zh.wikipedia.org/wiki/CORBA" target="_blank" rel="noopener">CORBA</a>、<br>
+<a href="http://zh.wikipedia.org/w/index.php?title=Internet_Communications_Engine&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">Ice</a>，<br>
+<a href="http://zh.wikipedia.org/w/index.php?title=Apache_Thrift&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">Thrift</a>，<br>
+ZeroMQ,<br>
+YAMI4，<br>
+<a href="http://zh.wikipedia.org/w/index.php?title=Run-Time_Infrastructure_(simulation)&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">RTI</a>和<br>
+<a href="http://zh.wikipedia.org/w/index.php?title=Apache_Qpid&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">Qpid/AMQP</a>，<br>
+ZeroMQ得到了最高的分数。</p>
+<p>但ZeroMQ最大的特点不在性能，而是机制。尽管名字中包含了&quot;MQ&quot;，但ZeroMQ并不是“消息队列/消息中间件”。ZeroMQ是一个传输层API库，<br>
+更关注消息的传输。与消息队列相比，ZeroMQ有以下一些特点：</p>
+<p>1 点对点无中间节点</p>
+<p>传统的消息队列都需要一个消息服务器来存储转发消息。而ZeroMQ则放弃了这个模式，把侧重点放在了点对点的消息传输上，并且（试图）做到极致。以为消息服务器最终还是转化为服务器对其他节点的点对点消息传输上。ZeroMQ能缓存消息，但是是在发送端缓存。ZeroMQ里有水位设置的相关接口来控制缓存量。当然，ZeroMQ也支持传统的消息队列（通过zmq_device来实现）。</p>
+<p>2 强调消息收发模式</p>
+<p>在点对点的消息传输上ZeroMQ将通信的模式做了归纳，比如常见的订阅模式（一个消息发多个客户），分发模式（N个消息平均分给X个客户）等等。下面是目前支持的消息模式配对，任何一方都可以做为服务端。</p>
+<ul>
+<li>PUB and SUB</li>
+<li>REQ and REP</li>
+<li>REQ and XREP</li>
+<li>XREQ and REP</li>
+<li>XREQ and XREP</li>
+<li>XREQ and XREQ</li>
+<li>XREP and XREP</li>
+<li>PUSH and PULL</li>
+<li>PAIR and PAIR</li>
+</ul>
+<p>3 以统一接口支持多种底层通信方式</p>
+<p>不管是线程间通信，进程间通信还是跨主机通信，ZeroMQ都使用同一套API进行调用，只需要更改通信协议名称（如，从&quot;ipc:///xxx&quot;改为&quot;tcp://<em>.</em>.<em>.</em>😗***&quot;）即可。</p>
+<p>4 异步，强调性能</p>
+<p>ZeroMQ设计之初就是为了高性能的消息发送而服务的，所以其设计追求简洁高效。它发送消息是异步模式，通过单独出一个IO线程来实现，所以消息发送调用之后不要立刻释放相关资源哦，会出错的（以为还没发送完），要把资源释放函数交给ZeroMQ让ZeroMQ发完消息自己释放。</p>
+<h1 id="zeromq的应用案例"><a class="markdownIt-Anchor" href="#zeromq的应用案例"></a> ZeroMQ的应用案例</h1>
+<p>ZeroMQ如何拯救世界</p>
+<p>由于ZeroMQ的强大，我们可以用ZeroMQ搭建出非常强悍的应用。比如：</p>
+<ul>
+<li>
+<p><a href="/2013/06/24/salt_intro.html">Salt</a>的底层就使用了ZeroMQ作为通信机制</p>
+</li>
+<li>
+<p><a href="http://mongrel2.org/home" target="_blank" rel="noopener">Mongrel2</a>是使用ZeroMQ开发的一个Web服务器</p>
+<p>Mongrel2是应用ZeroMQ的一个有趣的案例：所有入站消息通过“Push”套接字路由到Mongrel2，套接字可以自动实现负载均衡，将消息分发到连接处理器。反过来，连接处理器处理入站消息（通过Pull套接字），然后将处理结果发布到一个“Pub”套接字，Mongrel2服务器本身已订阅了该套接字，并且通过主题（topic）过滤器监听该套接字的进程号。如下图：</p>
+</li>
+</ul>
+<img src="/2013/07/03/zeromq_intro/zmq-mongrel2.png" title="zmq-mongrel2">
+<p>ZeroMQ带来了一种新的分布式应用架构的思考方式。善用ZeroMQ，可以为应用带来非常强大的特性。</p>
+<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
+<ul>
+<li><a href="http://zguide.zeromq.org/page:all" target="_blank" rel="noopener">官方指南</a>，这篇巨长的文档不仅介绍了ZeroMQ的主要方面，网络编程，还融入了ZeroMQ作者对于编程的理念，很值得精读</li>
+<li><a href="http://www.infoq.com/news/2010/09/introduction-zero-mq" target="_blank" rel="noopener">An Introduction to ØMQ (ZeroMQ)</a>,InfoQ上面对于ZeroMQ的一篇介绍性文章</li>
+<li><a href="http://www.zeromq.org/community" target="_blank" rel="noopener">ZeroMQ社区</a>，</li>
+<li><a href="http://hi.baidu.com/ah__fu/item/bdff1d88d236f8c299255f65" target="_blank" rel="noopener">ZeroMQ：云计算时代最好的通讯库</a></li>
+<li><a href="http://blog.codingnow.com/2011/02/zeromq_message_patterns.html" target="_blank" rel="noopener">ZeroMQ 的模式</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/EDA/" rel="tag"># EDA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/07/01/lvs_nginx_practice.html" rel="next" title="lvs+nginx的负载均衡实验">
+                <i class="fa fa-chevron-left"></i> lvs+nginx的负载均衡实验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/07/04/lvs_intro.html" rel="prev" title="lvs概述">
+                lvs概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#zeromq是什么"><span class="nav-number">1.</span> <span class="nav-text"> ZeroMQ是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zero-之禅the-zen-of-zero"><span class="nav-number">2.</span> <span class="nav-text"> Zero 之禅（The Zen of Zero）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zeromq对socket-api的封装"><span class="nav-number">3.</span> <span class="nav-text"> ZeroMQ对socket API的封装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zeromq的通信协议"><span class="nav-number">4.</span> <span class="nav-text"> ZeroMQ的通信协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zeromq不是消息队列"><span class="nav-number">5.</span> <span class="nav-text"> ZeroMQ不是消息队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zeromq的应用案例"><span class="nav-number">6.</span> <span class="nav-text"> ZeroMQ的应用案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/07/03/zeromq_intro.html';
+          this.page.identifier = '2013/07/03/zeromq_intro.html';
+          this.page.title = 'ZeroMQ简介';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

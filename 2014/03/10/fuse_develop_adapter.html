@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SOA,FUSE,OSGi,Maven,Camel," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="快速开始 因为 JBOSS FUSE:你必须知道的那些事 ，而ServiceMix的核心组成部分是Apache Camel，所以“用Fuse开发路由”也就是“开发Camel路由”。 Camel提供了大量的开发工具，其中camel-archetype-blueprint 是一个maven archetype，可以基于 Blueprint，以依赖注入的方式配置CamelContext。下面快速创建一">
+<meta name="keywords" content="SOA,FUSE,OSGi,Maven,Camel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发Camel组件">
+<meta property="og:url" content="http://holbrook.github.io/2014/03/10/fuse_develop_adapter.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="快速开始 因为 JBOSS FUSE:你必须知道的那些事 ，而ServiceMix的核心组成部分是Apache Camel，所以“用Fuse开发路由”也就是“开发Camel路由”。 Camel提供了大量的开发工具，其中camel-archetype-blueprint 是一个maven archetype，可以基于 Blueprint，以依赖注入的方式配置CamelContext。下面快速创建一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/03/10/fuse_develop_adapter/route-demo-structure.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/03/10/fuse_develop_adapter/route-design.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发Camel组件">
+<meta name="twitter:description" content="快速开始 因为 JBOSS FUSE:你必须知道的那些事 ，而ServiceMix的核心组成部分是Apache Camel，所以“用Fuse开发路由”也就是“开发Camel路由”。 Camel提供了大量的开发工具，其中camel-archetype-blueprint 是一个maven archetype，可以基于 Blueprint，以依赖注入的方式配置CamelContext。下面快速创建一">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/03/10/fuse_develop_adapter/route-demo-structure.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/03/10/fuse_develop_adapter.html"/>
+
+
+
+
+
+  <title>开发Camel组件 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/03/10/fuse_develop_adapter.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">开发Camel组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-03-10T00:00:00+08:00">
+                2014-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/03/10/fuse_develop_adapter.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/03/10/fuse_develop_adapter.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="快速开始"><a class="markdownIt-Anchor" href="#快速开始"></a> 快速开始</h1>
+<p>因为 <a href="/2014/01/20/about_fuse_esb.html" title="JBOSS FUSE:你必须知道的那些事">JBOSS FUSE:你必须知道的那些事</a> ，而ServiceMix的核心组成部分是Apache Camel，所以“用Fuse开发路由”也就是“开发Camel路由”。</p>
+<p><a href="http://search.maven.org/#search%7Cga%7C1%7Corg.apache.camel.archetypes" target="_blank" rel="noopener">Camel提供了大量的开发</a>工具，其中<a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22camel-archetype-blueprint%22" target="_blank" rel="noopener">camel-archetype-blueprint</a> 是一个<a href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html" target="_blank" rel="noopener">maven<br>
+archetype</a>，可以基于 <a href="/2014/01/22/osgi_blueprint_container.html" title="Blueprint">Blueprint</a>，以依赖注入的方式配置CamelContext。下面快速创建一个demo:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate  \</span><br><span class="line">-DarchetypeGroupId=org.apache.camel.archetypes \</span><br><span class="line">-DarchetypeArtifactId=camel-archetype-blueprint \</span><br><span class="line">-DarchetypeVersion=2.12.2 \</span><br><span class="line">-DgroupId=thinkinside.demo.fuse \</span><br><span class="line">-DartifactId=route-demo \</span><br><span class="line">-Dversion=1.0.0-SNAPSHOT</span><br></pre></td></tr></table></figure>
+<p>会创建如下结构的一个工程：</p>
+<img src="/2014/03/10/fuse_develop_adapter/route-demo-structure.png">
+<p>从 <code>pom.xml</code>来看，这是一个 <a href="/2014/01/21/tycho_vs_maven_bundle_plugin.html" title="使用maven-bundle-plugin构建的OSGibundle工程">使用maven-bundle-plugin构建的OSGibundle工程</a></p>
+<h1 id="基于blueprint装配camel"><a class="markdownIt-Anchor" href="#基于blueprint装配camel"></a> 基于Blueprint装配Camel</h1>
+<p>工程的`META-INF/blueprint/blueprint.xml’文件是一个Blueprint配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:camel=&quot;http://camel.apache.org/schema/blueprint&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;</span><br><span class="line">       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd</span><br><span class="line">       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;bean id=&quot;helloBean&quot; class=&quot;thinkinside.demo.fuse.HelloBean&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;say&quot; value=&quot;Hi from Camel&quot;/&gt;</span><br><span class="line">  &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">  &lt;camelContext id=&quot;blueprintContext&quot; trace=&quot;false&quot; xmlns=&quot;http://camel.apache.org/schema/blueprint&quot;&gt;</span><br><span class="line">    &lt;route id=&quot;timerToLog&quot;&gt;</span><br><span class="line">      &lt;from uri=&quot;timer:foo?period=5000&quot;/&gt;</span><br><span class="line">      &lt;setBody&gt;</span><br><span class="line">          &lt;method ref=&quot;helloBean&quot; method=&quot;hello&quot;/&gt;</span><br><span class="line">      &lt;/setBody&gt;</span><br><span class="line">      &lt;log message=&quot;The message contains$&#123;body&#125;&quot;/&gt;</span><br><span class="line">      &lt;to uri=&quot;mock:result&quot;/&gt;</span><br><span class="line">    &lt;/route&gt;</span><br><span class="line">  &lt;/camelContext&gt;</span><br><span class="line"></span><br><span class="line">&lt;/blueprint&gt;</span><br></pre></td></tr></table></figure>
+<p>该配置文件中，定义了一个id为 <code>blueprintContext</code> 的Camel<br>
+Context。这个Context中定义了一个路由：</p>
+<ol>
+<li>入口为一个Timer类型的Endpoint</li>
+<li>使用预定义的bean为Message设置body</li>
+<li>记录日志</li>
+<li>出口为一个Mock类型的Endpoint</li>
+</ol>
+<p>如果使用FuseIDE，可以看到图形化的配置界面：</p>
+<img src="/2014/03/10/fuse_develop_adapter/route-design.png">
+<h1 id="部署到servicemix"><a class="markdownIt-Anchor" href="#部署到servicemix"></a> 部署到ServiceMix</h1>
+<p>执行 <code>mvn package</code> 后，得到 <code>route-demo-1.0.0-SNAPSHOT.jar</code><br>
+，这是一个OSGi bundle。可以将jar文件部署到</p>
+<p><code>$SERVICEMIX_HOME/deploy/</code><br>
+目录中。正常情况下，bundle的依赖关系被满足，该bundle会被自动启动。</p>
+<h1 id="从servicemix到fuse"><a class="markdownIt-Anchor" href="#从servicemix到fuse"></a> 从ServiceMix到Fuse</h1>
+<p>上述的过程也适用于JBoss Fuse。</p>
+<p>但是Fuse对ServiceMix进行了再次封装，需要使用Fuse对应的版本。比如，=camel-archetype-blueprint=<br>
+的版本可能要使用 <code>2.10.0.redhat-60024</code><br>
+这样的“Fuse版本号”，否则在部署到Fuse是可能会发生版本不匹配的问题。</p>
+<p>Fuse提供了一个maven仓库，专门提供这种定制版本的组件，需要在maven中配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;repository&gt;</span><br><span class="line">    &lt;id&gt;fusesource&lt;/id&gt;</span><br><span class="line">    &lt;url&gt;http://repo.fusesource.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">    &lt;snapshots&gt;</span><br><span class="line">        &lt;enabled&gt;false&lt;/enabled&gt;</span><br><span class="line">    &lt;/snapshots&gt;</span><br><span class="line">    &lt;releases&gt;</span><br><span class="line">         &lt;enabled&gt;true&lt;/enabled&gt;</span><br><span class="line">     &lt;/releases&gt;</span><br><span class="line">&lt;/repository&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SOA/" rel="tag"># SOA</a>
+          
+            <a href="/tags/FUSE/" rel="tag"># FUSE</a>
+          
+            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
+          
+            <a href="/tags/Camel/" rel="tag"># Camel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/03/04/ci_tools.html" rel="next" title="持续集成(CI)工具的作用">
+                <i class="fa fa-chevron-left"></i> 持续集成(CI)工具的作用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/04/24/cm_features.html" rel="prev" title="配置管理规范需要考虑的内容">
+                配置管理规范需要考虑的内容 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">1.</span> <span class="nav-text"> 快速开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于blueprint装配camel"><span class="nav-number">2.</span> <span class="nav-text"> 基于Blueprint装配Camel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署到servicemix"><span class="nav-number">3.</span> <span class="nav-text"> 部署到ServiceMix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从servicemix到fuse"><span class="nav-number">4.</span> <span class="nav-text"> 从ServiceMix到Fuse</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/03/10/fuse_develop_adapter.html';
+          this.page.identifier = '2014/03/10/fuse_develop_adapter.html';
+          this.page.title = '开发Camel组件';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

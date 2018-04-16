@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="量化分析," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据的准备包括收集、质量分析和预处理。">
+<meta name="keywords" content="量化分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第3章：数据的准备">
+<meta property="og:url" content="http://holbrook.github.io/2017/09/23/quantitative_investment3.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="数据的准备包括收集、质量分析和预处理。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第3章：数据的准备">
+<meta name="twitter:description" content="数据的准备包括收集、质量分析和预处理。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2017/09/23/quantitative_investment3.html"/>
+
+
+
+
+
+  <title>《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第3章：数据的准备 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/09/23/quantitative_investment3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第3章：数据的准备</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-23T00:00:00+08:00">
+                2017-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量化交易/" itemprop="url" rel="index">
+                    <span itemprop="name">量化交易</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/23/quantitative_investment3.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/23/quantitative_investment3.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据的准备包括收集、质量分析和预处理。</p>
+<a id="more"></a>
+<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+<h1 id="量化投资的数据类别"><a class="markdownIt-Anchor" href="#量化投资的数据类别"></a> 量化投资的数据类别</h1>
+<p>量化投资相关的数据主要包括：</p>
+<ul>
+<li>
+<p>交易数据类</p>
+<ul>
+<li>股票交易</li>
+<li>大宗交易</li>
+<li>市场指数</li>
+<li>基金市场</li>
+<li>期货数据</li>
+<li>权证数据</li>
+<li>高频交易数据</li>
+</ul>
+</li>
+<li>
+<p>上市公司类</p>
+<ul>
+<li>财务报表</li>
+<li>财务报告及审计</li>
+<li>财务指标分析</li>
+<li>分析师预测研究</li>
+<li>增发配股</li>
+<li>分红</li>
+<li>股东结构</li>
+<li>并购重组</li>
+</ul>
+</li>
+<li>
+<p>经济与行业类</p>
+<ul>
+<li>宏观经济数据</li>
+<li>区域经济数据</li>
+<li>行业统计数据</li>
+<li>进出口统计数据</li>
+<li>全球经济数据</li>
+<li>外汇市场</li>
+<li>黄金市场</li>
+<li>市场波动研究</li>
+</ul>
+</li>
+</ul>
+<h1 id="数据的选择"><a class="markdownIt-Anchor" href="#数据的选择"></a> 数据的选择</h1>
+<p>前面列出了很多数据源，具体选择哪些数据源，要根据分析目的和分析方法选取。比如：</p>
+<ul>
+<li>
+<p>基本面选股(目的)</p>
+<p>方法有统计模型方法(比如 主成分分析、逐步回归、分层回归等方法)和结构模型方法（比如 成长型，价值型，GARP 等）</p>
+<p>需要基本面数据，包括：盈利能力、成长性、盈利质量、资产运行效率、股本扩张能力、偿债能力、现金情况等</p>
+</li>
+<li>
+<p>多因素选股（目的）</p>
+<p>方法如宏观经济周期、行业景气周期等。</p>
+<p>需要外部环境数据，如 宏观经济形势、行业发展状况等。</p>
+</li>
+<li>
+<p>动量反转选股(目的)</p>
+<p>方法有很多，数据主要是市场交易数据，如动量、波动性、活跃性等。</p>
+</li>
+</ul>
+<h1 id="数据来源和数据要素"><a class="markdownIt-Anchor" href="#数据来源和数据要素"></a> 数据来源和数据要素</h1>
+<p>公共的量化分析数据源主要有雅虎/新浪、大智慧、万德等。</p>
+<p>数据对应着实体，包含多个属性。<br>
+具体的数据对象称为样本，实例。</p>
+<p>属性通过一个数据字段表示对象的一个特征。根据不同的场景，分别称为 属性(Attribute),<br>
+特征(Feature), 维(Dimension), 变量(Variable)。</p>
+<p>属性值可以是离散值或者连续值。</p>
+<h1 id="数据抽样"><a class="markdownIt-Anchor" href="#数据抽样"></a> 数据抽样</h1>
+<p>为例节省时间，在检查数据质量时一般不会检查所有数据(如果对于海量数据，在训练时也有可能不使用全部数据)。<br>
+这就需要对数据进行抽样。</p>
+<p>抽样之前，要先对数据的分布进行探索，充分了解数据后再选择合适的抽样方法。</p>
+<p>抽样要保证具有代表性和随机性。常用的抽样方法有：</p>
+<ul>
+<li>
+<p>简单随机抽样(Simple Random Sampling)</p>
+<p>用类似抽签的方式抽取样本。简单，但是不适合总体较大的情况。</p>
+</li>
+<li>
+<p>系统抽样(Systematic Sampling)</p>
+<p>即机械抽样、等距抽样。如果总体分布不均匀时容易产生抽样偏差。</p>
+</li>
+<li>
+<p>群体抽样(Cluster Sampling)</p>
+<p>先分群，再随机抽取几个群组。抽样误差可能比较大。</p>
+</li>
+<li>
+<p>分层抽样(Stratified Sampling)</p>
+<p>如果样本的某种特征具有层次分类，可以从每层抽取一定样本。</p>
+</li>
+</ul>
+<h1 id="数据质量分析"><a class="markdownIt-Anchor" href="#数据质量分析"></a> 数据质量分析</h1>
+<p>原始的数据可能存在错误、缺失或不一致等问题。不能盲目相信。在使用之前要先检查数据的质量。</p>
+<p>数据质量分析的目的是评估数据的正确型和有效性。<br>
+正确性分析考察数据的缺失值、数据错误、度量标准错误、编码不一致等问题；<br>
+有效性分析主要是统计方面的信息，如占比、方差、均值、分位数等，通过这些信息了解数据的信息量程度。</p>
+<p>数据质量分析的方法主要有：</p>
+<ul>
+<li>
+<p>值分析：对值的情况进行统计。比如：</p>
+<ul>
+<li>总记录数，表征数据规模</li>
+<li>唯一值数，表征数据多样性</li>
+<li>空值占比，表征无效数据的影响程度</li>
+<li>零值占比</li>
+<li>正数占比</li>
+<li>负数占比</li>
+</ul>
+</li>
+<li>
+<p>统计分析：分析数据的统计学特征，包括：</p>
+<ul>
+<li>
+<p>基本统计量：均值，最小值，最大值，标准差，极差  + 拓展统计量</p>
+<ul>
+<li>众数(Mode): 变量中发生频率最大的值。众数不受极端数据的影响。</li>
+<li>分位数(Median): 数据排序后，小于某个值的数据占总数的百分比。</li>
+<li>中位数：即50%分位数。代表数据总体的中等情况，可以避免极端数据的影响。</li>
+<li>偏度: 值的分布与正太分布的偏差程度。拍大怒小于/大于零称为负/正偏离。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>频次与直方图分析</p>
+<p>频次图和直方图，以直观的方式展现数据的分布特征：集中趋势和离散趋势。</p>
+<p>直方图(hist)适合处理连续数据，找出其统计规律，从而推断总体分布特征。</p>
+<p>频次图适合处理离散数据，其各个取值的分布情况。可以对多个维度进行组合分析。</p>
+</li>
+</ul>
+<h1 id="数据预处理"><a class="markdownIt-Anchor" href="#数据预处理"></a> 数据预处理</h1>
+<p>数据质量的三个要素：准确性、完整性、一致性</p>
+<p>此外，可信性(Believability)和可解释性(Interpretability)也是两个重要的因素。</p>
+<p>数据预处理主要包括四个内容：</p>
+<ul>
+<li>
+<p>数据清洗：填充缺失值，去除噪声</p>
+<p>缺失值处理的方法主要有删除发、插补法(均值插补，回归插补，极大似然估计)</p>
+<p>噪声过滤的方法主要有：回归法、均值平滑法、离群点分析法，小波去噪法。</p>
+</li>
+<li>
+<p>数据集成: 将不同来源的数据关联起来。</p>
+</li>
+<li>
+<p>数据归约：简化数据。可以进行属性选择和样本选择。</p>
+</li>
+<li>
+<p>数据变换</p>
+<p>标准化：如 0-1标准化， Z-score 标准化（标准差标准化，处理为标准正态分布）</p>
+<p>离散化：将连续的属性值划分为若干段(bin)</p>
+<p>语义转换：如，将字符型变为离散的数值。</p>
+</li>
+</ul>
+<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/量化分析/" rel="tag"># 量化分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/30/quantitative_investment2.html" rel="next" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第2章：数据挖掘的内容、过程及工具">
+                <i class="fa fa-chevron-left"></i> 《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第2章：数据挖掘的内容、过程及工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/02/quantitative_investment4.html" rel="prev" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第4章：数据的探索">
+                《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第4章：数据的探索 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#量化投资的数据类别"><span class="nav-number">1.</span> <span class="nav-text"> 量化投资的数据类别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据的选择"><span class="nav-number">2.</span> <span class="nav-text"> 数据的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据来源和数据要素"><span class="nav-number">3.</span> <span class="nav-text"> 数据来源和数据要素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据抽样"><span class="nav-number">4.</span> <span class="nav-text"> 数据抽样</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据质量分析"><span class="nav-number">5.</span> <span class="nav-text"> 数据质量分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据预处理"><span class="nav-number">6.</span> <span class="nav-text"> 数据预处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2017/09/23/quantitative_investment3.html';
+          this.page.identifier = '2017/09/23/quantitative_investment3.html';
+          this.page.title = '《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第3章：数据的准备';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

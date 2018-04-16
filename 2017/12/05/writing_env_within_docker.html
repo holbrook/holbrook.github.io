@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="env,docker," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="众所周知，在windows下面使用有些工具等于自虐，比如python, nodejs, pandoc … 所以，在windows下面，使用markdown写文档变成了一种非常不好的体验。 偏偏有时候又不得不使用windows。比如单位的某上网助手软件，只有windows版本。 幸好有了docker。">
+<meta name="keywords" content="env,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用docker搭建写作环境">
+<meta property="og:url" content="http://holbrook.github.io/2017/12/05/writing_env_within_docker.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="众所周知，在windows下面使用有些工具等于自虐，比如python, nodejs, pandoc … 所以，在windows下面，使用markdown写文档变成了一种非常不好的体验。 偏偏有时候又不得不使用windows。比如单位的某上网助手软件，只有windows版本。 幸好有了docker。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用docker搭建写作环境">
+<meta name="twitter:description" content="众所周知，在windows下面使用有些工具等于自虐，比如python, nodejs, pandoc … 所以，在windows下面，使用markdown写文档变成了一种非常不好的体验。 偏偏有时候又不得不使用windows。比如单位的某上网助手软件，只有windows版本。 幸好有了docker。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2017/12/05/writing_env_within_docker.html"/>
+
+
+
+
+
+  <title>使用docker搭建写作环境 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/12/05/writing_env_within_docker.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用docker搭建写作环境</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T00:00:00+08:00">
+                2017-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/方法工具/" itemprop="url" rel="index">
+                    <span itemprop="name">方法工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/05/writing_env_within_docker.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/05/writing_env_within_docker.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>众所周知，在windows下面使用有些工具等于自虐，比如python, nodejs, pandoc …<br>
+所以，在windows下面，使用markdown写文档变成了一种非常不好的体验。</p>
+<p>偏偏有时候又不得不使用windows。比如单位的某上网助手软件，只有windows版本。</p>
+<p>幸好有了docker。</p>
+<a id="more"></a>
+<h1 id="目的"><a class="markdownIt-Anchor" href="#目的"></a> 目的</h1>
+<p>在windows下愉快的使用 python (如 anaconda, jupyter-notebook, sphinx等)， nodejs(如 hexo, gitbook 等)，pandoc, git。</p>
+<h1 id="docker简介"><a class="markdownIt-Anchor" href="#docker简介"></a> docker简介</h1>
+<p><code>Docker</code> 是基于 <code>Linux</code>的一个 Sandbox 环境，通过模拟整个 <code>Linux</code> 的系统文件来实现。<code>Docker</code>不是虚拟机，更类似于在<code>Linux</code>中模拟<code>Windows</code>的<code>Wine</code>。</p>
+<p>关于 docker 的基本概念和教程，可以参考<a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="noopener">这里</a>。</p>
+<h1 id="windows7-搭建-docker环境"><a class="markdownIt-Anchor" href="#windows7-搭建-docker环境"></a> Windows7 搭建 docker环境</h1>
+<p>由于 windows10以下还不支持 Hyper-V，所以在windows10以下(Mac OS X 10.10.3 以下也是同样的问题)使用docker，是通过 Virtualbox变相实现的。</p>
+<p>最早的工具是<code>boot2docker</code>，现在则使用<code>docker-machine</code>。</p>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<p>国内访问官网比较慢，可以使用镜像站点 <a href="https://get.daocloud.io/" target="_blank" rel="noopener">https://get.daocloud.io/</a>。<br>
+对于Windows7，下载并安装 <code>Docker Toolbox</code>。</p>
+<h2 id="创建及启动-docker-虚拟机"><a class="markdownIt-Anchor" href="#创建及启动-docker-虚拟机"></a> 创建及启动 docker 虚拟机</h2>
+<p>如前所述，Windows7 下面是创建了一个 Virtualbox 虚拟机启动docker，所以要先创建 docker 虚拟机：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看 docker虚拟机</span></span><br><span class="line"><span class="variable">$docker</span>-machine ls</span><br><span class="line"><span class="comment"># 如果没有，可以创建一个</span></span><br><span class="line"><span class="variable">$docker</span>-machine create box</span><br><span class="line"><span class="comment"># 启用 docker虚拟机</span></span><br><span class="line"><span class="variable">$docker</span>-machine.exe env box</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_TLS_VERIFY</span>=<span class="string">"1"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_HOST</span>=<span class="string">"tcp://192.168.99.100:2376"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_CERT_PATH</span>=<span class="string">"C:\Users\XXXXXXX\.docker\machine\machines\box"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_MACHINE_NAME</span>=<span class="string">"box"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">COMPOSE_CONVERT_WINDOWS_PATHS</span>=<span class="string">"true"</span></span><br><span class="line"><span class="comment"># Run this command to configure your shell:</span></span><br><span class="line"><span class="comment"># eval$("C:\Program Files\Docker Toolbox\docker-machine.exe" env box)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意输出的信息，还要执行一个命令：</span></span><br><span class="line"><span class="variable">$eval</span>$(<span class="string">"C:\Program Files\Docker Toolbox\docker-machine.exe"</span> env box)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 docker虚拟机</span></span><br><span class="line"><span class="variable">$docker</span>-machine start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此时就可以使用docker命令了</span></span><br><span class="line"><span class="variable">$docker</span> images</span><br></pre></td></tr></table></figure>
+<p>如果此时打开Virtualbox，会发现有一个名为 <code>box</code> 的虚拟机并处于启动状态。这个就是docker的运行环境。可以登录到该虚拟机：</p>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$docker-machine ssh</span><br><span class="line">                        <span class="comment">##         .</span></span><br><span class="line">                  <span class="comment">## ## ##        ==</span></span><br><span class="line">               <span class="comment">## ## ## ## ##    ===</span></span><br><span class="line">           /<span class="string">""""""</span><span class="string">""""""</span><span class="string">"""""\___/ ===</span></span><br><span class="line"><span class="string">      ~~~ &#123;~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~</span></span><br><span class="line"><span class="string">           \______ o           __/</span></span><br><span class="line"><span class="string">             \    \         __/</span></span><br><span class="line"><span class="string">              \____\_______/</span></span><br><span class="line"><span class="string"> _                 _   ____     _            _</span></span><br><span class="line"><span class="string">| |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __</span></span><br><span class="line"><span class="string">| '_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ '__|</span></span><br><span class="line"><span class="string">| |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &lt;  __/ |</span></span><br><span class="line"><span class="string">|_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|</span></span><br><span class="line"><span class="string">Boot2Docker version 17.11.0-ce, build HEAD : e620608 - Tue Nov 21 18:11:40 UTC 2017</span></span><br><span class="line"><span class="string">Docker version 17.11.0-ce, build 1caf76c</span></span><br></pre></td></tr></table></figure>
+<h1 id="交互式创建容器container"><a class="markdownIt-Anchor" href="#交互式创建容器container"></a> 交互式创建容器(container)</h1>
+<p>容器是以镜像(iamge)为模板的。可以查看或加载镜像：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID           CREATED       SIZE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取一个镜像作为模板</span></span><br><span class="line"><span class="variable">$docker</span> pull ubuntu</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于镜像启动容器</span></span><br><span class="line"><span class="variable">$docker</span> <span class="builtin-name">run</span> -it ubuntu bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用 gitbash , 可能需要增加前缀</span></span><br><span class="line">winpty docker <span class="builtin-name">run</span> -it ubuntu bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装基础环境</span></span><br><span class="line">apt-<span class="builtin-name">get</span> install bzip2 tzdata locales ttf-wqy-microhei git </span><br><span class="line"></span><br><span class="line">echo <span class="string">"Asia/Shanghai"</span> &gt; /etc/timezone</span><br><span class="line">dpkg-reconfigure  -f noninteractive tzdata</span><br><span class="line"></span><br><span class="line">locale-gen en_US.UTF-8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">apt-<span class="builtin-name">get</span> install pandoc graphviz</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">apt-<span class="builtin-name">get</span> install npm</span><br><span class="line">npm install -g hexo-cli gitbook-cli</span><br><span class="line">ln -s /usr/bin/nodejs /usr/bin/node</span><br></pre></td></tr></table></figure>
+<h1 id="保存到镜像"><a class="markdownIt-Anchor" href="#保存到镜像"></a> 保存到镜像</h1>
+<p>上面的改动都发生在容器内。也可以把这些改动提交到一个新的容器。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 找到容器的ID</span><br><span class="line">docker ps -a</span><br><span class="line"></span><br><span class="line"># 提交到镜像，这个过程可以多次重复</span><br><span class="line">docker commit a30595f088d8 blog_env</span><br><span class="line"></span><br><span class="line"># 查看镜像</span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line">REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">blog_env                      latest              <span class="number">46365</span>a6c0926        <span class="number">4</span> seconds ago       <span class="number">112</span>MB</span><br><span class="line">ros                           latest              a674644c9bd3        <span class="number">11</span> days ago         <span class="number">1.18</span>GB</span><br><span class="line">ubuntu                        latest              <span class="number">0458</span>a4468cbc        <span class="number">11</span> days ago         <span class="number">112</span>MB</span><br><span class="line">vnpy                          latest              <span class="number">35431482</span>bc9c        <span class="number">8</span> weeks ago         <span class="number">2.7</span>GB</span><br><span class="line">hub.c<span class="number">.163</span>.com/public/ubuntu   <span class="number">16.04</span>-tools         <span class="number">1196</span>ea15dad6        <span class="number">10</span> months ago       <span class="number">336</span>MB</span><br></pre></td></tr></table></figure>
+<h1 id="挂载主机文件夹"><a class="markdownIt-Anchor" href="#挂载主机文件夹"></a> 挂载主机文件夹</h1>
+<p>如果使用了 docker-machine，需要先将本地文件夹挂载到 docker 虚拟机上。<br>
+比如 d:\ --&gt; /data。</p>
+<p>然后在启动 docker 容器时，通过命令挂载：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v <span class="string">/data</span>:<span class="string">/mydata</span> blog_env</span><br><span class="line"></span><br><span class="line"><span class="keyword">cd</span> <span class="string">/mydata</span></span><br></pre></td></tr></table></figure>
+<p>这样在容器中，就可以通过　<code>/mydata</code> 访问到主机的文件夹了。</p>
+<h1 id="后台运行和网络访问"><a class="markdownIt-Anchor" href="#后台运行和网络访问"></a> 后台运行和网络访问</h1>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -<span class="selector-tag">p</span> <span class="number">4000</span>:<span class="number">4000</span> cd /data/holbrook<span class="selector-class">.github</span><span class="selector-class">.io</span> &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<h1 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h1>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> -d -p 8888:8888 jupyter notebook <span class="attribute">--ip</span>=0.0.0.0 --no-browser --allow-root</span><br></pre></td></tr></table></figure>
+<p>然后就可以使用http://docker-machine-ip:8888?token=xxxxxx 访问</p>
+<p>winpty docker run -it -p 8888:8888 pyenv</p>
+<h1 id="编写dockerfile"><a class="markdownIt-Anchor" href="#编写dockerfile"></a> 编写Dockerfile</h1>
+<p>所有这些操作，都可以编写成一个 Docker 的 Makefile —— Dockerfile.</p>
+/2017/12/05/writing_env_within_docker/Dockerfile 是一个例子。
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先清理容器，以免空间不足</span></span><br><span class="line">docker rm$(docker ps -a -q)</span><br><span class="line"><span class="comment"># 通过dockerbuild制作镜像</span></span><br><span class="line">docker <span class="keyword">build </span>-t <span class="keyword">blog_env </span>.</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，当通过dockerfile创建挂载点(mount)时，<br>
+所有通过该镜像创建的容器都自动有了挂载点，<br>
+但是不能指定主机上的目录。</p>
+<p>需要通过<code>docker inspect</code>查看过载点的<code>Source</code>，然后在主机中创建相应的目录。</p>
+<h1 id="提交镜像"><a class="markdownIt-Anchor" href="#提交镜像"></a> 提交镜像</h1>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/env/" rel="tag"># env</a>
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/10/ebook_with_sphinx.html" rel="next" title="用Sphinx制作电子书">
+                <i class="fa fa-chevron-left"></i> 用Sphinx制作电子书
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/06/the_order.html" rel="prev" title="交易系统中的订单(Order)">
+                交易系统中的订单(Order) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text"> 目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker简介"><span class="nav-number">2.</span> <span class="nav-text"> docker简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows7-搭建-docker环境"><span class="nav-number">3.</span> <span class="nav-text"> Windows7 搭建 docker环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.1.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建及启动-docker-虚拟机"><span class="nav-number">3.2.</span> <span class="nav-text"> 创建及启动 docker 虚拟机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交互式创建容器container"><span class="nav-number">4.</span> <span class="nav-text"> 交互式创建容器(container)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保存到镜像"><span class="nav-number">5.</span> <span class="nav-text"> 保存到镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载主机文件夹"><span class="nav-number">6.</span> <span class="nav-text"> 挂载主机文件夹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后台运行和网络访问"><span class="nav-number">7.</span> <span class="nav-text"> 后台运行和网络访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">8.</span> <span class="nav-text"> 使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写dockerfile"><span class="nav-number">9.</span> <span class="nav-text"> 编写Dockerfile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提交镜像"><span class="nav-number">10.</span> <span class="nav-text"> 提交镜像</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2017/12/05/writing_env_within_docker.html';
+          this.page.identifier = '2017/12/05/writing_env_within_docker.html';
+          this.page.title = '使用docker搭建写作环境';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

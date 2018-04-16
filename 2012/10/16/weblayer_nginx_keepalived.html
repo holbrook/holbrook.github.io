@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cluster,HA,keepalived,负载均衡,nginx," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用nginx和keepalived搭建统一的web访问层，并实现负载均衡、高可用、回话保持。这是为公司做的一个真实方案。">
+<meta name="keywords" content="cluster,HA,keepalived,负载均衡,nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统一web访问层方案">
+<meta property="og:url" content="http://holbrook.github.io/2012/10/16/weblayer_nginx_keepalived.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="使用nginx和keepalived搭建统一的web访问层，并实现负载均衡、高可用、回话保持。这是为公司做的一个真实方案。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2012/10/16/images/posts/solution/weblayer_nginx_keepalived/architecture.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="统一web访问层方案">
+<meta name="twitter:description" content="使用nginx和keepalived搭建统一的web访问层，并实现负载均衡、高可用、回话保持。这是为公司做的一个真实方案。">
+<meta name="twitter:image" content="http://holbrook.github.io/2012/10/16/images/posts/solution/weblayer_nginx_keepalived/architecture.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2012/10/16/weblayer_nginx_keepalived.html"/>
+
+
+
+
+
+  <title>统一web访问层方案 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2012/10/16/weblayer_nginx_keepalived.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">统一web访问层方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-16T00:00:00+08:00">
+                2012-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
+                    <span itemprop="name">软件基础设施</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/16/weblayer_nginx_keepalived.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2012/10/16/weblayer_nginx_keepalived.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>使用nginx和keepalived搭建统一的web访问层，并实现负载均衡、高可用、回话保持。这是为公司做的一个真实方案。</p>
+<a id="more"></a>
+<p>本文介绍使用NginX和keepalived实现软件的IP负载均衡的方式。<br>
+更多的负载均衡机制可以参考 。</p>
+<h1 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h1>
+<p>信息中心网络组已经对应用服务器所在的网络进行划分，应用系统的节点分别部署到网络的接入层、应用层和数据层。这样的划分能够提高应用系统和敏感数据的安全性，但是增加了应用系统部署的复杂性。</p>
+<p>根据网络规划，接入层作为用户（包括内部用户和外部用户）与关键服务器的隔离层，直接接收用户的请求，并转发给应用服务器。作为一种尝试，目前在接入层已经开始使用nginx对应用服务器进行反向代理，并支持多个应用服务器的负载均衡。</p>
+<p>但是从应用系统部署的角度来看，接入层尚缺少统一的技术方案和整体规划。本文提出本证券公司应用系统接入层整体解决方案，以期达到如下的目的：</p>
+<ul>
+<li>提出统一的接入层方案，规范应用系统的部署。</li>
+<li>实现统一的应用服务器负载均衡解决方案。</li>
+<li>通过公共的接入服务器和集中的配置，减小系统上线的工作量。</li>
+<li>解决接入层的单点问题，保证高可用。</li>
+<li>实现内外部域名的统一指向。</li>
+<li>整合各应用系统的URL，对于子域名、虚拟目录等进行统一规划和分配。</li>
+</ul>
+<h1 id="技术方案"><a class="markdownIt-Anchor" href="#技术方案"></a> 技术方案</h1>
+<h2 id="要考虑的问题"><a class="markdownIt-Anchor" href="#要考虑的问题"></a> 要考虑的问题</h2>
+<p>统一接入层技术方案主要考虑两方面的问题：负载均衡和高可用。</p>
+<ul>
+<li>
+<p>负载均衡<br>
+采用一定的分配算法将网络请求分发到后端的多个服务器，从而获得更高的性能。实现负载均衡功能的软/硬件称为 负载均衡器 。 本文中的负载均衡特指将客户的http请求分发到后端的web服务器或应用服务器。</p>
+</li>
+<li>
+<p>高可用<br>
+为了避免负载调度器的单点故障，部署多个负载调度器节点，通过并行或主从的方式同时工作。</p>
+</li>
+<li>
+<p>会话保持<br>
+会话 服务器端维持的状态信息，使得服务器能够识别同一客户的多次请求之间的关联。会话保持是指负载均衡器上的一种机制，通过会话保持，负载均衡器能够识别同一客户端多次请求的关联性，并能够将相关联的请求分配到同一台后端服务器上。</p>
+</li>
+<li>
+<p>配置灵活性<br>
+因为需要整合各应用系统的URL，对于子域名、虚拟目录等进行统一规划和分配，需要考虑配置的灵活性和分流策略的多样性。</p>
+</li>
+</ul>
+<h2 id="总体架构"><a class="markdownIt-Anchor" href="#总体架构"></a> 总体架构</h2>
+<p>统一接入层的总体架构如下图所示：</p>
+<p><img src="images/posts/solution/weblayer_nginx_keepalived/architecture.png" alt="系统架构"></p>
+<h2 id="负载均衡器选型"><a class="markdownIt-Anchor" href="#负载均衡器选型"></a> 负载均衡器选型</h2>
+<p>考虑到管理类系统都是内部用户，总的并发不高。按照峰值 3000员工*（10请求/秒）= 3万请求/秒 进行估算，软件负载均衡器就能够满足要求。</p>
+<p>目前比较流行的软件负载均衡器包括NginX、HAProxy 和 LVS(Linux Virtual Server) 。三者的对比如下：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th style="text-align:left">LVS</th>
+<th style="text-align:center">HAProxy</th>
+<th style="text-align:right">Nginx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网络协议层</td>
+<td style="text-align:left">4</td>
+<td style="text-align:center">4，7</td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td>性能</td>
+<td style="text-align:left">最高</td>
+<td style="text-align:center">高</td>
+<td style="text-align:right">高</td>
+</tr>
+<tr>
+<td>资源消耗</td>
+<td style="text-align:left">高</td>
+<td style="text-align:center">中</td>
+<td style="text-align:right">低</td>
+</tr>
+<tr>
+<td>安装配置</td>
+<td style="text-align:left">复杂</td>
+<td style="text-align:center">一般</td>
+<td style="text-align:right">简单</td>
+</tr>
+<tr>
+<td>支持的协议</td>
+<td style="text-align:left">tcp之上</td>
+<td style="text-align:center">tcp之上</td>
+<td style="text-align:right">http，pop/smtp</td>
+</tr>
+<tr>
+<td>会话保持</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:right">支持</td>
+</tr>
+<tr>
+<td>虚拟主机</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:right">支持</td>
+</tr>
+<tr>
+<td>其他功能</td>
+<td style="text-align:left">支持广域网负载均衡</td>
+<td style="text-align:center">支持URL方式检查后端服务器状态</td>
+<td style="text-align:right">可以作为web服务器，支持web缓存，支持虚拟目录</td>
+</tr>
+</tbody>
+</table>
+<p>从上面简单的对比可以看出，LVS性能最好，能够适应多种网络协议，可以用作大多数服务器的负载均衡，但是配置比较复杂，对http协议没有额外的功 能；HAProxy性能比Nginx要好，对http协议提供了一些额外支持；Nginx的性能略差于HAProxy，对http协议的额外支持与 HAProxy各有千秋，但是NginX能够针对域名、URL目录结构等配置分流策略，配置更加强大和灵活，同时NginX还可以作为web服务器并支持 web缓存。</p>
+<p>综合上述分析，对于本文要实现的“统一web应用接入层”，使用NginX更加合适。其主要优势在于配置策略的灵活性，能够有效实现子域名、虚拟目录、URL路径的统一规划和管理。 同时，相对其他两款负载均衡器，NginX在公司内部有一定的技术积累，所以本方案选择NginX作为统一接入层的负载均衡器。</p>
+<p>而HAProxy适合单个应用的负载均衡，尤其适合web服务器和mysql服务器的负载均衡；LVS更适合高并发网站的最前端负载均衡（作为硬件负载均衡的替代）。</p>
+<h2 id="高可用方案"><a class="markdownIt-Anchor" href="#高可用方案"></a> 高可用方案</h2>
+<p>目前服务器的高可用（HA,High Availability）主要通过服务器集群(Cluster)技术来实现。比较常见的集群软件包括keepalived, heartbeat和NLB等。 对于NginX，最成熟的架构是配合keepalived实现高可用。</p>
+<p>Keepalived是Linux下实现VRRP备份路由的高可靠性运行件。能够实现主服务器和备份服务器故障时IP瞬间无缝交接。而NginX支持Master-Backup的部署方式。配合Keepalived，能够通过两台NginX的集群实现高可用。</p>
+<p>具体方案包括：</p>
+<ul>
+<li>在两台linux服务器上均部署NginX和keepalived</li>
+<li>两台服务器为主备（Master-Backup）关系，对外有相同的虚拟IP（VIP）</li>
+<li>keepalived监测服务器的IP存活，当发现故障时接管虚拟IP</li>
+<li>编写自定义脚本用于keepalived监测NginX的存活状态。如果发现NginX故障，杀掉NginX所在服务器的keepalived，使得另一台keeplived可以接管。</li>
+<li>需要配合监控和报警机制</li>
+</ul>
+<h2 id="会话保持方案"><a class="markdownIt-Anchor" href="#会话保持方案"></a> 会话保持方案</h2>
+<p>为简单起见，本方案中不考虑会话同步/共享。但在NginX会采用ip-hash策略，保证同一客户的请求会被转发到相同的后端服务器，从而实现会话保持。 如果应用系统需要进行会话同步，需要自行考虑redis、memcached等方案。</p>
+<h2 id="url资源的统一规划"><a class="markdownIt-Anchor" href="#url资源的统一规划"></a> URL资源的统一规划</h2>
+<p>尽量减少子域名的数量和变化频度，可以考虑按照应用系统的类别划分子域名，如：</p>
+<p>类别	二级域名<br>
+管理系统	<a href="http://coworks.mycompany.com" target="_blank" rel="noopener">coworks.mycompany.com</a><br>
+移动办公	<a href="http://m.mycompany.com" target="_blank" rel="noopener">m.mycompany.com</a><br>
+开发类	<a href="http://dev.mycompany.com" target="_blank" rel="noopener">dev.mycompany.com</a><br>
+其他	<a href="http://site.mycompany.com" target="_blank" rel="noopener">site.mycompany.com</a><br>
+应用系统的变化相对频繁，为了简化应用系统部署，用二级域名的第一级目录指定具体的应用系统，如：</p>
+<p>URL	应用系统<br>
+<a href="http://dev.mycompany.com/svn" target="_blank" rel="noopener">dev.mycompany.com/svn</a>	版本管理<br>
+<a href="http://dev.mycompany.com/submin" target="_blank" rel="noopener">dev.mycompany.com/submin</a>	svn web管理界面<br>
+<a href="http://dev.mycompany.com/jira" target="_blank" rel="noopener">dev.mycompany.com/jira</a>	缺陷管理<br>
+<a href="http://dev.mycompany.com/trac" target="_blank" rel="noopener">dev.mycompany.com/trac</a>	系统资料（wiki）<br>
+<a href="http://dev.mycompany.com/software" target="_blank" rel="noopener">dev.mycompany.com/software</a>	开发工具下载<br>
+<a href="http://dev.mycompany.com/mirrors" target="_blank" rel="noopener">dev.mycompany.com/mirrors</a>	内部yum源<br>
+<a href="http://dev.mycompany.com/maven" target="_blank" rel="noopener">dev.mycompany.com/maven</a>	maven私服</p>
+<h2 id="方案扩展"><a class="markdownIt-Anchor" href="#方案扩展"></a> 方案扩展</h2>
+<p>当并发进一步增加时，在nginx前端再部署LVS/F5<br>
+对于非web应用，可以在接入层部署LVS或HAProxy<br>
+HAProxy或LVS也可用于数据库的负载均衡</p>
+<h1 id="实施计划"><a class="markdownIt-Anchor" href="#实施计划"></a> 实施计划</h1>
+<ul>
+<li>搭建</li>
+<li>测试
+<ul>
+<li>测试故障切换</li>
+<li>测试故障恢复</li>
+<li>测试性能</li>
+<li>测试不停止服务的情况下更改NginX配置</li>
+</ul>
+</li>
+<li>准备规划好的二级域名</li>
+<li>迁移</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cluster/" rel="tag"># cluster</a>
+          
+            <a href="/tags/HA/" rel="tag"># HA</a>
+          
+            <a href="/tags/keepalived/" rel="tag"># keepalived</a>
+          
+            <a href="/tags/负载均衡/" rel="tag"># 负载均衡</a>
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/04/14/emacs_orgmode_task.html" rel="next" title="org-mode，最强的任务管理利器，没有之一">
+                <i class="fa fa-chevron-left"></i> org-mode，最强的任务管理利器，没有之一
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/10/23/whats_performance.html" rel="prev" title="QQ餐厅与系统性能模型">
+                QQ餐厅与系统性能模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text"> 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#技术方案"><span class="nav-number">2.</span> <span class="nav-text"> 技术方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#要考虑的问题"><span class="nav-number">2.1.</span> <span class="nav-text"> 要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总体架构"><span class="nav-number">2.2.</span> <span class="nav-text"> 总体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡器选型"><span class="nav-number">2.3.</span> <span class="nav-text"> 负载均衡器选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高可用方案"><span class="nav-number">2.4.</span> <span class="nav-text"> 高可用方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话保持方案"><span class="nav-number">2.5.</span> <span class="nav-text"> 会话保持方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url资源的统一规划"><span class="nav-number">2.6.</span> <span class="nav-text"> URL资源的统一规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案扩展"><span class="nav-number">2.7.</span> <span class="nav-text"> 方案扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实施计划"><span class="nav-number">3.</span> <span class="nav-text"> 实施计划</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2012/10/16/weblayer_nginx_keepalived.html';
+          this.page.identifier = '2012/10/16/weblayer_nginx_keepalived.html';
+          this.page.title = '统一web访问层方案';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cluster,负载均衡,lvs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="LVS简介、功能特性、与F5、NginX的比较，以及LVS适合应用的场景。">
+<meta name="keywords" content="cluster,负载均衡,lvs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lvs概述">
+<meta property="og:url" content="http://holbrook.github.io/2013/07/04/lvs_intro.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="LVS简介、功能特性、与F5、NginX的比较，以及LVS适合应用的场景。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/07/04/images/2013/lvs/lvs-monitoring.gif">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lvs概述">
+<meta name="twitter:description" content="LVS简介、功能特性、与F5、NginX的比较，以及LVS适合应用的场景。">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/07/04/images/2013/lvs/lvs-monitoring.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/07/04/lvs_intro.html"/>
+
+
+
+
+
+  <title>lvs概述 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/07/04/lvs_intro.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">lvs概述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-07-04T00:00:00+08:00">
+                2013-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
+                    <span itemprop="name">软件基础设施</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/07/04/lvs_intro.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/07/04/lvs_intro.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>LVS简介、功能特性、与F5、NginX的比较，以及LVS适合应用的场景。</p>
+<a id="more"></a>
+<h1 id="lvs简介"><a class="markdownIt-Anchor" href="#lvs简介"></a> LVS简介</h1>
+<p><a href="http://www.linuxvirtualserver.org/" target="_blank" rel="noopener">LVS(Linux Virtual Server, Linux虚拟服务器)</a>, 实现了负载均衡集群的前端调度器（Director）。</p>
+<p>LVS工作在4层，支持大多数的TCP和UDP协议。支持TCP协议的应用有：HTTP，HTTPS ，FTP，SMTP，POP3，IMAP4，PROXY，LDAP，SSMTP等。支持UDP协议的应用有：DNS，NTP，ICP，视频、音频流播放协议等。可以用于Web服务、Cache服务、DNS服务、FTP服务、MAIL服务、视频/音频点播服务等。</p>
+<p>LVS是<a href="http://zh.linuxvirtualserver.org" target="_blank" rel="noopener">章文嵩博士</a>在1998年发起的开源项目，遵循GPL许可。现在LVS已经集成到Linux内核中(&gt;2.4)，并且支持FreeBSD系统。</p>
+<p>LVS具有极高的性能，可以支撑上百万的并发连接。</p>
+<h1 id="lvs的功能特性"><a class="markdownIt-Anchor" href="#lvs的功能特性"></a> LVS的功能特性</h1>
+<p>LVS实现了基于IP技术的负载均衡，提供3种负载均衡机制：</p>
+<ul>
+<li>VS/NAT（基于网络地址转换技术）</li>
+<li>VS/TUN（基于IP隧道技术）</li>
+<li>VS/DR（基于直接路由技术）</li>
+</ul>
+<p>三种机制的详细说明参考<a href="/2013/06/02/lvs_lb_strategy.html">这里</a>。</p>
+<p>在三种机制的基础上，LVS还提供了多种负载调度（Scheduling）策略。包括：</p>
+<ul>
+<li>rr（Round Robin）, 平均分配负载</li>
+<li>wrr（Weighted Round Robin），在rr的基础上增加权重设置</li>
+<li>lc（Least-Connections），分配给连接数最少的服务器</li>
+<li>wlc（Weighted Least-Connections），在lc的基础上增加权重设置</li>
+<li>lblc（Locality-Based Least Connections），在lc的基础上将相同目标IP地址的请求调度到同一台服务器。通常用于缓冲（Cache）集群，可以提高各缓存服务器的访问局部性和Cache命中率</li>
+<li>lblcr（Locality-Based Least Connections with Replication），与lblc类似，只不过同一个目标IP地址会映射到一组缓存服务器</li>
+<li>dh（Destination Hashing），根据目标地址的Hash运算结果进行分配，通常用于链路负载均衡</li>
+<li>sh（Source Hashing），根据请求客户端地址的Hash运算结果进行分配，可以实现某种程度的会话保持（Session Persistence)</li>
+<li>sed（Shortest Expected Delay），在wlc的基础上，进一步计算出期望延迟，向<code>(1+已有连接数)/权重</code>最小者分配请求</li>
+<li>nq（Never Queue），无队列调度。直接分配给当前无连接的服务器</li>
+</ul>
+<h1 id="lvs的监控支持"><a class="markdownIt-Anchor" href="#lvs的监控支持"></a> LVS的监控支持</h1>
+<p>由于LVS主要进行网络包的转发，所以几乎不消耗CPU资源，从而无法用<code>top</code>、<code>vmstat</code>等命令查看资源使用情况。但是使用LVS提供的<code>ipvsadm</code>命令可以查看LVS的连接情况，也可以通过LVS建立的设备文件<code>/proc/net/ip_vs_stats</code>进行查看。</p>
+<p>此外，第三方的模块<a href="http://kb.linuxvirtualserver.org/wiki/Net-SNMP-LVS-Module" target="_blank" rel="noopener">net-snmp-lvs-module</a>可以通过MIB/SNMP监控LVS；<a href="http://tepedino.org/lvs-rrd/" target="_blank" rel="noopener">lvs_rrd</a> 可以用Web的方式查看LVS的监控图表。</p>
+<p><img src="images/2013/lvs/lvs-monitoring.gif" alt="lvs-monitoring"></p>
+<p>更多的内容可以参考<a href="http://www.austintek.com/LVS/LVS-HOWTO/HOWTO/LVS-HOWTO.monitoring_lvs.html" target="_blank" rel="noopener">LVS-HOWTO</a>。</p>
+<h1 id="lvs与f5的对比"><a class="markdownIt-Anchor" href="#lvs与f5的对比"></a> LVS与F5的对比</h1>
+<p>LVS最直接的竞争对手应该是<a href="http://www.f5.com/" target="_blank" rel="noopener">F5 Networks公司</a>的BIG-IP系列产品。BIG-IP是著名的硬件负载均衡交换机，支持4层和7层的负载均衡。不同型号的BIG-IP产品的负载能力有所不同，主流型号可以支持400万–800万并发连接。作为商业产品，BIG-IP提供了方便的配置、管理工具，但使用起来仍然比较复杂。BIG-IP设备的价格在十几万至几十万人民币。</p>
+<p>与BIG-IP相比，LVS只能支持100万–400万并发连接，并且需要自己解决配置、图形化监控等功能（可以通过第三方的软件）。<br>
+好处也很明显：</p>
+<ol>
+<li>完全免费</li>
+<li>可定制性</li>
+</ol>
+<h1 id="lvs与nginx的对比"><a class="markdownIt-Anchor" href="#lvs与nginx的对比"></a> LVS与NginX的对比</h1>
+<p>常见的软件负载均衡产品有LVS,NginX,HAProxy等。其中NginX是应用比较广泛的七层负载均衡软件。由于NginX工作在7层，可以按照http协议中的数据（如URL、cookie等）进行负载调度，这是LVS不具备的能力。NginX配置简单，对网络条件的要求也很少。NginX可以支持3–5万的并发连接（7层）。</p>
+<p>与NginX相比，LVS并发处理能力要高2个数量级。但这种能力的提高是以相对复杂的网络条件和配置步骤为代价的。同时，LVS无法根据http协议的内容进行负载调度。</p>
+<p>LVS不能处理7层的协议内容，但是使用的范围更广泛，可以对绝大多数的TCP和UDP协议的请求进行调度。LVS也可以作为NginX的前端。</p>
+<h1 id="lvs的应用场景"><a class="markdownIt-Anchor" href="#lvs的应用场景"></a> LVS的应用场景</h1>
+<p>由于LVS工作在4层，所有工作在TCP/IP之上的应用或服务都可以通过LVS建立负载均衡集群以提高并发能力。按照集群的用途，可以列出LVS的典型应用场景：</p>
+<ul>
+<li>
+<p>web缓存及反向代理</p>
+<p>web缓存及反向代理位于web服务器之前，可以缓存静态内容，只把动态内容的请求反向代理到后端的web服务器。常见的web缓存服务器如Squid，NginX都可以使用LVS构建集群系统。</p>
+</li>
+<li>
+<p>web服务器/应用服务器</p>
+<p>LVS可以作为web服务器/应用服务器（如Nginx,Apache,Tomcat等）的前端调度器，支持会话保持功能。LVS + NginX的组合可以代替F5 BIG-IP的功能，并能达到低端BIG-IP的性能。</p>
+</li>
+<li>
+<p>数据库服务器</p>
+<p>典型的mysql主-从集群中，LVS可以作为多个从服务器的负载调度器。</p>
+</li>
+<li>
+<p>重要IP的管理</p>
+<p>对于重要的IP地址（如ESB、数据库、中间件等），可以交给LVS进行统一管理，避免更换IP带来的故障和问题。</p>
+</li>
+</ul>
+<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
+<ul>
+<li><a href="http://www.linuxvirtualserver.org/" target="_blank" rel="noopener">LVS官方网站</a></li>
+<li><a href="http://zh.linuxvirtualserver.org/" target="_blank" rel="noopener">LVS中文社区</a></li>
+<li><a href="http://zh.linuxvirtualserver.org/node/7" target="_blank" rel="noopener">LVS手册：可伸缩网络服务的设计与实现</a></li>
+<li>man ipvsadm</li>
+<li>《Red_Hat_Enterprise_Linux-5-Virtual_Server_Administration-zh-CN》</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cluster/" rel="tag"># cluster</a>
+          
+            <a href="/tags/负载均衡/" rel="tag"># 负载均衡</a>
+          
+            <a href="/tags/lvs/" rel="tag"># lvs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/07/03/zeromq_intro.html" rel="next" title="ZeroMQ简介">
+                <i class="fa fa-chevron-left"></i> ZeroMQ简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/07/07/salt_pillar.html" rel="prev" title="Pillar：定义Salt配置管理的数据">
+                Pillar：定义Salt配置管理的数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lvs简介"><span class="nav-number">1.</span> <span class="nav-text"> LVS简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lvs的功能特性"><span class="nav-number">2.</span> <span class="nav-text"> LVS的功能特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lvs的监控支持"><span class="nav-number">3.</span> <span class="nav-text"> LVS的监控支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lvs与f5的对比"><span class="nav-number">4.</span> <span class="nav-text"> LVS与F5的对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lvs与nginx的对比"><span class="nav-number">5.</span> <span class="nav-text"> LVS与NginX的对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lvs的应用场景"><span class="nav-number">6.</span> <span class="nav-text"> LVS的应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/07/04/lvs_intro.html';
+          this.page.identifier = '2013/07/04/lvs_intro.html';
+          this.page.title = 'lvs概述';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

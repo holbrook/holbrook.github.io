@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="运维," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="State定义了Salt配置管理的内容，Pillar则定义了Salt配置管理的数据。Pillar使得同一个配置项在各个minion中可以使用不同的数据，从而不需要在State中定义大量的include, extend等关系。  为什么需要Pillar 看了这篇文档，你可能已经被Salt State的强大所折服。 是的，Salt State能够解决很多配置管理的问题，但是如下两个场景，如果只用sta">
+<meta name="keywords" content="运维">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pillar：定义Salt配置管理的数据">
+<meta property="og:url" content="http://holbrook.github.io/2013/07/07/salt_pillar.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="State定义了Salt配置管理的内容，Pillar则定义了Salt配置管理的数据。Pillar使得同一个配置项在各个minion中可以使用不同的数据，从而不需要在State中定义大量的include, extend等关系。  为什么需要Pillar 看了这篇文档，你可能已经被Salt State的强大所折服。 是的，Salt State能够解决很多配置管理的问题，但是如下两个场景，如果只用sta">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pillar：定义Salt配置管理的数据">
+<meta name="twitter:description" content="State定义了Salt配置管理的内容，Pillar则定义了Salt配置管理的数据。Pillar使得同一个配置项在各个minion中可以使用不同的数据，从而不需要在State中定义大量的include, extend等关系。  为什么需要Pillar 看了这篇文档，你可能已经被Salt State的强大所折服。 是的，Salt State能够解决很多配置管理的问题，但是如下两个场景，如果只用sta">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/07/07/salt_pillar.html"/>
+
+
+
+
+
+  <title>Pillar：定义Salt配置管理的数据 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/07/07/salt_pillar.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pillar：定义Salt配置管理的数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-07-07T00:00:00+08:00">
+                2013-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/07/07/salt_pillar.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/07/07/salt_pillar.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>State定义了Salt配置管理的内容，Pillar则定义了Salt配置管理的数据。Pillar使得同一个配置项在各个minion中可以使用不同的数据，从而不需要在State中定义大量的include, extend等关系。</p>
+<h1 id="为什么需要pillar"><a class="markdownIt-Anchor" href="#为什么需要pillar"></a> 为什么需要Pillar</h1>
+<p>看了<a href="/2013/06/30/salt_sls_sample.html">这篇文档</a>，你可能已经被Salt State的强大所折服。</p>
+<p>是的，Salt State能够解决很多配置管理的问题，但是如下两个场景，如果只用state进行配置就会比较麻烦：</p>
+<ol>
+<li>
+<p>让<code>apache</code>配置项适应不同的OS</p>
+<p><a href="/2013/06/30/salt_sls_sample.html#menuIndex1">这个例子</a>中的apache配置中通过pkg模块验证<code>apache</code>软件包是否安装。但是在RedHat系统的yum包管理器和Debian系统的apt包管理器中，apache的包名字分别为<code>httpd</code>和<code>apache2</code>。如何避免为apache配置项针对不同的包管理器定义不同的state？</p>
+</li>
+<li>
+<p>同一个应用在不同环境中的数据库连接</p>
+<p>假如你开发了一个Django应用，数据库连接信息在应用的settings.py中定义：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line"> <span class="string">'default'</span>: &#123;</span><br><span class="line">     <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">     <span class="string">'NAME'</span>: <span class="string">'test'</span>,</span><br><span class="line">     <span class="string">'USER'</span>: <span class="string">'root'</span>,</span><br><span class="line">     <span class="string">'PASSWORD'</span>: <span class="string">'password'</span>,</span><br><span class="line">     <span class="string">'HOST'</span>: <span class="string">'localhost'</span>,</span><br><span class="line">     <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，数据库连接信息在开发环境、测试环境、生成环境中各不相同。如果把该应用作为一个state，如何实现在不同环境中的自动部署？</p>
+</li>
+</ol>
+<p>Salt Pillar就是为了解决类似上述的问题而提供的组件。</p>
+<h1 id="pillar是什么"><a class="markdownIt-Anchor" href="#pillar是什么"></a> Pillar是什么？</h1>
+<p>如<a href="/2013/07/02/salt_state_config_structure.html">这篇文章</a>所述，Salt Sate定义了配置项以及minion和配置项直接的映射关系；与此类似，Pillar定义了数据以及minion和数据的映射关系。Pillar中定义的数据可以在Salt的其他组件中引用，当然最常见的情况是在State中引用Pillar数据。</p>
+<p>比如，在上一节的第一个问题中，我们可以这样定义State:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attribute">apache</span>:</span><br><span class="line">  pkg.<span class="attribute">installed</span>:</span><br><span class="line">    - <span class="attribute">name</span>: &#123;&#123; pillar[<span class="string">'apache'</span>] &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>salt.states.pkg.installed</code>函数的<code>name</code>参数就是引用了Pillar中定义的变量<code>apache</code>。</p>
+<p>而该变量在Pillar中的定义如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123; % <span class="keyword">if</span> grains[<span class="string">'os_family'</span>] == <span class="string">'RedHat'</span> % &#125;</span><br><span class="line"><span class="string">apache:</span> httpd</span><br><span class="line">&#123; % elif grains[<span class="string">'os_family'</span>] == <span class="string">'Debian'</span> % &#125;</span><br><span class="line"><span class="string">apache:</span> apache2</span><br><span class="line">&#123; % endif % &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="pillar的配置结构"><a class="markdownIt-Anchor" href="#pillar的配置结构"></a> Pillar的配置结构</h1>
+<p>Pillar与State就像是配置管理的左右手，所以Pillar的配置结构与<a href="/2013/07/02/salt_state_config_structure.html">State的配置结构</a>几乎完全一样。</p>
+<h2 id="pillar-tree和environment"><a class="markdownIt-Anchor" href="#pillar-tree和environment"></a> Pillar Tree和Environment</h2>
+<p>与<a href="/2013/07/02/salt_state_config_structure.html#menuIndex0">State Tree</a>一样，Salt中可以定义一棵Pillar Tree，并且将Pillar按照环境进行分组管理。</p>
+<p>Pillar Tree定义在salt master的配置文件<code>/etc/salt/master</code>的<code>pillar_roots</code>变量中：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="symbol">pillar_roots:</span></span><br><span class="line"><span class="symbol">  base:</span></span><br><span class="line">    - <span class="meta-keyword">/srv/</span>pillar</span><br><span class="line"></span><br><span class="line"><span class="symbol">  ext_pillar:</span></span><br><span class="line">    - hiera: <span class="meta-keyword">/etc/</span>hiera.yaml</span><br><span class="line">    - cmd_yaml: cat <span class="meta-keyword">/etc/</span>salt/yaml</span><br></pre></td></tr></table></figure>
+<h2 id="pillar定义"><a class="markdownIt-Anchor" href="#pillar定义"></a> Pillar定义</h2>
+<p>Pillar是一组key-value，使用yaml的语法格式。</p>
+<p>简单的定义比如：</p>
+<pre><code>foo: bar
+</code></pre>
+<p>可以使用<code>{ { pillar['foo'] } }</code>的形式进行引用；</p>
+<p>复杂的定义比如：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">users:</span></span><br><span class="line"><span class="symbol">  thatch:</span> <span class="number">1000</span></span><br><span class="line"><span class="symbol">  shouse:</span> <span class="number">1001</span></span><br><span class="line"><span class="symbol">  utahdave:</span> <span class="number">1002</span></span><br><span class="line"><span class="symbol">  redbeard:</span> <span class="number">1003</span></span><br></pre></td></tr></table></figure>
+<p>可以使用包含jinja语法的yaml进行引用：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123; % for user, uid in pillar.get(<span class="string">'users'</span>, &#123;&#125;).items() % &#125;</span><br><span class="line">  &#123; &#123;user&#125; &#125;:</span><br><span class="line">    user.present:</span><br><span class="line">      - uid: &#123; &#123;uid&#125; &#125;</span><br><span class="line">&#123; % endfor % &#125;</span><br></pre></td></tr></table></figure>
+<p>定义好的pillar数据保存在Pillar Tree下面的某个<code>sls</code>文件中。为了能够在State中引用Pillar数据，<br>
+Pillar的目录结构和文件名需要与State能够对应。</p>
+<p>Pillar可以用于任何数据的定义，比如ssh key、证书、密码口令等敏感数据，minion的模块、状态、信息反馈，以及要传递给minion的任何变量的值等等。<br>
+这些数据都会以加密通道安全的分发到minion上面。</p>
+<p>Pillar的数据不仅仅可以来自SLS文件，还可以从其他数据源获取数据。相关内容可以自行查阅<a href="http://docs.saltstack.com/topics/pillar/index.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h2 id="minion与pillar之间的映射"><a class="markdownIt-Anchor" href="#minion与pillar之间的映射"></a> minion与Pillar之间的映射</h2>
+<p>与<a href="/2013/07/02/salt_state_config_structure.html#menuIndex2">minion与state之间的映射</a>一样，<br>
+在Pillar的base目录中也存在一个名为<code>top.sls</code>的入口文件，定义minion与Pillar的映射关系，例如：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">base</span>:</span><br><span class="line">  <span class="string">'*'</span>:</span><br><span class="line">    - packages</span><br><span class="line">  <span class="string">'alpha'</span>:</span><br><span class="line">    - database</span><br></pre></td></tr></table></figure>
+<p>上边的例子定义了packages对所有的minion有效，database只对名字为’alpha’的minion有效.</p>
+<h1 id="pillar数据的查询和使用"><a class="markdownIt-Anchor" href="#pillar数据的查询和使用"></a> Pillar数据的查询和使用</h1>
+<ol>
+<li>
+<p>查询pillar数据</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">salt <span class="string">'client2'</span> pillar.data</span><br><span class="line">salt <span class="string">'*'</span> pillar.data</span><br><span class="line">salt <span class="string">'*'</span> pillar<span class="selector-class">.raw</span> key=<span class="string">'roles'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多的函数可以参考<a href="https://salt.readthedocs.org/en/latest/ref/modules/all/salt.modules.pillar.html" target="_blank" rel="noopener">pillar模块的文档</a>。</p>
+<ol start="2">
+<li>
+<p>刷新pillar数据</p>
+<p>在master上修改Pilla文件后，需要用以下命令刷新minion上的数据（同步到minion）：</p>
+<pre><code>salt '*' saltutil.refresh_pillar
+</code></pre>
+</li>
+<li>
+<p>在其他sls文件中引用数据</p>
+<p>Pillar解析后是dict对象，直接使用Python语法，可以用索引（<code>pillar['pkgs']['apache']</code>）或get方法（<code>pillar.get('users', {})</code>）获取到需要的数据。</p>
+</li>
+<li>
+<p>在Targetting中使用Pillar</p>
+<p>Targetting中可以用<code>-I</code>选项指定用Pillar数据选择minion。</p>
+</li>
+</ol>
+<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
+<ul>
+<li><a href="http://docs.saltstack.com/topics/tutorials/pillar.html" target="_blank" rel="noopener">《Pillar Walkthrough》</a></li>
+<li><a href="http://docs.saltstack.com/topics/pillar/index.html" target="_blank" rel="noopener">《Pillar of Salt》</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/07/04/lvs_intro.html" rel="next" title="lvs概述">
+                <i class="fa fa-chevron-left"></i> lvs概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/07/08/soa_whats_service.html" rel="prev" title="SOA：理解什么是服务">
+                SOA：理解什么是服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要pillar"><span class="nav-number">1.</span> <span class="nav-text"> 为什么需要Pillar</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pillar是什么"><span class="nav-number">2.</span> <span class="nav-text"> Pillar是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pillar的配置结构"><span class="nav-number">3.</span> <span class="nav-text"> Pillar的配置结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pillar-tree和environment"><span class="nav-number">3.1.</span> <span class="nav-text"> Pillar Tree和Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pillar定义"><span class="nav-number">3.2.</span> <span class="nav-text"> Pillar定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#minion与pillar之间的映射"><span class="nav-number">3.3.</span> <span class="nav-text"> minion与Pillar之间的映射</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pillar数据的查询和使用"><span class="nav-number">4.</span> <span class="nav-text"> Pillar数据的查询和使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/07/07/salt_pillar.html';
+          this.page.identifier = '2013/07/07/salt_pillar.html';
+          this.page.title = 'Pillar：定义Salt配置管理的数据';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

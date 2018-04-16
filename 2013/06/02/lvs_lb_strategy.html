@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cluster,负载均衡,lvs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="LVS是实现软件负载均衡的一种方式。LVS支持多种负载均衡机制，包括：VS/NAT、VS/TUN和VS/DR。分别基于网络地址转换技术、IP隧道技术和直接路由技术。VS/FULLNAT是新兴的LVS的负载均衡机制，试图解决前面三种机制各自的不足。">
+<meta name="keywords" content="cluster,负载均衡,lvs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lvs的三种负载均衡机制">
+<meta property="og:url" content="http://holbrook.github.io/2013/06/02/lvs_lb_strategy.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="LVS是实现软件负载均衡的一种方式。LVS支持多种负载均衡机制，包括：VS/NAT、VS/TUN和VS/DR。分别基于网络地址转换技术、IP隧道技术和直接路由技术。VS/FULLNAT是新兴的LVS的负载均衡机制，试图解决前面三种机制各自的不足。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/06/02/lvs_lb_strategy/vs-nat.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2013/06/02/lvs_lb_strategy/vs-tun.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2013/06/02/lvs_lb_strategy/vs-tun-flow.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2013/06/02/lvs_lb_strategy/vs-dr.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2013/06/02/lvs_lb_strategy/vs-dr-flow.jpg">
+<meta property="og:updated_time" content="2013-07-21T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lvs的三种负载均衡机制">
+<meta name="twitter:description" content="LVS是实现软件负载均衡的一种方式。LVS支持多种负载均衡机制，包括：VS/NAT、VS/TUN和VS/DR。分别基于网络地址转换技术、IP隧道技术和直接路由技术。VS/FULLNAT是新兴的LVS的负载均衡机制，试图解决前面三种机制各自的不足。">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/06/02/lvs_lb_strategy/vs-nat.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/06/02/lvs_lb_strategy.html"/>
+
+
+
+
+
+  <title>lvs的三种负载均衡机制 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/06/02/lvs_lb_strategy.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">lvs的三种负载均衡机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-02T00:00:00+08:00">
+                2013-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
+                    <span itemprop="name">软件基础设施</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/06/02/lvs_lb_strategy.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/06/02/lvs_lb_strategy.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>LVS是实现软件负载均衡的一种方式。LVS支持多种负载均衡机制，包括：VS/NAT、VS/TUN和VS/DR。分别基于网络地址转换技术、IP隧道技术和直接路由技术。VS/FULLNAT是新兴的LVS的负载均衡机制，试图解决前面三种机制各自的不足。</p>
+<a id="more"></a>
+<p>LVS是实现软件的<a href="http://thinkinside.tk/2013/06/03/lb_solutions_list.html#" target="_blank" rel="noopener">IP负载均衡</a>的一种方式。更多的负载均衡机制可以参考<a href="http://thinkinside.tk/2013/06/03/lb_solutions_list.html" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>基于不同的网络技术，LVS支持多种负载均衡机制。包括：VS/NAT（基于网络地址转换技术）、VS/TUN（基于IP隧道技术）和VS/DR（基于直接路由技术）。</p>
+<p>此外，为了适应不同的需要，淘宝开发了<a href="http://kb.linuxvirtualserver.org/wiki/IPVS_FULLNAT_and_SYNPROXY" target="_blank" rel="noopener">VS/FULLNAT</a>，从本质上来说也是基于网络地址转换技术。最近还有一个基于VS/FULLNAT的<a href="https://github.com/xiaomi-sa/dsnat" target="_blank" rel="noopener">DNAT</a>模块。</p>
+<p>不管使用哪种机制，LVS都不直接处理请求，而是将请求转发到后面真正的服务器(Real Server)。不同的机制，决定了响应包如何返回到客户端。</p>
+<h1 id="vsnat"><a class="markdownIt-Anchor" href="#vsnat"></a> VS/NAT</h1>
+<p><a href="http://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2" target="_blank" rel="noopener">NAT（Network Address Translation，网络地址转换）</a>也叫做网络掩蔽或者IP掩蔽，是将IP 数据包头中的IP 地址转换为另一个IP 地址的过程。</p>
+<p>NAT能够将私有（保留）地址转化为合法IP地址，通常用于一个公共IP地址和多个内部私有IP地址直接的映射，广泛应用于各种类型Internet接入方式和各种类型的网络中。</p>
+<p>通过使用NAT将目的地址转换到多个服务器的方式，可以实现负载均衡，同时能够隐藏并保护内部服务器，避免来自网络外部的攻击。商用负载均衡设备如Cisco的LocalDirector、F5的Big/IP和Alteon的ACEDirector都是基于NAT方法。</p>
+<p>VS/NAT(Virtual Server via Network Address Translation)是基于NAT技术实现负载均衡的方法。其架构如下图所示：</p>
+<img src="/2013/06/02/lvs_lb_strategy/vs-nat.jpg" title="VS/NAT">
+<ol>
+<li>
+<p>客户通过Virtual IP Address（虚拟服务的IP地址）访问网络服务时，请求报文到达调度器</p>
+</li>
+<li>
+<p>调度器根据连接调度算法从一组真实服务器中选出一台服务器，将报文的目标地址Virtual IP Address改写成选定服务器的地址，报文的目标端口改写成选定服务器的相应端口，最后将修改后的报文发送给选出的服务器。</p>
+</li>
+<li>
+<p>真实的服务器处理请求，并将响应报文发到调度器。</p>
+</li>
+<li>
+<p>调度器将报文的源地址和源端口改为Virtual IP Address和相应的端口</p>
+</li>
+<li>
+<p>调度器将修改过的报文发给用户</p>
+</li>
+</ol>
+<p>在VS/NAT的集群系统中，请求和响应的数据报文都需要通过负载调度器，当真实服务器的数目在10台和20台之间时，负载调度器将成为整个集群系统的新瓶颈。大多数Internet服务都有这样的特点：请求报文较短而响应报文往往包含大量的数据。如果能将请求和响应分开处理，即在负载调度器中只负责调度请求而响应直接返回给客户，将极大地提高整个集群系统的吞吐量。比如IP隧道技术。</p>
+<h1 id="vstun"><a class="markdownIt-Anchor" href="#vstun"></a> VS/TUN</h1>
+<p><a href="http://baike.baidu.cn/view/467497.htm" target="_blank" rel="noopener">IP Tunneling(IP隧道)技术</a>，又称为IP封装技术(IP encapsulation)，是一种在网络之间传递数据的方式。可以将一个IP报文封装到另一个IP报文（可能是不同的协议）中，并转发到另一个IP地址。IP隧道主要用于移动主机和虚拟私有网络（Virtual Private Network），在其中隧道都是静态建立的，隧道一端有一个IP地址，另一端也有唯一的IP地址。</p>
+<p>VS/TUN（Virtual Server via IP Tunneling）是基于隧道技术实现负载均衡的方法。其架构如下图所示：</p>
+<img src="/2013/06/02/lvs_lb_strategy/vs-tun.jpg" title="VS/TUN">
+<p>VS/TUN与VS/NAT的工作机制大体上相同，区别在于：</p>
+<ol>
+<li>调度器转发报文的时候进行了协议的二次封装，真实的服务器接收到请求后先进行解包。过程如下图所示：</li>
+</ol>
+<img src="/2013/06/02/lvs_lb_strategy/vs-tun-flow.jpg" title="VS/TUN example">
+<ol start="2">
+<li>响应报文从后端服务器直接返回给客户，不需要经过调度器。</li>
+</ol>
+<h1 id="vsdr"><a class="markdownIt-Anchor" href="#vsdr"></a> VS/DR</h1>
+<p><a href="http://baike.baidu.cn/view/3089936.htm" target="_blank" rel="noopener">DR(Direct Routing, 直接路由)</a>, 路由器学习路由的方法之一。<br>
+路由器对于自己的网络接口所直连的网络之间的通信，可以自动维护路由表，而且不需要进行路由计算。</p>
+<p>直接路由通常用在一个三层交换机连接几个VLAN的情况，只要设置直接路由VLAN之间就可以通信，不需要设置其他的路由方式。</p>
+<p>VS/DR(Virtual Server via Direct Routing)是基于直接路由实现负载均衡的方法。其架构如下图所示：</p>
+<img src="/2013/06/02/lvs_lb_strategy/vs-dr.jpg" title="VS/DR">
+<p>跟VS/TUN方法相同，VS/DR利用大多数Internet服务的非对称特点，负载调度器中只负责调度请求，而服务器直接将响应返回给客户，可以极大地提高整个集群系统的吞吐量。</p>
+<p>VS/DR要求调度器和服务器组都必须在物理上有一个网卡通过不分段的局域网相连，即通过交换机或者高速的HUB相连，中间没有隔有路由器。VIP地址为调度器和服务器组共享，调度器配置的VIP地址是对外可见的，用于接收虚拟服务的请求报文；所有的服务器把VIP地址配置在各自的Non-ARP网络设备上，它对外面是不可见的，只是用于处理目标地址为VIP的网络请求。</p>
+<p>VS/DR的整个过程与VS/TUN非常类似，不同之处在于调度器不对请求包进行二次封装，只是将目标MAC地址更改为经过调度算法选出的目标服务器的MAC地址。如下图：</p>
+<img src="/2013/06/02/lvs_lb_strategy/vs-dr-flow.jpg" title="VS/TUN">
+<h1 id="三种方法的优缺点比较"><a class="markdownIt-Anchor" href="#三种方法的优缺点比较"></a> 三种方法的优缺点比较</h1>
+<h2 id="vsnat-2"><a class="markdownIt-Anchor" href="#vsnat-2"></a> VS/NAT</h2>
+<ul>
+<li>
+<p>优点</p>
+<ul>
+<li>对后端服务器的操作系统无要求</li>
+<li>只需要一个IP地址配置在调度器上，服务器组可以用私有的IP地址。</li>
+<li>支持端口映射</li>
+</ul>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>请求和响应报文都需要通过调度器，伸缩能力有限（10+)</li>
+<li>要求服务器和调度器在同一个VLAN</li>
+<li>需要将服务器的默认网关指向调度器</li>
+<li>对于那些将IP地址或者端口号在报文数据中传送的网络服务，需要编写相应的应用模块来转换报文数据中的IP地址或者端口号</li>
+</ul>
+</li>
+</ul>
+<h2 id="vstun-2"><a class="markdownIt-Anchor" href="#vstun-2"></a> VS/TUN</h2>
+<ul>
+<li>
+<p>优点</p>
+<ul>
+<li>不需要调度应答报文，性能高</li>
+<li>服务器和调度器可以不在同一个VLAN</li>
+<li>支持广域负载均衡</li>
+</ul>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>所有的服务器必须支持“IP Tunneling”协议，要安装内核模块（比如IPIP等），配置复杂</li>
+<li>有建立IP隧道的开销</li>
+<li>服务器上直接绑定虚拟IP(Virtaul IP)，风险很大</li>
+<li>服务器需要联通外网</li>
+<li>不支持端口映射</li>
+</ul>
+</li>
+</ul>
+<h2 id="vsdr-2"><a class="markdownIt-Anchor" href="#vsdr-2"></a> VS/DR</h2>
+<ul>
+<li>
+<p>优点</p>
+<ul>
+<li>与VS/TUN相比，没有IP隧道的开销，性能最好</li>
+</ul>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>要求调度器与服务器都有一块网卡连在同一物理网段（同一个VLAN）上</li>
+<li>要求服务器网络设备（或者设备别名）不作ARP响应，或者能将报文重定向（Redirect）到本地的Socket端口上</li>
+<li>服务器上直接绑定虚拟IP(Virtaul IP)，风险很大</li>
+<li>不支持端口映射</li>
+</ul>
+</li>
+</ul>
+<h1 id="vsfullnat"><a class="markdownIt-Anchor" href="#vsfullnat"></a> VS/FULLNAT</h1>
+<p>如上节所述，前面三种传统的负载均衡机制各自存在一些不足。</p>
+<p><a href="http://kb.linuxvirtualserver.org/wiki/IPVS_FULLNAT_and_SYNPROXY" target="_blank" rel="noopener">VS/FULLNAT</a>是为了解决这些不足而新开发的一种转发模式。<br>
+VS/FULLNAT的特点是：</p>
+<ol>
+<li>调度器和服务器可以跨VLAN通信，不需要配置在同一个网段</li>
+<li>请求和应答报文都经过调度器，服务器不需要绑定虚拟IP</li>
+</ol>
+<p>VS/FULLNAT这两个特点可以简化网络拓扑，降低运维成本和风险。</p>
+<h1 id="如何选择"><a class="markdownIt-Anchor" href="#如何选择"></a> 如何选择</h1>
+<ol>
+<li>如果人少钱多，不在乎性能的损耗愿意多买服务器，同时希望最大程度较少运维的工作量，可以选择FULLNAT</li>
+<li>很大众的方式是用DR，没有太多的优点但也没有太多的缺点</li>
+<li>如果要搞广域网负载均衡，那就用TUN吧</li>
+<li>个人感觉NAT不是为了互联网用的。小并发的实验性应用或者用在非web场合，比如mysql集群等。当然，如果需要端口映射，必须使用NAT方式</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cluster/" rel="tag"># cluster</a>
+          
+            <a href="/tags/负载均衡/" rel="tag"># 负载均衡</a>
+          
+            <a href="/tags/lvs/" rel="tag"># lvs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/05/31/statistics_intro_3.html" rel="next" title="《统计学》读书笔记(3/17:数据的描述)">
+                <i class="fa fa-chevron-left"></i> 《统计学》读书笔记(3/17:数据的描述)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/06/03/angular_flask_restful_sample.html" rel="prev" title="AngularJS+Flask的例子">
+                AngularJS+Flask的例子 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vsnat"><span class="nav-number">1.</span> <span class="nav-text"> VS/NAT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vstun"><span class="nav-number">2.</span> <span class="nav-text"> VS/TUN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vsdr"><span class="nav-number">3.</span> <span class="nav-text"> VS/DR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三种方法的优缺点比较"><span class="nav-number">4.</span> <span class="nav-text"> 三种方法的优缺点比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vsnat-2"><span class="nav-number">4.1.</span> <span class="nav-text"> VS/NAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vstun-2"><span class="nav-number">4.2.</span> <span class="nav-text"> VS/TUN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vsdr-2"><span class="nav-number">4.3.</span> <span class="nav-text"> VS/DR</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vsfullnat"><span class="nav-number">5.</span> <span class="nav-text"> VS/FULLNAT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何选择"><span class="nav-number">6.</span> <span class="nav-text"> 如何选择</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/06/02/lvs_lb_strategy.html';
+          this.page.identifier = '2013/06/02/lvs_lb_strategy.html';
+          this.page.title = 'lvs的三种负载均衡机制';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

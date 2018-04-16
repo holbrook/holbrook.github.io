@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="统计学," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 @豆瓣 概率：0–1之间的一个数目，表示事情发生的可能性/经常性。  得到概率的几种途径   利用等可能事件 在机会均等的情况下，概率 = 要计算概率的情况的组合数 / 全部可能情况的组合数   根据长期相对频率 如果出现的机会不等，而且未知，可以用观测数据估计概率， 此时 概率 = 观测到的发生次数k / 重复实验">
+<meta name="keywords" content="统计学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《统计学》读书笔记(4&#x2F;17:机会的度量：概率和分布)">
+<meta property="og:url" content="http://holbrook.github.io/2013/06/07/statistics_intro_4.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 @豆瓣 概率：0–1之间的一个数目，表示事情发生的可能性/经常性。  得到概率的几种途径   利用等可能事件 在机会均等的情况下，概率 = 要计算概率的情况的组合数 / 全部可能情况的组合数   根据长期相对频率 如果出现的机会不等，而且未知，可以用观测数据估计概率， 此时 概率 = 观测到的发生次数k / 重复实验">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《统计学》读书笔记(4&#x2F;17:机会的度量：概率和分布)">
+<meta name="twitter:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 @豆瓣 概率：0–1之间的一个数目，表示事情发生的可能性/经常性。  得到概率的几种途径   利用等可能事件 在机会均等的情况下，概率 = 要计算概率的情况的组合数 / 全部可能情况的组合数   根据长期相对频率 如果出现的机会不等，而且未知，可以用观测数据估计概率， 此时 概率 = 观测到的发生次数k / 重复实验">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/06/07/statistics_intro_4.html"/>
+
+
+
+
+
+  <title>《统计学》读书笔记(4/17:机会的度量：概率和分布) | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/06/07/statistics_intro_4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《统计学》读书笔记(4/17:机会的度量：概率和分布)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-07T00:00:00+08:00">
+                2013-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/06/07/statistics_intro_4.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/06/07/statistics_intro_4.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @<a href="http://book.douban.com/subject/2193810/" target="_blank" rel="noopener">豆瓣</a></p>
+<p>@<a href="http://book.douban.com/subject/2193810/" target="_blank" rel="noopener">豆瓣</a></p>
+<p>概率：0–1之间的一个数目，表示事情发生的可能性/经常性。</p>
+<h1 id="得到概率的几种途径"><a class="markdownIt-Anchor" href="#得到概率的几种途径"></a> 得到概率的几种途径</h1>
+<ol>
+<li>
+<p>利用等可能事件</p>
+<p>在机会均等的情况下，概率 = 要计算概率的情况的组合数 / 全部可能情况的组合数</p>
+</li>
+<li>
+<p>根据长期相对频率</p>
+<p>如果出现的机会不等，而且未知，可以用观测数据估计概率， 此时 概率 = 观测到的发生次数k / 重复实验的次数n</p>
+<p>只适用于可以重复实验的情况</p>
+</li>
+<li>
+<p>主观概率</p>
+<p>不可计算、不可实验的、主要取决于主观因素的一次性事件，其发生的概率称为主观概率。</p>
+</li>
+</ol>
+<h1 id="概率的运算"><a class="markdownIt-Anchor" href="#概率的运算"></a> 概率的运算</h1>
+<p>事件相当于集合</p>
+<p>概率的运算可以从集合运算的角度考虑</p>
+<ol>
+<li>
+<p>互补事件的概率</p>
+<p>互补事件/互余事件/对立事件：相当于补集的概念。互补事件的概率之和为1</p>
+<p>优势/赔率：两个互补事件概率的比值</p>
+</li>
+<li>
+<p>概率的加法</p>
+<p>两个不可能发生的事件，发生其中之一的概率，等于两个事件概率之和，相当于并集的概念</p>
+</li>
+<li>
+<p>概率的乘法</p>
+<p>两个事件同时发生的概率，等于两个事件概率之积，相当于交集的概念</p>
+<p>仅当两个事件独立时才成立。如果不独立，需要引入条件概率</p>
+</li>
+</ol>
+<h1 id="概率的分布"><a class="markdownIt-Anchor" href="#概率的分布"></a> 概率的分布</h1>
+<pre><code>概率-变量值 的函数称为概率分布。可以用图或公式表示。
+
+概率分布与总体/样本空间相关
+</code></pre>
+<ol>
+<li>
+<p>离散随机变量的分布</p>
+<p>对于变量的每一个离散的值，对应着一个概率。全部概率的和为1</p>
+<p>这样的关系称为该离散随机变量的概率分布</p>
+</li>
+<li>
+<p>二项分布</p>
+<p>最简单的离散分布，变量只能有两个值（如硬币的正反面），两个事件互补</p>
+<p>TODO: 更详细的说明</p>
+</li>
+<li>
+<p>多项分布</p>
+<p>二项分布的扩展</p>
+</li>
+<li>
+<p>泊松(Poisson)分布</p>
+<p>衡量某种事件在一定期间内出现的次数的概率</p>
+</li>
+<li>
+<p>超几何分布</p>
+<p>研究有限总体的不放回抽样（检查样品后不放回，避免重复检查）</p>
+<p>比如抽取样品进行质检</p>
+<p>TODO: 公式和理解</p>
+</li>
+<li>
+<p>连续随机变量的分布</p>
+<p>与离散变量的分布相对</p>
+<p>表现为概率密度函数。所有区间概率的积分为1</p>
+</li>
+<li>
+<p>正态分布/高斯分布</p>
+<p>一个对称的钟形曲线，最高点对应均值</p>
+<p>TODO: 更多的变量和参数</p>
+</li>
+<li>
+<p>x^2-分布/卡方分布</p>
+<p>n个独立标准正态变量的平方和，称为有n个自由度的x^2-分布</p>
+</li>
+<li>
+<p>t-分布/学生分布</p>
+<p>正态分布的变换</p>
+<p>TODO：图形</p>
+</li>
+<li>
+<p>F-分布</p>
+<p>两个独立x^2-分布变量的比，称为F-分布变量</p>
+<p>F-分布有两个自由度</p>
+<p>TODO: 图形</p>
+</li>
+<li>
+<p>均匀分布/矩形分布</p>
+<p>最简单的连续型分布，取值范围是一个区间。形状是一个矩形</p>
+</li>
+<li>
+<p>累积分布函数</p>
+<p>为了便于计算某个区间的概率，对概率函数进行积分后得到的函数</p>
+</li>
+</ol>
+<h1 id="抽样分布-中心极限定理"><a class="markdownIt-Anchor" href="#抽样分布-中心极限定理"></a> 抽样分布、中心极限定理</h1>
+<p>抽样分布：样本的统计量（均值、中位数、标准差等）随着样本的不同也是随机的，其分布称为抽样分布</p>
+<p>抽样分布的特征可以帮助判断抽样是否合理</p>
+<h1 id="用小概率事件进行判断"><a class="markdownIt-Anchor" href="#用小概率事件进行判断"></a> 用小概率事件进行判断</h1>
+<p>如果对某种（统计）结论进行验证，可以抽取一定的样本进行检验，并得出一个概率。</p>
+<p>如果该结果与事先的结论不符，可以根据事先结论计算得到实验结果的概率。</p>
+<p>如果得到实验结果的概率非常低，可以认为结论不正确。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/统计学/" rel="tag"># 统计学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/06/03/lb_solutions_list.html" rel="next" title="Web负载均衡的几种实现方式">
+                <i class="fa fa-chevron-left"></i> Web负载均衡的几种实现方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/06/24/salt-intro.html" rel="prev" title="用salt管理成千上万的服务器">
+                用salt管理成千上万的服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#得到概率的几种途径"><span class="nav-number">1.</span> <span class="nav-text"> 得到概率的几种途径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率的运算"><span class="nav-number">2.</span> <span class="nav-text"> 概率的运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率的分布"><span class="nav-number">3.</span> <span class="nav-text"> 概率的分布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽样分布-中心极限定理"><span class="nav-number">4.</span> <span class="nav-text"> 抽样分布、中心极限定理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用小概率事件进行判断"><span class="nav-number">5.</span> <span class="nav-text"> 用小概率事件进行判断</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/06/07/statistics_intro_4.html';
+          this.page.identifier = '2013/06/07/statistics_intro_4.html';
+          this.page.title = '《统计学》读书笔记(4/17:机会的度量：概率和分布)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

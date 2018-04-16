@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="交易系统," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="行情数据举例 交易系统离不开行情数据。比如，如果访问新浪的股票数据接口： http://hq.sinajs.cn/list=sh600133,sh601005 可能会得到如下的数据： 12var hq_str_sh600133=&quot;东湖高新,6.01,6.01,5.91,6.07,5.80,5.92,5.93,8947052,52872049,2000,5.92,57704,5.91,191500">
+<meta name="keywords" content="交易系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="证券行情数据模型">
+<meta property="og:url" content="http://holbrook.github.io/2013/12/18/quotation_model.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="行情数据举例 交易系统离不开行情数据。比如，如果访问新浪的股票数据接口： http://hq.sinajs.cn/list=sh600133,sh601005 可能会得到如下的数据： 12var hq_str_sh600133=&quot;东湖高新,6.01,6.01,5.91,6.07,5.80,5.92,5.93,8947052,52872049,2000,5.92,57704,5.91,191500">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/12/18/quotation_model/price_and_transaction.png">
+<meta property="og:image" content="http://holbrook.github.io/2013/12/18/quotation_model/scenario.png">
+<meta property="og:image" content="http://holbrook.github.io/2013/12/18/quotation_model/quotation.png">
+<meta property="og:image" content="http://holbrook.github.io/2013/12/18/quotation_model/multi_source.png">
+<meta property="og:image" content="http://holbrook.github.io/2013/12/18/quotation_model/indicator.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="证券行情数据模型">
+<meta name="twitter:description" content="行情数据举例 交易系统离不开行情数据。比如，如果访问新浪的股票数据接口： http://hq.sinajs.cn/list=sh600133,sh601005 可能会得到如下的数据： 12var hq_str_sh600133=&quot;东湖高新,6.01,6.01,5.91,6.07,5.80,5.92,5.93,8947052,52872049,2000,5.92,57704,5.91,191500">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/12/18/quotation_model/price_and_transaction.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/12/18/quotation_model.html"/>
+
+
+
+
+
+  <title>证券行情数据模型 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/12/18/quotation_model.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">证券行情数据模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-18T00:00:00+08:00">
+                2013-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量化交易/" itemprop="url" rel="index">
+                    <span itemprop="name">量化交易</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/12/18/quotation_model.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/12/18/quotation_model.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="行情数据举例"><a class="markdownIt-Anchor" href="#行情数据举例"></a> 行情数据举例</h1>
+<p>交易系统离不开行情数据。比如，如果访问新浪的股票数据接口：</p>
+<p><a href="http://hq.sinajs.cn/list=sh600133,sh601005" target="_blank" rel="noopener">http://hq.sinajs.cn/list=sh600133,sh601005</a></p>
+<p>可能会得到如下的数据：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var hq_str_sh600133="东湖高新,<span class="number">6.01,6.01</span>,<span class="number">5.91,6.07</span>,<span class="number">5.80,5.92</span>,<span class="number">5</span>.<span class="number">93,8947052</span>,<span class="number">52872049</span>,<span class="number">2000,5.92</span>,<span class="number">57704,5.91</span>,<span class="number">191500,5.90</span>,<span class="number">75000,5.89</span>,<span class="number">142800,5.88</span>,<span class="number">19700,5.93</span>,<span class="number">43750,5.94</span>,<span class="number">51600,5.95</span>,<span class="number">17299,5.96</span>,<span class="number">11445,5.97</span>,<span class="number">2013-12-18</span>,<span class="number">13:56:49,00</span>"<span class="comment">;</span></span><br><span class="line">var hq_str_sh601005="重庆钢铁,<span class="number">2.50,2.50</span>,<span class="number">2.49,2.51</span>,<span class="number">2.48,2.49</span>,<span class="number">2</span>.<span class="number">50,1505600</span>,<span class="number">3764816</span>,<span class="number">448800,2</span>.<span class="number">49,110600,2</span>.<span class="number">48,132500,2</span>.<span class="number">47,206500,2</span>.<span class="number">46,150300,2</span>.<span class="number">45,95501,2</span>.<span class="number">50,447100,2</span>.<span class="number">51,110600,2</span>.<span class="number">52,110800,2</span>.<span class="number">53,136400,2</span>.<span class="number">54,2013-12</span>-<span class="number">18,13:56:49</span>,<span class="number">00</span>"<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>每只股票返回一组数据。以第一组数据为例，各数据项的含义如下：</p>
+<ol>
+<li>东湖高新		股票名称</li>
+<li>6.01 		今日开盘价（元）</li>
+<li>6.01 		昨日收盘价（元）</li>
+<li>5.91 		当前价格（元）</li>
+<li>6.07 		今日最高价（元）</li>
+<li>5.80 		今日最低价（元）</li>
+<li>5.92 		买一（元）</li>
+<li>5.93 		卖一（元）</li>
+<li>8947052 		成交量（股）</li>
+<li>52872049 	成交金额（元）</li>
+<li>2000 		买一申报量（股）</li>
+<li>5.92 		买一出价（元）</li>
+<li>57704 		买二申报量（股）</li>
+<li>5.91 		买二出价（元）</li>
+<li>191500      买三申报量（股）</li>
+<li>5.90 		买三出价（元）</li>
+<li>75000 		买四申报量（股）</li>
+<li>5.89 		买四出价（元）</li>
+<li>142800 		买五申报量（股）</li>
+<li>5.88 		买五出价（元）</li>
+<li>19700 		卖一申报量（股）</li>
+<li>5.93 		卖一报价（元）</li>
+<li>43750 		卖二申报量（股）</li>
+<li>5.94 		卖二报价（元）</li>
+<li>51600 		卖三申报量（股）</li>
+<li>5.95 		卖三报价（元）</li>
+<li>17299 		卖四申报量（股）</li>
+<li>5.96 		卖四报价（元）</li>
+<li>11445 		卖五申报量（股）</li>
+<li>5.97 		卖五报价（元）</li>
+<li>2013-12-18 	日期</li>
+<li>13:56:49,00 时间</li>
+</ol>
+<h1 id="价格和成交"><a class="markdownIt-Anchor" href="#价格和成交"></a> 价格和成交</h1>
+<p>上述的查询结果包含了两种不同的数据：价格(Price)和成交（Transaction)。</p>
+<p>价格是实时数据，记录了某一时点的当前价格（price）和一系列（上面的例子中是五组）的报价(Quote)数据；其中报价又包含了买方的出价（bid)和卖方的要价（offer），通常可能表示为“0.6712/5”、“0.2345/”，“/0.4352”等。</p>
+<p>成交是阶段数据，记录了某一个时段（上面的例子中是一天）内的开盘价(open)，收盘价（close）,最高价（high），最低价（low）；<br>
+以及该段时间内总的成交量（volume）和成交价格（amount）。由于(开盘价,收盘价,最高价,最低价）是很常用的一种结构，比如画蜡烛图时就会使用这种结构，所以将其封装为一个<a href="/2013/01/01/money.html#menuIndex6">值对象</a>： <strong>OHLC</strong> 。</p>
+<p>不管是价格信息还是成交信息，都关联到某一证券（Security）。</p>
+<img src="/2013/12/18/quotation_model/price_and_transaction.png">
+<h1 id="场景"><a class="markdownIt-Anchor" href="#场景"></a> 场景</h1>
+<p>在上面的模型中，价格和成交直接关联到时点。</p>
+<p>实际应用中，经常会需要将一些价格或成交聚合在一起。比如，某个市场、某个板块的所有股票的价格。而这种聚合通常要指定到某个时间点才有意义。</p>
+<p>可以把这种聚合叫做场景（Scenario），场景关联到某一时间点（TimePoint)。一个场景可以有多个场景元素（ScenarioElement），场景元素作为证券和其他因素之间的关联，聚合到与时点相关的场景中。</p>
+<img src="/2013/12/18/quotation_model/scenario.png">
+<p>场景提供了一个把所有因素综合在一起的基础，从而可以很方便的在不同的情况之间进行比较。这就有较高的实用性。</p>
+<p>比如，在跨市场套利中，可以针对不同的市场定义不同的场景，并将场景关联到指定的市场，从而在不同市场之间进行比较。</p>
+<p>在比如在交易系统的风险管理中，可以在多种可能的情况之间进行对比分析。</p>
+<p>有了场景和场景元素的定义，则价格和成交都是场景元素的一种实现：</p>
+<img src="/2013/12/18/quotation_model/quotation.png">
+<h1 id="多数据源"><a class="markdownIt-Anchor" href="#多数据源"></a> 多数据源</h1>
+<p>实际应用中，可能需要从多个数据源获取数据。</p>
+<img src="/2013/12/18/quotation_model/multi_source.png">
+<h1 id="价格指标"><a class="markdownIt-Anchor" href="#价格指标"></a> 价格指标</h1>
+<p>通过其他场景元素计算获取</p>
+<img src="/2013/12/18/quotation_model/indicator.png">
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/交易系统/" rel="tag"># 交易系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/12/16/trade_system.html" rel="next" title="系统交易和交易系统">
+                <i class="fa fa-chevron-left"></i> 系统交易和交易系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/12/19/Berkeley_DB.html" rel="prev" title="使用Oracle Berkeley DB持久化股票行情数据">
+                使用Oracle Berkeley DB持久化股票行情数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#行情数据举例"><span class="nav-number">1.</span> <span class="nav-text"> 行情数据举例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#价格和成交"><span class="nav-number">2.</span> <span class="nav-text"> 价格和成交</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#场景"><span class="nav-number">3.</span> <span class="nav-text"> 场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多数据源"><span class="nav-number">4.</span> <span class="nav-text"> 多数据源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#价格指标"><span class="nav-number">5.</span> <span class="nav-text"> 价格指标</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/12/18/quotation_model.html';
+          this.page.identifier = '2013/12/18/quotation_model.html';
+          this.page.title = '证券行情数据模型';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

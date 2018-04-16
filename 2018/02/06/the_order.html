@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="交易系统," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="思考设计量化交易系统的订单(Order)时，要考虑的因素。并给出一个概念模型。">
+<meta name="keywords" content="交易系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交易系统中的订单(Order)">
+<meta property="og:url" content="http://holbrook.github.io/2018/02/06/the_order.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="思考设计量化交易系统的订单(Order)时，要考虑的因素。并给出一个概念模型。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZPB1Ji8m6CVlUugUJNW10np0wCM3UZF6GxDLN3OtKqOy61EY8G9HcJWZDmvEyO8QOzJCnATX5Tx2hkrWWqBSQMb_tx-_xskLig5RXn330r1se8F0iGBeLu2gKS9snTAAjcdZRBQ0zcoCDYksW_9vi0AniOOHikGmmpJABM0s87Pq5PgKsaQcQH_9iLMecong2scBp8hGKb4KLZ0hI0voXAUjwwLzXw4dYi8R7mG-wTmCgxLXxp5iNOj1x2pjWamc3yAV6ca-WEb1B0FIScbbsFD8epDJqVR1Z61SGZV3orjoSJxuzXCMN_tHtVllrSkmUPeI4G9HCkdVIrnehlSHrb_7VIISX4jSBD6Ag-TOiKpIgAQKX4UKcilbIFivTElqX-qb5_WuFj-uTFmuvc11bvuF9XSlnqPdJwJkWkGpcdyi0rDvedm2y2bnnKd-zAfWnysBaR93_P5NJJKl5iPnREY9DoWdeoF-HqOt5NHbdGaj7aKlyGy0">
+<meta property="og:image" content="http://holbrook.github.io/2018/02/06/the_order/stoporder.jpg">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/RP5BRiCW443td88Zn6dJZvGk32Qj6mAHJH9vPLan2wjD6zdkegfwzs9YVavPmPjXUCm0-V5rWhojPPltLI_X3u1gxTYQyGE3Jt2cpumSr3xI-orXISgUXpDSBaSOOv7kYM7pIsASYJIcj2XNAQKaCT4R7GtPhMOPUILOEBhG5CSC4qgzDnzyaV8w_ZXvVynmXQEPNzdZaSVBgKuq1xy0w8w9jgfbtjIcOMXNs0RbgcJOdO48diH5sA3yXMTYybU-9vb1Tmu5j--jXXwS-3uR3ReHTcQ8Owk4-3OqIWKENT32ad4-V1qEHsLG9wiCZkzLrrqKKDKD2exIvjJqEXJWJTM-oNzutd-UFVe7">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="交易系统中的订单(Order)">
+<meta name="twitter:description" content="思考设计量化交易系统的订单(Order)时，要考虑的因素。并给出一个概念模型。">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/ZPB1Ji8m6CVlUugUJNW10np0wCM3UZF6GxDLN3OtKqOy61EY8G9HcJWZDmvEyO8QOzJCnATX5Tx2hkrWWqBSQMb_tx-_xskLig5RXn330r1se8F0iGBeLu2gKS9snTAAjcdZRBQ0zcoCDYksW_9vi0AniOOHikGmmpJABM0s87Pq5PgKsaQcQH_9iLMecong2scBp8hGKb4KLZ0hI0voXAUjwwLzXw4dYi8R7mG-wTmCgxLXxp5iNOj1x2pjWamc3yAV6ca-WEb1B0FIScbbsFD8epDJqVR1Z61SGZV3orjoSJxuzXCMN_tHtVllrSkmUPeI4G9HCkdVIrnehlSHrb_7VIISX4jSBD6Ag-TOiKpIgAQKX4UKcilbIFivTElqX-qb5_WuFj-uTFmuvc11bvuF9XSlnqPdJwJkWkGpcdyi0rDvedm2y2bnnKd-zAfWnysBaR93_P5NJJKl5iPnREY9DoWdeoF-HqOt5NHbdGaj7aKlyGy0">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2018/02/06/the_order.html"/>
+
+
+
+
+
+  <title>交易系统中的订单(Order) | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2018/02/06/the_order.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">交易系统中的订单(Order)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:00+08:00">
+                2018-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量化交易/" itemprop="url" rel="index">
+                    <span itemprop="name">量化交易</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/06/the_order.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/06/the_order.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考设计量化交易系统的订单(Order)时，要考虑的因素。并给出一个概念模型。</p>
+<a id="more"></a>
+<h1 id="委托和订单"><a class="markdownIt-Anchor" href="#委托和订单"></a> 委托和订单</h1>
+<p>除了“红马甲”，大多数交易者并不能直接将交易指令提交到交易所，而是需要经过中间环节代为处理。<br>
+即交易者提出“委托申请”，中间商将委托提交到交易所形成&quot;订单(Order)&quot;。</p>
+<p>为了区分订单，交易所会为每一笔订单分配一个合同号(Order ID)。</p>
+<p>在交易所撮合的过程中，订单的状态不断变化，交易者根据订单状态了解自己的委托是否成交。</p>
+<h1 id="订单状态-orderstatus"><a class="markdownIt-Anchor" href="#订单状态-orderstatus"></a> 订单状态 OrderStatus</h1>
+<p>由于要经过交易者、中间环节、交易所三级的处理，需要有很多状态区分订单处于哪个阶段。<br>
+目前国内的交易系统中，订单状态主要区分为一下几种：</p>
+<ul>
+<li>
+<p>待报: 也称为“未报”，交易者提交委托后的初始状态</p>
+</li>
+<li>
+<p>正报: 中间环节已经收到委托，但还未报到交易所，或者虽然报到交易所但是没有收到交易所的委托确认</p>
+</li>
+<li>
+<p>已报: 交易所确认委托</p>
+</li>
+<li>
+<p>部成: 经过撮合，订单部分成交</p>
+</li>
+<li>
+<p>已成: 经过撮合，订单全部成交</p>
+</li>
+<li>
+<p>废单: 交易所认定订单无效</p>
+</li>
+<li>
+<p>待撤: 交易者提交撤单指令</p>
+</li>
+<li>
+<p>正撤: 中间环节收到撤单指令，但还未报到交易所，或者未收到交易所的确认</p>
+</li>
+<li>
+<p>部撤: 订单部分成交，部分撤销</p>
+</li>
+<li>
+<p>已撤: 订单全部撤销</p>
+</li>
+<li>
+<p>撤废: 无法撤单，通常是因为已经撮合成交</p>
+</li>
+</ul>
+<p>有些系统中，<code>待撤</code>会根据当前成交状态，进一步细分为 <code>已报待撤</code>和<code>部成待撤</code>。</p>
+<img src="http://www.plantuml.com/plantuml/svg/ZPB1Ji8m6CVlUugUJNW10np0wCM3UZF6GxDLN3OtKqOy61EY8G9HcJWZDmvEyO8QOzJCnATX5Tx2hkrWWqBSQMb_tx-_xskLig5RXn330r1se8F0iGBeLu2gKS9snTAAjcdZRBQ0zcoCDYksW_9vi0AniOOHikGmmpJABM0s87Pq5PgKsaQcQH_9iLMecong2scBp8hGKb4KLZ0hI0voXAUjwwLzXw4dYi8R7mG-wTmCgxLXxp5iNOj1x2pjWamc3yAV6ca-WEb1B0FIScbbsFD8epDJqVR1Z61SGZV3orjoSJxuzXCMN_tHtVllrSkmUPeI4G9HCkdVIrnehlSHrb_7VIISX4jSBD6Ag-TOiKpIgAQKX4UKcilbIFivTElqX-qb5_WuFj-uTFmuvc11bvuF9XSlnqPdJwJkWkGpcdyi0rDvedm2y2bnnKd-zAfWnysBaR93_P5NJJKl5iPnREY9DoWdeoF-HqOt5NHbdGaj7aKlyGy0">
+<h1 id="订单方向-tradeside"><a class="markdownIt-Anchor" href="#订单方向-tradeside"></a> 订单方向 TradeSide</h1>
+<p>对于A股，只有买入(BUY)和卖出(SELL)，其他市场还有一些别的方式。<br>
+常见的包括以下几种：</p>
+<ul>
+<li>BUY: 买入开仓(证券买入)</li>
+<li>SELL: 卖出平仓(证券卖出)</li>
+<li>SHORT: 卖出开仓</li>
+<li>COVER: 买入平仓</li>
+<li>SELLTODAY: 卖出平今仓</li>
+<li>COVERTODAY: 买入平今仓</li>
+</ul>
+<h1 id="委托方式"><a class="markdownIt-Anchor" href="#委托方式"></a> 委托方式</h1>
+<p>按照委托价格的指定方式，可以分为限价委托(LimitOrder)和市价委托(MarketOrder)。<br>
+其中，市价委托又分为几种方式。</p>
+<ul>
+<li>
+<p>限价委托(LMT, limit), 以指定的价格报单</p>
+</li>
+<li>
+<p>对手方最优价格委托（BOC, best of counterparty)</p>
+<p>如果有对手方报价，则以买一/卖一价格成交，未能完全成交的按成交价转为限价单；<br>
+如果没有对手方报价，自动撤单。</p>
+</li>
+<li>
+<p>本方最优价格委托(BOP, best of party)</p>
+<p>如果有买一/买一价格，则跟随报价；如果没有自动撤单。</p>
+</li>
+<li>
+<p>即时成交剩余撤销委托(ITC, immediately then cancel)</p>
+<p>自动追涨买入/杀跌卖出，直到涨停/跌停。还有剩余的自动撤单。</p>
+</li>
+<li>
+<p>最优五档即时成交剩余撤销委托(B5TC, best 5 then cancel)</p>
+<p>是对ITC的改进，只与对手方的前五档价格成交。</p>
+</li>
+<li>
+<p>全额成交或撤销委托(FOK, fill or kill)</p>
+<p>类似ITC，但是不用指定数量，自动全仓操作</p>
+</li>
+<li>
+<p>最优五档剩余转限价委托(B5TL,best 5 then limit)</p>
+<p>类似B5TC, 区别是剩余的不撤单，而是转为限价</p>
+</li>
+</ul>
+<p>目前，深交所支持 LMT, BOC, BOP, ITC, B5TC, FOK；上交所支持LMT、B5TC、B5TL。</p>
+<p>除了 LimitOrder和 MarketOrder，有些交易所/交易系统(如CTP,文华)还支持其他类型的委托，比如：</p>
+<ul>
+<li>
+<p>Stop Orders (STP, stop-loss order) 市价止损/止盈单</p>
+<p>Stop orders are similar to market orders in that they are orders to buy or sell an asset at the best available price, but these orders are only processed if the market reaches a specific price.</p>
+<p>For example, if the current price of an asset is 1.2567, a trader might place a buy stop order with a price of 1.2572. If the market trades at 1.2572 or above, the trader’s stop order will be processed as a market order, and will then get filled at the current best price.</p>
+<p>Stop orders are processed as market orders, so if the stop (or trigger) price is reached, the order will always get filled, but not necessarily at the price that the trader intended. Stop orders will trigger if the market trades at or past the stop price. For a buy order, the stop price must be above the current price, and for a sell order, the stop price must be below the current price.</p>
+<p>Stop orders can be used to enter a trade, but also used to exit a trade, typically called a stop loss. For example, if a trader buys a stock at$50.50, they may place a sell stop at$50.25.</p>
+<p>If the price reaches$50.25 or below, the sell order will be executed, getting the trader out of the position at$50.25 (or below), limiting the loss on the position. If a trader is short at$50.50, they may place a buy stop at$50.75 to limit their loss. If the price reaches$50.75 (or above) the buy stop will execute, closing the trader’s position at$50.75 or above.</p>
+</li>
+<li>
+<p>Stop Limit Orders (STPLMT) 限价止损/止盈单</p>
+<p>Traders will commonly combine a stop and a limit order to fine-tune what price they get. To open a trade, a trader could place a buy stop limit at$50.75. Assume the stock currently trades at$50.50. If the price reaches$50.75 the buy stop limit order will be executed, but only if the order can executed at$50.75 or below. This also works to initiate a short positions. If the current price is$25.25, and a trader wants to go short if the price falls to$25.10, they could place a sell stop limit at$25.10. If the price reaches$25.10 the order will be executed, but only if the order can be executed$25.10 or above.</p>
+<p>When using a stop limit order, the stop and limit prices of the order can be different. For the buying example, our trader could place a buy stop at$50.75, but with a limit at$50.78. The buy stop kicks in and buys if$50.75 is reached, but due to the limit order, the order will only buy up to$50.78. This assures that the trader buys if$50.75 is reached, but only if the market allows them to do so below$50.78.</p>
+<p>Stop limit orders will remain pending until someone else is willing to transact at the stop limit order price(s), or better.</p>
+</li>
+<li>
+<p>Market If Touched Orders (MIT)</p>
+<p>A buy MIT order price is placed below the current price, while the sell MIT order price is placed above the current price. For example, assume a stock is trading at$16.50. A MIT buy order could be placed at$16.40. If the price moves to$16.40 or below–the trigger price–then an market buy order will be sent out.</p>
+<p>For a sell order, assume a stock is trading$16.50. An MIT sell order could be place at$16.60. If the price moves to$16.60–the trigger price–than a market sell order be sent out.</p>
+</li>
+<li>
+<p>Limit If Touched Orders (LIT)</p>
+<p>A LIT is like a MIT order, but it sends out a limit order instead of a market order. For a LIT order there is a trigger price, and a limit price.</p>
+<p>For example, assume a stock is trading at$16.50. A LIT trigger could be placed at$16.40. In addition, a limit price of$16.35 could be set. If the price moves to$16.40 or below–the trigger price–then a limit order will be placed at$16.35. Since it is a limit order, the buy will only be executed at$16.35 or below…</p>
+<p>For a sell order, assume a stock is trading at$16.50. A LIT trigger could be placed at$16.60. In addition, a limit price of$16.65 could be set. If the price moves to$16.60 or above–the trigger price–then a limit order will be placed at$16.65. Since it is a limit order, the sell trade will only be executed at$16.65 or above.</p>
+</li>
+<li>
+<p>One Cancels the Other (OCO)</p>
+<p>One Cancels the Other (OCO) order is used in case if one simultaneously places a limit order and a stop-loss order. If either order is carried out the other is abrogated which lets the broker to make a deal without<br>
+supervising the market. Once the market reaches up the level of the limit order, the currency is sold at a profit but when he market falls, the stop-loss order is used.</p>
+</li>
+</ul>
+<p>对于 StopOrder 和 StopLimitOrder，有人画了一张图更容易理解：</p>
+<img src="/2018/02/06/the_order/stoporder.jpg" title="停止单">
+<h1 id="最终模型"><a class="markdownIt-Anchor" href="#最终模型"></a> 最终模型</h1>
+<img src="http://www.plantuml.com/plantuml/svg/RP5BRiCW443td88Zn6dJZvGk32Qj6mAHJH9vPLan2wjD6zdkegfwzs9YVavPmPjXUCm0-V5rWhojPPltLI_X3u1gxTYQyGE3Jt2cpumSr3xI-orXISgUXpDSBaSOOv7kYM7pIsASYJIcj2XNAQKaCT4R7GtPhMOPUILOEBhG5CSC4qgzDnzyaV8w_ZXvVynmXQEPNzdZaSVBgKuq1xy0w8w9jgfbtjIcOMXNs0RbgcJOdO48diH5sA3yXMTYybU-9vb1Tmu5j--jXXwS-3uR3ReHTcQ8Owk4-3OqIWKENT32ad4-V1qEHsLG9wiCZkzLrrqKKDKD2exIvjJqEXJWJTM-oNzutd-UFVe7">
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/交易系统/" rel="tag"># 交易系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/05/writing_env_within_docker.html" rel="next" title="使用docker搭建写作环境">
+                <i class="fa fa-chevron-left"></i> 使用docker搭建写作环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/23/classify-and-neural-networks.html" rel="prev" title="分类问题与神经网络">
+                分类问题与神经网络 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#委托和订单"><span class="nav-number">1.</span> <span class="nav-text"> 委托和订单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#订单状态-orderstatus"><span class="nav-number">2.</span> <span class="nav-text"> 订单状态 OrderStatus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#订单方向-tradeside"><span class="nav-number">3.</span> <span class="nav-text"> 订单方向 TradeSide</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#委托方式"><span class="nav-number">4.</span> <span class="nav-text"> 委托方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终模型"><span class="nav-number">5.</span> <span class="nav-text"> 最终模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2018/02/06/the_order.html';
+          this.page.identifier = '2018/02/06/the_order.html';
+          this.page.title = '交易系统中的订单(Order)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

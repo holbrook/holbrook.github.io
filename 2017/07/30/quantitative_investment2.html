@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="量化分析," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据挖掘一般分为关联、回归、分类、聚类、预测和诊断。数据挖掘的过程包括定义目标、准备数据、建立模型、评估模型、部署模型六个阶段。">
+<meta name="keywords" content="量化分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第2章：数据挖掘的内容、过程及工具">
+<meta property="og:url" content="http://holbrook.github.io/2017/07/30/quantitative_investment2.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="数据挖掘一般分为关联、回归、分类、聚类、预测和诊断。数据挖掘的过程包括定义目标、准备数据、建立模型、评估模型、部署模型六个阶段。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第2章：数据挖掘的内容、过程及工具">
+<meta name="twitter:description" content="数据挖掘一般分为关联、回归、分类、聚类、预测和诊断。数据挖掘的过程包括定义目标、准备数据、建立模型、评估模型、部署模型六个阶段。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2017/07/30/quantitative_investment2.html"/>
+
+
+
+
+
+  <title>《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第2章：数据挖掘的内容、过程及工具 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/07/30/quantitative_investment2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第2章：数据挖掘的内容、过程及工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T00:00:00+08:00">
+                2017-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量化交易/" itemprop="url" rel="index">
+                    <span itemprop="name">量化交易</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/30/quantitative_investment2.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/30/quantitative_investment2.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据挖掘一般分为关联、回归、分类、聚类、预测和诊断。数据挖掘的过程包括定义目标、准备数据、建立模型、评估模型、部署模型六个阶段。</p>
+<a id="more"></a>
+<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+<h1 id="数据挖掘的内容"><a class="markdownIt-Anchor" href="#数据挖掘的内容"></a> 数据挖掘的内容</h1>
+<p>对数据的挖掘，主要有以下几种方法。</p>
+<ul>
+<li>
+<p>关联</p>
+<p>两个或多个变量的值之间存在某种规律性，就称之为关联。关联可以分为简单关联、时序关联和因果关联。<br>
+而关联分析就是找出数据之间隐藏的关联关系。</p>
+<p>有时候，关联关系存在某种不确定性，可以通过可信度来描述其关联程度。</p>
+<p>关联规则挖掘，就是通过分析数据，发现数据项集之间的关联关系或相关联系。主要有几种情况：</p>
+<ul>
+<li>
+<p>类别数据之间的关联，其关联关系为bool型和数值型。比如，<code>性别=女</code> 和 <code>职业=秘书</code> 之间的关联；<br>
+或者 <code>性别=女</code> 和 <code>平均输入=2300</code> 之间的关联。</p>
+</li>
+<li>
+<p>层次数据之间的关联，可以分为单层关联规则和多层关联规则。比如 <code>IBM台式机</code> 和 <code>Sony打印机</code><br>
+是细节数据之间的单层关联规则； <code>台式机</code> 和 <code>Sony打印机</code> 是高层数据和细节数据之间的多层关联规则。</p>
+</li>
+<li>
+<p>基于数据的维数，可以分为单维和多维关联规则。单维关联规则处理同一属性中的关系，<br>
+比如 <code>啤酒</code> 和 <code>尿布</code> 同属于 <code>顾客购买的商品</code> 这一属性； 多维关联规则处理多个属性中的关系，<br>
+比如<code>性别=女</code> 和 <code>职业=秘书</code> 处理<code>性别</code>和<code>职业</code>两个属性之间的关系。</p>
+</li>
+</ul>
+<p>量化投资中的关联规则，通常是上述三种情况的某一种，可以按照这些思路去寻找关联关系。</p>
+<p>关联分析的算法主要包括 Apriori, FP-Tree 和 HotSpot，会在后面具体介绍。</p>
+</li>
+<li>
+<p>回归</p>
+<p>回归(Regression)是指确定两种货两种以上变量之间相互定量关系的统计分析方法，<br>
+回归是数据挖掘中最基础、应用最多的方法。</p>
+<p>在量化投资领域，通常用回归方法研究经济周氏、大盘走势、个股走势。比如，常用的多因子模型就可以用回归方法得到。</p>
+<p>根据回归函数的类型，可以将回归方法分为现象回归、非线性回归、逐步回归（在回归过程中可以在调整变量数)、<br>
+Logistic回归(以指数函数作为回归模型)。</p>
+<p>根据相关变量的个数，可以分为一元回归和多元回归。</p>
+</li>
+<li>
+<p>分类</p>
+<p>数据挖掘中的分类，是指根据数据的特征，将事物划分类别。</p>
+<p>目前主要的分类方法有：</p>
+<ul>
+<li>KNN(最近邻)</li>
+<li>贝叶斯</li>
+<li>神经网络</li>
+<li>Logistic</li>
+<li>判别分析</li>
+<li>SVM（支持向量机）</li>
+<li>决策树（主要包括 ID3、 C4.5 、 CART等算法）</li>
+</ul>
+</li>
+<li>
+<p>聚类</p>
+<p>聚类分析(Cluster Analysis)，是根据“物以类聚”的道理，对样品进行分类的一种多元统计分析方法。<br>
+特指在没有先验知识的情况下，将大量的样品分为不同的簇，以满足同一个簇中的对象有很大相似性，<br>
+而不同的簇中的对象有很大的差异性。</p>
+<p>聚类和分类可以结合使用：线用聚类将样品大致分成几类，再用分类方法对样品进行分类。也就是说，<br>
+在没有先验知识的情况下，通过聚类来实现更合理的分类。</p>
+<p>聚类算法使用的比较多的有：</p>
+<ul>
+<li>Kmeans</li>
+<li>层次聚类</li>
+<li>神经网络聚类</li>
+<li>模糊C均值聚类</li>
+<li>高斯聚类</li>
+</ul>
+</li>
+<li>
+<p>预测</p>
+<p>数据挖掘中的预测(Forecasting)，是指采集历史数据，基于这些数据建立模型，并用于推算将来。</p>
+<p>预测可以分为定性预测和定量预测。定性预测方法包括专家会议法/Delphi法，主观概率法，领先指标法等。<br>
+而这里的预测是指定量预测，主要分为时间序列分析和因果关系分析。</p>
+<p>时间序列分析的主要方法有：</p>
+<ul>
+<li>移动平均法</li>
+<li>指数平滑法</li>
+<li>Box-Jenkins法</li>
+</ul>
+<p>因果关系分析的主要方法有：</p>
+<ul>
+<li>回归法</li>
+<li>计量经济模型</li>
+<li>神经网络预测法</li>
+<li>灰色系统模型</li>
+<li>马尔科夫预测</li>
+</ul>
+</li>
+<li>
+<p>诊断</p>
+<p>数据挖掘中的诊断，是指发现离群点。离群点是指与其他数据部分不同或不一致的点，通常不符合数据模型。<br>
+离群点可能由错误导致，也由可能包含重要的信息。比如，不寻常的行为可能意味着信用卡欺诈。</p>
+<p>经典的离群点诊断的算法可以分为以下几类：</p>
+<ul>
+<li>基于统计学的方法</li>
+<li>基于距离或邻近度的方法</li>
+<li>基于偏差的方法</li>
+<li>基于密度的方法</li>
+<li>基于聚类的方法</li>
+</ul>
+<p>还有一些新兴的离群点诊断算法，包括：</p>
+<ul>
+<li>基于关联的方法</li>
+<li>基于模糊集的方法</li>
+<li>基于人工神经网络的方法</li>
+<li>基于遗传算法</li>
+<li>基于克隆选择方法</li>
+</ul>
+</li>
+</ul>
+<h1 id="数据挖据过程"><a class="markdownIt-Anchor" href="#数据挖据过程"></a> 数据挖据过程</h1>
+<p>一些厂商对数据挖掘的过程进行了抽象和定义，比如：</p>
+<ul>
+<li>SAS提出了SEMMA过程模型，包括Sample(抽样)、Explore（探索）、Manipulate(处理)、Model(建模)、Access(评估)五个阶段。</li>
+<li>SPSS提出了5A模型，即Assess(评估)、Access(访问)、Analyze(分析)、Act(行动)、Automate(自动化)。</li>
+<li>商业项目普遍采用CRISP-DM(Cross-Industry Standard Process for Data Mining, 跨行业数据挖掘过程标准)，<br>
+将数据挖掘项目分为六个阶段：业务理解、数据理解、数据准备、建模、评估、部署。</li>
+</ul>
+<p>综合上述模型，本书提出DPEMED(Definition、Preparation、Explore、Modeling、Evaluation、Deployment模型。<br>
+即以下几个步骤。</p>
+<h2 id="目标的定义"><a class="markdownIt-Anchor" href="#目标的定义"></a> 目标的定义</h2>
+<p>要确定目标，首先要了解业务。包括如下三个方面：</p>
+<ol>
+<li>需要解决问题的明确定义</li>
+<li>对相关数据的了解</li>
+<li>数据挖掘结果对业务作用效力的预测</li>
+</ol>
+<p>了解了业务之后就可以定义目标。可以从两个方面考虑：</p>
+<ol>
+<li>数据挖掘要解决的问题</li>
+<li>数据挖掘完成后的效果，最好给出关键的评估指标。比如，在3个月内提供整体收益5%</li>
+</ol>
+<h2 id="数据的准备"><a class="markdownIt-Anchor" href="#数据的准备"></a> 数据的准备</h2>
+<p>数据准备是数据挖掘中耗时最多的环节。包括三个环节：</p>
+<ul>
+<li>
+<p>数据的选择</p>
+<p>从内部数据和外部数据中选择出要使用的数据。一般会考虑三种类型：</p>
+<ul>
+<li>业务数据：即业务发生时产生的操作数据，一般有明显的时间和顺序特征，并且与业务发生有关联</li>
+<li>关系数据：表达客户、机构、业务之际的关系，相对变化较少</li>
+<li>统计数据：与业务相关的描述信息</li>
+</ul>
+<p>这三种数据反映了三种不同的信息，对知识的发现非常重要。所以选择数据室要尽量包含这三种类型的数据。</p>
+</li>
+<li>
+<p>数据质量分析</p>
+<p>评估数据质量，并为下一步的预处理提供参考。通常考虑以下几个方面：</p>
+<ul>
+<li>缺失数据。比如空值</li>
+<li>数据错误</li>
+<li>度量标准错误</li>
+<li>编码不一致</li>
+<li>无效的元数据</li>
+</ul>
+</li>
+<li>
+<p>数据预处理</p>
+<p>解决数据质量方面的问题。一般包括清洗、集成、规约、变换4个步骤。</p>
+</li>
+</ul>
+<h2 id="数据的探索"><a class="markdownIt-Anchor" href="#数据的探索"></a> 数据的探索</h2>
+<p>探索数据，是对数据进行初步研究，了解数据的特征，为建模的变量选择和算法选择提供依据。</p>
+<p>数据探索和数据准备可以交替进行，直到满足建模的要求。</p>
+<p>数据探索没有一定的方法，但可以从以下几个方面入手：</p>
+<ul>
+<li>
+<p>描述统计</p>
+<p>如均值、频率、众数、百分位数、中位数、极差、方差等，用于探索数据的不同属性。</p>
+</li>
+<li>
+<p>数据可视化</p>
+<p>将数据以图形的方式呈现，可以根据一定的规则（标准差、百分数等）进行拆分、合并等处理，以便发现其中的模式。</p>
+</li>
+<li>
+<p>套用模型</p>
+<p>套用建模的统计方法或计量模型，看看数据是否符合模型。</p>
+</li>
+</ul>
+<h2 id="模型的建立"><a class="markdownIt-Anchor" href="#模型的建立"></a> 模型的建立</h2>
+<p>模型的建立是数据挖掘的核心。其过程包括：</p>
+<ol>
+<li>
+<p>对准备好的数据用辅助模型进行处理（称为数据降维，如主成分PCA, 因子分析等），得到数据挖掘模型</p>
+</li>
+<li>
+<p>根据问题的性质，确定模型类别。主要是关联、回归、分类、聚类、预测、诊断六大类模型</p>
+</li>
+<li>
+<p>针对问题的类别，选择合适的算法（要考虑到数据特征、挖掘经验、算法适应性等方面）</p>
+<p>其中，根据算法的人工干预程度，可以分为有监督模型和无监督模型。</p>
+<ul>
+<li>有监督模型
+<ul>
+<li>分类（贝叶斯，SVM…)</li>
+<li>回归（线性，逐步…)</li>
+<li>预测（灰色，马尔科夫…)</li>
+</ul>
+</li>
+<li>无监督模型
+<ul>
+<li>聚类（Kmeans,层次…)</li>
+<li>关联（Apriori, FP-Growth…）</li>
+<li>诊断（统计，距离…）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>使用训练集数据，通过现有数据和已知结果训练模型，优化参数</p>
+</li>
+<li>
+<p>使用测试集数据（与训练集数据要分开），通过现有数据和已知结果，对模型进行验证。<br>
+常用的验证方法包括简单验证、交叉验证、N维交叉验证。</p>
+<ul>
+<li>
+<p>简单验证</p>
+<p>是最基本的验证方法。从原始数据中抽取5%–33%的数据作为测试数据（要符合抽样原则），<br>
+验证模型预测的正确率(对于离散结果)或准确率（用方差描述，比如回归问题）。</p>
+<p>在模型建立过程中，简单验证通常要执行几十次，不断的训练-测试，直到结果不再提高。</p>
+</li>
+<li>
+<p>交叉验证</p>
+<p>交叉验证(Cross Validation)是验证模型性能的一种统计分析方法。其基本思想是：</p>
+<p>将原始数据集（DataSet)进行分组，一部分作为训练集（Train Set)，另一部分作为验证集（Validation Set)。<br>
+先用训练集训练模型，再用验证集测试模型。根据划分方法的不同，可以分为三种情况：</p>
+<ul>
+<li>
+<p>二分验证</p>
+<p>将原始数据分成两组即可。过于简单，结果没有说服力，一般不使用。</p>
+</li>
+<li>
+<p>K-CV（K次交叉验证）</p>
+<p>将原始数据分成（一般均分）K组。分别用其中一组作为验证集，其他的组作为训练集，这样得到K个模型性能指标。<br>
+将K次指标的平均值作为最终模型的指标。</p>
+<p>K-CV可以有效避免过学习或欠学习状态，结果也比较有说服力。</p>
+</li>
+<li>
+<p>LOO-CV（留一交叉验证）</p>
+<p>与K-CV相同，只不过每组的样本个数为1。这样可以避免随机因素的影响。缺点是计算量很大。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>N维交叉验证</p>
+<p>？</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="模型的评估"><a class="markdownIt-Anchor" href="#模型的评估"></a> 模型的评估</h2>
+<p>评估模型不仅仅是预测精确度，还有LIFT、ROC、Gain图等。</p>
+<p>在量化投资领域。。。 回报率、最大回撤、sharpe等。</p>
+<h2 id="模型的部署"><a class="markdownIt-Anchor" href="#模型的部署"></a> 模型的部署</h2>
+<p>略。</p>
+<h1 id="数据挖掘工具"><a class="markdownIt-Anchor" href="#数据挖掘工具"></a> 数据挖掘工具</h1>
+<p>书中介绍了MATLAB、SAS、SPSS、WEKA、R等工具，并进行了比较。本书以Matlab作为示例。但我个人更倾向使用python。</p>
+<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/量化分析/" rel="tag"># 量化分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/29/quantitative_investment1.html" rel="next" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第1章：绪论">
+                <i class="fa fa-chevron-left"></i> 《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第1章：绪论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/23/quantitative_investment3.html" rel="prev" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第3章：数据的准备">
+                《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第3章：数据的准备 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据挖掘的内容"><span class="nav-number">1.</span> <span class="nav-text"> 数据挖掘的内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据挖据过程"><span class="nav-number">2.</span> <span class="nav-text"> 数据挖据过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标的定义"><span class="nav-number">2.1.</span> <span class="nav-text"> 目标的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的准备"><span class="nav-number">2.2.</span> <span class="nav-text"> 数据的准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的探索"><span class="nav-number">2.3.</span> <span class="nav-text"> 数据的探索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型的建立"><span class="nav-number">2.4.</span> <span class="nav-text"> 模型的建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型的评估"><span class="nav-number">2.5.</span> <span class="nav-text"> 模型的评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型的部署"><span class="nav-number">2.6.</span> <span class="nav-text"> 模型的部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据挖掘工具"><span class="nav-number">3.</span> <span class="nav-text"> 数据挖掘工具</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2017/07/30/quantitative_investment2.html';
+          this.page.identifier = '2017/07/30/quantitative_investment2.html';
+          this.page.title = '《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第2章：数据挖掘的内容、过程及工具';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

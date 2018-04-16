@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="交易系统," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关系数据库，数据文件 还是 NoSQL 股票行情数据具有如下特点：   数据量大 对于分析来说，至少需要5分钟数据。如果每天交易时间为4小时，每年250个交易日，则一支股票一年的行情数据量为60/54250= 12k。20年则为240k。如果是1分钟数据，则20年的数据量为240k*5 = 1.2M。 所以，如果用于分析，行情数据将是百万量级。如果记录3000只股票/指数的数据，数据量会非常大。">
+<meta name="keywords" content="交易系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Oracle Berkeley DB持久化股票行情数据">
+<meta property="og:url" content="http://holbrook.github.io/2013/12/19/Berkeley_DB.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="关系数据库，数据文件 还是 NoSQL 股票行情数据具有如下特点：   数据量大 对于分析来说，至少需要5分钟数据。如果每天交易时间为4小时，每年250个交易日，则一支股票一年的行情数据量为60/54250= 12k。20年则为240k。如果是1分钟数据，则20年的数据量为240k*5 = 1.2M。 所以，如果用于分析，行情数据将是百万量级。如果记录3000只股票/指数的数据，数据量会非常大。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/12/19/Berkeley_DB/berkeley-db.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Oracle Berkeley DB持久化股票行情数据">
+<meta name="twitter:description" content="关系数据库，数据文件 还是 NoSQL 股票行情数据具有如下特点：   数据量大 对于分析来说，至少需要5分钟数据。如果每天交易时间为4小时，每年250个交易日，则一支股票一年的行情数据量为60/54250= 12k。20年则为240k。如果是1分钟数据，则20年的数据量为240k*5 = 1.2M。 所以，如果用于分析，行情数据将是百万量级。如果记录3000只股票/指数的数据，数据量会非常大。">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/12/19/Berkeley_DB/berkeley-db.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/12/19/Berkeley_DB.html"/>
+
+
+
+
+
+  <title>使用Oracle Berkeley DB持久化股票行情数据 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/12/19/Berkeley_DB.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Oracle Berkeley DB持久化股票行情数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-19T00:00:00+08:00">
+                2013-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量化交易/" itemprop="url" rel="index">
+                    <span itemprop="name">量化交易</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/12/19/Berkeley_DB.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/12/19/Berkeley_DB.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="关系数据库数据文件-还是-nosql"><a class="markdownIt-Anchor" href="#关系数据库数据文件-还是-nosql"></a> 关系数据库，数据文件 还是 NoSQL</h1>
+<p>股票行情数据具有如下特点：</p>
+<ol>
+<li>
+<p>数据量大</p>
+<p>对于分析来说，至少需要5分钟数据。如果每天交易时间为4小时，每年250个交易日，则一支股票一年的行情数据量为60/5<em>4</em>250= 12k。20年则为240k。如果是1分钟数据，则20年的数据量为240k*5 = 1.2M。</p>
+<p>所以，如果用于分析，行情数据将是百万量级。如果记录3000只股票/指数的数据，数据量会非常大。</p>
+</li>
+<li>
+<p>数据很少变化</p>
+<p>由于都是历史数据，行情数据很少需要修改。主要的操作是查询和增加。</p>
+</li>
+<li>
+<p>数据结构简单</p>
+<p>主要考虑<a href="/2013/12/18/quotation_model.html#menuIndex2">成交数据</a>，是一种简单的一维结构。价格数据只在发生交易信号时有一定的参考意义，不需要保留所有的历史记录。</p>
+</li>
+</ol>
+<p>由于行情数据的这些特点，通常不适合使用关系数据库。传统上一般采用数据文件进行存储。</p>
+<p>但是用数据文件需要自己处理写入锁，随机读写，序列化等问题，比较麻烦。于是<a href="/2013/12/18/nosql_list.html#menuIndex1">NoSQL</a>成了比较好的一种选择。</p>
+<p>对于单机的分析软件，<a href="/2013/12/18/nosql_list.html#menuIndex2">NoSQL选型要素</a>为：</p>
+<ul>
+<li>key/value儲存</li>
+<li>支持持久化</li>
+<li>支持嵌入式</li>
+<li>接口方便</li>
+</ul>
+<h1 id="oracle-berkeley-db"><a class="markdownIt-Anchor" href="#oracle-berkeley-db"></a> Oracle Berkeley DB</h1>
+<p><a href="http://www.oracle.com/technetwork/cn/products/berkeleydb/overview/index.html" target="_blank" rel="noopener">Berkeley DB</a>是满足上述4点要求的比较好的一款产品。Berkeley DB分为BDB、BDB Java版和BDB XML版。其总体架构如下图：</p>
+<img src="/2013/12/19/Berkeley_DB/berkeley-db.png" title="Berkeley DB">
+<p>BDB的三个版本的功能不完全相同。</p>
+<p>我选择BDB Java版，不支持SQL API和XQuery API，可以使用底层的键/值API、Java 直接持久层 (DPL) API和Java 集合 API。三种API的应用场景如下：</p>
+<ul>
+<li>当 Java 类是用来代表应用中的域对象(domain objects),也就是说,该模式是相对 稳定的,建议用直接持久层。</li>
+<li>当在Berkeley DB和Berkeley DB Java 版之间移植应用程序时,或当实现自己的 动态模式(举例来说,一个 LDAP 服务器),那么建议用基础 API。您也可能喜欢使用这 个基础API如果您有极少数域类(domain class)。</li>
+<li>集合API有利于和外部组件交互,因为它遵从Java集合框架标准。继而,和基础API 以及直接持久层结合后会很有用。您可能会喜欢这个 API,因为它提供了熟悉的 Java 集 合接口。</li>
+</ul>
+<p>在行情数据的持久化中，可以选用直接持久层（DPL）。直接持久层API 可以持久化以及还原相互关联的 Java 对象，但是比ORM更加简单高效。</p>
+<h1 id="实现过程"><a class="markdownIt-Anchor" href="#实现过程"></a> 实现过程</h1>
+<h2 id="获取开发包"><a class="markdownIt-Anchor" href="#获取开发包"></a> 获取开发包</h2>
+<p>可以从<a href="http://www.oracle.com/technetwork/cn/products/berkeleydb/downloads/index.html" target="_blank" rel="noopener">这里</a>下载需要的jar包，也可以使用maven：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.sleepycat<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>je<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.0.73<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果要使用最新版（目前的最新版是5.0.97），需要引入oracle的maven库：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>oracleReleases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>Oracle Released Java Packages<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://download.oracle.com/maven<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="定义持久化模型"><a class="markdownIt-Anchor" href="#定义持久化模型"></a> 定义持久化模型</h2>
+<h3 id="实体和值对象"><a class="markdownIt-Anchor" href="#实体和值对象"></a> 实体和值对象</h3>
+<p>Berkeley DB支持DDD(领域驱动设计)中的实体和值对象的持久化。</p>
+<ul>
+<li>实体：拥有长期不变的标识符,可以被跟踪的对象。</li>
+<li>值对象：没有标识符，主要关注其属性的对象。</li>
+</ul>
+<p>在BDB中，分别使用 <strong>@Entity</strong> 和 <strong>@Persistent</strong> 来声明实体和值对象。<br>
+声明了 <strong>@Persistent</strong> 的对象可以直接作为 <strong>@Entity</strong> 对象中的属性使用。</p>
+<p>任何Java类一旦增加了持久化声明，其所有字段（任何作用域）都会被持久化。需要持久化的类需要缺省的无参数构造函数。</p>
+<p>比如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Transaction</span> &#123;</span></span><br><span class="line">	……</span><br><span class="line">	<span class="keyword">public</span> OHLC ohlc;</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Persistent</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OHLC</span> &#123;</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">float</span> open,high,low,close;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="主键和次键声明"><a class="markdownIt-Anchor" href="#主键和次键声明"></a> 主键和“次键”声明</h3>
+<p>每个实体类(@Entity)可以定义一个主键(PrimaryKey)和多个次键(SecondaryKey)，从而可以按照主键或次键进行索引。例如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Security</span> <span class="keyword">implements</span> <span class="title">Instrument</span>&#123;</span></span><br><span class="line">	<span class="meta">@PrimaryKey</span></span><br><span class="line">	<span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@SecondaryKey</span>(relate=Relationship.ONE_TO_ONE)</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关联关系"><a class="markdownIt-Anchor" href="#关联关系"></a> 关联关系</h3>
+<p>关联关系也是通过次键(SecondaryKey)声明的。需要同时指定多重性（relate）和关联到的实体（relatedEntity）。<br>
+relate可以是ONE_TO_ONE,ONE_TO_MANY,MANY_TO_ONE或MANY_TO_MANY(在com.sleepycat.persist.model.Relationship中定义)。</p>
+<p>需要注意的是，次键的属性类型需要是relatedEntity指定的对端实体的主键类型，而不能直接使用对端实体。</p>
+<p>如果relate是ONE_TO_MANY或MANY_TO_MANY，可以使用集合类型。比如（不属于股票行情数据模型，而是BDB官方例子）：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@<span class="keyword">Entity</span></span><br><span class="line"><span class="keyword">class</span> Employer &#123;</span><br><span class="line">    @<span class="keyword">PrimaryKey</span>(<span class="keyword">sequence</span>="<span class="keyword">ID</span>")</span><br><span class="line">    long id;</span><br><span class="line"></span><br><span class="line">	@<span class="keyword">SecondaryKey</span>(<span class="keyword">relate</span>=<span class="keyword">ONE_TO_ONE</span>) String name;</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@<span class="keyword">Entity</span></span><br><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">    @<span class="keyword">PrimaryKey</span></span><br><span class="line">    String ssn;</span><br><span class="line"></span><br><span class="line">	@<span class="keyword">SecondaryKey</span>(<span class="keyword">relate</span>=<span class="keyword">MANY_TO_ONE</span>, relatedEntity=Person.class)</span><br><span class="line">	String parentSsn;</span><br><span class="line"></span><br><span class="line">	@<span class="keyword">SecondaryKey</span>(<span class="keyword">relate</span>=<span class="keyword">ONE_TO_MANY</span>)</span><br><span class="line">	Set&lt;String&gt; emailAddresses = new HashSet&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">	@<span class="keyword">SecondaryKey</span>(<span class="keyword">relate</span>=<span class="keyword">MANY_TO_MANY</span>, relatedEntity=Employer.class, onRelatedEntityDelete=NULLIFY)</span><br><span class="line">	Set&lt;Long&gt; employerIds = new HashSet&lt;Long&gt;();</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用dpl-api"><a class="markdownIt-Anchor" href="#使用dpl-api"></a> 使用DPL API</h2>
+<h3 id="设计accessortodo"><a class="markdownIt-Anchor" href="#设计accessortodo"></a> 设计Accessor(TODO)</h3>
+<p>类似于DAO，BDB中通常将对实体的访问封装到Accessor中。例如：</p>
+<ol>
+<li>
+<p>EntityStore</p>
+</li>
+<li>
+<p>获取索引</p>
+</li>
+<li>
+<p>CRUD</p>
+</li>
+<li>
+<p>访问关联对象</p>
+</li>
+</ol>
+<p>通过索引可以得到关联的对象，无论是单个关联对象还是集合。</p>
+<ul>
+<li>关联到单个对象</li>
+<li>关联到集合</li>
+</ul>
+<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">EntityCursor&lt;Person&gt; employees = dao.personByEmployerIds.subIndex(gizmoInc.id).entities();</span><br><span class="line">try &#123;</span><br><span class="line">    <span class="attribute">for (Person employee</span> : employees) &#123;</span><br><span class="line">System<span class="variable">.out</span><span class="variable">.println</span>(employee<span class="variable">.ssn</span> + ' ' + employee<span class="variable">.name</span>); &#125;</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    employees.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>等值连接</li>
+</ul>
+<p>通过 EntityJoin 类可以进行等值连 接(equality join)操作。</p>
+<p>比如，以下代码查询所有Bob的孩子中为gizmo公司工作的 员工:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EntityJoin&lt;<span class="keyword">String</span>,Person&gt; <span class="built_in">join</span> = <span class="keyword">new</span> EntityJoin(dao.personBySsn);</span><br><span class="line"><span class="built_in">join</span>.addCondition(dao.personByParentSsn, <span class="string">"111-11-1111"</span>); <span class="built_in">join</span>.addCondition(dao.personByEmployerIds, gizmoInc.id);</span><br><span class="line">ForwardCursor&lt;Person&gt; results = <span class="built_in">join</span>.entities(); <span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">for</span> (Person person : results) &#123; System.out.<span class="built_in">println</span>(person.ssn + <span class="string">' '</span> + person.name);</span><br><span class="line">&#125;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    results.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="建立连接"><a class="markdownIt-Anchor" href="#建立连接"></a> 建立连接</h3>
+<h3 id="事务支持"><a class="markdownIt-Anchor" href="#事务支持"></a> 事务支持</h3>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Transaction txn = env.<span class="keyword">beginTransaction(null, </span>null)<span class="comment">; dao.employerById.put(txn, gizmoInc); dao.employerById.put(txn, gadgetInc);</span></span><br><span class="line">txn.commit()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h3 id="模型变化"><a class="markdownIt-Anchor" href="#模型变化"></a> 模型变化</h3>
+<p>对于增加实体或值对象的属性，改变属性类型等变化，一般不需要对BDB进行额外的处理，而是会自动适应。</p>
+<p>对于一些特殊的、无法自动适应的变化，比如重命名字段或优化单个的类(如:使用通用类型,模块复用等改变),可以使用Mutations。</p>
+<p>Mutations 操作是延迟的:只在存取数据时自动改变,故避免了软件升级时大型数据库转换导致的长时间停机。<br>
+复杂的类优化可能涉及到多个类,使用 ConversionStore 进行。因而,无论持久化类作出何种 改变,直接持久层都始终提供可靠数据存取。</p>
+<h3 id="性能选项"><a class="markdownIt-Anchor" href="#性能选项"></a> 性能选项</h3>
+<p>Berkeley DB在API的很多地方提供了性能调优的选项。常见的包括：</p>
+<ul>
+<li>
+<p>DatabaseConfig参数</p>
+<p>通过DatabaseConfig参数可以用来调整Berkeley DB引擎的性能。<br>
+比如,可指定内部B树节点的大小来调整性能,通过如下方式来指定:</p>
+</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DatabaseConfig<span class="built_in"> config </span>= store.getPrimaryConfig(Employer.class);</span><br><span class="line">config.setNodeMaxEntries(64);</span><br><span class="line">store.setPrimaryConfig(config);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>CRUD操作参数</p>
+<p>例如, “脏读”可通过LockMode参数实现:</p>
+<p>Employer employer = employerByName.get(null, “Gizmo Inc”, LockMode.READ_UNCOMMITTED);</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/交易系统/" rel="tag"># 交易系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/12/18/quotation_model.html" rel="next" title="证券行情数据模型">
+                <i class="fa fa-chevron-left"></i> 证券行情数据模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/12/19/trading_strategy.html" rel="prev" title="交易策略与规则引擎">
+                交易策略与规则引擎 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关系数据库数据文件-还是-nosql"><span class="nav-number">1.</span> <span class="nav-text"> 关系数据库，数据文件 还是 NoSQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#oracle-berkeley-db"><span class="nav-number">2.</span> <span class="nav-text"> Oracle Berkeley DB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现过程"><span class="nav-number">3.</span> <span class="nav-text"> 实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取开发包"><span class="nav-number">3.1.</span> <span class="nav-text"> 获取开发包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义持久化模型"><span class="nav-number">3.2.</span> <span class="nav-text"> 定义持久化模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实体和值对象"><span class="nav-number">3.2.1.</span> <span class="nav-text"> 实体和值对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键和次键声明"><span class="nav-number">3.2.2.</span> <span class="nav-text"> 主键和“次键”声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联关系"><span class="nav-number">3.2.3.</span> <span class="nav-text"> 关联关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用dpl-api"><span class="nav-number">3.3.</span> <span class="nav-text"> 使用DPL API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计accessortodo"><span class="nav-number">3.3.1.</span> <span class="nav-text"> 设计Accessor(TODO)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立连接"><span class="nav-number">3.3.2.</span> <span class="nav-text"> 建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务支持"><span class="nav-number">3.3.3.</span> <span class="nav-text"> 事务支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型变化"><span class="nav-number">3.3.4.</span> <span class="nav-text"> 模型变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能选项"><span class="nav-number">3.3.5.</span> <span class="nav-text"> 性能选项</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/12/19/Berkeley_DB.html';
+          this.page.identifier = '2013/12/19/Berkeley_DB.html';
+          this.page.title = '使用Oracle Berkeley DB持久化股票行情数据';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

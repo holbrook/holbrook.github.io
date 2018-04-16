@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SOA,FUSE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JBoss Fuse：企业级ESB 我没写错，就是“企业级ESB”。尽管“ESB”是“企业服务总线“的缩写，但确实有些”所谓的ESB“并不具备企业级特性。 比如MuleCE，甚至MuleEE。 JBoss Fuse具备了一个企业级平台所需要的特性：  除了实现基本的ESB功能外，JBoss Fuse还提供了IDE、管理和监控、集群支持等特性。这是一个产品进入企业级领域不可或缺的特性。 与Ora">
+<meta name="keywords" content="SOA,FUSE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JBOSS FUSE:你必须知道的那些事">
+<meta property="og:url" content="http://holbrook.github.io/2014/01/20/about_fuse_esb.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="JBoss Fuse：企业级ESB 我没写错，就是“企业级ESB”。尽管“ESB”是“企业服务总线“的缩写，但确实有些”所谓的ESB“并不具备企业级特性。 比如MuleCE，甚至MuleEE。 JBoss Fuse具备了一个企业级平台所需要的特性：  除了实现基本的ESB功能外，JBoss Fuse还提供了IDE、管理和监控、集群支持等特性。这是一个产品进入企业级领域不可或缺的特性。 与Ora">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/about_fuse.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/history.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/fuse.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/servicemix_karaf.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/spring-osgi-model.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/activemq.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/Karaf.jpg">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/fabric-diagram.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/osgi.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/jax-ws.gif">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/jbi_3_parts.gif">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JBOSS FUSE:你必须知道的那些事">
+<meta name="twitter:description" content="JBoss Fuse：企业级ESB 我没写错，就是“企业级ESB”。尽管“ESB”是“企业服务总线“的缩写，但确实有些”所谓的ESB“并不具备企业级特性。 比如MuleCE，甚至MuleEE。 JBoss Fuse具备了一个企业级平台所需要的特性：  除了实现基本的ESB功能外，JBoss Fuse还提供了IDE、管理和监控、集群支持等特性。这是一个产品进入企业级领域不可或缺的特性。 与Ora">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/01/20/about_fuse_esb/about_fuse.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/01/20/about_fuse_esb.html"/>
+
+
+
+
+
+  <title>JBOSS FUSE:你必须知道的那些事 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/20/about_fuse_esb.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JBOSS FUSE:你必须知道的那些事</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-20T00:00:00+08:00">
+                2014-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/01/20/about_fuse_esb.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/01/20/about_fuse_esb.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/2014/01/20/about_fuse_esb/about_fuse.png">
+<h1 id="jboss-fuse企业级esb"><a class="markdownIt-Anchor" href="#jboss-fuse企业级esb"></a> JBoss Fuse：企业级ESB</h1>
+<p>我没写错，就是“企业级ESB”。尽管“ESB”是“企业服务总线“的缩写，但确实有些”所谓的ESB“并不具备企业级特性。</p>
+<p>比如MuleCE，甚至MuleEE。</p>
+<p><a href="http://www.jboss.org/products/fuse" target="_blank" rel="noopener">JBoss Fuse</a>具备了一个企业级平台所需要的特性：</p>
+
+<p>除了实现基本的ESB功能外，JBoss Fuse还提供了IDE、管理和监控、集群支持等特性。这是一个产品进入企业级领域不可或缺的特性。</p>
+<p>与Oracle Fusion、Mule ESB、Talend Unified Platform、WSO2 Platform等一样，JBoss Fuse也是一款商业的ESB产品。</p>
+<p>JBoss Fuse由大量成熟的开源软件组合而成，包括但不仅限于：</p>
+<ul>
+<li>JBoss Fuse
+<ul>
+<li>Apache ServiceMix
+<ul>
+<li>Apache CXF</li>
+<li>Apache Camel</li>
+<li>Apache ActiveMQ</li>
+<li>SpringDM</li>
+</ul>
+<ul>
+<li>Karaf</li>
+</ul>
+<ul>
+<li>BluePrint</li>
+</ul>
+</li>
+<li>Fuse Fabric</li>
+<li>HawtIO</li>
+</ul>
+</li>
+</ul>
+<p>可以说，Fuse使用的这些开源软件是历史的选择，经过长达8年的时间，融合了最广泛使用的同类产品，最终成为一个整体的ESB平台：</p>
+<img src="/2014/01/20/about_fuse_esb/history.png">
+<h1 id="apache-servicemix"><a class="markdownIt-Anchor" href="#apache-servicemix"></a> Apache ServiceMix</h1>
+<p>尽管JBoss Fuse官方有意无意的避免提及ServiceMix，比如这张图：</p>
+<img src="/2014/01/20/about_fuse_esb/fuse.png">
+<p>和这段文字：</p>
+<pre><code>&quot;JBoss Fuse combines core Enterprise Service Bus capabilities (based on Apache Camel, Apache CXF, Apache ActiveMQ), Apache Karaf and Fuse Fabric in a single integrated distribution.&quot;
+</code></pre>
+<p>但是<a href="http://servicemix.apache.org/" target="_blank" rel="noopener">Apache ServiceMix</a>确实是Fuse中最核心的组成部分，实现了ESB的核心功能。</p>
+<pre><code>”Apache ServiceMix is a flexible, open-source integration container that unifies the features and functionality of Apache ActiveMQ, Camel, CXF, ODE, Karaf into a powerful runtime platform you can use to build your own integrations solutions. It provides a complete, enterprise ready ESB exclusively powered by OSGi.“
+</code></pre>
+<p>ServiceMix是一个开源的ESB，使用Apache CXF发布服务，使用Apache Camel实现路由，使用Apache ActiveMQ实现可靠的消息传输。<br>
+ServiceMix使用OSGi将上述这些组件整合到一起，并使用Apache Karaf作为OSGi容器。</p>
+<img src="/2014/01/20/about_fuse_esb/servicemix_karaf.png">
+<h1 id="apache-cxf"><a class="markdownIt-Anchor" href="#apache-cxf"></a> Apache CXF</h1>
+<p><a href="http://cxf.apache.org/" target="_blank" rel="noopener">Apache CXF</a>已经成了Java发布WebService的事实标准。</p>
+<p>CXF 继承了 Celtix 和 XFire 两大开源项目的精华，提供了对 JAX-WS 和 JAX-RS 全面的支持，并且提供了多种 Binding 、DataBinding、Transport 以及各种 Format 的支持，并且可以根据实际项目的需要，采用代码优先（Code First）或者 WSDL 优先（WSDL First）来轻松地实现 Web Services 的发布和使用。</p>
+<p>关于使用Fuse发布Web Service，可以参考：<a href="/2014/01/23/develop_a_fuse_webservice.html">《JBoss Fuse: 开发和部署Web Service》</a>。</p>
+<h1 id="apache-camel"><a class="markdownIt-Anchor" href="#apache-camel"></a> Apache Camel</h1>
+<p>Apache Camel基于规则路由和中介引擎实现了<a href="http://camel.apache.org/enterprise-integration-patterns.html" target="_blank" rel="noopener">企业集成模式(EIP,Enterprise Integration Patterns)</a><br>
+，可以基于POJO定义路由配置和中介的规则，不需要大量的XML配置文件。</p>
+<p>Camel基于OSGi框架并使用依赖注入。支持Blueprint或Spring DM作为OSGi的依赖注入的框架。</p>
+<p>这里有关于Camel的介绍：<a href="/2014/02/10/apache_camel.html">《Camel的核心概念》</a>。</p>
+<h1 id="apache-aries-blueprint"><a class="markdownIt-Anchor" href="#apache-aries-blueprint"></a> Apache Aries Blueprint</h1>
+<p>有一些项目致力于将OSGi引入到企业级应用环境，比如<a href="http://aries.apache.org/" target="_blank" rel="noopener">Apache Aries</a>和<a href="http://www.eclipse.org/gemini/" target="_blank" rel="noopener">Eclipse Gemini</a>，基于OSGi架构，实现企业应用所需的事务管理(JTA)、命名服务(JNDI)、持久化标准(JPA)、<br>
+管理模型(JMX)等功能。</p>
+<p>其中，为了解决企业级应用开发所习惯的依赖注入，这些项目都实现了OSGi R4.2中规定了Blueprint标准。<br>
+也就是说，<a href="/2014/01/22/osgi_blueprint_container.html">Blueprint是OSGi中的依赖注入规范</a>。<br>
+Apache Aries项目中对应的产品就是<a href="http://aries.apache.org/modules/blueprint.html" target="_blank" rel="noopener">Aries Blueprint</a>。</p>
+<h1 id="spring-dm"><a class="markdownIt-Anchor" href="#spring-dm"></a> Spring DM</h1>
+<p><a href="http://docs.spring.io/osgi/docs/current/reference/html/" target="_blank" rel="noopener">Spring DM(Spring Dynamic Modules)</a>，其目标是使得用Spring开发的应用能够在OSGi容器中运行。Spring DM设计的Spring应用与OSGi平台的关系如下图：</p>
+<img src="/2014/01/20/about_fuse_esb/spring-osgi-model.png">
+<p>将应用模块封装为OSGi bundle时，需要将该应用的Spring装配文件放置到jar包的<code>META-INF/spring/</code>目录下。<br>
+该装配文件除了传统的<code>bean</code>配置外，还可以配置<code>osgi:service</code>，以引用或发布OSGi服务。</p>
+<p>也可以在<code>MANIFEST.MF</code>中用<code>Spring-Context</code>参数进行指定。比如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Spring-<span class="string">Context:</span> config<span class="regexp">/applicationContext.xml, config/</span>beans-security.xml</span><br><span class="line">Spring-<span class="string">Context:</span> *;create-asynchronously=<span class="literal">false</span></span><br><span class="line">Spring-<span class="string">Context:</span> config/osgi-*.xml;wait-<span class="keyword">for</span>-<span class="string">dependencies:</span>=<span class="literal">false</span></span><br><span class="line">Spring-<span class="string">Context:</span> *;<span class="string">timeout:</span>=<span class="number">60</span></span><br><span class="line">Spring-<span class="string">Context:</span> *;publish-<span class="string">context:</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>Spring DM提供了<code>spring-osgi-annotation</code>,<code>spring-osgi-core</code>,<code>spring-osgi-io</code>,<code>spring-osgi-extender</code>等bundle，可以部署到OSGi容器中。</p>
+<p>其中，<code>spring-osgi-extender</code>会创建OSGi容器中的“Spring Application Context”，并监听OSGi容器的事件。当有新的bundle部署时，<code>spring-osgi-extender</code>会检查该bundle是否包含<code>Spring-Context</code>或者<code>META-INF/spring/</code>中的装配文件。如果有，则将其视为“spring bundle”，会根据装配文件进行bean的组装，当需要引用或发布OSGi服务时，<code>spring-osgi-extender</code>会调用OSGi框架中相应的方法。<br>
+最后，将bean加入到Application Context中。</p>
+<p>Spring DM与Blueprint的功能非常类似，实际上，先有Spring DM，然后才有Blueprint。尽管Spring DM项目已经停止了，但是<br>
+为了适应“遗留系统”，在ServiceMix中依然集成了SpringDM。</p>
+<h1 id="apache-activemq"><a class="markdownIt-Anchor" href="#apache-activemq"></a> Apache ActiveMQ</h1>
+<p><a href="http://activemq.apache.org/" target="_blank" rel="noopener">Apache ActiveMQ</a>是老牌的开源MQ软件，支持JMS 1.1和2.0，支持集群和容错(Fault Tolerance)，可以实现发布/定义、点对点、分组、流等消息传递模式，提供了高可用(HA)和负载均衡机制。</p>
+<p>本来差点被<a href="">RabbitMQ</a>强了位置，但是ActiveMQ迅速支持了AMQP 1.0，估计其地位还会稳固相当一段时间。</p>
+<img src="/2014/01/20/about_fuse_esb/activemq.png">
+<h1 id="apache-karaf"><a class="markdownIt-Anchor" href="#apache-karaf"></a> Apache Karaf</h1>
+<p><a href="http://karaf.apache.org/" target="_blank" rel="noopener">Apache Karaf</a>是一个轻量级的OSGi容器，使用Apache Felix作为OSGi运行时，提供控制台、日志、热部署、依赖注入等功能。</p>
+<img src="/2014/01/20/about_fuse_esb/Karaf.jpg">
+<p>虽然Equinox与Felix可以单独使用，但Karaf旨在结合这两个框架出色的OSGi功能，并且保证其开箱即用。<br>
+比如说，它包含了一个可配置的日志系统（基于Log4J，但针对众多通用的日志系统进行了包装）、通过SSH实现的远程访问、通过ConfigAdmin进行配置以及内建的JAAS支持。不仅如此，Karaf还安装了Pax URL的MVN协议，这样就可以从Maven中央仓库（在必要的情况下会自动将其包装为bundle）安装bundle了。</p>
+<p>此外，Karaf还提出了特性的概念，所谓特性就是bundle的集合，能以组的形式安装到运行着的OSGi运行时当中。特性包含了对obr、jetty以及spring的支持，做到了开箱即用。这样，如果需要安装多个bundle，但这些bundle之间并没有严格的运行期依赖，那么这种支持就可以大大简化这种情况。在迁移到Apache Felix项目中前Karaf是ServiceMix Kernel，并且最终成为了Apache的顶级项目。Karaf还加入到了其他框架当中，如Eclipse Virgo和EclipseRT packages，提供了预先配置的框架与好用的OSGi bundle，这样在上手使用OSGi运行时时就会比以往更加简单。</p>
+<p>Karaf已经被诸多Apache项目作为基础容器,比如Apache Geronimo, Apache ServiceMix, Fuse ESB等。</p>
+<h1 id="felix和equinox"><a class="markdownIt-Anchor" href="#felix和equinox"></a> Felix和Equinox</h1>
+<p>OSGi运行时(runtime)的几个实现中，<a href="http://www.knopflerfish.org/" target="_blank" rel="noopener"></a>的推广度程度不高，<a href="http://www.infoq.com/cn/news/2012/11/spring-osgi-gradle" target="_blank" rel="noopener">SpringDM已经被放弃</a>。</p>
+<p><a href="http://www.eclipse.org/equinox/" target="_blank" rel="noopener">Equinox</a>跟随Eclipse大放光彩之后，却很难进入企业级应用领域。<br>
+而<a href="http://felix.apache.org/" target="_blank" rel="noopener">Felix</a>无论是从自身表现还是推广程度来看，可以说前景非常良好。</p>
+<h1 id="fuse-fabric"><a class="markdownIt-Anchor" href="#fuse-fabric"></a> Fuse Fabric</h1>
+<p>由于Fuse基于大量的开源项目，要实现配置管理、集群以及部署就变得非常复杂。</p>
+<p><a href="http://fuse.fusesource.org/fabric/" target="_blank" rel="noopener">Fuse Fabric</a>是一个开源的集成平台(iPaaS)，能够简化部署和变更管理等工作。</p>
+<p>Fabirc基于Apache ZooKeeper建立了一个注册中心，利用git的分布式版本控制管理部署描述符(profiles)，对各个容器进行管理，包括<br>
+变更管理、滚动升级以及版本回退。</p>
+<img src="/2014/01/20/about_fuse_esb/fabric-diagram.png">
+<p>Fuse Fabric支持对Fuse ESB, Fuse MQ, Apache ActiveMQ, Camel, CXF, Karaf, ServiceMix等软件的管理。</p>
+<h1 id="apache-zookeeper"><a class="markdownIt-Anchor" href="#apache-zookeeper"></a> Apache ZooKeeper</h1>
+<p><a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Apache Zookeeper</a>，是Apache Hadoop 的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题，如：统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等。通常，ZoopKeeper被用于配置文件的管理、集群管理、同步锁、Leader 选举、队列管理等。</p>
+<h1 id="hawtio"><a class="markdownIt-Anchor" href="#hawtio"></a> HawtIO</h1>
+<p><a href="http://hawt.io/" target="_blank" rel="noopener">Hawt IO</a> 是一个基于HTML5的Web控制台，可以通过配置和使用<a href="http://hawt.io/plugins/index.html" target="_blank" rel="noopener">大量的插件</a>管理基于Java的应用或平台。Hawt IO自带的插件包括基于git的Dashboard, Wiki, 日志, 健康状态, JMX, OSGi, Apache ActiveMQ, Apache Camel, Apache OpenEJB, Apache Tomcat, Jetty, JBoss, Fuse Fabric等，也可以很容易开发自己的插件。</p>
+<p>新版本的ActiveMQ、Fuse等都使用HawtIO作为管理控制台。</p>
+<p>HawtIO的目标是：”为每一个JVM提供一个基于Web的控制台“。</p>
+<h1 id="标准和规范"><a class="markdownIt-Anchor" href="#标准和规范"></a> 标准和规范</h1>
+<h2 id="osgi"><a class="markdownIt-Anchor" href="#osgi"></a> OSGi</h2>
+<p>[OSGi(Open Services Gateway initiative)](<a href="http://www.osgi.org/Main/HomePage%E6%98%AF%E4%B8%80%E4%B8%AA%E6%A0%87%E5%87%86%EF%BC%8C" target="_blank" rel="noopener">http://www.osgi.org/Main/HomePage是一个标准，</a><br>
+致力于为Java提供一个模块化的底层环境，以及一系列通用的服务(Service）。</p>
+<p>和普通的JVM程序相比，OSGi的程序天生拥有动态模块的特点，不同的模块(OSGi里称之为Bundle)有着独立的生命周期，可以独立进行安装、启动、停止、卸载的操作，模块间的依赖性管理也由OSGi提供。</p>
+<p>OSGi非常适合需要进行Plugin管理的项目，一个典型的成功案例就是Eclipse和它众多的Plugin。OSGi标准还规范了一系列我们常间的操作，日志、配置文件、事件队列、Web开发、JPA&amp;JDBC等等，大部分部署OSGi标准的框架都提供了这些服务。</p>
+<img src="/2014/01/20/about_fuse_esb/osgi.png">
+<h2 id="jaxws-jaxb-sax"><a class="markdownIt-Anchor" href="#jaxws-jaxb-sax"></a> JAX‐WS, JAXB, SAX</h2>
+<p><a href="https://jcp.org/en/jsr/detail?id=224" target="_blank" rel="noopener">JSR 224: JAX-WS (Java API for XML-Based Web Services)</a>，一组XML web services的JAVA API规范，允许开发者选择RPC-oriented或者message-oriented 来实现自己的web services。</p>
+<p>JAX-WS使用<a href="https://jcp.org/en/jsr/detail?id=222" target="_blank" rel="noopener">JSR 222: JAXB(Java Architecture for XML Binding)</a>作为绑定的规范，使用<a href="https://jcp.org/en/jsr/detail?id=173" target="_blank" rel="noopener">JSR 173: SAX(Streaming API for XML)</a>作为XML解析的规范。Java EE 6 引入了对 JAX-WS 的支持。</p>
+<img src="/2014/01/20/about_fuse_esb/jax-ws.gif">
+<h2 id="jaxrs"><a class="markdownIt-Anchor" href="#jaxrs"></a> JAX‐RS</h2>
+<p><a href="https://jcp.org/en/jsr/detail?id=311" target="_blank" rel="noopener">JSR 311: JAX-RS(The Java API for RESTful Web Services)</a>,定义一个统一的规范，使得 Java 程序员可以使用一套固定的接口来开发 REST 应用，避免了依赖于第三方框架。同时，JAX-RS 使用 POJO 编程模型和基于标注的配置，并集成了 JAXB，从而可以有效缩短 REST 应用的开发周期。<br>
+Java EE 6 引入了对 JAX‐RS  的支持。</p>
+<h2 id="blueprint"><a class="markdownIt-Anchor" href="#blueprint"></a> Blueprint</h2>
+<p>Blueprint提供了一个针对OSGi的依赖注入的框架，通过XML文件定义和描述各种元件组的装配。</p>
+<p>OSGi R4.2对Blueprint进行了标准化。</p>
+<p>目前主要有Apache Aries和Eclipse Gemini两个实现。</p>
+<h2 id="eip"><a class="markdownIt-Anchor" href="#eip"></a> EIP</h2>
+<p><a href="http://www.enterpriseintegrationpatterns.com/" target="_blank" rel="noopener">EIP(Enterprise Integration Patterns)</a>，企业整合模式。</p>
+<h2 id="jbitodo"><a class="markdownIt-Anchor" href="#jbitodo"></a> JBI(TODO)</h2>
+<p><a href="https://jcp.org/en/jsr/detail?id=208" target="_blank" rel="noopener">JSR 208: JBI(Java Business Integration)</a>是一种SOA的组件整合标准模型。</p>
+<p>SOA在Java领域有两套标准：</p>
+<ul>
+<li>商业的SCA和SDO标准，由IBM和BEA等公司推出。其中SCA实现了业务组件和传输协议的分离，可以处理各种平台组件的集成；SDO可以的自由读取各种不同数据源的数据。</li>
+<li>JSR组织的JBI标准，由SUN最早推出，但是没有得到BEA和IBM的承认。JBI只关注Java组件的集成。</li>
+</ul>
+<p>JBI容器由三部分组成：</p>
+<img src="/2014/01/20/about_fuse_esb/jbi_3_parts.gif">
+<ul>
+<li>
+<p>BC(Binding Components)</p>
+<p>绑定组件用于接收各种不同传输协议的请求。可以细分为接收BC和发送BC：接收BC主要负责发送请求和接收响应，发送BC主要用来调用外部的服务。</p>
+</li>
+<li>
+<p>SE(Service Engines)</p>
+<p>服务引擎处理JBI容器内部的消息。JBI容器通常在接收到消息后，需要对请求的消息做一些“处理”，然后再调用外部服务的提供者。根据功能的不同，将SE组件分为以下三种类型：</p>
+<ul>
+<li>Transform SE：处理各种传输协议和格式变化</li>
+<li>BPEL SE：将Web Service进行流程编排</li>
+<li>Rules SE：按照规则将各种服务进行集成</li>
+</ul>
+</li>
+<li>
+<p>NMB(Normalized Message Router)</p>
+<p>规格化消息路由器是JBI内部消息系统的核心，所有的组建之间不能交换消息，只能通过NMR来传递。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SOA/" rel="tag"># SOA</a>
+          
+            <a href="/tags/FUSE/" rel="tag"># FUSE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/18/swt_jfreechart_candlestick.html" rel="next" title="在SWT中用JFreeChart实现K线图">
+                <i class="fa fa-chevron-left"></i> 在SWT中用JFreeChart实现K线图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/21/tycho_vs_maven_bundle_plugin.html" rel="prev" title="OSGi构建工具：Tycho还是Maven-Bundle-Plugin？">
+                OSGi构建工具：Tycho还是Maven-Bundle-Plugin？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jboss-fuse企业级esb"><span class="nav-number">1.</span> <span class="nav-text"> JBoss Fuse：企业级ESB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-servicemix"><span class="nav-number">2.</span> <span class="nav-text"> Apache ServiceMix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-cxf"><span class="nav-number">3.</span> <span class="nav-text"> Apache CXF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-camel"><span class="nav-number">4.</span> <span class="nav-text"> Apache Camel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-aries-blueprint"><span class="nav-number">5.</span> <span class="nav-text"> Apache Aries Blueprint</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring-dm"><span class="nav-number">6.</span> <span class="nav-text"> Spring DM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-activemq"><span class="nav-number">7.</span> <span class="nav-text"> Apache ActiveMQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-karaf"><span class="nav-number">8.</span> <span class="nav-text"> Apache Karaf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#felix和equinox"><span class="nav-number">9.</span> <span class="nav-text"> Felix和Equinox</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fuse-fabric"><span class="nav-number">10.</span> <span class="nav-text"> Fuse Fabric</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-zookeeper"><span class="nav-number">11.</span> <span class="nav-text"> Apache ZooKeeper</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hawtio"><span class="nav-number">12.</span> <span class="nav-text"> HawtIO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标准和规范"><span class="nav-number">13.</span> <span class="nav-text"> 标准和规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#osgi"><span class="nav-number">13.1.</span> <span class="nav-text"> OSGi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jaxws-jaxb-sax"><span class="nav-number">13.2.</span> <span class="nav-text"> JAX‐WS, JAXB, SAX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jaxrs"><span class="nav-number">13.3.</span> <span class="nav-text"> JAX‐RS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#blueprint"><span class="nav-number">13.4.</span> <span class="nav-text"> Blueprint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eip"><span class="nav-number">13.5.</span> <span class="nav-text"> EIP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jbitodo"><span class="nav-number">13.6.</span> <span class="nav-text"> JBI(TODO)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/01/20/about_fuse_esb.html';
+          this.page.identifier = '2014/01/20/about_fuse_esb.html';
+          this.page.title = 'JBOSS FUSE:你必须知道的那些事';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

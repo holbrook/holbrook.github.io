@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vim," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="从emacs切换回vim 以前在博客园时，用emacs org-mode 写博客，并且写了一系列《emacs 学习笔记》。 emacs 和 org-mode 的强大毋庸置疑，但是经过1年多的使用，还是有些不适应：   小手指很受伤。   过于依赖配置。 由于我的工作要经常登录到linux服务器进行操作，这就带来了一个问题： 服务器上的emacs在不配置的情况下几乎无法使用，但是在服务器上使用vim">
+<meta name="keywords" content="vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重拾vim">
+<meta property="og:url" content="http://holbrook.github.io/2013/05/23/vim_addon_manager.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="从emacs切换回vim 以前在博客园时，用emacs org-mode 写博客，并且写了一系列《emacs 学习笔记》。 emacs 和 org-mode 的强大毋庸置疑，但是经过1年多的使用，还是有些不适应：   小手指很受伤。   过于依赖配置。 由于我的工作要经常登录到linux服务器进行操作，这就带来了一个问题： 服务器上的emacs在不配置的情况下几乎无法使用，但是在服务器上使用vim">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/05/23/vim_addon_manager/vi-vim-cheat-sheet.gif">
+<meta property="og:image" content="http://holbrook.github.io/2013/05/23/vim_addon_manager/vi-vim-cheat-sheet-sch.gif">
+<meta property="og:image" content="http://holbrook.github.io/2013/05/23/vim_addon_manager/vi-vim_cheat_sheet_dark.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重拾vim">
+<meta name="twitter:description" content="从emacs切换回vim 以前在博客园时，用emacs org-mode 写博客，并且写了一系列《emacs 学习笔记》。 emacs 和 org-mode 的强大毋庸置疑，但是经过1年多的使用，还是有些不适应：   小手指很受伤。   过于依赖配置。 由于我的工作要经常登录到linux服务器进行操作，这就带来了一个问题： 服务器上的emacs在不配置的情况下几乎无法使用，但是在服务器上使用vim">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/05/23/vim_addon_manager/vi-vim-cheat-sheet.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/05/23/vim_addon_manager.html"/>
+
+
+
+
+
+  <title>重拾vim | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/05/23/vim_addon_manager.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">重拾vim</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-23T00:00:00+08:00">
+                2013-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/方法工具/" itemprop="url" rel="index">
+                    <span itemprop="name">方法工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/05/23/vim_addon_manager.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/05/23/vim_addon_manager.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从emacs切换回vim</p>
+<p>以前在<a href="http://www.cnblogs.com/holbrook/" title="心内求法" target="_blank" rel="noopener">博客园</a>时，用<a href="http://www.cnblogs.com/holbrook/archive/2012/04/12/2444992.html" title="Emacs学习笔记(9):org-mode，最好的文档编辑利器，没有之一" target="_blank" rel="noopener">emacs org-mode</a> 写博客，并且写了一系列<a href="http://www.cnblogs.com/holbrook/tag/emacs/" title="emacs 学习笔记" target="_blank" rel="noopener">《emacs 学习笔记》</a>。<br>
+emacs 和 org-mode 的强大毋庸置疑，但是经过1年多的使用，还是有些不适应：</p>
+<ol>
+<li>
+<p>小手指很受伤。</p>
+</li>
+<li>
+<p>过于依赖配置。</p>
+<p>由于我的工作要经常登录到linux服务器进行操作，这就带来了一个问题：<br>
+服务器上的emacs在不配置的情况下几乎无法使用，但是在服务器上使用vim，又不符合手指中记忆的快捷键。</p>
+</li>
+<li>
+<p>emacs有点重，比如不得不使用的ecb,cedet,jdee等等，都是大块头。</p>
+</li>
+<li>
+<p>我还没有做好准备去掌握Erlang语言。但是对于vim，我可以使用我喜欢的python去写插件。</p>
+</li>
+</ol>
+<p>经过艰难的取舍，还是决定在个人工作领域也回到vim。保护手指，保护大脑。</p>
+<h1 id="插件管理器vundle"><a class="markdownIt-Anchor" href="#插件管理器vundle"></a> 插件管理器(Vundle)</h1>
+<p>重新关注vim后，首先发现了一系列插件管理器。主要有：</p>
+<ol>
+<li><a href="https://github.com/gmarik/vundle" target="_blank" rel="noopener">Vundle</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2905" target="_blank" rel="noopener">vim-addon-manager</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2332" target="_blank" rel="noopener">pathogen.vim</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=3458" target="_blank" rel="noopener">vvundle</a></li>
+<li><a href="https://github.com/c9s/Vimana" target="_blank" rel="noopener">vvimana</a></li>
+</ol>
+<p>经过简单的比较，我选择了Vundle。这里不想对上述插件管理器做一个完整的对比，只是简单说一个我看中的Vundle的特点：</p>
+<ol>
+<li>只需要维护需要的插件列表就可以统一安装，同样，复制环境时也只需要复制一个文件(.vimrc)</li>
+<li>支持git更新</li>
+<li>支持插件搜索功能</li>
+<li>自动管理插件依赖关系</li>
+</ol>
+<h2 id="安装vundle"><a class="markdownIt-Anchor" href="#安装vundle"></a> 安装Vundle</h2>
+<p>安装Vundle只需要一条命令：</p>
+<p>$git clone <a href="https://github.com/gmarik/vundle.git" target="_blank" rel="noopener">https://github.com/gmarik/vundle.git</a> ~/.vim/bundle/vundle</p>
+<p>如果你使用git管理vim配置，还可以使用git submodule：</p>
+<pre><code>git submodule add https://github.com/gmarik/vundle.git vim/bundle/vundle
+</code></pre>
+<p>会在.gitmodule中增加如下配置：</p>
+<pre><code>[submodule &quot;vim/bundle/vundle&quot;]
+    path = vim/bundle/vundle
+    url = https://github.com/gmarik/vundle.git
+</code></pre>
+<p>之后运行git命令：</p>
+<pre><code>git submodule init
+git submodule update
+</code></pre>
+<p>即可。</p>
+<h2 id="配置插件"><a class="markdownIt-Anchor" href="#配置插件"></a> 配置插件</h2>
+<p>在.vimrc中配置需要的插件，作者给出了一个例子：</p>
+<pre><code>set nocompatible               &quot; be iMproved
+filetype off                   &quot; required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+
+&quot; let Vundle manage Vundle
+&quot; required!
+Bundle 'gmarik/vundle'
+
+
+&quot; My Bundles here:
+&quot;
+&quot; original repos on github
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'tpope/vim-rails.git'
+&quot; vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+&quot; non github repos
+Bundle 'git://git.wincent.com/command-t.git'
+&quot; ...
+</code></pre>
+<p>注意：</p>
+<ol>
+<li>对于重名的Vim插件，需要在插件后面加上作者的姓氏， 比如 Bundle ‘Javascript-Indentation’</li>
+<li>对于插件名称中包含空格和斜杠的情况， 需要将空格和斜杠替换为 -</li>
+</ol>
+<h2 id="安装插件"><a class="markdownIt-Anchor" href="#安装插件"></a> 安装插件</h2>
+<p>只需要在启动vim后，运行命令：</p>
+<pre><code>:BundleInstall
+</code></pre>
+<p>Vbundle就会自动安装或更新前面配置好的插件</p>
+<h2 id="其他操作"><a class="markdownIt-Anchor" href="#其他操作"></a> 其他操作</h2>
+<p>使用帮助：</p>
+<pre><code>:h vundle
+</code></pre>
+<p>查看插件清单：</p>
+<pre><code>:BundleList
+</code></pre>
+<p>搜索插件：</p>
+<pre><code>:BundleSearch markdown
+</code></pre>
+<p>清理不用的插件：</p>
+<pre><code>:BundleClean
+#或者
+:BundleClean markdown
+</code></pre>
+<h1 id="必备插件todo"><a class="markdownIt-Anchor" href="#必备插件todo"></a> 必备插件（TODO）</h1>
+<p>下面是我使用的一些vim插件，直接在.vimrc中配置。可以在 <a href="https://github.com/holbrook/macENV/blob/master/vimrc" target="_blank" rel="noopener">github</a> 查看。</p>
+<h2 id="编辑器增强"><a class="markdownIt-Anchor" href="#编辑器增强"></a> 编辑器增强</h2>
+<ul>
+<li>
+<p><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="noopener">NERDTree</a>（Bundle ‘The-NERD-tree’）可以在窗口左侧打开文件浏览器</p>
+</li>
+<li>
+<p>Bundle ‘vim-orgmode’</p>
+</li>
+<li>
+<p>Bundle ‘winmanager’</p>
+</li>
+<li>
+<p>Bundle ‘SuperTab’</p>
+</li>
+</ul>
+<h2 id="语法高亮"><a class="markdownIt-Anchor" href="#语法高亮"></a> 语法高亮</h2>
+<ul>
+<li>Markdown（Bundle ‘Markdown’） markdown文件的语法高亮</li>
+</ul>
+<h1 id="vim基本操作"><a class="markdownIt-Anchor" href="#vim基本操作"></a> vim基本操作</h1>
+<p>以前整理过一个 <a href="http://www.cnblogs.com/holbrook/archive/2009/05/13/2357377.html" target="_blank" rel="noopener">vim 常用命令备忘</a>, 如下：</p>
+<p><a href="images/2013/vim_addon_manager/vim_cheet_sheet.xlsx">vim_cheet_sheet.xlsx</a></p>
+<p>别人的一个更详细的版本：</p>
+<p><a href="images/2013/vim_addon_manager/vi-vim-cheat-sheet-list.png">vi-vim-cheat-sheet-list</a></p>
+<p>如果已经有一定的基础，还可以使用vim cheat sheet。下面的图分别可以用于打印版或者桌面背景。</p>
+<img src="/2013/05/23/vim_addon_manager/vi-vim-cheat-sheet.gif" title="打印版，Eng">
+<img src="/2013/05/23/vim_addon_manager/vi-vim-cheat-sheet-sch.gif" title="打印版，Chs">
+<img src="/2013/05/23/vim_addon_manager/vi-vim_cheat_sheet_dark.png" title="桌面版，Eng">
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim/" rel="tag"># vim</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/05/19/statistics_intro_2.html" rel="next" title="《统计学》读书笔记(2/17:数据的收集)">
+                <i class="fa fa-chevron-left"></i> 《统计学》读书笔记(2/17:数据的收集)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/05/27/nginx_keepalived.html" rel="prev" title="用nginX+keepalived实现高可用的负载均衡">
+                用nginX+keepalived实现高可用的负载均衡 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#插件管理器vundle"><span class="nav-number">1.</span> <span class="nav-text"> 插件管理器(Vundle)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装vundle"><span class="nav-number">1.1.</span> <span class="nav-text"> 安装Vundle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置插件"><span class="nav-number">1.2.</span> <span class="nav-text"> 配置插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-number">1.3.</span> <span class="nav-text"> 安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他操作"><span class="nav-number">1.4.</span> <span class="nav-text"> 其他操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#必备插件todo"><span class="nav-number">2.</span> <span class="nav-text"> 必备插件（TODO）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑器增强"><span class="nav-number">2.1.</span> <span class="nav-text"> 编辑器增强</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法高亮"><span class="nav-number">2.2.</span> <span class="nav-text"> 语法高亮</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim基本操作"><span class="nav-number">3.</span> <span class="nav-text"> vim基本操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/05/23/vim_addon_manager.html';
+          this.page.identifier = '2013/05/23/vim_addon_manager.html';
+          this.page.title = '重拾vim';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

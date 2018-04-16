@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="scrum,git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="用scrum管理开发时，如何规划git的分支。">
+<meta name="keywords" content="scrum,git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrum和分支管理策略">
+<meta property="og:url" content="http://holbrook.github.io/2015/05/05/git_branch_within_scrum.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="用scrum管理开发时，如何规划git的分支。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2015/05/05/git_branch_within_scrum/bigpicture-git-branch-all.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scrum和分支管理策略">
+<meta name="twitter:description" content="用scrum管理开发时，如何规划git的分支。">
+<meta name="twitter:image" content="http://holbrook.github.io/2015/05/05/git_branch_within_scrum/bigpicture-git-branch-all.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2015/05/05/git_branch_within_scrum.html"/>
+
+
+
+
+
+  <title>scrum和分支管理策略 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2015/05/05/git_branch_within_scrum.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">scrum和分支管理策略</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-05-05T00:00:00+08:00">
+                2015-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件工程/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/05/git_branch_within_scrum.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/05/05/git_branch_within_scrum.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>用scrum管理开发时，如何规划git的分支。</p>
+<a id="more"></a>
+<h1 id="scrum回顾"><a class="markdownIt-Anchor" href="#scrum回顾"></a> scrum回顾</h1>
+<h2 id="scrum中的角色划分"><a class="markdownIt-Anchor" href="#scrum中的角色划分"></a> scrum中的角色划分</h2>
+<ul>
+<li>【角色组】pigs(项目参与人员)
+<ul>
+<li>【角色】Scrum master
+<ul>
+<li>【职责】会议主持人：负责主持四个主要的会议：策划会议、每日站立会议、迭代评审会议、迭代回顾会议</li>
+<li>【职责】牧羊犬：负责屏蔽项目组外部的干扰</li>
+<li>【职责】雷锋：帮助product owner确定需求、排定优先级，帮助team做估算、分解任务、完成任务</li>
+<li>【职责】外交官：当项目组外部有人不理解项目组的工作时，他负责去解释说明，负责对外发布项目组的信息</li>
+<li>【职责】教练：指导、培训项目组的成员按照SCRUM的原则、方法做事情，当出现偏差时负责纠正</li>
+<li>【职责】清道夫：负责或协调项目组的其他成员一起，排除在项目进展中遇到的各种障碍</li>
+</ul>
+</li>
+<li>【角色】Product owner
+<ul>
+<li>【职责】领域专家：知道真正需求是什么。他负责编写、维护用户需求</li>
+<li>【职责】需求决策人：决定需求的优先级，产品每次发布需要实现的需求。负责来平衡需求、进度与资源的关系。</li>
+<li>【职责】需求讲师：负责需求含义的讲解和答疑</li>
+<li>【职责】测试员：负责编写每个需求的验收标准，功能测试用例</li>
+<li>【职责】验收人：进行功能测试，进行验收，认可后，确认需求完成</li>
+</ul>
+</li>
+<li>【角色】Team member
+<ul>
+<li>【职责】设计人员：对系统进行简单设计</li>
+<li>【职责】实现人员：负责实现整个系统，并对系统执行单元测试，构建整个系统</li>
+<li>【职责】管理人员：大家一起来估算、一起来选择任务、一起来跟踪进展情况</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>【角色组】chickens(项目外部人员)
+<ul>
+<li>【角色】经理</li>
+<li>【角色】最终用户</li>
+<li>【角色】Scrum master</li>
+</ul>
+</li>
+</ul>
+<h2 id="scrum流程"><a class="markdownIt-Anchor" href="#scrum流程"></a> scrum流程</h2>
+<p>scrum的精髓是两个“队列”：Product Backlog 和 Sprint Backlog。<br>
+在scrumer眼中，需求就是Product<br>
+Backlog中积压的一个个Story（有优先级），Prodcut<br>
+Backlog是动态的，永远处于不完整状态，被持续修订。<br>
+为了完成项目，团队要进行一次次的“冲刺”（sprint)，每次冲刺只前进一小段距离——完成一个或几个Story，甚至只完成一个Story的一部分。</p>
+<p>当完成一个或几个Story后，Product owner可以决定是否要发布一个版本。</p>
+<h1 id="git最佳实践"><a class="markdownIt-Anchor" href="#git最佳实践"></a> git最佳实践</h1>
+<p>在 《A successful Git branching model》中，Vincent Driessen 给出了git<br>
+分支管理的“最佳实践”：</p>
+<img src="/2015/05/05/git_branch_within_scrum/bigpicture-git-branch-all.png">
+<p>其中各个分支的用途如下：</p>
+<ul>
+<li>长期分支
+<ul>
+<li>master<br>
+用于发布正式版本。除了最初版本外，发布分支的版本应该来自develop分支或Hostfix分支。</li>
+<li>develop 用于开发。记录最新的代码。</li>
+</ul>
+</li>
+<li>临时分支
+<ul>
+<li>feature-* 分支<br>
+用于开发新功能。基于develop分支创建，最后合并到develop分支。不同的功能应该创建各自的分支去开发。</li>
+<li>release-* 分支<br>
+用于发布测试版本。经过测试并修复后的版本merge到master分支。</li>
+<li>hotfix-* 分支<br>
+用于开发补丁，补丁完成后要merge到develop分支；如果紧急还可以merge到master分支形成fix版本。</li>
+</ul>
+</li>
+</ul>
+<h1 id="二者的结合"><a class="markdownIt-Anchor" href="#二者的结合"></a> 二者的结合</h1>
+<ol>
+<li>scrum中，要求Product<br>
+Backlog中的每个story要足够小。这天然就可以作为一个分支去开发：feature-*<br>
+或 hotfix-* 分支</li>
+<li>Product Owner 可以决定哪几个story发布一个版本。对应的就是release-*<br>
+分支</li>
+<li>master分支应该归Product<br>
+Owner管理，当版本正式发布时，需要在master分支上标记一个tag</li>
+<li>Team 的协同工作基于develop分支。</li>
+</ol>
+<p>具体的流程如下：</p>
+<ol>
+<li>Sprint planning 会议后，制定sprint backlog，并进行任务分工</li>
+<li>项目成员根据所负责的backlog item的性质，创建分支</li>
+<li>Sprint review 会议后，经过验证的backlog item进行分支合并：
+<ul>
+<li>对于<code>feature-*</code>分支，合并到develop</li>
+<li>对于<code>hotfix-*</code>分支，合并到develop和master分支</li>
+</ul>
+</li>
+<li>如果本次迭代中开发了新功能，要进行发布：
+<ol>
+<li>从合并后的develop分支复制出<code>release-*</code>分支</li>
+<li>进行一系列的发布准备工作，如：bump-version, UAT等</li>
+<li>允许修改，修改仍在<code>release-*</code>分支中进行，最后要同步回develop分支</li>
+<li>最终验证后的版本，同步到master分支；标记tag;正式发布</li>
+</ol>
+</li>
+</ol>
+<h1 id="相关git命令"><a class="markdownIt-Anchor" href="#相关git命令"></a> 相关git命令</h1>
+<h2 id="分支操作"><a class="markdownIt-Anchor" href="#分支操作"></a> 分支操作</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#创建(并切换)分支</span><br><span class="line">git checkout -b TARGET_BRANCH SRC_BRANCH</span><br><span class="line"></span><br><span class="line">#切换分支</span><br><span class="line">git checkout BRANCH</span><br><span class="line"></span><br><span class="line">#合并分支（将SRC_BRANCH合并到TARGET_BRANCH)</span><br><span class="line">git checkout TARGET_BRANCH</span><br><span class="line">git merge --no-ff SRC_BRANCH</span><br><span class="line"></span><br><span class="line">#提交分支</span><br><span class="line">git push origin BRANCH</span><br><span class="line"></span><br><span class="line">#删除分支</span><br><span class="line">git branch -d BRANCH</span><br></pre></td></tr></table></figure>
+<h2 id="tag操作"><a class="markdownIt-Anchor" href="#tag操作"></a> tag操作</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#列出标签</span><br><span class="line">git tag</span><br><span class="line"></span><br><span class="line">#查询标签</span><br><span class="line">git tag -l 通配符</span><br><span class="line"></span><br><span class="line">#创建tag</span><br><span class="line">git tag -a TAG_NAME -m &apos;COMMIT_INFO&apos;</span><br><span class="line">git tag TAG_NAME #创建轻量lightweight标签</span><br><span class="line"></span><br><span class="line">#增加标签</span><br><span class="line">git tag -a TAG_NAME COMMIT_HASH_CODE</span><br><span class="line"></span><br><span class="line">#查看tag信息</span><br><span class="line">git show TAG_NAME</span><br><span class="line"></span><br><span class="line">#提交标签</span><br><span class="line">git push –-tags</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
+<ol>
+<li>白话SCRUM之一：SCRUM 的三个角色<br>
+<a href="http://blog.csdn.net/dylanren/article/details/6939680" target="_blank" rel="noopener">http://blog.csdn.net/dylanren/article/details/6939680</a></li>
+<li>白话SCRUM 之二：product backlog<br>
+<a href="http://blog.csdn.net/dylanren/article/details/7072734" target="_blank" rel="noopener">http://blog.csdn.net/dylanren/article/details/7072734</a></li>
+<li>白话SCRUM 之三：sprint backlog<br>
+<a href="http://blog.csdn.net/dylanren/article/details/7298892" target="_blank" rel="noopener">http://blog.csdn.net/dylanren/article/details/7298892</a></li>
+<li>Scrum 之 product Backlog <a href="http://www.zhoujingen.cn/blog/2767.html" target="_blank" rel="noopener">http://www.zhoujingen.cn/blog/2767.html</a></li>
+<li>阮一峰：Git分支管理策略 <a href="http://blog.jobbole.com/23398/" target="_blank" rel="noopener">http://blog.jobbole.com/23398/</a></li>
+<li>Vincent Driessen：A successful Git branching model<br>
+<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a></li>
+<li>Git 分支管理是一门艺术 <a href="http://blog.jobbole.com/13916/" target="_blank" rel="noopener">http://blog.jobbole.com/13916/</a></li>
+<li>白话SCRUM之五：四种会议<br>
+<a href="http://blog.csdn.net/dylanren/article/details/7344151" target="_blank" rel="noopener">http://blog.csdn.net/dylanren/article/details/7344151</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/scrum/" rel="tag"># scrum</a>
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/04/modern_web_dev_env.html" rel="next" title="搭建一个“现代化”的web开发环境">
+                <i class="fa fa-chevron-left"></i> 搭建一个“现代化”的web开发环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/05/dataology_index.html" rel="prev" title="数据科学的知识体系">
+                数据科学的知识体系 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#scrum回顾"><span class="nav-number">1.</span> <span class="nav-text"> scrum回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scrum中的角色划分"><span class="nav-number">1.1.</span> <span class="nav-text"> scrum中的角色划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrum流程"><span class="nav-number">1.2.</span> <span class="nav-text"> scrum流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git最佳实践"><span class="nav-number">2.</span> <span class="nav-text"> git最佳实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二者的结合"><span class="nav-number">3.</span> <span class="nav-text"> 二者的结合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关git命令"><span class="nav-number">4.</span> <span class="nav-text"> 相关git命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分支操作"><span class="nav-number">4.1.</span> <span class="nav-text"> 分支操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tag操作"><span class="nav-number">4.2.</span> <span class="nav-text"> tag操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2015/05/05/git_branch_within_scrum.html';
+          this.page.identifier = '2015/05/05/git_branch_within_scrum.html';
+          this.page.title = 'scrum和分支管理策略';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

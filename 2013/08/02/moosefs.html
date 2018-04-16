@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cluster,HA,keepalived,DFS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="介绍的DRBD只适合作为应用级的解决方案，不适合作为平台级的分布式文件系统。本文要介绍的MooseFS可以作为存储设备的廉价替代。">
+<meta name="keywords" content="cluster,HA,keepalived,DFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MooseFS：屌丝的存储">
+<meta property="og:url" content="http://holbrook.github.io/2013/08/02/moosefs.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="介绍的DRBD只适合作为应用级的解决方案，不适合作为平台级的分布式文件系统。本文要介绍的MooseFS可以作为存储设备的廉价替代。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/08/02/images/2013/moosefs/moosefs_architecture.png">
+<meta property="og:image" content="http://holbrook.github.io/2013/08/02/images/2013/moosefs/moosefs_write.png">
+<meta property="og:image" content="http://holbrook.github.io/2013/08/02/images/2013/moosefs/moosefs_read.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MooseFS：屌丝的存储">
+<meta name="twitter:description" content="介绍的DRBD只适合作为应用级的解决方案，不适合作为平台级的分布式文件系统。本文要介绍的MooseFS可以作为存储设备的廉价替代。">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/08/02/images/2013/moosefs/moosefs_architecture.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/08/02/moosefs.html"/>
+
+
+
+
+
+  <title>MooseFS：屌丝的存储 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/08/02/moosefs.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MooseFS：屌丝的存储</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-08-02T00:00:00+08:00">
+                2013-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
+                    <span itemprop="name">软件基础设施</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/08/02/moosefs.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/08/02/moosefs.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        介绍的DRBD只适合作为应用级的解决方案，不适合作为平台级的分布式文件系统。本文要介绍的MooseFS可以作为存储设备的廉价替代。
+<a id="more"></a>
+<h1 id="为什么是moosefs"><a class="markdownIt-Anchor" href="#为什么是moosefs"></a> 为什么是MooseFS</h1>
+<p>有很多的分布式文件系统，适合各种不同的应用场合。比如适合存储静态只读小文文件（网站图片）的<a href="https://github.com/mogilefs" target="_blank" rel="noopener">MogileFS</a>,适合批量作业的<a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop HDFS</a>，以及经过商业包装的<a href="https://access.redhat.com/site/documentation/zh-CN/Red_Hat_Enterprise_Linux/6/html/Global_File_System_2/" target="_blank" rel="noopener">RedHat GFS2</a>（有很多限制，比如不能超过16个节点）和<a href="https://oss.oracle.com/projects/ocfs2/" target="_blank" rel="noopener">Oracle OCFS2</a>（GFS的翻版，一般只用于存储oracle数据库文件）等。</p>
+<p>适合作为通用文件系统的产品也不少, 使用较多的有MooseFS，GlusterFS和Lustre。</p>
+<p>尽管MooseFS名气不够牛，没有加入Linux内核，而且Master节点存在单点故障隐患，但我依然选择MooseFS，是出于以下考虑：</p>
+<ul>
+<li>GlusterFS的客户端配置过于复杂</li>
+<li>我不需要GlusterFS那样复杂多样的文件分片机制</li>
+<li>MooseFS的数据冗余足够可靠</li>
+<li>支持自动扩展机制，增加新的节点几乎不需要任何处理</li>
+<li>GlusterFS和Lustre更适合处理大文件，而我要存储大量的小文件</li>
+<li>安装配置简单，官方甚至有<a href="http://www.moosefs.org/tl_files/manpageszip/moosefs-step-by-step-tutorial-cn-v.1.1.pdf" target="_blank" rel="noopener">中文版Step-by-step指南</a></li>
+<li>有web界面，能够满足一般的监控需要</li>
+<li>支持回收站、快照等扩展功能，尽管不是很能用得上</li>
+<li>Master节点的单点故障问题可以通过metalogger配合其他软件解决。</li>
+</ul>
+<p>关于更多的特性对比，可以参考<a href="http://blog.csdn.net/metaxen/article/details/7108958" target="_blank" rel="noopener">这里</a>。</p>
+<h1 id="架构和原理"><a class="markdownIt-Anchor" href="#架构和原理"></a> 架构和原理</h1>
+<p>MooseFS的架构：</p>
+<p><img src="images/2013/moosefs/moosefs_architecture.png" alt="moosefs_architecture"></p>
+<p>MooseFS架构中包含以下4个组成部分：</p>
+<ul>
+<li>管理服务器（master server），管理整个文件系统，存储每个文件的元数据（文件大小，文件属性，文件所在位置的这些信息），包含了所有非规则文件的全部信息，如文件夹，套接字设备，管道设备</li>
+<li>数据服务器（chunk servers），用于存储文件的服务器。一个文件会在这些服务器上存储多份。</li>
+<li>元数据备份服务器（ metalogger servers ）：存储元数据变化日志并周期性的下载元数据文件。在管理服务器故障时通过这些数据可以恢复出一台管理服务器。</li>
+<li>客户端(clients)，访问MooseFS中存储的文件。需要支持FUSE机制的系统才能作为客户端。</li>
+</ul>
+<p>向MooseFS写入文件时，文件被分成64Mb大小的块，每个块被分散的存储在块服务器的硬盘上，同时块服务器上还会存储其他块服务器上块文件的副本。同时，文件的元数据存储在Master的内存及备份服务器的文件系统中。如下图：</p>
+<p><img src="images/2013/moosefs/moosefs_write.png" alt="moosefs_architecture"></p>
+<p>从MooseFS读取文件时，先向master询问文件块的存储位置，然后根据这些元数据从相关的数据服务器获取数据。如下图：</p>
+<p><img src="images/2013/moosefs/moosefs_read.png" alt="moosefs_architecture"></p>
+<p>对于客户端来说，上述的过程是透明的，由客户端的mfsmount进程进行处理，上层应用看到的只是普通的文件操作。</p>
+<h1 id="安装配置"><a class="markdownIt-Anchor" href="#安装配置"></a> 安装配置</h1>
+<p>这个实在没什么好说的，<a href="http://www.moosefs.org/tl_files/manpageszip/moosefs-step-by-step-tutorial-cn-v.1.1.pdf" target="_blank" rel="noopener">官方中文手册</a><br>
+写得相当明白。</p>
+<h1 id="性能测试todo"><a class="markdownIt-Anchor" href="#性能测试todo"></a> 性能测试（TODO）</h1>
+<h1 id="管理todo"><a class="markdownIt-Anchor" href="#管理todo"></a> 管理(TODO)</h1>
+<p>密码，限额，拷贝份数，回收站，快照等</p>
+<h1 id="master高可用方案"><a class="markdownIt-Anchor" href="#master高可用方案"></a> Master高可用方案</h1>
+<h2 id="方案选择"><a class="markdownIt-Anchor" href="#方案选择"></a> 方案选择</h2>
+<p>针对MooseFS中master节点的单点故障问题，有“冷备”和“热备”两种解决办法。</p>
+<ul>
+<li>
+<p>官方的冷备方案</p>
+<p>MooseFS的架构设计中包含一个或多个 metalogger server，即备份服务器。通过备份master节点的日志，在需要时可以恢复出一个新的master节点。</p>
+<p>这种方案恢复时间较长，对客户端有一定影响，而且不能完全保证数据的完整性。在生产环境中一般不会采用。</p>
+</li>
+<li>
+<p>HA+共享存储的热备方案</p>
+<p>一个很正常的思路是使用HA软件（如Keepalived，Heartbeat等）保证master节点的高可用。这种方案具备更高的可靠性，而且主备切换时仅仅会造成客户端的一些延迟，不需要对客户端进行任何人工操作。</p>
+<p>由于主备服务器之间需要同步一些数据，这个方案还需要其他的文件同步机制，<a href="/2013/07/17/ha_drbd.html">DRBD</a>就是很好的一个选择。</p>
+</li>
+</ul>
+<h2 id="热备方案实现机制"><a class="markdownIt-Anchor" href="#热备方案实现机制"></a> 热备方案实现机制</h2>
+<p>部署两台master服务器，并通过keepalived对外暴露虚拟IP作为master服务的地址；在两台master上部署DRBD。</p>
+<p>正常运行时，主服务器接管虚拟IP，主服务器上的DRBD作为主节点。主服务器的日志保存到DRBD块设备，同步到备服务器。</p>
+<p>主服务器发生故障时, 备服务器上的DRBD切换为主节点，然后恢复MooseFS服务，从备服务器上的BRBD获取数据，最后接管虚拟IP并恢复服务。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cluster/" rel="tag"># cluster</a>
+          
+            <a href="/tags/HA/" rel="tag"># HA</a>
+          
+            <a href="/tags/keepalived/" rel="tag"># keepalived</a>
+          
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/07/30/ganglia.html" rel="next" title="用Ganglia监控集群的性能">
+                <i class="fa fa-chevron-left"></i> 用Ganglia监控集群的性能
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/08/02/statistics_intro_6.html" rel="prev" title="《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验)">
+                《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么是moosefs"><span class="nav-number">1.</span> <span class="nav-text"> 为什么是MooseFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构和原理"><span class="nav-number">2.</span> <span class="nav-text"> 架构和原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装配置"><span class="nav-number">3.</span> <span class="nav-text"> 安装配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能测试todo"><span class="nav-number">4.</span> <span class="nav-text"> 性能测试（TODO）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理todo"><span class="nav-number">5.</span> <span class="nav-text"> 管理(TODO)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#master高可用方案"><span class="nav-number">6.</span> <span class="nav-text"> Master高可用方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方案选择"><span class="nav-number">6.1.</span> <span class="nav-text"> 方案选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热备方案实现机制"><span class="nav-number">6.2.</span> <span class="nav-text"> 热备方案实现机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/08/02/moosefs.html';
+          this.page.identifier = '2013/08/02/moosefs.html';
+          this.page.title = 'MooseFS：屌丝的存储';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

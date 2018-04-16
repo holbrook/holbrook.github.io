@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="emacs,org-mode," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="程序员对于“TODO”这个词一定不陌生。一个TODO意味着有一件事情需要去做。更深入一步来说，TODO是一个未完成的任务。 Org-mode能够完美解决任务管理的各种问题，包括任务/子任务的划分，关键时间的设定，任务状态变化的跟踪，以及任务的检索和查询。 再配合 Org-mode的强大编辑功能 能够实现很多功能，比如时间管理（GTD），项目计划和管理，工作日志等。 本文介绍Org-mode强大的任">
+<meta name="keywords" content="emacs,org-mode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="org-mode，最强的任务管理利器，没有之一">
+<meta property="og:url" content="http://holbrook.github.io/2012/04/14/emacs_orgmode_task.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="程序员对于“TODO”这个词一定不陌生。一个TODO意味着有一件事情需要去做。更深入一步来说，TODO是一个未完成的任务。 Org-mode能够完美解决任务管理的各种问题，包括任务/子任务的划分，关键时间的设定，任务状态变化的跟踪，以及任务的检索和查询。 再配合 Org-mode的强大编辑功能 能够实现很多功能，比如时间管理（GTD），项目计划和管理，工作日志等。 本文介绍Org-mode强大的任">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2012/04/14/emacs_orgmode_task/todo1.png">
+<meta property="og:image" content="http://holbrook.github.io/2012/04/14/emacs_orgmode_task/todo2.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="org-mode，最强的任务管理利器，没有之一">
+<meta name="twitter:description" content="程序员对于“TODO”这个词一定不陌生。一个TODO意味着有一件事情需要去做。更深入一步来说，TODO是一个未完成的任务。 Org-mode能够完美解决任务管理的各种问题，包括任务/子任务的划分，关键时间的设定，任务状态变化的跟踪，以及任务的检索和查询。 再配合 Org-mode的强大编辑功能 能够实现很多功能，比如时间管理（GTD），项目计划和管理，工作日志等。 本文介绍Org-mode强大的任">
+<meta name="twitter:image" content="http://holbrook.github.io/2012/04/14/emacs_orgmode_task/todo1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2012/04/14/emacs_orgmode_task.html"/>
+
+
+
+
+
+  <title>org-mode，最强的任务管理利器，没有之一 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2012/04/14/emacs_orgmode_task.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">org-mode，最强的任务管理利器，没有之一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-04-14T00:00:00+08:00">
+                2012-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/方法工具/" itemprop="url" rel="index">
+                    <span itemprop="name">方法工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/04/14/emacs_orgmode_task.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2012/04/14/emacs_orgmode_task.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>程序员对于“TODO”这个词一定不陌生。一个TODO意味着有一件事情需要去做。更深入一步来说，TODO是一个未完成的任务。</p>
+<p>Org-mode能够完美解决任务管理的各种问题，包括任务/子任务的划分，关键时间的设定，任务状态变化的跟踪，以及任务的检索和查询。<br>
+再配合<br>
+<a href="%7Bfilename%7D./emacs_orgmode_editor.md">Org-mode的强大编辑功能</a><br>
+能够实现很多功能，比如时间管理（GTD），项目计划和管理，工作日志等。</p>
+<p>本文介绍Org-mode强大的任务管理功能。</p>
+<h1 id="定义任务和子任务"><a class="markdownIt-Anchor" href="#定义任务和子任务"></a> 定义任务和子任务</h1>
+<p>Org-mode认为，每一个任务通常会需要附带一些文字说明。所以Org-mode将标题作为任务的载体。通过在标题上增加状态标记，来定义任务。<br>
+由于大纲是分级的，所以将标题定义为任务天然支持了子任务：可以在子标题上标记子任务。</p>
+<p>使用 <code>C-c C-t</code> 或者 <code>S-LEFT/RIGTH</code> 可以为标题增加或改变任务标记。</p>
+<h1 id="定义任务状态"><a class="markdownIt-Anchor" href="#定义任务状态"></a> 定义任务状态</h1>
+<p>Org-mode内置的任务状态只有两种：TODO和DONE。如果需要更多的状态，需要自己定义。</p>
+<p>可以在文件内部定义任务状态： 关键字应该各不相同，这样对于一个选项 Org<br>
+才知道该用哪个状态序列（集合）。<br>
+例子中也给出了快速使用一个关键字的方法，就是在关键字后面括号中给出快捷字母<br>
+。当用 <code>C-c C-t</code> 时，会询问，让你输入一个字母。</p>
+<p>要自定义任务状态，可以使用文档元数据 <code>#+SEQ_TODO</code><br>
+，可以在文档的任何地方定义，但是建议统一定义在文档头部：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#+SEQ_TODO: REPORT(r) BUG(b) KNOWNCAUSE(k) | FIXED(f)</span><br><span class="line">#+SEQ_TODO: TODO(T!) | DONE(D@)3  CANCELED(C@/!)</span><br></pre></td></tr></table></figure>
+<p>将光标放在这些内容上，输入 <code>C-c C-c</code> 可以直接生效。此时再用 <code>C-c C-t</code><br>
+设定任务时，会打开一个新的缓冲区：</p>
+<img src="/2012/04/14/emacs_orgmode_task/todo1.png" title="TODO list">
+<p>对照前面的定义不难发现：</p>
+<ul>
+<li>可以定义多组状态序列，每个 <code>#+SEQ_TODO</code> 行定义一组</li>
+<li>状态之间用空格分隔</li>
+<li>可以在（）中定义附加选项，包括：
+<ul>
+<li>字符：该状态的快捷键</li>
+<li>！：切换到该状态时会自动增加时间戳</li>
+<li>@ ：切换到该状态时要求输入文字说明</li>
+<li>如果同时设定@和！，使用 <code>@/!</code></li>
+</ul>
+</li>
+<li>用 <code>|</code><br>
+分隔未完成状态和已完成状态。未完成状态在查询待办事项时会列出。</li>
+</ul>
+<p>使用C-c C-t 或者 S-LEFT/RIGTH 切换一些状态后，任务会变成这个样子：</p>
+<img src="/2012/04/14/emacs_orgmode_task/todo2.png" title="TODO list">
+<p>会自动生成时间戳，提示填写说明。从而留下完整的记录。</p>
+<p>上面的任务状态设置只适用于当前文档。如果希望设定所有 <code>.org</code><br>
+文档的默认任务状态，需要在 <code>.emacs</code> 配置文件中定义。<br>
+上面的任务状态在配置文件中的等效设置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(setq org-todo-keywords</span><br><span class="line">    &apos;((sequence &quot;REPORT(r)&quot; &quot;BUG(b)&quot; &quot;KNOWNCAUSE(k)&quot; &quot;|&quot; &quot;FIXED(f)&quot;)</span><br><span class="line">      (sequence &quot;TODO(T!)&quot; &quot;|&quot; &quot;DONE(D@)3&quot; &quot;CANCELED(C@/!)&quot;)</span><br><span class="line">     ))</span><br></pre></td></tr></table></figure>
+<p>除了状态序列外，还可以定义type，来标记任务的分类。可以参考<a href="http://orgmode.org/manual/TODO-types.html#TODO-types" target="_blank" rel="noopener">这里</a>。</p>
+<h1 id="设置任务优先级"><a class="markdownIt-Anchor" href="#设置任务优先级"></a> 设置任务优先级</h1>
+<p>在Org-mode中，还针对任务设定了A，B，C三种优先级，在安排日程的时候可以按照优先级进行排序。为任务设定优先级是通过快捷键<br>
+<code>S-UP/DOWN</code> 。</p>
+<h1 id="跟踪子任务完成情况"><a class="markdownIt-Anchor" href="#跟踪子任务完成情况"></a> 跟踪子任务完成情况</h1>
+<p>对于有多个子任务的上级任务，很常见的一个需求是随时跟踪子任务的完成情况。<br>
+Org-mode支持在上级任务上增加标记，当子任务的状态发生改变时自动更新上级任务的完成情况。<br>
+支持百分比和分数两种形式，类似 <code>[66%]</code> 或者 <code>[2/3]</code> 。</p>
+<p>可以在上级任务标题中的任意位置插入 <code>[%]</code> 或者 <code>[/]</code>,<br>
+当子任务的状态发生变化时，会自动更新该位置的值。 比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* Organize Party [%]</span><br><span class="line">** Call people [/]</span><br><span class="line">*** Peter</span><br><span class="line">*** Sarah</span><br><span class="line">** Buy food</span><br><span class="line">** Talk to neighbor</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>当改变子任务状态时，只更新上一级任务的完成情况，不可级联。</li>
+<li>即使所有的子任务都完成，也只是标记上一级任务的完成情况为100%，而不能自动更新上级任务的完成状态。如果需要自动设定为完成，可以在.emacs中增加如下配置：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(defun org-summary-todo (n-done n-not-done)</span><br><span class="line">  &quot;Switch entry to DONE when all subentries are done, to TODO otherwise.&quot;</span><br><span class="line">  (let (org-log-done org-log-states)   ; turn off logging</span><br><span class="line">    (org-todo (if (= n-not-done 0) &quot;DONE&quot; &quot;TODO&quot;))))</span><br></pre></td></tr></table></figure>
+<p>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(add-hook &apos;org-after-todo-statistics-hook &apos;org-summary-todo)</span><br></pre></td></tr></table></figure>
+<h1 id="用复选框标记非标题类型的子任务"><a class="markdownIt-Anchor" href="#用复选框标记非标题类型的子任务"></a> 用复选框标记非标题类型的子任务</h1>
+<p>前面的任务和子任务都是标题形式。Org-mode还支持非标题形式的子任务。对于以<br>
+<code>[ ]</code> 开头的<a href="img:/2012/04/12/emacs_orgmode_editor.html#sec-3-4" target="_blank" rel="noopener">列表</a><br>
+会被当作复选框。这样就形成了局部的子任务，<br>
+适用于将一个任务划分成几个简单的步骤。 下面是一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*** 一个任务 [0/2]</span><br><span class="line">该任务包含几个步骤：</span><br><span class="line">- [-] 步骤1 [1/2]</span><br><span class="line">  - [X] 步骤1.1</span><br><span class="line">  - [ ] 步骤1.2</span><br><span class="line">- [-] 步骤2 [1/2]</span><br><span class="line">  - [X] 步骤2.1</span><br><span class="line">  - [ ] 步骤2.2</span><br></pre></td></tr></table></figure>
+<p>与子任务类似，步骤的状态变化会改变上级步骤/任务的完成情况。<br>
+下面是复选框相关的命令：</p>
+<p>KEYS      COMMENT</p>
+<hr>
+<p>C-c C-c   改变复选框状态<br>
+M-S-RET   增加一个子项</p>
+<h1 id="查询任务"><a class="markdownIt-Anchor" href="#查询任务"></a> 查询任务</h1>
+<p>在<a href="./emacs_orgmode_editor.org::%E5%9F%BA%E4%BA%8E%E5%A4%A7%E7%BA%B2%E7%9A%84%E7%BC%96%E8%BE%91">Org-mode的编辑功能</a><br>
+中介绍过大纲的检索功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C-c /     只列出包含搜索结果的大纲，并高亮，支持多种搜索方式</span><br></pre></td></tr></table></figure>
+<p>该功能可以按照多种方式检索，其中针对任务有两种方式：todo 和 TODO key<br>
+words，分别实现高亮所有TODO和具有特定关键字的TODO。</p>
+<h1 id="任务的时间计划"><a class="markdownIt-Anchor" href="#任务的时间计划"></a> 任务的时间计划</h1>
+<p>Org-mode中的任务还可以设置计划时间（SCHEDULED）和截止时间（DEADLINE），方便任务的管理和排程。</p>
+<h2 id="时间戳"><a class="markdownIt-Anchor" href="#时间戳"></a> 时间戳</h2>
+<p>在Org-mode中，将带有日期和时间信息的特定格式的字符串称为时间戳。时间戳使用”&lt;<br>
+&gt;“进行标记，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;2005-10-01 Tue&gt;</span><br><span class="line">&lt;2003-09-16 Tue 09:39&gt;</span><br><span class="line">&lt;2003-09-16 Tue 12:00-12:30&gt;</span><br></pre></td></tr></table></figure>
+<p>时间戳分为两种，上面的例子中的时间戳都标记了一个”时间点“，另外一种时间戳标记重复出现的多个时间点。<br>
+使用时间点+ 间隔（ 天（d）、周（w）、月（m）或者年（y））来表示。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;2007-05-16 Wed 12:30 +1w&gt;</span><br></pre></td></tr></table></figure>
+<p>表示从2007-05-16 12:30开始，每周重复一次。</p>
+<p>时间戳可以放在标题或正文的任何部分。</p>
+<p>输入时间戳时，可以手工输入符合格式的标记，也可以使用快捷键 <code>C-c</code> .<br>
+来创建。</p>
+<p>如果要快速输入日期无需选择，可以直接用 <code>C-c &lt;</code> 。</p>
+<p><code>C-c &gt;</code> 可以查看日历。</p>
+<p>如果仅仅想输入一个日期/时间，与任务没有任何关系，可以用 <code>C-c !</code> 。</p>
+<hr>
+<p>S-left,S-right   以天为单位调整时间戳时间<br>
+S-up,S-down      调整光标所在时间单位；如果光标在时间戳之外，调整时间戳类型（是否在日程表中显示）</p>
+<hr>
+<h2 id="时间日期段"><a class="markdownIt-Anchor" href="#时间日期段"></a> 时间/日期段</h2>
+<p>两个时间戳用 <code>--</code> 连接起来就定义了一个时间段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;2004-08-23 Mon&gt;--&lt;2004-08-26 Thu&gt;</span><br></pre></td></tr></table></figure>
+<p>连续使用 <code>C-c</code> . 可以创建时间段</p>
+<p><code>C-c C-y</code> 计算时间段的间隔</p>
+<h2 id="计划时间和截止时间"><a class="markdownIt-Anchor" href="#计划时间和截止时间"></a> 计划时间和截止时间</h2>
+<p>Org-mode可以为任务设定一个计划时间(SCHEDULED), 输入 <code>C-c C-s</code><br>
+，就可以设定光标所在位置所属的任务的计划时间。 而 <code>C-c C-d</code><br>
+是输入截止时间（DEADLINE）。</p>
+<h1 id="全局任务文件清单"><a class="markdownIt-Anchor" href="#全局任务文件清单"></a> 全局任务文件清单</h1>
+<p>前面的内容都是关于单个 <code>.org</code> 文件的任务管理。Org-mode还支持将多个<br>
+<code>.org</code> 文件组合起来进行管理。这带来很多好处：</p>
+<p>你可以按照不同的用途将任务放在不同的文件中进行组织，比如项目，个人事务，家庭等等。</p>
+<p>要让Org-mode知道需要把哪些文件视为全局任务的组成部分，需要设定一个清单，可以在<br>
+<code>.emacs</code> 中这样设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(setq org-agenda-files (list &quot;~/.todos/work.org&quot;</span><br><span class="line">                             &quot;~/.todos/projects.org&quot;</span><br><span class="line">                             &quot;~/.todos/home.org&quot;</span><br><span class="line">                             &quot;~/Documents/todo/&quot;</span><br><span class="line">               ))</span><br></pre></td></tr></table></figure>
+<p>清单中可以加入文件或目录。如果是目录，该目录下的所有 <code>.org</code><br>
+文件都会被加入清单。</p>
+<p>除了预定义的清单文件，还可以在编辑任务文件( <code>.org</code> )时随时使用 <code>C-c [</code><br>
+和 <code>C-c ]</code> 将文件加入/移出清单。</p>
+<p>可以随时通过 <code>C-c '/</code> , 循环打开所有的清单文件。</p>
+<h1 id="全局-todo-列表"><a class="markdownIt-Anchor" href="#全局-todo-列表"></a> 全局 TODO 列表</h1>
+<p>全局TODO列表列出所有全局任务文件中的未完成任务。通过快捷键 <code>C-c a t</code><br>
+进入全局 TODO 列表。</p>
+<p>在全局TODO列表中，用 <code>t</code> 键改变任务状态，；按 <code>RET</code><br>
+跳到该条目所在的源文件。</p>
+<p>如果提示 <code>C-c a</code> 快捷键未定义，是因为Org-mode的快捷键没有启用，需要在<br>
+<code>.emacs</code> 中增加配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(global-set-key &quot;\C-cl&quot; &apos;org-store-link)</span><br><span class="line">(global-set-key &quot;\C-cc&quot; &apos;org-capture)</span><br><span class="line">(global-set-key &quot;\C-ca&quot; &apos;org-agenda)</span><br><span class="line">(global-set-key &quot;\C-cb&quot; &apos;org-iswitchb)</span><br></pre></td></tr></table></figure>
+<h1 id="日程表"><a class="markdownIt-Anchor" href="#日程表"></a> 日程表</h1>
+<p>有时候可能需要根据未完成任务显示日程安排，通过 <code>C-c a a</code><br>
+可以进入日程表视图。 日程表根据任务的计划时间列出每天的任务。</p>
+<p>在日程表视图中按 “l”(小写字母L)<br>
+显示日志。这样就会显示你所有已经完成的任务和他们完成的时间。</p>
+<h1 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h1>
+<p>这里涉及到的都是关于Org-mode任务管理的一些基本使用，正是这些强有力的基础，使得Org-mode可以用于时间管理（GTD）、项目计划和管理、<br>
+工作日志等各种用途。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/emacs/" rel="tag"># emacs</a>
+          
+            <a href="/tags/org-mode/" rel="tag"># org-mode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/04/14/fuse_develop_route.html" rel="next" title="开发和部署JBoss FUSE中的路由(Route)">
+                <i class="fa fa-chevron-left"></i> 开发和部署JBoss FUSE中的路由(Route)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/10/16/weblayer_nginx_keepalived.html" rel="prev" title="统一web访问层方案">
+                统一web访问层方案 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义任务和子任务"><span class="nav-number">1.</span> <span class="nav-text"> 定义任务和子任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义任务状态"><span class="nav-number">2.</span> <span class="nav-text"> 定义任务状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置任务优先级"><span class="nav-number">3.</span> <span class="nav-text"> 设置任务优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跟踪子任务完成情况"><span class="nav-number">4.</span> <span class="nav-text"> 跟踪子任务完成情况</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用复选框标记非标题类型的子任务"><span class="nav-number">5.</span> <span class="nav-text"> 用复选框标记非标题类型的子任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询任务"><span class="nav-number">6.</span> <span class="nav-text"> 查询任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务的时间计划"><span class="nav-number">7.</span> <span class="nav-text"> 任务的时间计划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳"><span class="nav-number">7.1.</span> <span class="nav-text"> 时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间日期段"><span class="nav-number">7.2.</span> <span class="nav-text"> 时间/日期段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计划时间和截止时间"><span class="nav-number">7.3.</span> <span class="nav-text"> 计划时间和截止时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全局任务文件清单"><span class="nav-number">8.</span> <span class="nav-text"> 全局任务文件清单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全局-todo-列表"><span class="nav-number">9.</span> <span class="nav-text"> 全局 TODO 列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日程表"><span class="nav-number">10.</span> <span class="nav-text"> 日程表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">11.</span> <span class="nav-text"> 小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2012/04/14/emacs_orgmode_task.html';
+          this.page.identifier = '2012/04/14/emacs_orgmode_task.html';
+          this.page.title = 'org-mode，最强的任务管理利器，没有之一';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,OSGi,GUI," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Tycho以一组maven插件的形式，支持Eclipse的plug-ins, features, update sites (based on p2) 、products等类型工程的构建。 Tycho是一个Maven插件，目标是使用Maven构建Eclipse插件，OSGI Bundle等工程。 如果说Maven的出现是一群Java程序员受不了繁琐的插件依赖管理，受不了冗长的ant build.x">
+<meta name="keywords" content="java,OSGi,GUI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tycho：用Maven构建Eclipse Plugin项目">
+<meta property="og:url" content="http://holbrook.github.io/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="Tycho以一组maven插件的形式，支持Eclipse的plug-ins, features, update sites (based on p2) 、products等类型工程的构建。 Tycho是一个Maven插件，目标是使用Maven构建Eclipse插件，OSGI Bundle等工程。 如果说Maven的出现是一群Java程序员受不了繁琐的插件依赖管理，受不了冗长的ant build.x">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tycho：用Maven构建Eclipse Plugin项目">
+<meta name="twitter:description" content="Tycho以一组maven插件的形式，支持Eclipse的plug-ins, features, update sites (based on p2) 、products等类型工程的构建。 Tycho是一个Maven插件，目标是使用Maven构建Eclipse插件，OSGI Bundle等工程。 如果说Maven的出现是一群Java程序员受不了繁琐的插件依赖管理，受不了冗长的ant build.x">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html"/>
+
+
+
+
+
+  <title>Tycho：用Maven构建Eclipse Plugin项目 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tycho：用Maven构建Eclipse Plugin项目</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-08T00:00:00+08:00">
+                2014-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Tycho以一组maven插件的形式，支持Eclipse的plug-ins, features, update sites (based on p2) 、products等类型工程的构建。</p>
+<p><a href="http://www.sonatype.org/tycho" target="_blank" rel="noopener">Tycho</a>是一个Maven插件，目标是使用Maven构建Eclipse插件，OSGI Bundle等工程。</p>
+<p>如果说<a href="http://maven.apache.org/" target="_blank" rel="noopener">Maven</a>的出现是一群Java程序员受不了繁琐的插件依赖管理，受不了冗长的ant build.xml文件而创造出来的，<br>
+那Tycho则是一群Eclipse、OSGi插件开发人员受不了重复地配置类似的Maven pom.xml而创造出来的。</p>
+<p>Tycho以一组maven插件的形式，支持Eclipse的plug-ins, features, update sites (based on p2) 、products等类型的工程，<br>
+表现为不同的maven打包类型(packaging):</p>
+<ul>
+<li>eclipse-plugin</li>
+<li>eclipse-feature</li>
+<li>eclipse-test-plugin</li>
+<li>eclipse-repository</li>
+<li>eclipse-target-definition</li>
+</ul>
+<h1 id="父工程"><a class="markdownIt-Anchor" href="#父工程"></a> 父工程</h1>
+<p>基于OSGi的工程通常会划分很多模块，对于Maven来说，一般通过一个父工程（parent）来管理所有模块的构建。父工程的<code>packaging</code>类型为<code>pom</code>.</p>
+<p>为了使用Tycho，需要在父工程的pom文件中增加一些配置。</p>
+<h2 id="增加tycho插件"><a class="markdownIt-Anchor" href="#增加tycho插件"></a> 增加Tycho插件</h2>
+<p>父工程中定义的插件可以在所有子工程中使用：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">tycho-version</span>&gt;</span>0.16.0<span class="tag">&lt;/<span class="name">tycho-version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.tycho<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tycho-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;tycho-version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">extensions</span>&gt;</span>true<span class="tag">&lt;/<span class="name">extensions</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="定义bundle仓库"><a class="markdownIt-Anchor" href="#定义bundle仓库"></a> 定义bundle仓库</h2>
+<p>比如，基于Eclipse 4.3(Kepler)的RCP应用，使用了Texo、GeminiJPA等插件，需要如下的仓库定义：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>Kepler<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://download.eclipse.org/releases/kepler<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">layout</span>&gt;</span>p2<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>Texo<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://download.eclipse.org/modeling/emft/texo/updates/interim<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">layout</span>&gt;</span>p2<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>GeminiJPA<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://download.eclipse.org/gemini/jpa/updates<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">layout</span>&gt;</span>p2<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>EclipseLink<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://download.eclipse.org/rt/eclipselink/updates/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">layout</span>&gt;</span>p2<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="定义目标"><a class="markdownIt-Anchor" href="#定义目标"></a> 定义目标</h2>
+<p>定义不同的目标平台：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.tycho<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>target-platform-configuration<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">environment</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">os</span>&gt;</span>linux<span class="tag">&lt;/<span class="name">os</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ws</span>&gt;</span>gtk<span class="tag">&lt;/<span class="name">ws</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">arch</span>&gt;</span>x86<span class="tag">&lt;/<span class="name">arch</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">environment</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">os</span>&gt;</span>macosx<span class="tag">&lt;/<span class="name">os</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ws</span>&gt;</span>cocoa<span class="tag">&lt;/<span class="name">ws</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">arch</span>&gt;</span>x86_64<span class="tag">&lt;/<span class="name">arch</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果要发布比较复杂的目标，比如Eclipse Product的发布，需要单独构建<code>eclipse-target-definition</code>类型的子工程。</p>
+<h1 id="为现有工程生成pom"><a class="markdownIt-Anchor" href="#为现有工程生成pom"></a> 为现有工程生成pom</h1>
+<p>Tycho提供了一个工具，可以为现有的Eclipse Plugin、Feature等工程生成pom文件，从而将其整合到Tycho的管理之下。</p>
+<p>该工具也是基于maven的，只需要在工程文件夹执行命令：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn org<span class="variable">.eclipse</span><span class="variable">.tycho</span>:tycho-pomgenerator-plugin:<span class="keyword">generate</span>-poms -DgroupId=thinkinside<span class="variable">.tangle</span></span><br></pre></td></tr></table></figure>
+<p>生成的pom文件举例如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span> <span class="attr">xmlns</span>=<span class="string">"  http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>thinkinside.tangle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tangle-app<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>eclipse-plugin<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>由于种种原因，Eclipse Plugin工程的配置内容分散在多个文件中，包括：</p>
+<ul>
+<li>OSGi的配置文件：MANIFEST.MF</li>
+<li>插件工程构建文件：build.properties</li>
+<li>插件定义文件：plugin.xml</li>
+<li>产品描述文件：.product</li>
+</ul>
+<p>这些文件中的配置项有重复，开发人员要保证各文件中的相关配置的一致性。</p>
+<p>Tycho在生成pom文件时，会检查这些配置文件，将其中的配置项写入pom文件中。</p>
+<p>Tycho的逻辑是以上述标准的配置文件优先。比如，在pom文件中没有定义依赖关系，而是以<code>MANIFEST.MF</code>中定义的依赖为准。</p>
+<p>如果现有工程已经有了pom文件，还可以使用Tycho进行更新：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn org<span class="selector-class">.eclipse</span><span class="selector-class">.tycho</span>:tycho-versions-plugin:update-pom -Dtycho.mode=maven</span><br></pre></td></tr></table></figure>
+<h1 id="目标定义子工程"><a class="markdownIt-Anchor" href="#目标定义子工程"></a> &quot;目标定义&quot;子工程</h1>
+<p>前面提到，如果要发布比较复杂的目标，比如Eclipse Product的发布，需要单独构建<code>eclipse-target-definition</code>类型的子工程。</p>
+<p>在&quot;目标定义&quot;子工程中创建<code>.product</code>文件，然后在pom文件中添加：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.tycho<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tycho-p2-director-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;tycho-version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- install the product for all configured os/ws/arch environments</span></span></span><br><span class="line"><span class="xml">            using p2 director --&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">id</span>&gt;</span>materialize-products<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>materialize-products<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- (optional) create product zips (one per os/ws/arch) --&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">id</span>&gt;</span>archive-products<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>archive-products<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>&quot;目标定义&quot;子工程中还可以使用”目标定义文件（Target Definition, *.target）“进行复杂的配置。<br>
+可以参考<a href="http://wiki.eclipse.org/Tycho/Target_Platform" target="_blank" rel="noopener">这里</a>的说明，也可以查看<a href="https://github.com/toedter/e4-tutorial" target="_blank" rel="noopener">GitHub上的例子</a>的例子。</p>
+<h1 id="test工程"><a class="markdownIt-Anchor" href="#test工程"></a> Test工程</h1>
+<p>与专门的测试工具<a href="">Pax Exam</a>相比，Tycho test使用起来会更简单。当然前提是测试由Tycho构建的OSGi应用。</p>
+<p>Tycho将一个&quot;Fragment&quot;工程包装成Maven工程，可以在其中编写测试代码，然后使用&quot;JUnit Plug-in Test&quot;执行测试。</p>
+<h1 id="对比maven-bundle-plugin"><a class="markdownIt-Anchor" href="#对比maven-bundle-plugin"></a> 对比Maven-Bundle-Plugin</h1>
+<p>Maven-Bundle-Plugin提供了与Tycho不同风格的另一种构建OSGi的maven插件。关于二者的对比，可以参考<a href="/2014/01/21/tycho_vs_maven_bundle_plugin.html">这里</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+          
+            <a href="/tags/GUI/" rel="tag"># GUI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/07/eclipse_e4_RCP_quickstart.html" rel="next" title="Eclipse e4 概览">
+                <i class="fa fa-chevron-left"></i> Eclipse e4 概览
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/12/dependency_injection_in_e4.html" rel="prev" title="Eclipse e4：从OSGi-DS到依赖注入">
+                Eclipse e4：从OSGi-DS到依赖注入 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#父工程"><span class="nav-number">1.</span> <span class="nav-text"> 父工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#增加tycho插件"><span class="nav-number">1.1.</span> <span class="nav-text"> 增加Tycho插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义bundle仓库"><span class="nav-number">1.2.</span> <span class="nav-text"> 定义bundle仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义目标"><span class="nav-number">1.3.</span> <span class="nav-text"> 定义目标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为现有工程生成pom"><span class="nav-number">2.</span> <span class="nav-text"> 为现有工程生成pom</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标定义子工程"><span class="nav-number">3.</span> <span class="nav-text"> &quot;目标定义&quot;子工程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test工程"><span class="nav-number">4.</span> <span class="nav-text"> Test工程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对比maven-bundle-plugin"><span class="nav-number">5.</span> <span class="nav-text"> 对比Maven-Bundle-Plugin</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html';
+          this.page.identifier = '2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html';
+          this.page.title = 'Tycho：用Maven构建Eclipse Plugin项目';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

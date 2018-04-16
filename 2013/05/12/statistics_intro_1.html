@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="统计学," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章，介绍统计学能解决的问题以及解决问题的思路。 统计学将现象分为个体随机性和总体的规律性，通过随机现象找到总体的规律。而规律就是变量之间的关系。">
+<meta name="keywords" content="统计学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《统计学》读书笔记1：一些基本概念">
+<meta property="og:url" content="http://holbrook.github.io/2013/05/12/statistics_intro_1.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="第一章，介绍统计学能解决的问题以及解决问题的思路。 统计学将现象分为个体随机性和总体的规律性，通过随机现象找到总体的规律。而规律就是变量之间的关系。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2013/05/12/statistics_intro_1/1.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《统计学》读书笔记1：一些基本概念">
+<meta name="twitter:description" content="第一章，介绍统计学能解决的问题以及解决问题的思路。 统计学将现象分为个体随机性和总体的规律性，通过随机现象找到总体的规律。而规律就是变量之间的关系。">
+<meta name="twitter:image" content="http://holbrook.github.io/2013/05/12/statistics_intro_1/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/05/12/statistics_intro_1.html"/>
+
+
+
+
+
+  <title>《统计学》读书笔记1：一些基本概念 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/05/12/statistics_intro_1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《统计学》读书笔记1：一些基本概念</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-12T00:00:00+08:00">
+                2013-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/05/12/statistics_intro_1.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/05/12/statistics_intro_1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第一章，介绍统计学能解决的问题以及解决问题的思路。<br>
+统计学将现象分为个体随机性和总体的规律性，通过随机现象找到总体的规律。而规律就是变量之间的关系。</p>
+<a id="more"></a>
+<p>本文是 <a href="http://book.douban.com/subject/2193810/" target="_blank" rel="noopener">《统计学》</a> 的读书笔记。<br>
+整个读书笔记的目录在</p>
+<h1 id="统计是什么"><a class="markdownIt-Anchor" href="#统计是什么"></a> 统计是什么</h1>
+<p>统计是人类思维的一个归纳过程：</p>
+<ul>
+<li>从现实世界中收集数据</li>
+<li>分析收集到的数据</li>
+<li>从分析结果得出结论</li>
+</ul>
+<p>关于统计的一个例子如下：</p>
+<blockquote>
+<ul>
+<li>站在一个路口，看到每过去20辆小轿车时，也有100辆自行车通过，同时记录每辆车上的人数（收集）</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>平均每10个轿车载有12个人，每辆自行车上只有1人（分析）</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>所以，小汽车和自行车在这个路口的运载能力为24:100（结论）</li>
+</ul>
+</blockquote>
+<h1 id="统计学是什么"><a class="markdownIt-Anchor" href="#统计学是什么"></a> 统计学是什么</h1>
+<p>统计学（statistics），是用以收集数据，分析数据和由数据得出结论的一组概念、原则和方法。</p>
+<p>主要内容包括：</p>
+<ul>
+<li>如何有效的收集数据</li>
+<li>如果数据和指标的关系缺乏模型，如何用统计方法建立模型</li>
+<li>如何评价数据的有效性</li>
+<li>如何得出结论</li>
+<li>如何利用数据和模型进行预测</li>
+<li>如何用图形化的方式表现统计结论</li>
+</ul>
+<p>其中，统计模型是从数据产生的，会根据新的数据不断改进，最终会被新的模型（可能不是统计模型）所代替。</p>
+<p>统计学的一些特点：</p>
+<ul>
+<li>统计学的思维方式是归纳为主，而不是演绎为主</li>
+<li>统计学是应用学科，是为具体目标服务的，不形成自己的数学体系</li>
+<li>统计学可以应用到大量的学科</li>
+<li>有些学科已经形成了与统计学结合的分支学科，如经济计量学(econometrics)，数据挖掘(Data Mining)等。</li>
+</ul>
+<p>由于统计学的应用性和交叉性，统计学需要一些其他学科的基础，包括：</p>
+<ul>
+<li>各种可能用到的数学</li>
+<li>计算机</li>
+<li>其他领域的知识</li>
+</ul>
+<p>下面列举一些可以用统计学解决的问题：</p>
+<ul>
+<li>当你买了一台电视时，被告知三年内可以免费保修。你想过厂家凭什么这样说吗？说多了，厂家会损失；说少了，会失去竞争，也是损失。到底这个保修期是怎样决定的呢？</li>
+<li>大学排名是一个非常敏感的问题。不同的机构得出不同的结果；各自都说自己是客观、公正和有道理的。到底如何理解这些不同的结果呢？</li>
+<li>任何公司都有一个信用问题。当然，在这些公司试图得到贷款时并没有不还贷的不良记录。如何根据它们的财务和商业资料来判断一个公司的信用等级呢？</li>
+<li>我国东部和西部的概念是一个比较笼统的概念。如何能够根据需要，选择一些指标来把各省，或各市县甚至村进行分类呢？</li>
+<li>疾病传播时，如何能够通过感染者入院前后的各种因素得到一个疾病传染方式的模型呢？</li>
+<li>如何通过大众调查来得到性别、年龄、职业、收入等各种因素与公众对某项事物（比如商品或政策）的态度的关系呢？</li>
+<li>一个从来没有研究过红楼梦的统计学家如何根据比较写作习惯得出红楼梦从哪一段开始就不是曹雪芹的手笔了呢？</li>
+<li>如何才能够客观地得到某个电视节目的收视率，以确定广告的价格是否合理呢？</li>
+<li>如何确定观众/听众是否忠实于某节目？</li>
+<li>如何对电视节目排名次？</li>
+<li>什么因素影响一个节目的收视率？</li>
+<li>如何按照各种不同环境估计某商店的顾客人数？</li>
+<li>如何按照各种指标评价雇员？</li>
+<li>如何把地区(市县镇等)按照各种指标分类？</li>
+<li>如何确定红楼梦第几回不是曹雪芹所写？</li>
+<li>如何确定一个产品的可靠性？</li>
+<li>如何进行偏差较少的民意调查？</li>
+<li>如何根据一些财务数据发现漏税的嫌疑单位?</li>
+</ul>
+<h1 id="随机性和规律性概率和机会"><a class="markdownIt-Anchor" href="#随机性和规律性概率和机会"></a> 随机性和规律性，概率和机会</h1>
+<p>自然科学的很多领域有确定性，但其他的领域存在着随机性（randomness），比如吸烟与寿命的关系。</p>
+<p>随机性与很多不易说清的因素有关。</p>
+<p>对于一些现象，虽然个体存在随机性，但是总体却可能存在规律性——统计规律。</p>
+<p>这种总体性的规律体现为概率（probability)，描述某件事情发生的机会有多大。</p>
+<p>有些概率是精确的，比如掷骰子时每个点数出现的概率都是1/6。</p>
+<p>有些概率无法精确推断,比如你周末去公园的概率是8成。</p>
+<p>从随机性的个体现象推导出规律性的统计结论，就是统计学存在的意义。</p>
+<h1 id="统计结果统计结论是否有效"><a class="markdownIt-Anchor" href="#统计结果统计结论是否有效"></a> 统计结果/统计结论是否有效？</h1>
+<p>统计学可以从个体现象（数据）得到结论。但是结论是否有效？</p>
+<p>依靠统计学的部门很有可能闹笑话，比如xx局和xx局。那么，该如何评价统计的结果或者结论？</p>
+<p>这里面需要注意几点：</p>
+<ul>
+<li>数据可以有误或作假</li>
+<li>统计方法（有意或无意）使用不当可以误导。有低级误导和高级误导。</li>
+<li>常识判断和直觉是重要的</li>
+</ul>
+<p>下面是一些统计结论，可以思考一些如何理解这些结论的含义：</p>
+<ul>
+<li>“明天降水概率为40％”</li>
+<li>“我冬天去新加坡度假的概率为10％”</li>
+<li>“该节目收视率是30%”</li>
+<li>“调查结果表明20%的观众喜欢某节目”</li>
+<li>“抽样调查结果的误差为±3%”</li>
+<li>“支持率的95％置信区间为(25%,30%)”</li>
+<li>“某学校排名第一”</li>
+<li>“某县是贫困县”</li>
+<li>“某国的综合竞争力排名第43位”</li>
+<li>“该国家属于发展中国家”</li>
+<li>“该药品疗效99%”</li>
+<li>“该国贫富差距大”</li>
+<li>“这个县收入比那个县高”</li>
+<li>“该结果统计显著”</li>
+<li>“消费价格指数为120%”</li>
+<li>“他的血压已经正常了”</li>
+</ul>
+<h1 id="统计学描述问题的方法常量变量和数据"><a class="markdownIt-Anchor" href="#统计学描述问题的方法常量变量和数据"></a> 统计学描述问题的方法：常量，变量和数据</h1>
+<p>统计学将研究的对象分为总体，样本和个体。<br>
+总体，样本和个体都有其属性。</p>
+<p>对于确定的属性，称为常量(constant)；对于不确定性的属性，称为变量(variable)。</p>
+<p>比如：</p>
+<ul>
+<li>一节火车车厢有多少坐位是一个常量；车厢中旅客的人数是一个变量</li>
+<li>一个学校的在校男女生比例是一个常量；该校任意一群学生的男女生比例是一个变量</li>
+</ul>
+<p>变量根据是否为数值类型可以区分为定量变量（数据变量，随机变量）和定性变量（属性变量，分类变量）</p>
+<p>定量变量的值是数值类型，比如身高身高体重，购买某商品的人数等等。由于定量变量的值是随机的，所以又称为随机变量。</p>
+<p>定性变量的值是非数值类型，比如性别，观点等。定性变量描述对象的属性，用于表达对象的类别，也叫做属性变量或分类变量。</p>
+<p>为了便于用模型描述定性变量，通常将定性变量抽象为离散的值。类似于枚举类型。</p>
+<p>数据：就是关于变量的每个实例的实际值/观测值。</p>
+<p>通常能获得一部分数据，是对于真实情况的不完全的观测。</p>
+<p>统计学的方法可以根据这些不完全的观测推断出全体的规律性。比如掷骰子的实验：</p>
+<ul>
+<li>常量：骰子有6个面</li>
+<li>分类变量：奇数，偶数</li>
+<li>数据：掷1000次骰子的实际点数</li>
+<li>分析：奇数次数493，偶数次数507</li>
+<li>结论：？？？</li>
+</ul>
+<h1 id="变量之间的关系"><a class="markdownIt-Anchor" href="#变量之间的关系"></a> 变量之间的关系</h1>
+<p>通常，单个的变量没有意义，人们更加关心变量之间的关系。比如，职业种类与收入是否有关系？政府投入与经济增长是否有关系？<br>
+除了上述二元关系，还有复杂的多变量关系，如企业的固定资产、流动资产、预算分配、管理模式、生产率、债务和利润。</p>
+<p>如同本文开始所说，有些关系可以明确确定，有些关系只能依靠统计学作出推断。</p>
+<h2 id="定量变量间的关系"><a class="markdownIt-Anchor" href="#定量变量间的关系"></a> 定量变量间的关系</h2>
+<p>比如，一组广告投入和销售额之间的数据，做成二维点图（散点图）：</p>
+<img src="/2013/05/12/statistics_intro_1/1.png" width="1">
+<p>通常对于变量之间的关系会研究以下问题：</p>
+<ul>
+<li>这两个变量是否有关系？（相关性）</li>
+<li>如果有，它们的关系是否显著？</li>
+<li>这些关系是什么关系，能否用数学模型来描述？</li>
+<li>这个关系是否带有普遍性？（是否只对此样本有效？——需要收集更多数据）</li>
+<li>这个关系是不是因果关系？（需要排除其他因素的影响才能判断）</li>
+</ul>
+<blockquote>
+<p>因果关系是对变量关系的深入分析</p>
+</blockquote>
+<blockquote>
+<p>不是因果关系也可以用来作为推断的依据</p>
+</blockquote>
+<blockquote>
+<p>比如，中西医对疾病的因果关系的理解不同</p>
+</blockquote>
+<blockquote>
+<p>但是从统计结果上来看，中西医都具有疗效</p>
+</blockquote>
+<p>按照变量类型的不同，变量之间的关系可以分为：</p>
+<ul>
+<li>定量变量间的关系</li>
+<li>定性变量间的关系</li>
+<li>定性定量变量间的混合关系</li>
+</ul>
+<h1 id="常用的统计软件"><a class="markdownIt-Anchor" href="#常用的统计软件"></a> 常用的统计软件</h1>
+<p>统计学涉及到大量数据的计算，离不开统计软件的支持（在应用计算机之前，主要通过查表的方式得到计算结果）。常用的统计软件如下：</p>
+<ul>
+<li>
+<p>R<br>
+这是一个免费的，由志愿者管理的软件。其编程语言与S-plus所基于的S语言一样，很方便。还有不断加入的各个方向统计学家编写的统计软件包。同时从网上可以不断更新和增加有关的软件包和程序。这是发展最快的软件，受到世界上统计师生的欢迎。是用户量增加最快的统计软件。对于一般非统计工作者来说，主要问题是它没有“傻瓜化”。</p>
+</li>
+<li>
+<p>S-plus<br>
+这是统计学家喜爱的软件。不仅由于其功能齐全，而且由于其强大的编程功能，使得研究人员可以编制自己的程序来实现自己的理论和方法。它也在进行“傻瓜化”以争取顾客。但仍然以编程方便为顾客所青睐。</p>
+</li>
+<li>
+<p>SPSS<br>
+这是一个很受欢迎的统计软件；它容易操作，输出漂亮，功能齐全，价格合理。对于非统计工作者是很好的选择。</p>
+</li>
+<li>
+<p>Excel<br>
+严格说来并不是统计软件，但作为数据表格软件，必然有一定统计计算功能。而且凡是有Microsoft Office的计算机，基本上都装有Excel。但要注意，有时在装Office时没有装数据分析的功能，那就必须装了才行。当然，画图功能是都具备的。对于简单分析，Excel还算方便，但随着问题的深入，Excel就不那么“傻瓜”，需要使用函数，甚至根本没有相应的方法了。多数专门一些的统计推断问题还需要其他专门的统计软件来处理。</p>
+</li>
+<li>
+<p>SAS<br>
+这是功能非常齐全的软件；尽管价格不菲，许多公司还是因为其功能众多和某些美国政府机构认可而使用。尽管现在已经尽量“傻瓜化”，仍然需要一定的训练才可以进入。对于基本统计课程则不那么方便。</p>
+</li>
+<li>
+<p>Minitab<br>
+这个软件是很方便的功能强大而又齐全的软件，也已经“傻瓜化”，在我国用的不如SPSS与SAS那么普遍。</p>
+</li>
+<li>
+<p>Statistica<br>
+也是功能强大而齐全的“傻瓜化”的软件，在我国用的也不如SAS与SPSS那么普遍。</p>
+</li>
+<li>
+<p>Eviews<br>
+这是一个主要处理回归和时间序列的软件。</p>
+</li>
+<li>
+<p>GAUSS<br>
+这是一个很好用的统计软件，许多搞经济的喜欢它。主要也是编程功能强大。目前在我国使用的人不多。</p>
+</li>
+<li>
+<p>FORTRAN<br>
+这是应用于各个领域的历史很长的非常优秀的编程软件，功能强大，也有一定的统计软件包。计算速度比这里介绍的都快得多。但需要编程和编译。操作不那么容易。</p>
+</li>
+<li>
+<p>MATLAB<br>
+这也是应用于各个领域的以编程为主的软件，在工程上应用广泛。编程类似于S和R。但是统计方法不多。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/统计学/" rel="tag"># 统计学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/01/26/technical_analysis.html" rel="next" title="技术分析的理论体系">
+                <i class="fa fa-chevron-left"></i> 技术分析的理论体系
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/05/19/statistics_intro_2.html" rel="prev" title="《统计学》读书笔记(2/17:数据的收集)">
+                《统计学》读书笔记(2/17:数据的收集) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#统计是什么"><span class="nav-number">1.</span> <span class="nav-text"> 统计是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计学是什么"><span class="nav-number">2.</span> <span class="nav-text"> 统计学是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随机性和规律性概率和机会"><span class="nav-number">3.</span> <span class="nav-text"> 随机性和规律性，概率和机会</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计结果统计结论是否有效"><span class="nav-number">4.</span> <span class="nav-text"> 统计结果/统计结论是否有效？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计学描述问题的方法常量变量和数据"><span class="nav-number">5.</span> <span class="nav-text"> 统计学描述问题的方法：常量，变量和数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量之间的关系"><span class="nav-number">6.</span> <span class="nav-text"> 变量之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定量变量间的关系"><span class="nav-number">6.1.</span> <span class="nav-text"> 定量变量间的关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用的统计软件"><span class="nav-number">7.</span> <span class="nav-text"> 常用的统计软件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/05/12/statistics_intro_1.html';
+          this.page.identifier = '2013/05/12/statistics_intro_1.html';
+          this.page.title = '《统计学》读书笔记1：一些基本概念';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

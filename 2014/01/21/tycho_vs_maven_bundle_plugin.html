@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,OSGi," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Tycho与Maven-Bundle-Plugin的对比 Maven与OSGi天生就是冤家：Maven通过pom.xml描述一个产物的全部，而OSGi将这项工作交给了MANIFEST.MF。 如果仅仅是一些定义信息还好说，但是Maven和OSGi都希望能够描述产物的依赖关系，在使用Maven开发OSGi bundle的时候，就导致了一个问题： 依赖关系到底是在pom.xml中描述，还是在MANI">
+<meta name="keywords" content="java,OSGi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSGi构建工具：Tycho还是Maven-Bundle-Plugin？">
+<meta property="og:url" content="http://holbrook.github.io/2014/01/21/tycho_vs_maven_bundle_plugin.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="Tycho与Maven-Bundle-Plugin的对比 Maven与OSGi天生就是冤家：Maven通过pom.xml描述一个产物的全部，而OSGi将这项工作交给了MANIFEST.MF。 如果仅仅是一些定义信息还好说，但是Maven和OSGi都希望能够描述产物的依赖关系，在使用Maven开发OSGi bundle的时候，就导致了一个问题： 依赖关系到底是在pom.xml中描述，还是在MANI">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/21/tycho_vs_maven_bundle_plugin/felix-tree.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/21/tycho_vs_maven_bundle_plugin/felix_launch_from_maven.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OSGi构建工具：Tycho还是Maven-Bundle-Plugin？">
+<meta name="twitter:description" content="Tycho与Maven-Bundle-Plugin的对比 Maven与OSGi天生就是冤家：Maven通过pom.xml描述一个产物的全部，而OSGi将这项工作交给了MANIFEST.MF。 如果仅仅是一些定义信息还好说，但是Maven和OSGi都希望能够描述产物的依赖关系，在使用Maven开发OSGi bundle的时候，就导致了一个问题： 依赖关系到底是在pom.xml中描述，还是在MANI">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/01/21/tycho_vs_maven_bundle_plugin/felix-tree.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/01/21/tycho_vs_maven_bundle_plugin.html"/>
+
+
+
+
+
+  <title>OSGi构建工具：Tycho还是Maven-Bundle-Plugin？ | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/21/tycho_vs_maven_bundle_plugin.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OSGi构建工具：Tycho还是Maven-Bundle-Plugin？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-21T00:00:00+08:00">
+                2014-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/01/21/tycho_vs_maven_bundle_plugin.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/01/21/tycho_vs_maven_bundle_plugin.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="tycho与maven-bundle-plugin的对比"><a class="markdownIt-Anchor" href="#tycho与maven-bundle-plugin的对比"></a> Tycho与Maven-Bundle-Plugin的对比</h1>
+<p>Maven与OSGi天生就是冤家：Maven通过<code>pom.xml</code>描述一个产物的全部，而OSGi将这项工作交给了<code>MANIFEST.MF</code>。</p>
+<p>如果仅仅是一些定义信息还好说，但是Maven和OSGi都希望能够描述产物的依赖关系，在使用Maven开发OSGi bundle的时候，就导致了一个问题：</p>
+<p>依赖关系到底是在<code>pom.xml</code>中描述，还是在<code>MANIFEST.MF</code>中描述？</p>
+<p><a href="/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html">前面提到的Tycho</a>的思路是由<code>MANIFEST.MF</code>自行管理bundle的依赖关系，<code>pom.xml</code>只记录使用maven进行构建时需要的信息，比如maven工程的父子关系、打包时需要的bundle仓库及要发布的目标平台等。</p>
+<p>Tycho的这种机制对Eclipse IDE比较友好，在开发期间完全使用IDE的机制进行开发和调试，只有在打包部署时才依赖maven。</p>
+<p><a href="http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html" target="_blank" rel="noopener">Apache Felix Maven-Bundle-Plugin</a><br>
+则使用另一套机制：使用Maven-Bundle-Plugin，在开发时可以没有<code>MANIFEST.MF</code>文件！Maven-Bundle-Plugin在<code>pom.xml</code>中复制了一套<code>MANIFEST.MF</code>的元数据，完全可以通过<code>pom.xml</code>文件中的定义生成出完整的<code>MANIFEST.MF</code>文件。</p>
+<p>Maven-Bundle-Plugin的这种机制使得工程完全的”maven化”，更适合传统非OSGi开发人员的使用习惯。但是无法很好的利用IDE的开发和调试功能，比如，你可能需要自己搭建一个运行环境从IDE中调用。</p>
+<p>两种方式可谓各有千秋。但是Tycho明显基于Equniox和Eclipse，比如，Tycho可以配置Eclipse p2站点作为bundle库。如果要使用Tycho开发和调试Felix，需要搭建一个Eclipse风格的p2站点，将Felix runtime和需要的各种bundle都放到该站点中并发布，然后<a href="/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html#menuIndex2">在Tycho中引用该站点</a>。更详细的说明可以参考<a href="http://vzurczak.wordpress.com/2013/02/27/a-target-platform-based-on-apache-felix/" target="_blank" rel="noopener">这里</a>。</p>
+<p>而Felix Maven-Bundle-Plugin对于各种OSGi runtime的支持是相同的，由于完全基于maven，使用任何IDE开发bundle的效果都差不多。通常，Felix系的平台，如Karaf、Geronimo、Camel、ServiceMix、Fuse等，其例子都是使用Maven-Bundle-Plugin构建的。</p>
+<p>由于<a href="/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html">前文已经说明了如何用Tycho开发OSGi</a>，下面只给出使用Maven-Bundle-Plugin的例子。</p>
+<h1 id="maven-bundle-plugin的pom例子"><a class="markdownIt-Anchor" href="#maven-bundle-plugin的pom例子"></a> Maven-Bundle-Plugin的pom例子</h1>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></span><br><span class="line"><span class="xml">xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>thinkinside.demo.osgi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>simple-bundle<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.felix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-bundle-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">id</span>&gt;</span>generate-resources<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml">						<span class="tag">&lt;<span class="name">goal</span>&gt;</span>manifest<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">						<span class="tag">&lt;<span class="name">instructions</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">Bundle-Name</span>&gt;</span>$</span><span class="template-variable">&#123;project.name&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">Bundle-Name</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">Bundle-SymbolicName</span>&gt;</span>$</span><span class="template-variable">&#123;project.artifactId&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">Bundle-SymbolicName</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">Bundle-Activator</span>&gt;</span>test.bundle.internal.Activator<span class="tag">&lt;/<span class="name">Bundle-Activator</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">Export-Package</span>&gt;</span>***<span class="tag">&lt;/<span class="name">Export-Package</span>&gt;</span></span></span><br><span class="line"><span class="xml">           					<span class="tag">&lt;<span class="name">Import-Package</span>&gt;</span>***<span class="tag">&lt;/<span class="name">Import-Package</span>&gt;</span></span></span><br><span class="line"><span class="xml">           					<span class="tag">&lt;<span class="name">Private-Package</span>&gt;</span>***<span class="tag">&lt;/<span class="name">Private-Package</span>&gt;</span></span></span><br><span class="line"><span class="xml">           				<span class="tag">&lt;/<span class="name">instructions</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;<span class="name">archive</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">manifestFile</span>&gt;</span>$</span><span class="template-variable">&#123;project.build.outputDirectory&#125;</span><span class="xml">/META-INF/MANIFEST.MF<span class="tag">&lt;/<span class="name">manifestFile</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.felix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.osgi.core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>使用Maven-Bundle-Plugin构建bundle，就是构建一个简单的jar。不同之处在于：要通过pom.xml中的信息生成符合OSGi要求的<code>MANIFEST.MF</code>文件并打包到jar中。这通过两个插件来完成：</p>
+<ul>
+<li>
+<p>org.apache.felix:maven-bundle-plugin</p>
+<p>在项目生命周期的&quot;generate-resources&quot;阶段，根据<code>&lt;instructions&gt;</code>标签内定义的信息生成<code>MANIFEST.MF</code>文件。这里可以配置OSGi所需要的全部元数据。</p>
+</li>
+<li>
+<p>org.apache.maven.plugins:maven-jar-plugin</p>
+<p>配置其在打包是使用前面生成的<code>MANIFEST.MF</code>文件</p>
+</li>
+</ul>
+<p>由于OSGi bundle通常会使用OSGi API，这里添加了org.apache.felix:org.osgi.core的依赖。当然也可以换成其他的OSGi运行时，比如Equinox。</p>
+<p>此时，使用<code>mvn package</code>生成的jar包中，<code>MANIFEST.MF</code>文件内已经添加了配置好的bundle信息。</p>
+<p>当然，使用<a href="http://svn.apache.org/repos/asf/felix/releases/maven-bundle-plugin-2.3.7/doc/site/index.html" target="_blank" rel="noopener">maven-bundle-plugin的目标(Goals)</a><br>
+可以进行更细致的控制。</p>
+<h1 id="在eclipse中运行和调试"><a class="markdownIt-Anchor" href="#在eclipse中运行和调试"></a> 在Eclipse中运行和调试</h1>
+<p>本来，传说中的<a href="http://wiki.ops4j.org/confluence/display/ops4j/Pax%20Cursor" target="_blank" rel="noopener">Pax Cursor</a>可以在Eclipse中基于各种OSGi runtime运行和调试bundle，但是天朝的网络中似乎不存在<code>ops4j.org</code>这个域名。</p>
+<p>好在我们可用一个Java Project的方式建立起Felix的环境，通过Eclipse对bundle进行运行和调试。<br>
+由于<a href="http://felix.apache.org/site/integrating-felix-with-eclipse.html" target="_blank" rel="noopener">这里</a>有非常详细的说明，故不再赘述。</p>
+<p>其实，我们还可以基于maven构建，而不是使用Java Project的方式。使用maven的好处是这种方法可以用于任何支持maven的IDE。</p>
+<p>Felix runtime的主要内容包括：</p>
+<img src="/2014/01/21/tycho_vs_maven_bundle_plugin/felix-tree.png">
+<p>其中：</p>
+<ul>
+<li>bin/felix.jar  启动的jar, MainClass是<code>org.apache.felix.main.Main</code></li>
+<li>bundle/	存放可用的bundle，Felix runtime中内置了4个必需的bundle</li>
+<li>conf/conf.properties 启动配置。类似于Eclipse的<code>configuration/config.ini</code>。Felix配置项可以参考<a href="http://felix.apache.org/site/apache-felix-framework-configuration-properties.html" target="_blank" rel="noopener">官方网站中的内容</a></li>
+</ul>
+<p>知道了Felix runtime的构成，就可以用maven构建出相同的结构，并插入到项目周期的适当位置。pom如下：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></span><br><span class="line"><span class="xml">xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>thinkinside.demo.fuse<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>felix-launcher<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">name</span>&gt;</span>Felix Launcher<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">felix.bundlerepository.version</span>&gt;</span>1.6.4<span class="tag">&lt;/<span class="name">felix.bundlerepository.version</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">felix.gogo.version</span>&gt;</span>0.10.0<span class="tag">&lt;/<span class="name">felix.gogo.version</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">felix.framework.version</span>&gt;</span>4.2.1<span class="tag">&lt;/<span class="name">felix.framework.version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-clean-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;<span class="name">filesets</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">fileset</span>&gt;</span></span></span><br><span class="line"><span class="xml">						<span class="tag">&lt;<span class="name">directory</span>&gt;</span>bundle<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;/<span class="name">fileset</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;/<span class="name">filesets</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-dependency-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">id</span>&gt;</span>copy<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">phase</span>&gt;</span>generate-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml">						<span class="tag">&lt;<span class="name">goal</span>&gt;</span>copy<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">						<span class="tag">&lt;<span class="name">artifactItems</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.felix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.felix.gogo.command<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;felix.gogo.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.felix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.felix.gogo.runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;felix.gogo.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.felix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.felix.gogo.shell<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;felix.gogo.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.osgi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.osgi.compendium<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">								<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">							<span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">						<span class="tag">&lt;/<span class="name">artifactItems</span>&gt;</span></span></span><br><span class="line"><span class="xml">						<span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>bundle<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span></span><br><span class="line"><span class="xml">					<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.felix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.apache.felix.main<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;felix.framework.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.ops4j.pax.url<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pax-url-assembly<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>该pom在标准的生命周期中增加了两项工作：</p>
+<ul>
+<li>在<code>generate-resources</code>阶段，创建bundle文件夹，复制必需的4个bundle</li>
+<li>在<code>clean</code>阶段，清除bundle文件夹</li>
+</ul>
+<p>最后，还需要一个配置文件。在工程目录建立<code>/conf/config.properties</code>文件，并进行基本配置：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">felix<span class="selector-class">.auto</span><span class="selector-class">.deploy</span><span class="selector-class">.action</span>=install,start</span><br><span class="line">felix<span class="selector-class">.log</span><span class="selector-class">.level</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">org<span class="selector-class">.osgi</span><span class="selector-class">.framework</span><span class="selector-class">.storage</span><span class="selector-class">.clean</span>=onFirstInit</span><br></pre></td></tr></table></figure>
+<p>配置完成了，先执行<code>mvn compile</code>生成需要的资源。此时使用命令<code>mvn exec:java -Dexec.mainClass=&quot;org.apache.felix.main.Main&quot;</code>即可以启动Felix runtime：</p>
+<img src="/2014/01/21/tycho_vs_maven_bundle_plugin/felix_launch_from_maven.png">
+<p>在Eclipse中，将这个工程作为<code>Java Application</code>运行，选择<code>org.apache.felix.main.Main</code>作为Main Class，就可以进行运行和调试。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/20/about_fuse_esb.html" rel="next" title="JBOSS FUSE:你必须知道的那些事">
+                <i class="fa fa-chevron-left"></i> JBOSS FUSE:你必须知道的那些事
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/22/osgi_blueprint_container.html" rel="prev" title="Blueprint：OSGi的依赖注入(DI)容器">
+                Blueprint：OSGi的依赖注入(DI)容器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#tycho与maven-bundle-plugin的对比"><span class="nav-number">1.</span> <span class="nav-text"> Tycho与Maven-Bundle-Plugin的对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#maven-bundle-plugin的pom例子"><span class="nav-number">2.</span> <span class="nav-text"> Maven-Bundle-Plugin的pom例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在eclipse中运行和调试"><span class="nav-number">3.</span> <span class="nav-text"> 在Eclipse中运行和调试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/01/21/tycho_vs_maven_bundle_plugin.html';
+          this.page.identifier = '2014/01/21/tycho_vs_maven_bundle_plugin.html';
+          this.page.title = 'OSGi构建工具：Tycho还是Maven-Bundle-Plugin？';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

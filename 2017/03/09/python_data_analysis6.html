@@ -1,0 +1,4671 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《利用Python进行数据分析》读书笔记。 第6章：数据加载、存储与文件格式。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Python进行数据分析(6)：数据加载、存储与文件格式">
+<meta property="og:url" content="http://holbrook.github.io/2017/03/09/python_data_analysis6.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="《利用Python进行数据分析》读书笔记。 第6章：数据加载、存储与文件格式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用Python进行数据分析(6)：数据加载、存储与文件格式">
+<meta name="twitter:description" content="《利用Python进行数据分析》读书笔记。 第6章：数据加载、存储与文件格式。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2017/03/09/python_data_analysis6.html"/>
+
+
+
+
+
+  <title>利用Python进行数据分析(6)：数据加载、存储与文件格式 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/03/09/python_data_analysis6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用Python进行数据分析(6)：数据加载、存储与文件格式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-09T00:00:00+08:00">
+                2017-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/09/python_data_analysis6.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/03/09/python_data_analysis6.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>
+第6章：数据加载、存储与文件格式。</p>
+<a id="more"></a>
+
+<div class="notebook-border">
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div id="notebook-container">
+      
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
+<p>第6章： 数据加载、存储与文件格式</p>
+<p>所有用到的数据可以从<a href="https://github.com/wesm/pydata-book" target="_blank" rel="noopener">作者的 github</a>下载。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">randn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Populating the interactive namespace from numpy and matplotlib
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#35835;&#20889;&#25991;&#26412;&#25991;&#20214;">&#35835;&#20889;&#25991;&#26412;&#25991;&#20214;<a class="anchor-link" href="#&#35835;&#20889;&#25991;&#26412;&#25991;&#20214;">&#182;</a></h1><h2 id="&#35835;&#21462;&#21508;&#31181;&#26684;&#24335;">&#35835;&#21462;&#21508;&#31181;&#26684;&#24335;<a class="anchor-link" href="#&#35835;&#21462;&#21508;&#31181;&#26684;&#24335;">&#182;</a></h2><p>pandas读取文件的常用函数：</p>
+<ul>
+<li>read_csv(): 读取逗号分隔的文本</li>
+<li>read_table(): 读取 <code>Tab</code> 分隔的文本</li>
+<li>read_fwf(): 读取固定宽度文本</li>
+<li>read_clipboard(): 读取剪切板</li>
+</ul>
+<p>pandas读取文件会自动推断数据类型，不用指定。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 标准格式</span>
+<span class="o">!</span>cat data/ch06/ex1.csv
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a,b,c,d,message
+1,2,3,4,hello
+5,6,7,8,world
+9,10,11,12,foo</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex1.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  指定分隔符</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 无标题行数据</span>
+<span class="o">!</span>cat data/ch06/ex2.csv
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1,2,3,4,hello
+5,6,7,8,world
+9,10,11,12,foo</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex2.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  可以指定标题</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex2.csv&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 指定标题和索引</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex2.csv&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+    </tr>
+    <tr>
+      <th>message</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>hello</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>world</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>foo</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 指定层次化索引</span>
+<span class="o">!</span>cat data/ch06/csv_mindex.csv
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/csv_mindex.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;key1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span><span class="p">])</span>
+<span class="n">parsed</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>key1,key2,value1,value2
+one,a,1,2
+one,b,3,4
+one,c,5,6
+one,d,7,8
+two,a,9,10
+two,b,11,12
+two,c,13,14
+two,d,15,16
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>value1</th>
+      <th>value2</th>
+    </tr>
+    <tr>
+      <th>key1</th>
+      <th>key2</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">one</th>
+      <th>a</th>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">two</th>
+      <th>a</th>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>13</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>15</td>
+      <td>16</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 非标准分隔符</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex3.txt&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;            A         B         C\n&#39;,
+ &#39;aaa -0.264438 -1.026059 -0.619500\n&#39;,
+ &#39;bbb  0.927272  0.302904 -0.032399\n&#39;,
+ &#39;ccc -0.264273 -0.386314 -0.217601\n&#39;,
+ &#39;ddd -0.871858 -0.348382  1.100491\n&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 可以用正则表达式作为分隔符</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex3.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aaa</th>
+      <td>-0.264438</td>
+      <td>-1.026059</td>
+      <td>-0.619500</td>
+    </tr>
+    <tr>
+      <th>bbb</th>
+      <td>0.927272</td>
+      <td>0.302904</td>
+      <td>-0.032399</td>
+    </tr>
+    <tr>
+      <th>ccc</th>
+      <td>-0.264273</td>
+      <td>-0.386314</td>
+      <td>-0.217601</td>
+    </tr>
+    <tr>
+      <th>ddd</th>
+      <td>-0.871858</td>
+      <td>-0.348382</td>
+      <td>1.100491</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 跳过一些行</span>
+<span class="o">!</span>cat data/ch06/ex4.csv
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex4.csv&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre># hey!
+a,b,c,d,message
+# just wanted to make things more difficult for you
+# who reads CSV files with computers, anyway?
+1,2,3,4,hello
+5,6,7,8,world
+9,10,11,12,foo</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># pandas 能自动识别缺失值</span>
+<span class="o">!</span>cat data/ch06/ex5.csv
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex5.csv&#39;</span><span class="p">)</span>
+<span class="n">result</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>something,a,b,c,d,message
+one,1,2,3,4,NA
+two,5,6,,8,world
+three,9,10,11,12,foo</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[29]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>something</th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 指定缺失标志（如何判断缺失）</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex5.csv&#39;</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;NULL&#39;</span><span class="p">])</span>
+<span class="n">result</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>something</th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>one</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>two</td>
+      <td>5</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>three</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11.0</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 为每列指定不同的判断缺失标志</span>
+<span class="n">sentinels</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;NA&#39;</span><span class="p">],</span> <span class="s1">&#39;something&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;two&#39;</span><span class="p">]}</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex5.csv&#39;</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="n">sentinels</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[31]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>something</th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>one</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>three</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11.0</td>
+      <td>12</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#36880;&#22359;&#35835;&#21462;">&#36880;&#22359;&#35835;&#21462;<a class="anchor-link" href="#&#36880;&#22359;&#35835;&#21462;">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex6.csv&#39;</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[34]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>one</th>
+      <th>two</th>
+      <th>three</th>
+      <th>four</th>
+      <th>key</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.467976</td>
+      <td>-0.038649</td>
+      <td>-0.295344</td>
+      <td>-1.824726</td>
+      <td>L</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.358893</td>
+      <td>1.404453</td>
+      <td>0.704965</td>
+      <td>-0.200638</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.501840</td>
+      <td>0.659254</td>
+      <td>-0.421691</td>
+      <td>-0.057688</td>
+      <td>G</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.204886</td>
+      <td>1.074134</td>
+      <td>1.388361</td>
+      <td>-0.982404</td>
+      <td>R</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.354628</td>
+      <td>-0.133116</td>
+      <td>0.283763</td>
+      <td>-0.837063</td>
+      <td>Q</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#读取5行</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex6.csv&#39;</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>one</th>
+      <th>two</th>
+      <th>three</th>
+      <th>four</th>
+      <th>key</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.467976</td>
+      <td>-0.038649</td>
+      <td>-0.295344</td>
+      <td>-1.824726</td>
+      <td>L</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.358893</td>
+      <td>1.404453</td>
+      <td>0.704965</td>
+      <td>-0.200638</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.501840</td>
+      <td>0.659254</td>
+      <td>-0.421691</td>
+      <td>-0.057688</td>
+      <td>G</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.204886</td>
+      <td>1.074134</td>
+      <td>1.388361</td>
+      <td>-0.982404</td>
+      <td>R</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.354628</td>
+      <td>-0.133116</td>
+      <td>0.283763</td>
+      <td>-0.837063</td>
+      <td>Q</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># chunksize: 设置逐块读取的行数</span>
+<span class="n">chunker</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex6.csv&#39;</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="c1"># 返回一个 reader</span>
+<span class="n">chunker</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[37]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pandas.io.parsers.TextFileReader at 0x10f8be2e8&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  对chunker 进行遍历 ,  逐块计算</span>
+
+<span class="n">chunker</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex6.csv&#39;</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">tot</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([])</span>
+<span class="k">for</span> <span class="n">piece</span> <span class="ow">in</span> <span class="n">chunker</span><span class="p">:</span>
+    <span class="n">tot</span> <span class="o">=</span> <span class="n">tot</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">piece</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#tot = tot.sort_values(ascending=False)</span>
+<span class="n">tot</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[48]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    151.0
+1    146.0
+2    152.0
+3    162.0
+4    171.0
+5    157.0
+6    166.0
+7    164.0
+8    162.0
+9    150.0
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#36755;&#20986;&#25991;&#26412;&#25991;&#20214;">&#36755;&#20986;&#25991;&#26412;&#25991;&#20214;<a class="anchor-link" href="#&#36755;&#20986;&#25991;&#26412;&#25991;&#20214;">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex5.csv&#39;</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[49]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>something</th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>one</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>two</td>
+      <td>5</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>three</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11.0</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  输出csv文件</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>,something,a,b,c,d,message
+0,one,1,2,3.0,4,
+1,two,5,6,,8,world
+2,three,9,10,11.0,12,foo
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  指定分隔符</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>|something|a|b|c|d|message
+0|one|1|2|3.0|4|
+1|two|5|6||8|world
+2|three|9|10|11.0|12|foo
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 指定缺失值的输出</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">na_rep</span><span class="o">=</span><span class="s1">&#39;NULL&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>,something,a,b,c,d,message
+0,one,1,2,3.0,4,NULL
+1,two,5,6,NULL,8,world
+2,three,9,10,11.0,12,foo
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 禁止输出标题和索引</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>one,1,2,3.0,4,
+two,5,6,,8,world
+three,9,10,11.0,12,foo
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 指定标题</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a,b,c
+1,2,3.0
+5,6,
+9,10,11.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  输出 Series</span>
+
+<span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;1/1/2000&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2000-01-01,0
+2000-01-02,1
+2000-01-03,2
+2000-01-04,3
+2000-01-05,4
+2000-01-06,5
+2000-01-07,6
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 读取 Series</span>
+<span class="n">Series</span><span class="o">.</span><span class="n">from_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/tseries.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[58]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2000-01-01    0
+2000-01-02    1
+2000-01-03    2
+2000-01-04    3
+2000-01-05    4
+2000-01-06    5
+2000-01-07    6
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#25163;&#24037;&#22788;&#29702;&#20998;&#38548;&#31526;">&#25163;&#24037;&#22788;&#29702;&#20998;&#38548;&#31526;<a class="anchor-link" href="#&#25163;&#24037;&#22788;&#29702;&#20998;&#38548;&#31526;">&#182;</a></h2><p>对于不规范的文件，经常需要进行预处理。</p>
+<p>Python内置的csv模块可以读取任何单字符分隔符文件。
+通过定义csv.Dialect参数，可定义适应很多格式（如专门的分隔符、字符串引用约定、行结束符等）。</p>
+<p>csv.Dialect 的主要属性包括：</p>
+<ul>
+<li>delimiter:  分隔符，默认为“,”</li>
+<li>lineterminator: 行结束符，默认为“\r\n” 。 只作用于写操作，读的时候自动识别。</li>
+<li>quotechar: 特殊字符的引用符，默认为双引号</li>
+<li>quoting:  引用约定? </li>
+<li>skipinitialspace:  是否忽略分隔符后的空白符，默认为 False</li>
+<li>doublequote:  是否双写字段内的引用符号。默认为 True</li>
+<li>escapechar:  对分隔符进行转义的字符串？</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat data/ch06/ex7.csv
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#34;a&#34;,&#34;b&#34;,&#34;c&#34;
+&#34;1&#34;,&#34;2&#34;,&#34;3&#34;
+&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex7.csv&#39;</span><span class="p">)</span>
+
+<span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex7.csv&#39;</span><span class="p">)))</span>
+<span class="n">header</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))}</span>
+<span class="n">data_dict</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;a&#39;: (&#39;1&#39;, &#39;1&#39;), &#39;b&#39;: (&#39;2&#39;, &#39;2&#39;), &#39;c&#39;: (&#39;3&#39;, &#39;3&#39;)}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">my_dialect</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">Dialect</span><span class="p">):</span>
+    <span class="n">lineterminator</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span>
+    <span class="n">quotechar</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span>
+    <span class="n">quoting</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">QUOTE_MINIMAL</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 用 csv 模块输出到文件</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mydata.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dialect</span><span class="o">=</span><span class="n">my_dialect</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">((</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">))</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">((</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">))</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">((</span><span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">))</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">((</span><span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">cat</span> mydata.csv
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>one;two;three
+1;2;3
+4;5;6
+7;8;9
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="JSON-&#25968;&#25454;">JSON &#25968;&#25454;<a class="anchor-link" href="#JSON-&#25968;&#25454;">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">{&quot;name&quot;: &quot;Wes&quot;,</span>
+<span class="s2"> &quot;places_lived&quot;: [&quot;United States&quot;, &quot;Spain&quot;, &quot;Germany&quot;],</span>
+<span class="s2"> &quot;pet&quot;: null,</span>
+<span class="s2"> &quot;siblings&quot;: [{&quot;name&quot;: &quot;Scott&quot;, &quot;age&quot;: 25, &quot;pet&quot;: &quot;Zuko&quot;},</span>
+<span class="s2">              {&quot;name&quot;: &quot;Katie&quot;, &quot;age&quot;: 33, &quot;pet&quot;: &quot;Cisco&quot;}]</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;name&#39;: &#39;Wes&#39;,
+ &#39;pet&#39;: None,
+ &#39;places_lived&#39;: [&#39;United States&#39;, &#39;Spain&#39;, &#39;Germany&#39;],
+ &#39;siblings&#39;: [{&#39;age&#39;: 25, &#39;name&#39;: &#39;Scott&#39;, &#39;pet&#39;: &#39;Zuko&#39;},
+  {&#39;age&#39;: 33, &#39;name&#39;: &#39;Katie&#39;, &#39;pet&#39;: &#39;Cisco&#39;}]}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">asjson</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">siblings</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;siblings&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">])</span>
+<span class="n">siblings</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Scott</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Katie</td>
+      <td>33</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="XML-&#21644;-HTML&#65306;-Web-&#20449;&#24687;&#25910;&#38598;">XML &#21644; HTML&#65306; Web &#20449;&#24687;&#25910;&#38598;<a class="anchor-link" href="#XML-&#21644;-HTML&#65306;-Web-&#20449;&#24687;&#25910;&#38598;">&#182;</a></h3><p><strong>NB. The Yahoo! Finance API has changed and this example no longer works</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>from lxml.html import parse
+from urllib2 import urlopen
+
+parsed = parse(urlopen('http://finance.yahoo.com/q/op?s=AAPL+Options'))
+
+doc = parsed.getroot()</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>links = doc.findall('.//a')
+links[15:20]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>lnk = links[28]
+lnk
+lnk.get('href')
+lnk.text_content()</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>urls = [lnk.get('href') for lnk in doc.findall('.//a')]
+urls[-10:]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>tables = doc.findall('.//table')
+calls = tables[9]
+puts = tables[13]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>rows = calls.findall('.//tr')</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>def _unpack(row, kind='td'):
+    elts = row.findall('.//%s' % kind)
+    return [val.text_content() for val in elts]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>_unpack(rows[0], kind='th')
+_unpack(rows[1], kind='td')</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>from pandas.io.parsers import TextParser
+
+def parse_options_data(table):
+    rows = table.findall('.//tr')
+    header = _unpack(rows[0], kind='th')
+    data = [_unpack(r) for r in rows[1:]]
+    return TextParser(data, names=header).get_chunk()</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>call_data = parse_options_data(calls)
+put_data = parse_options_data(puts)
+call_data[:10]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#20351;&#29992;-lxml.objectify-&#35299;&#26512;-XML">&#20351;&#29992; lxml.objectify &#35299;&#26512; XML<a class="anchor-link" href="#&#20351;&#29992;-lxml.objectify-&#35299;&#26512;-XML">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;./data/ch06/mta_perf/Performance_MNR.xml&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">objectify</span>
+
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">objectify</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">parsed</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">skip_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PARENT_SEQ&#39;</span><span class="p">,</span> <span class="s1">&#39;INDICATOR_SEQ&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;DESIRED_CHANGE&#39;</span><span class="p">,</span> <span class="s1">&#39;DECIMAL_PLACES&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">INDICATOR</span><span class="p">:</span>
+    <span class="n">el_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">elt</span><span class="o">.</span><span class="n">getchildren</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">skip_fields</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">el_data</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">pyval</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el_data</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">perf</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">perf</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AGENCY_NAME</th>
+      <th>CATEGORY</th>
+      <th>DESCRIPTION</th>
+      <th>FREQUENCY</th>
+      <th>INDICATOR_NAME</th>
+      <th>INDICATOR_UNIT</th>
+      <th>MONTHLY_ACTUAL</th>
+      <th>MONTHLY_TARGET</th>
+      <th>PERIOD_MONTH</th>
+      <th>PERIOD_YEAR</th>
+      <th>YTD_ACTUAL</th>
+      <th>YTD_TARGET</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.9</td>
+      <td>95</td>
+      <td>1</td>
+      <td>2008</td>
+      <td>96.9</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95</td>
+      <td>95</td>
+      <td>2</td>
+      <td>2008</td>
+      <td>96</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.9</td>
+      <td>95</td>
+      <td>3</td>
+      <td>2008</td>
+      <td>96.3</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>98.3</td>
+      <td>95</td>
+      <td>4</td>
+      <td>2008</td>
+      <td>96.8</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95.8</td>
+      <td>95</td>
+      <td>5</td>
+      <td>2008</td>
+      <td>96.6</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>94.4</td>
+      <td>95</td>
+      <td>6</td>
+      <td>2008</td>
+      <td>96.2</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96</td>
+      <td>95</td>
+      <td>7</td>
+      <td>2008</td>
+      <td>96.2</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.4</td>
+      <td>95</td>
+      <td>8</td>
+      <td>2008</td>
+      <td>96.2</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>93.7</td>
+      <td>95</td>
+      <td>9</td>
+      <td>2008</td>
+      <td>95.9</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.4</td>
+      <td>95</td>
+      <td>10</td>
+      <td>2008</td>
+      <td>96</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.9</td>
+      <td>95</td>
+      <td>11</td>
+      <td>2008</td>
+      <td>96.1</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95.1</td>
+      <td>95</td>
+      <td>12</td>
+      <td>2008</td>
+      <td>96</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>92.6</td>
+      <td>96.2</td>
+      <td>1</td>
+      <td>2009</td>
+      <td>92.6</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.8</td>
+      <td>96.2</td>
+      <td>2</td>
+      <td>2009</td>
+      <td>94.6</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.9</td>
+      <td>96.2</td>
+      <td>3</td>
+      <td>2009</td>
+      <td>95.4</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>97.1</td>
+      <td>96.2</td>
+      <td>4</td>
+      <td>2009</td>
+      <td>95.9</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>97.8</td>
+      <td>96.2</td>
+      <td>5</td>
+      <td>2009</td>
+      <td>96.2</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>97.3</td>
+      <td>96.2</td>
+      <td>6</td>
+      <td>2009</td>
+      <td>96.4</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.7</td>
+      <td>96.2</td>
+      <td>7</td>
+      <td>2009</td>
+      <td>96.5</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95.7</td>
+      <td>96.2</td>
+      <td>8</td>
+      <td>2009</td>
+      <td>96.4</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.1</td>
+      <td>96.2</td>
+      <td>9</td>
+      <td>2009</td>
+      <td>96.3</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>94.8</td>
+      <td>96.2</td>
+      <td>10</td>
+      <td>2009</td>
+      <td>96.2</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95.7</td>
+      <td>96.2</td>
+      <td>11</td>
+      <td>2009</td>
+      <td>96.1</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95</td>
+      <td>96.2</td>
+      <td>12</td>
+      <td>2009</td>
+      <td>96</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>98</td>
+      <td>96.3</td>
+      <td>1</td>
+      <td>2010</td>
+      <td>98</td>
+      <td>96.3</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>93</td>
+      <td>96.3</td>
+      <td>2</td>
+      <td>2010</td>
+      <td>95.6</td>
+      <td>96.3</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.9</td>
+      <td>96.3</td>
+      <td>3</td>
+      <td>2010</td>
+      <td>96.1</td>
+      <td>96.3</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>98.1</td>
+      <td>96.3</td>
+      <td>4</td>
+      <td>2010</td>
+      <td>96.6</td>
+      <td>96.3</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>97.6</td>
+      <td>96.3</td>
+      <td>5</td>
+      <td>2010</td>
+      <td>96.8</td>
+      <td>96.3</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>97.4</td>
+      <td>96.3</td>
+      <td>6</td>
+      <td>2010</td>
+      <td>96.9</td>
+      <td>96.3</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>618</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>94</td>
+      <td></td>
+      <td>7</td>
+      <td>2009</td>
+      <td>95.14</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>619</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>97</td>
+      <td></td>
+      <td>8</td>
+      <td>2009</td>
+      <td>95.38</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>620</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>98.3</td>
+      <td></td>
+      <td>9</td>
+      <td>2009</td>
+      <td>95.7</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>621</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>98.7</td>
+      <td></td>
+      <td>10</td>
+      <td>2009</td>
+      <td>96</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>622</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>98.1</td>
+      <td></td>
+      <td>11</td>
+      <td>2009</td>
+      <td>96.21</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td></td>
+      <td>12</td>
+      <td>2009</td>
+      <td>96.5</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>624</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>97.95</td>
+      <td>97</td>
+      <td>1</td>
+      <td>2010</td>
+      <td>97.95</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>625</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>2</td>
+      <td>2010</td>
+      <td>98.92</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>626</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>3</td>
+      <td>2010</td>
+      <td>99.29</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>627</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>4</td>
+      <td>2010</td>
+      <td>99.47</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>628</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>5</td>
+      <td>2010</td>
+      <td>99.58</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>629</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>91.21</td>
+      <td>97</td>
+      <td>6</td>
+      <td>2010</td>
+      <td>98.19</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>630</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>7</td>
+      <td>2010</td>
+      <td>98.46</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>631</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>8</td>
+      <td>2010</td>
+      <td>98.69</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>632</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>95.2</td>
+      <td>97</td>
+      <td>9</td>
+      <td>2010</td>
+      <td>98.3</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>633</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>90.91</td>
+      <td>97</td>
+      <td>10</td>
+      <td>2010</td>
+      <td>97.55</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>634</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>96.67</td>
+      <td>97</td>
+      <td>11</td>
+      <td>2010</td>
+      <td>97.47</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>635</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>90.03</td>
+      <td>97</td>
+      <td>12</td>
+      <td>2010</td>
+      <td>96.84</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>636</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>1</td>
+      <td>2011</td>
+      <td>100</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>637</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>100</td>
+      <td>97</td>
+      <td>2</td>
+      <td>2011</td>
+      <td>100</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>638</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>97.07</td>
+      <td>97</td>
+      <td>3</td>
+      <td>2011</td>
+      <td>98.86</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>639</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>98.18</td>
+      <td>97</td>
+      <td>4</td>
+      <td>2011</td>
+      <td>98.76</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>640</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td>79.18</td>
+      <td>97</td>
+      <td>5</td>
+      <td>2011</td>
+      <td>90.91</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>641</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td></td>
+      <td>97</td>
+      <td>6</td>
+      <td>2011</td>
+      <td></td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>642</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td></td>
+      <td>97</td>
+      <td>7</td>
+      <td>2011</td>
+      <td></td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>643</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td></td>
+      <td>97</td>
+      <td>8</td>
+      <td>2011</td>
+      <td></td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>644</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td></td>
+      <td>97</td>
+      <td>9</td>
+      <td>2011</td>
+      <td></td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>645</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td></td>
+      <td>97</td>
+      <td>10</td>
+      <td>2011</td>
+      <td></td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>646</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td></td>
+      <td>97</td>
+      <td>11</td>
+      <td>2011</td>
+      <td></td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>647</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of the time that escalators are operat...</td>
+      <td>M</td>
+      <td>Escalator Availability</td>
+      <td>%</td>
+      <td></td>
+      <td>97</td>
+      <td>12</td>
+      <td>2011</td>
+      <td></td>
+      <td>97</td>
+    </tr>
+  </tbody>
+</table>
+<p>648 rows × 12 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;Element PERFORMANCE at 0x1157d9408&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20108;&#36827;&#21046;&#25991;&#20214;">&#20108;&#36827;&#21046;&#25991;&#20214;<a class="anchor-link" href="#&#20108;&#36827;&#21046;&#25991;&#20214;">&#182;</a></h1><h2 id="pickle-&#26684;&#24335;">pickle &#26684;&#24335;<a class="anchor-link" href="#pickle-&#26684;&#24335;">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex1.csv&#39;</span><span class="p">)</span>
+<span class="n">frame</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 实现数据的二进制格式最简单的方法之一是使用Python内置的pickle序列化</span>
+<span class="c1"># pickle，作者建议用作短期存储，因为会遇到解析版本问题</span>
+
+<span class="c1"># 写入二进制文件</span>
+<span class="n">frame</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;frame_pickle&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;frame_pickle&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#20351;&#29992;-HDF5-&#26684;&#24335;">&#20351;&#29992; HDF5 &#26684;&#24335;<a class="anchor-link" href="#&#20351;&#29992;-HDF5-&#26684;&#24335;">&#182;</a></h2><p>很多工具都能实现高效读写磁盘上以二进制格式存储的科学数据。HDF5就是一个流行工业级库，是一个C库，有Java、Python、MATLAB等多种接口。</p>
+<p>HDF 是指层次型数据格式(hierarchical data format)，非常适合存储时间序列数据。</p>
+<p>HDF5 支持多种格式的即时压缩，能高效存储重复数据。</p>
+<p>HDF5 读写速度极快。</p>
+<p>python 中提供了两个 HDF5格式的工具：<code>PyTables</code>和 <code>h5py</code>。h5py 更高级，而 PyTables 提供了更多的细节。
+pandas 使用了 PyTables 作为 HDF5 的底层支持。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">store</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">HDFStore</span><span class="p">(</span><span class="s1">&#39;mydata.h5&#39;</span><span class="p">)</span>
+<span class="n">store</span><span class="p">[</span><span class="s1">&#39;obj1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+<span class="n">store</span><span class="p">[</span><span class="s1">&#39;obj1_col&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">store</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;class &#39;pandas.io.pytables.HDFStore&#39;&gt;
+File path: mydata.h5
+/obj1                frame        (shape-&gt;[3,5])
+/obj1_col            series       (shape-&gt;[3])  </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;obj1&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;mydata.h5&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#35835;&#21462;Excel&#25968;&#25454;">&#35835;&#21462;Excel&#25968;&#25454;<a class="anchor-link" href="#&#35835;&#21462;Excel&#25968;&#25454;">&#182;</a></h2><p>底层使用 <code>xlrd</code> 和 <code>openpyxl</code>。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xls_file</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="s1">&#39;data/ch06/ex1.xlsx&#39;</span><span class="p">)</span>
+<span class="n">xls_file</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[36]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pandas.io.excel.ExcelFile at 0x116d91b38&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xls_file</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[37]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>hello</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>world</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#36890;&#36807;-HTML--&#21644;-Web-APIs-&#33719;&#21462;&#25968;&#25454;">&#36890;&#36807; HTML  &#21644; Web APIs &#33719;&#21462;&#25968;&#25454;<a class="anchor-link" href="#&#36890;&#36807;-HTML--&#21644;-Web-APIs-&#33719;&#21462;&#25968;&#25454;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.github.com/repos/pydata/pandas/milestones/28/labels&#39;</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">resp</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;Response [200]&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># data[:5]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">issue_labels</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">issue_labels</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[32]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AGENCY_NAME</th>
+      <th>CATEGORY</th>
+      <th>DESCRIPTION</th>
+      <th>FREQUENCY</th>
+      <th>INDICATOR_NAME</th>
+      <th>INDICATOR_UNIT</th>
+      <th>MONTHLY_ACTUAL</th>
+      <th>MONTHLY_TARGET</th>
+      <th>PERIOD_MONTH</th>
+      <th>PERIOD_YEAR</th>
+      <th>YTD_ACTUAL</th>
+      <th>YTD_TARGET</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.9</td>
+      <td>95</td>
+      <td>1</td>
+      <td>2008</td>
+      <td>96.9</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95</td>
+      <td>95</td>
+      <td>2</td>
+      <td>2008</td>
+      <td>96</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>96.9</td>
+      <td>95</td>
+      <td>3</td>
+      <td>2008</td>
+      <td>96.3</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>98.3</td>
+      <td>95</td>
+      <td>4</td>
+      <td>2008</td>
+      <td>96.8</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Metro-North Railroad</td>
+      <td>Service Indicators</td>
+      <td>Percent of commuter trains that arrive at thei...</td>
+      <td>M</td>
+      <td>On-Time Performance (West of Hudson)</td>
+      <td>%</td>
+      <td>95.8</td>
+      <td>95</td>
+      <td>5</td>
+      <td>2008</td>
+      <td>96.6</td>
+      <td>95</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20351;&#29992;&#25968;&#25454;&#24211;">&#20351;&#29992;&#25968;&#25454;&#24211;<a class="anchor-link" href="#&#20351;&#29992;&#25968;&#25454;&#24211;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">CREATE TABLE test</span>
+<span class="s2">(a VARCHAR(20), b VARCHAR(20),</span>
+<span class="s2"> c REAL,        d INTEGER</span>
+<span class="s2">);&quot;&quot;&quot;</span>
+
+<span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;:memory:&#39;</span><span class="p">)</span>
+<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;Atlanta&#39;</span><span class="p">,</span> <span class="s1">&#39;Georgia&#39;</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Tallahassee&#39;</span><span class="p">,</span> <span class="s1">&#39;Florida&#39;</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Sacramento&#39;</span><span class="p">,</span> <span class="s1">&#39;California&#39;</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO test VALUES(?, ?, ?, ?)&quot;</span>
+
+<span class="n">con</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select * from test&#39;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">rows</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;Atlanta&#39;, &#39;Georgia&#39;, 1.25, 6),
+ (&#39;Tallahassee&#39;, &#39;Florida&#39;, 2.6, 3),
+ (&#39;Sacramento&#39;, &#39;California&#39;, 1.7, 5)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">description</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[41]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>((&#39;a&#39;, None, None, None, None, None, None),
+ (&#39;b&#39;, None, None, None, None, None, None),
+ (&#39;c&#39;, None, None, None, None, None, None),
+ (&#39;d&#39;, None, None, None, None, None, None))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-42-1d88cef6e699&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>DataFrame<span class="ansi-blue-fg">(</span>rows<span class="ansi-blue-fg">,</span> columns<span class="ansi-blue-fg">=</span>zip<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>cursor<span class="ansi-blue-fg">.</span>description<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: &#39;zip&#39; object is not subscriptable</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas.io.sql</span> <span class="k">as</span> <span class="nn">sql</span>
+<span class="n">sql</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s1">&#39;select * from test&#39;</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area"><div class="prompt output_prompt">Out[43]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Atlanta</td>
+      <td>Georgia</td>
+      <td>1.25</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Tallahassee</td>
+      <td>Florida</td>
+      <td>2.60</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sacramento</td>
+      <td>California</td>
+      <td>1.70</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#21442;&#32771;&#36164;&#26009;">&#21442;&#32771;&#36164;&#26009;<a class="anchor-link" href="#&#21442;&#32771;&#36164;&#26009;">&#182;</a></h1><div class="footnotes">
+<hr>
+<ol></ol>
+</div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+</div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/04/machine-learning_index.html" rel="next" title="《机器学习》">
+                <i class="fa fa-chevron-left"></i> 《机器学习》
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/10/python_data_analysis7.html" rel="prev" title="利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑">
+                利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读写文本文件"><span class="nav-number">1.</span> <span class="nav-text">读写文本文件¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读取各种格式"><span class="nav-number">1.1.</span> <span class="nav-text">读取各种格式¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐块读取"><span class="nav-number">1.2.</span> <span class="nav-text">逐块读取¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出文本文件"><span class="nav-number">1.3.</span> <span class="nav-text">输出文本文件¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手工处理分隔符"><span class="nav-number">1.4.</span> <span class="nav-text">手工处理分隔符¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-数据"><span class="nav-number">1.5.</span> <span class="nav-text">JSON 数据¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XML-和-HTML：-Web-信息收集"><span class="nav-number">1.5.1.</span> <span class="nav-text">XML 和 HTML： Web 信息收集¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-lxml.objectify-解析-XML"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用 lxml.objectify 解析 XML¶</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二进制文件"><span class="nav-number">2.</span> <span class="nav-text">二进制文件¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pickle-格式"><span class="nav-number">2.1.</span> <span class="nav-text">pickle 格式¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-HDF5-格式"><span class="nav-number">2.2.</span> <span class="nav-text">使用 HDF5 格式¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取Excel数据"><span class="nav-number">2.3.</span> <span class="nav-text">读取Excel数据¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过-HTML--和-Web-APIs-获取数据"><span class="nav-number">3.</span> <span class="nav-text">通过 HTML  和 Web APIs 获取数据¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用数据库"><span class="nav-number">4.</span> <span class="nav-text">使用数据库¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料¶</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2017/03/09/python_data_analysis6.html';
+          this.page.identifier = '2017/03/09/python_data_analysis6.html';
+          this.page.title = '利用Python进行数据分析(6)：数据加载、存储与文件格式';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="交易系统," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="100个股民可能有101种分析手段，但通常都是采用技术分析（Technical Analysis,TA)。本文视图整理技术分析理论的总体理论框架，以便对于研究内容有一个定位和界定，并作为今后学习的索引。">
+<meta name="keywords" content="交易系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术分析的理论体系">
+<meta property="og:url" content="http://holbrook.github.io/2013/01/26/technical_analysis.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="100个股民可能有101种分析手段，但通常都是采用技术分析（Technical Analysis,TA)。本文视图整理技术分析理论的总体理论框架，以便对于研究内容有一个定位和界定，并作为今后学习的索引。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="技术分析的理论体系">
+<meta name="twitter:description" content="100个股民可能有101种分析手段，但通常都是采用技术分析（Technical Analysis,TA)。本文视图整理技术分析理论的总体理论框架，以便对于研究内容有一个定位和界定，并作为今后学习的索引。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/01/26/technical_analysis.html"/>
+
+
+
+
+
+  <title>技术分析的理论体系 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/01/26/technical_analysis.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">技术分析的理论体系</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-01-26T00:00:00+08:00">
+                2013-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量化交易/" itemprop="url" rel="index">
+                    <span itemprop="name">量化交易</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/01/26/technical_analysis.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/01/26/technical_analysis.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>100个股民可能有101种分析手段，但通常都是采用技术分析（Technical Analysis,TA)。本文视图整理技术分析理论的总体理论框架，以便对于研究内容有一个定位和界定，并作为今后学习的索引。</p>
+<a id="more"></a>
+<h1 id="价值投资和趋势投资"><a class="markdownIt-Anchor" href="#价值投资和趋势投资"></a> 价值投资和趋势投资</h1>
+<p>投资的终极目的就是获利；为了获利，就要找出价格变化的一些规律； 通过不同的手段发现价格规律，就形成了不同的投资策略。 策略的不同，体现了投资者看待市场角度的不同。</p>
+<p>大体来说，证券市场的投资策略主要有两种：</p>
+<ul>
+<li>价值投资。分析证券的内在价值，当证券的价格与内在价值发生偏离（高估或低估）时，就产生了投资机会。</li>
+<li>趋势投资。预测价格的变化趋势，当证券的价格变化具有明显趋势时，就产生了投资机会。</li>
+</ul>
+<p>一度以来，人们认为价值投资比较容易量化，操作稳健，是投资的正统，其他的都是旁门左道。 比如《有价证券分析》的作者本杰明·格雷厄姆就说过：“投资是基于详尽的分析，本金的安全和满意回报有保证的操作。不符合这一标准的操作就是投机。”</p>
+<p>但个人认为，价值投资和趋势投资（或者说投资和投机）并没有本质的区别：</p>
+<ol>
+<li>所谓的价值投资，也是对趋势的一种预测。价值投资认为从长期来看，股票价格的趋势是向“内在价值”回归。</li>
+<li>价值投资也存在假设，价值投资的前提和假设是：股票价格围绕“内在价值 ”的稳固基点上下波动。该假设并没有被明确的证明。</li>
+<li>价值投资并不容易量化。尽管价值投资认为内在价值可以用一定的、量化的方法来测定，但是信息获取的范围、来源、准确性、时效不同，以及分析方法的不同，会导致完全不同的估值结果。</li>
+<li>价值投资也不能保证本金的安全和满意的回报。</li>
+</ol>
+<p>虽然价值投资和趋势投资并没有本质的不同，但是两种方法有各自适用的场合。</p>
+<p>对于机构投资者等大资金的投资者，每次操作（买入或卖出）都会产生较大的成本，需要一段时间周期才能完成。这就决定了大资金投资者通常不会频繁操作，而且 需要“先知先觉”，在趋势明显确定之前就开始操作以保证能够在合适的时点完成操作，对于这种较长期的投资，更倾向于价值投资；</p>
+<p>而对于散户，收集信息非常困难并明显滞后，但是资金量小“船小好调头”，通常采用短线操作，更青睐趋势投资。</p>
+<p>当然，两种投资理念并不是冲突的，完全可以根据情况结合使用。</p>
+<h1 id="何为技术分析"><a class="markdownIt-Anchor" href="#何为技术分析"></a> 何为技术分析</h1>
+<p>无论是价值投资还是趋势投资，都需要通过某种手段进行分析，获取未来价格变化的趋势。</p>
+<p>价值投资通过基本面分析预测未来某一时点/时段证券的内在价值（价格变化的趋势就是向内在价值靠近）；趋势投资通过技术分析预测今后较短一段时间内价格变化的趋势。</p>
+<p>二者的本质区别在于着眼点的不同。基本面分析的目标是证券的内在属性，影响内在价值的因素五花八门，大到国际形势，小到公司管理细节。 技术分析的目标是市场行为，即当前情况下市场对证券价格会做出如何的反应。“当前情况”主要是当前（和历史）的成交价格及成交量，当然也可以包含很多五花八门的要素，比如黑子活动周期、月亮的阴晴圆缺等。</p>
+<p>如果要给技术分析一个明确的定义，可以参考<a href="http://zh.wikipedia.org/wiki/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90" target="_blank" rel="noopener">维基百科的定义</a>：</p>
+<p>技术分析是指研究过去金融市场的资讯（主要是经由使用图表）来预测价格的趋势决定投资的策略。纯理论上，技术分析只考虑市场或金融工具真实的价格行为。</p>
+<h1 id="理论基础和假设"><a class="markdownIt-Anchor" href="#理论基础和假设"></a> 理论基础和假设</h1>
+<p>所有的技术分析都是建立在三大假设之上的。</p>
+<ol>
+<li>市场行为包容消化一切（价格变化反映一切）。</li>
+<li>价格以趋势方式演变。</li>
+<li>历史会重演。</li>
+</ol>
+<p>如果一定要为技术分析找到一个理论基础，大概可以算是凯恩斯的“空中楼阁理论”。其实这并不能算是一个理论，而仅仅是一个假设。</p>
+<p>凯恩斯认为：</p>
+<ol>
+<li>证券的内在价值理论上是存在的，但是很难准确的进行长期预期;</li>
+<li>由于长期难以预测，所以应该关注短期。长期只不过是一连串短期的连接；</li>
+<li>在短期来说，价格并不是由内在价值决定的，而是由投资者心理决定的，是空中楼阁；</li>
+<li>获利需要顺势而为，在短期，就是要顺应投资者的心理和行为模式；</li>
+<li>短期价格体现了投资者的平均预期；</li>
+<li>一般人从心理上倾向于趋势会延续，除非预测到未来会变化的因素；</li>
+<li>在短期，投资者不需要关心证券的内在价值，而只需要关心平均预期及其可能发生的变化；</li>
+</ol>
+<p>凯恩斯的分析完全抛开了股票的内在价值，认为证券的价格在短期主要决定于投资者的心理预期，而不存在向内在价值靠拢的趋势。对于短期趋势的预测，就是对短期心理预期的预测。</p>
+<h1 id="技术分析理论派别"><a class="markdownIt-Anchor" href="#技术分析理论派别"></a> 技术分析理论派别</h1>
+<p>技术分析名为“技术”，但更像是“艺术”。技术分析没有严格的数学推理，更多的是依赖经验的总结。 证券市场众多的投资者根据自身的经验总结出了很多的“规律”。但是这些“规律”之间并不能互相映射。而且“规律”运用的程度和结果与使用者的经验有很大关系。</p>
+<p>目前被广泛认可的理论派别包括：<a href="http://wiki.mbalib.com/wiki/%E9%81%93%E6%B0%8F%E7%90%86%E8%AE%BA" target="_blank" rel="noopener">道氏理论</a>、<br>
+<a href="http://wiki.mbalib.com/wiki/%E6%B3%A2%E6%B5%AA%E7%90%86%E8%AE%BA" target="_blank" rel="noopener">波浪理论</a>和<br>
+<a href="http://wiki.mbalib.com/w/index.php?title=%E6%B1%9F%E6%81%A9%E6%B3%95%E5%88%99&amp;action=edit" target="_blank" rel="noopener">江恩理论</a> 。<br>
+各种规律都能或多或少在这些理论中找到影子。</p>
+<p>技术分析的理论严格来说并不能算是“理论”，上述三个派别都提出了趋势可能存在的类型及其特征，但是无法给出这些趋势存在或特征的证明。</p>
+<h2 id="道氏理论要点"><a class="markdownIt-Anchor" href="#道氏理论要点"></a> 道氏理论要点</h2>
+<p>道氏理论是所有市场技术研究的鼻祖。其创造者指明了技术分析的真谛：不是预测股市，而是反映市场趋势；是根据价格模式的研究,推测未来价格行为的一种方法。</p>
+<p>道氏理论在三个假设的基础上，提出了关于趋势的五个“定理”：</p>
+<ol>
+<li>存在3个级别的趋势 短期（持续几天–几周），中期（持续几周–几月），长期（持续几月–几年），次级走势围绕上级走势折返。</li>
+<li>存在一个市场的主要走势 主要走势是一种长期走势，代表市场的整体趋势，根据方向不同称为多头市场和空头市场（牛市和熊市）</li>
+<li>主要的空头市场包含三个主要的阶段 试探前一多头高点失败后的下跌；下跌一定程度后的反弹和调整；调整后的持续下跌</li>
+<li>主要的多头市场包含三个主要的阶段 前一空头下跌放缓；震荡上扬；持续走高</li>
+<li>存在次级折返走势，要分析其与主要走势的区别与联系</li>
+</ol>
+<h2 id="波浪理论要点"><a class="markdownIt-Anchor" href="#波浪理论要点"></a> 波浪理论要点</h2>
+<p>波浪理论号称“道氏理论告诉人们何谓大海，而波浪理论指导你如何在大海上冲浪”。其含义是道氏理论是一种定性的分析，而波浪理论在道氏理论的基础上实现了一定程度的定量分析。</p>
+<p>波浪理论在“群体心理”的假设上，提出价格的变化具有类似潮汐或波浪一样的形态。主要内容包括：</p>
+<ol>
+<li>5升3降是基本的形态</li>
+<li>各等级的波会互相叠加，但都各自符合基本形态</li>
+<li>存在9个等级的划分</li>
+<li>波浪的形态与时间无关，或者说，尽管波长可能不同，但波形一定符合基本形态</li>
+<li>在特定的趋势阶段下，对应的波浪会有一些明显的特征。反过来说，把握了波浪的特征，可以判断正处于趋势的哪个阶段</li>
+<li>波浪的某些特征可以向斐波那契数列、黄金分割率等数字上靠拢</li>
+</ol>
+<h2 id="江恩理论要点"><a class="markdownIt-Anchor" href="#江恩理论要点"></a> 江恩理论要点</h2>
+<p>江恩理论是一个“神奇”的理论，主要“神奇”在：江恩理论不仅引入了数学，还包含了天文、宗教等因素。江恩的一些作图方法看起来就像占星术或者周易。而且江恩理论对趋势的预测准确性非常高，甚至有人评价“不可思议”。</p>
+<p>由于江恩理论的神奇性，短期无法给出该理论的一个简要说明，这些内容留待以后研究。 但江恩理论的重要特征是：</p>
+<ol>
+<li>周期性和一些“魔术数字”</li>
+<li>在预测趋势的同时，还提出了一整套的操作程序，对于错误的预测能够进行补救。如“十二条买卖规则”，“二十一条买卖守则”等</li>
+</ol>
+<h1 id="技术分析的应用方法"><a class="markdownIt-Anchor" href="#技术分析的应用方法"></a> 技术分析的应用方法</h1>
+<p>不管应用哪种技术分析理论，其应用方法是一样的：</p>
+<ol>
+<li>
+<p>根据基本指标技术出趋势性指标</p>
+<p>这些指标都是对历史数据中交易行为的一种量化，有些指标是简单计算出来的，也有的指标需要经过统计分析后得出。<br>
+趋势性指标主要体现了量、价、时、空四大要素。<br>
+也有人将指标划分为趋势型指标、超买超卖型指标、人气和意愿指标、大势领先指标等类别。</p>
+</li>
+<li>
+<p>对单个趋势性指标或多个指标的组合进行分析</p>
+<p>可以直接观察数字，也可以做出图形(比如K线、切线等）观察形态，最终得出对趋势的判断。</p>
+</li>
+<li>
+<p>根据预测到的趋势进行操作</p>
+<p>这里需要注意的是：</p>
+<ul>
+<li>
+<p>由于趋势的预测不可能100%正确，所以要指定风险控制、资金管理等策略，简单的说就是先制定交易原则，以及预测失败的处理办法。</p>
+</li>
+<li>
+<p>不同的趋势具有不同的敏感度，敏感度越高，其适用的时间范围就越小，风险也越大。对趋势级别的选择要和自己的操作级别相适应。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="资料"><a class="markdownIt-Anchor" href="#资料"></a> 资料</h1>
+<p>本文只是对技术分析理论的大体框架进行了最粗略的概览，要想深入学习，还需要阅读大量的资料。目前找到的资料包括：</p>
+<ul>
+<li>
+<p>书籍</p>
+<ul>
+<li>《股市晴雨表》</li>
+<li>《道氏理论》</li>
+<li>《专业投机原理》</li>
+<li>《股市趋势技术分析》</li>
+<li>《江恩测市法则》</li>
+<li>《在华尔街45年》</li>
+</ul>
+</li>
+<li>
+<p>网站</p>
+<ul>
+<li><a href="http://www.ifta.org/" target="_blank" rel="noopener">国际技术分析师联盟</a></li>
+<li>市场技术分析师协会</li>
+<li><a href="http://www.aapta.us/" target="_blank" rel="noopener">美国专业技术分析师协会</a></li>
+<li><a href="http://www.csta.org/" target="_blank" rel="noopener">加拿大技术分析师公会</a></li>
+<li><a href="http://www.moneydj.com/z/analyst/analyst_home.htm" target="_blank" rel="noopener">MoneyDJ技术分析学院</a></li>
+<li><a href="http://www.facebook.com/pages/tu-biao-ren-ji-shu-fen-xi/290418956236" target="_blank" rel="noopener">图表人技术分析Facebook专页</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/交易系统/" rel="tag"># 交易系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/01/01/money.html" rel="next" title="你真的会数钱吗？">
+                <i class="fa fa-chevron-left"></i> 你真的会数钱吗？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/05/12/statistics_intro_1.html" rel="prev" title="《统计学》读书笔记1：一些基本概念">
+                《统计学》读书笔记1：一些基本概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#价值投资和趋势投资"><span class="nav-number">1.</span> <span class="nav-text"> 价值投资和趋势投资</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#何为技术分析"><span class="nav-number">2.</span> <span class="nav-text"> 何为技术分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理论基础和假设"><span class="nav-number">3.</span> <span class="nav-text"> 理论基础和假设</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#技术分析理论派别"><span class="nav-number">4.</span> <span class="nav-text"> 技术分析理论派别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#道氏理论要点"><span class="nav-number">4.1.</span> <span class="nav-text"> 道氏理论要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#波浪理论要点"><span class="nav-number">4.2.</span> <span class="nav-text"> 波浪理论要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#江恩理论要点"><span class="nav-number">4.3.</span> <span class="nav-text"> 江恩理论要点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#技术分析的应用方法"><span class="nav-number">5.</span> <span class="nav-text"> 技术分析的应用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资料"><span class="nav-number">6.</span> <span class="nav-text"> 资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/01/26/technical_analysis.html';
+          this.page.identifier = '2013/01/26/technical_analysis.html';
+          this.page.title = '技术分析的理论体系';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

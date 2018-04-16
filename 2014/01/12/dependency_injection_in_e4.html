@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,OSGi,GUI," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="e4开始，可以不使用代码或xml进行服务注册和寻找，而使用依赖注入进行装配  MANIFEST.MF 为了管理一组Java类和资源，通常我们会将其打包为JAR(Java Archive File，java存档文件)，该文件以ZIP格式进行打包。 在JAR文件中，会包含一个META-INF/MANIFEST.MF文件，作为该JAR包的清单文件，设置执行入口类和支持库的路径等信息。 主要内容包括：">
+<meta name="keywords" content="java,OSGi,GUI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eclipse e4：从OSGi-DS到依赖注入">
+<meta property="og:url" content="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="e4开始，可以不使用代码或xml进行服务注册和寻找，而使用依赖注入进行装配  MANIFEST.MF 为了管理一组Java类和资源，通常我们会将其打包为JAR(Java Archive File，java存档文件)，该文件以ZIP格式进行打包。 在JAR文件中，会包含一个META-INF/MANIFEST.MF文件，作为该JAR包的清单文件，设置执行入口类和支持库的路径等信息。 主要内容包括：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4/e4_inject.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4/e4_context.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4/e4_context_hierarchy.png">
+<meta property="og:image" content="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4/e4_context_hierarchy_example.png">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Eclipse e4：从OSGi-DS到依赖注入">
+<meta name="twitter:description" content="e4开始，可以不使用代码或xml进行服务注册和寻找，而使用依赖注入进行装配  MANIFEST.MF 为了管理一组Java类和资源，通常我们会将其打包为JAR(Java Archive File，java存档文件)，该文件以ZIP格式进行打包。 在JAR文件中，会包含一个META-INF/MANIFEST.MF文件，作为该JAR包的清单文件，设置执行入口类和支持库的路径等信息。 主要内容包括：">
+<meta name="twitter:image" content="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4/e4_inject.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4.html"/>
+
+
+
+
+
+  <title>Eclipse e4：从OSGi-DS到依赖注入 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/12/dependency_injection_in_e4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Eclipse e4：从OSGi-DS到依赖注入</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-12T00:00:00+08:00">
+                2014-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件技术/" itemprop="url" rel="index">
+                    <span itemprop="name">软件技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/01/12/dependency_injection_in_e4.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/01/12/dependency_injection_in_e4.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>e4开始，可以不使用代码或xml进行服务注册和寻找，而使用依赖注入进行装配</p>
+<h1 id="manifestmf"><a class="markdownIt-Anchor" href="#manifestmf"></a> MANIFEST.MF</h1>
+<p>为了管理一组Java类和资源，通常我们会将其打包为JAR(Java Archive File，java存档文件)，该文件以ZIP格式进行打包。<br>
+在JAR文件中，会包含一个<code>META-INF/MANIFEST.MF</code>文件，作为该JAR包的清单文件，设置执行入口类和支持库的路径等信息。<br>
+主要内容包括：</p>
+<ul>
+<li>Manifest-Version</li>
+<li>Class-Path</li>
+<li>Created-By</li>
+<li>Main-Class</li>
+</ul>
+<h1 id="osgi-bundle"><a class="markdownIt-Anchor" href="#osgi-bundle"></a> OSGi bundle</h1>
+<p>OSGi的目标是实现Java应用的模块化，其目标是：</p>
+<ul>
+<li>将程序封装成一个个的模块(在OSGi中叫做bundle)</li>
+<li>模块向外只暴露特定的接口，内部实现对外不可见</li>
+<li>OSGi容器管理模块的接口，包括服务发布、寻找和版本管理等</li>
+<li>OSGi容器管理模块的生命周期，比如启动、停止、热插拔等</li>
+</ul>
+<p>OSGi将每个模块打包为一个JAR文件。为了实现上述目标，<br>
+OSGi规范利用了<code>MANIFEST.MF</code>文件，在其中增加了一些bundle的描述信息，比如：</p>
+<ul>
+<li>Bundle-ManifestVersion</li>
+<li>Bundle-Name</li>
+<li>Bundle-SymbolicName</li>
+<li>Bundle-Version</li>
+<li>Bundle-ClassPath</li>
+<li>Bundle-Vendor</li>
+<li>Bundle-Localization</li>
+<li>Bundle-RequiredExecutionEnvironment</li>
+<li>Export-Package</li>
+<li>Require-Bundle</li>
+<li>Bundle-Activator</li>
+<li>Bundle-ActivationPolicy</li>
+<li>Import-Package</li>
+</ul>
+<h1 id="osgi服务的注册和寻找"><a class="markdownIt-Anchor" href="#osgi服务的注册和寻找"></a> OSGi服务的注册和寻找</h1>
+<p>OSGi模块中，只有<code>Export-Package</code>中声明的包才可以被其他模块访问。为了避免一个模块对其他模块的直接引用，<br>
+通常会实现一个“接口定义”模块和多个“接口实现”模块。通过服务注册和发现的方式进行服务的使用。</p>
+<p>OSGi还可以为模块指定一个&quot;激活类(<code>Bundle-Activator</code>)“，<br>
+这个类会在模块启动时被执行，通常在这里进行本模块的接口实现(服务)的发布，以及向本模块内的类注入其他模块实现的接口(服务).<br>
+比如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyActivator</span> <span class="keyword">implements</span> <span class="title">org</span>.<span class="title">osgi</span>.<span class="title">framework</span>.<span class="title">BundleActivator</span>&#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> start(BundleContext context) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		context.registerService(MyService.<span class="keyword">class</span>.getName(), <span class="keyword">new</span> MyServiceImpl(), <span class="literal">null</span>);</span><br><span class="line">		System.out.println(MyService.<span class="keyword">class</span>.getName() + <span class="string">" has been registred as a service"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，其他使用该服务的模块可以寻找服务。通常，也是在&quot;激活类(<code>Bundle-Activator</code>)“中进行：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientActivator</span> <span class="keyword">implements</span> <span class="title">BundleActivator</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> MyService helloService;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> start(BundleContext context) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		ServiceReference ref = context.getServiceReference(MyService.<span class="keyword">class</span>.getName());</span><br><span class="line">		MyService service = (MyService) context.getService(ref);</span><br><span class="line">		MyClient.setService(service);</span><br><span class="line">	&#125;</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="declarative-service"><a class="markdownIt-Anchor" href="#declarative-service"></a> Declarative Service</h1>
+<p>上面通过代码的方式进行服务的注册和寻找，实现起来比较繁琐。为了简化编码，从OSGi4.0版本开始，提出了”Declarative Service“标准，<br>
+使用xml文件进行服务发布和引用的描述。</p>
+<p>首先，在<code>MANIFEST.MF</code>文件中增加一个新的属性<code>Service-Component</code>，用来指定服务声明文件的路径，比如：</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Service-<span class="keyword">Component</span>: OSGI-INF/<span class="keyword">component</span>.xml</span><br></pre></td></tr></table></figure>
+<p>然后编写服务声明配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">scr:component</span> <span class="attr">xmlns:scr</span>=<span class="string">"http://www.osgi.org/xmlns/scr/v1.1.0"</span> <span class="attr">name</span>=<span class="string">"myservice"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">implementation</span> <span class="attr">class</span>=<span class="string">"MyServiceImpl"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">provide</span> <span class="attr">interface</span>=<span class="string">"MyService"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>该文件中也可以配置服务引用：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;reference <span class="attribute">bind</span>=<span class="string">"setMyService"</span> <span class="attribute">cardinality</span>=<span class="string">"1..1"</span> <span class="attribute">interface</span>=<span class="string">"MyService"</span> <span class="attribute">name</span>=<span class="string">"myservice"</span> <span class="attribute">policy</span>=<span class="string">"static"</span> <span class="attribute">unbind</span>=<span class="string">"unsetMyService"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>可以用如下的代码使用所引用的服务：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Method will be used by DS to set the service</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="function"><span class="keyword">void</span> <span class="title">setMyService</span><span class="params">(MyService service)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"Service was set. Thank you DS!"</span>);</span><br><span class="line">    <span class="keyword">this</span>.service = service;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Method will be used by DS to unset the service</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="function"><span class="keyword">void</span> <span class="title">unsetMyService</span><span class="params">(MyService service)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"Service was unset."</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.service == service) &#123;</span><br><span class="line">      <span class="keyword">this</span>.service = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="e4中的依赖注入"><a class="markdownIt-Anchor" href="#e4中的依赖注入"></a> e4中的依赖注入</h1>
+<p>Declarative Service的方式与Spring的服务组装很类似。但是Spring中已经开始<a href="/2014/01/05/spring_annotations.html">使用注解代替繁琐的XML配置</a>。</p>
+<p>从Eclipse e4开始，已经支持使用<a href="/2013/12/31/jsr330.html">JSR330:依赖注入规范</a>实现服务的注入。</p>
+<img src="/2014/01/12/dependency_injection_in_e4/e4_inject.png">
+<p>在e4增加的服务编程模型中，引入了上下文（context），所有的依赖对象都被上下文管理并通过上下文获取：</p>
+<img src="/2014/01/12/dependency_injection_in_e4/e4_context.png">
+<p>在Eclipse e4中，将全局的上下文分成了多个层次：</p>
+<img src="/2014/01/12/dependency_injection_in_e4/e4_context_hierarchy.png" title="e4上下文的层级">
+<p>下层的context可以获取上层context中定义的对象，比如：</p>
+<img src="/2014/01/12/dependency_injection_in_e4/e4_context_hierarchy_example.png" title="获取上层context的对象">
+<p>e4中，可以使用<a href="/2013/12/31/jsr330.html#menuIndex3">JSR330中基本的<code>@Inject</code>、<code>@Named</code>等注解</a>,用于构造器、方法和属性。同时,e4在<code>org.eclipse.e4.core.di.annotations</code>包中也定义了一些扩展的注解，包括：</p>
+<ul>
+<li><code>@Optional</code>：声明一个注入(<code>@Inject</code>)为可选</li>
+<li><code>@GroupUpdates</code>：声明一个注入的对象是批量更新的，使用这个注解对于RCP应用的性能有很大好处</li>
+<li><code>@Execute</code></li>
+<li><code>@CanExecute</code></li>
+<li><code>@Creatable</code></li>
+</ul>
+<p>下面是e4中依赖注入的一些例子：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Tracks the active part</span></span><br><span class="line"><span class="variable">@Inject</span></span><br><span class="line"><span class="variable">@Optional</span></span><br><span class="line">public void receiveActivePart(<span class="variable">@Named</span>(IServiceConstants.ACTIVE_PART) MPart activePart) &#123;</span><br><span class="line">  <span class="selector-tag">if</span> (activePart != null) &#123;</span><br><span class="line">  <span class="selector-tag">System</span><span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"Active part changed "</span></span><br><span class="line">    + activePart.getLabel());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// tracks the active shell</span></span><br><span class="line">@<span class="selector-tag">Inject</span></span><br><span class="line">@<span class="selector-tag">Optional</span></span><br><span class="line"><span class="selector-tag">public</span> <span class="selector-tag">void</span> <span class="selector-tag">receiveActiveShell</span>(<span class="variable">@Named</span>(IServiceConstants.ACTIVE_SHELL) Shell shell) &#123;</span><br><span class="line">  <span class="selector-tag">if</span> (shell != null) &#123;</span><br><span class="line">    <span class="selector-tag">System</span><span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"Active shell (Window) changed"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>org.eclipse.e4.core.contexts</code>包中定义的<code>@Active</code>注解可以获取活动(actived)组件。比如：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyOwnClass</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Inject</span></span><br><span class="line">  void setChildValue(<span class="meta">@Optional</span> <span class="meta">@Named(<span class="meta-string">"key_of_child_value"</span>)</span> <span class="meta">@Active</span> String value) &#123;</span><br><span class="line">    <span class="keyword">this</span>.childValue = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="创建自己的可注入对象"><a class="markdownIt-Anchor" href="#创建自己的可注入对象"></a> 创建自己的可注入对象</h1>
+<p><code>@Creatable</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+          
+            <a href="/tags/GUI/" rel="tag"># GUI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html" rel="next" title="Tycho：用Maven构建Eclipse Plugin项目">
+                <i class="fa fa-chevron-left"></i> Tycho：用Maven构建Eclipse Plugin项目
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/12/emf.html" rel="prev" title="仰望MDA，拥抱EMF">
+                仰望MDA，拥抱EMF <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#manifestmf"><span class="nav-number">1.</span> <span class="nav-text"> MANIFEST.MF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#osgi-bundle"><span class="nav-number">2.</span> <span class="nav-text"> OSGi bundle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#osgi服务的注册和寻找"><span class="nav-number">3.</span> <span class="nav-text"> OSGi服务的注册和寻找</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#declarative-service"><span class="nav-number">4.</span> <span class="nav-text"> Declarative Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#e4中的依赖注入"><span class="nav-number">5.</span> <span class="nav-text"> e4中的依赖注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建自己的可注入对象"><span class="nav-number">6.</span> <span class="nav-text"> 创建自己的可注入对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2014/01/12/dependency_injection_in_e4.html';
+          this.page.identifier = '2014/01/12/dependency_injection_in_e4.html';
+          this.page.title = 'Eclipse e4：从OSGi-DS到依赖注入';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

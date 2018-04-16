@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="运维," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在Salt的官方教程中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。 本文对这两个例子进行详细的分析和注释. 在Salt的官方教程中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。 本文对这两个例子进行详细的分析和注释。  目录结构 文档 中的例子包含了">
+<meta name="keywords" content="运维">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Salt state实例解析">
+<meta property="og:url" content="http://holbrook.github.io/2013/06/30/salt_sls_sample.html">
+<meta property="og:site_name" content="心内求法">
+<meta property="og:description" content="在Salt的官方教程中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。 本文对这两个例子进行详细的分析和注释. 在Salt的官方教程中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。 本文对这两个例子进行详细的分析和注释。  目录结构 文档 中的例子包含了">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Salt state实例解析">
+<meta name="twitter:description" content="在Salt的官方教程中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。 本文对这两个例子进行详细的分析和注释. 在Salt的官方教程中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。 本文对这两个例子进行详细的分析和注释。  目录结构 文档 中的例子包含了">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://holbrook.github.io/2013/06/30/salt_sls_sample.html"/>
+
+
+
+
+
+  <title>Salt state实例解析 | 心内求法</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心内求法</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Holbrook的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/06/30/salt_sls_sample.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Holbrook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心内求法">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Salt state实例解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-30T00:00:00+08:00">
+                2013-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
+                    <span itemprop="name">软件基础设施</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/06/30/salt_sls_sample.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/06/30/salt_sls_sample.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在Salt的官方教程中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。</p>
+<p>本文对这两个例子进行详细的分析和注释.</p>
+<p>在Salt的<a href="http://salt.readthedocs.org/en/latest/topics/tutorials/starting_states.html" target="_blank" rel="noopener">官方教程</a>中，以apache和sshd的state配置作为例子。掌握这两个例子，就能够触类旁通，处理日常工作中大部分的配置管理问题。<br>
+本文对这两个例子进行详细的分析和注释。</p>
+<h1 id="目录结构"><a class="markdownIt-Anchor" href="#目录结构"></a> 目录结构</h1>
+<p><a href="http://salt.readthedocs.org/en/latest/topics/tutorials/starting_states.html" target="_blank" rel="noopener">文档</a><br>
+中的例子包含了多个文件。这些文件之间互相引用和关联。目录结构及文件清单如下：</p>
+<ul>
+<li>
+<p>apache/init.sls</p>
+</li>
+<li>
+<p>apache/httpd.conf</p>
+</li>
+<li>
+<p>ssh/init.sls</p>
+</li>
+<li>
+<p>ssh/server.sls</p>
+</li>
+<li>
+<p>ssh/banner</p>
+</li>
+<li>
+<p>ssh/ssh_config</p>
+</li>
+<li>
+<p>ssh/sshd_config</p>
+</li>
+<li>
+<p>ssh/custom-server.sls</p>
+</li>
+</ul>
+<p>两个配置分别放在了<code>apache</code>和<code>ssh</code>文件夹。一个Salt状态可以使用单个的SLS文件，或者使用一个文件夹。后者更加灵活方便。</p>
+<h1 id="apacheinitsls"><a class="markdownIt-Anchor" href="#apacheinitsls"></a> apache/init.sls</h1>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">apache:</span><br><span class="line">   pkg:</span><br><span class="line">     -<span class="ruby"> installed</span></span><br><span class="line"><span class="ruby">   <span class="symbol">service:</span></span></span><br><span class="line"><span class="ruby">     - running</span></span><br><span class="line"><span class="ruby">     - <span class="symbol">watch:</span></span></span><br><span class="line"><span class="ruby">       - <span class="symbol">pkg:</span> apache</span></span><br><span class="line"><span class="ruby">       - <span class="symbol">file:</span> /etc/httpd/conf/httpd.conf</span></span><br><span class="line"><span class="ruby">       - <span class="symbol">user:</span> apache</span></span><br><span class="line"><span class="ruby">   user.<span class="symbol">present:</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">uid:</span> <span class="number">87</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">gid:</span> <span class="number">87</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">home:</span> /var/www/html</span></span><br><span class="line"><span class="ruby">     - <span class="symbol">shell:</span> /bin/nologin</span></span><br><span class="line"><span class="ruby">     - <span class="symbol">require:</span></span></span><br><span class="line"><span class="ruby">       - <span class="symbol">group:</span> apache</span></span><br><span class="line"><span class="ruby">   group.<span class="symbol">present:</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">gid:</span> <span class="number">87</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">require:</span></span></span><br><span class="line"><span class="ruby">       - <span class="symbol">pkg:</span> apache</span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby"> /etc/httpd/conf/httpd.<span class="symbol">conf:</span></span></span><br><span class="line"><span class="ruby">   file.<span class="symbol">managed:</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">source:</span> <span class="symbol">salt:</span>/<span class="regexp">/apache/httpd</span>.conf</span></span><br><span class="line"><span class="ruby">     - <span class="symbol">user:</span> root</span></span><br><span class="line"><span class="ruby">     - <span class="symbol">group:</span> root</span></span><br><span class="line"><span class="ruby">     - <span class="symbol">mode:</span> <span class="number">644</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">template:</span> jinja</span></span><br><span class="line"><span class="ruby">     - <span class="symbol">context:</span></span></span><br><span class="line"><span class="ruby">       <span class="symbol">custom_var:</span> <span class="string">"override"</span></span></span><br><span class="line"><span class="ruby">     - <span class="symbol">defaults:</span></span></span><br><span class="line"><span class="ruby">       <span class="symbol">custom_var:</span> <span class="string">"default value"</span></span></span><br><span class="line"><span class="ruby">       <span class="symbol">other_var:</span> <span class="number">123</span></span></span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ol>
+<li>sls文件使用<a href="http://yaml.org/spec/1.1/" target="_blank" rel="noopener">YAML</a>格式定义，最外面的层级定义配置项。</li>
+<li>一个sls文件中可以有多个配置项，配置项的ID可以起任意的名字。本例中包含ID为<code>apache</code>和<code>/etc/httpd/conf/httpd.conf</code>两个配置项。</li>
+<li>配置项内是一系列的状态声明。所有的状态项来自Salt状态模块。即可以使用<a href="http://docs.saltstack.com/ref/states/all/index.html" target="_blank" rel="noopener">Salt内置的状态模块</a>，也可以<a href="http://docs.saltstack.com/ref/states/writing.html" target="_blank" rel="noopener">编写自定义的状态模块</a></li>
+<li>状态声明内部指定状态函数的调用。状态函数是每个Salt状态模块中定义的函数。</li>
+</ol>
+<ul>
+<li>apache配置项
+<ul>
+<li><a href="http://docs.saltstack.com/ref/states/all/salt.states.pkg.html#module-salt.states.pkg" target="_blank" rel="noopener">pkg模块</a>，使用操作系统的包管理器(如yum, apt-get)安装软件包
+<ul>
+<li><a href="http://docs.saltstack.com/ref/states/all/salt.states.pkg.html#salt.states.pkg.installed" target="_blank" rel="noopener">salt.states.pkg.installed函数</a>, 验证软件包是否安装以及是否为指定的版本</li>
+</ul>
+</li>
+<li><a href="http://docs.saltstack.com/ref/states/all/salt.states.service.html#module-salt.states.service" target="_blank" rel="noopener">service模块</a>管理服务/守护进程(daemon)的启动或停止
+<ul>
+<li><a href="http://docs.saltstack.com/ref/states/all/salt.states.service.html#salt.states.service.running" target="_blank" rel="noopener">salt.states.service.running函数</a>检查服务是否已经启动</li>
+<li><a href="http://docs.saltstack.com/ref/states/all/salt.states.service.html#module-salt.states.service" target="_blank" rel="noopener">service模块</a>定义了<a href="http://docs.saltstack.com/ref/states/all/salt.states.service.html#salt.states.service.mod_watch" target="_blank" rel="noopener">salt.states.service.mod_watch</a>函数，可以使用<a href="http://docs.saltstack.com/ref/states/ordering.html#the-watch-requisite" target="_blank" rel="noopener"><code>watch</code>要素</a>监控其他的模块是否满足。这里监控以下情况：
+<ol>
+<li><code>apache</code><a href="http://docs.saltstack.com/ref/states/all/salt.states.pkg.html#module-salt.states.pkg" target="_blank" rel="noopener">软件包(pkg)</a>是否已安装</li>
+<li><code>/etc/httpd/conf/httpd.conf</code><a href="http://docs.saltstack.com/ref/states/all/salt.states.file.html#module-salt.states.file" target="_blank" rel="noopener">文件(file)</a>是否存在</li>
+<li><code>apache</code><a href="http://docs.saltstack.com/ref/states/all/salt.states.user.html#module-salt.states.user" target="_blank" rel="noopener">用户(user)</a>是否存在</li>
+</ol>
+</li>
+<li><code>user.present</code>是简写形式，直接调用<a href="http://docs.saltstack.com/ref/states/all/salt.states.user.html#module-salt.states.user" target="_blank" rel="noopener"><code>user</code></a>模块的<a href="http://docs.saltstack.com/ref/states/all/salt.states.user.html#salt.states.user.present" target="_blank" rel="noopener"><code>present</code></a>函数检查是否存在如下属性的<code>apache</code>用户：
+<ol>
+<li>uid=87</li>
+<li>gid=87</li>
+<li>home目录为<code>/var/www/html</code></li>
+<li>登录脚本为<code>/bin/nologin</code></li>
+<li>检查依赖项：<code>apache</code><a href="http://docs.saltstack.com/ref/states/all/salt.states.group.html#module-salt.states.group" target="_blank" rel="noopener">用户组</a></li>
+</ol>
+</li>
+<li><code>group.present</code>是简写形式，直接调用<a href="http://docs.saltstack.com/ref/states/all/salt.states.group.html#module-salt.states.group" target="_blank" rel="noopener"><code>group</code></a>模块的<a href="http://docs.saltstack.com/ref/states/all/salt.states.group.html#salt.states.group.present" target="_blank" rel="noopener"><code>present</code></a>函数检查是否存在如下属性的<code>apache</code>用户组：
+<ol>
+<li>gid=87</li>
+<li>检查依赖项：<code>apache</code><a href="http://docs.saltstack.com/ref/states/all/salt.states.pkg.html#module-salt.states.pkg" target="_blank" rel="noopener">软件包</a></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>/etc/httpd/conf/httpd.conf</code>配置项
+<ul>
+<li><code>file.managed</code>是简写形式，直接调用<a href="http://docs.saltstack.com/ref/states/all/salt.states.file.html#module-salt.states.file" target="_blank" rel="noopener">file模块</a>的<a href="http://docs.saltstack.com/ref/states/all/salt.states.file.html#salt.states.file.managed" target="_blank" rel="noopener">managed方法</a>根据需要从master获取文件并可能会通过模板系统(templating system)进行渲染。文件要满足如下要求：
+<ol>
+<li>使用master上面的apache/httpd.conf文件</li>
+<li>user=root</li>
+<li>group=root</li>
+<li>mode=644</li>
+<li>使用<a href="http://jinja.pocoo.org/" target="_blank" rel="noopener"><code>jinja</code></a>模板渲染</li>
+<li>上下文变量：
+<ul>
+<li>custom_var=“override”</li>
+</ul>
+</li>
+<li>默认值:
+<ul>
+<li>custom_var=“default value”</li>
+<li>other_var=123</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="sshinitsls"><a class="markdownIt-Anchor" href="#sshinitsls"></a> ssh/init.sls</h1>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">openssh-<span class="string">client:</span></span><br><span class="line">   pkg.installed</span><br><span class="line"></span><br><span class="line"> <span class="regexp">/etc/</span>ssh/<span class="string">ssh_config:</span></span><br><span class="line">   file.<span class="string">managed:</span></span><br><span class="line">     - <span class="string">user:</span> root</span><br><span class="line">     - <span class="string">group:</span> root</span><br><span class="line">     - <span class="string">mode:</span> <span class="number">644</span></span><br><span class="line">     - <span class="string">source:</span> <span class="string">salt:</span><span class="comment">//ssh/ssh_config</span></span><br><span class="line">     - <span class="string">require:</span></span><br><span class="line">       - <span class="string">pkg:</span> openssh-client</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<h1 id="sshserversls"><a class="markdownIt-Anchor" href="#sshserversls"></a> ssh/server.sls</h1>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">include:</span><br><span class="line">   -<span class="ruby"> ssh</span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby">openssh-<span class="symbol">server:</span></span></span><br><span class="line"><span class="ruby">  pkg.installed</span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby"><span class="symbol">sshd:</span></span></span><br><span class="line"><span class="ruby">  service.<span class="symbol">running:</span></span></span><br><span class="line"><span class="ruby">    - <span class="symbol">require:</span></span></span><br><span class="line"><span class="ruby">      - <span class="symbol">pkg:</span> openssh-client</span></span><br><span class="line"><span class="ruby">      - <span class="symbol">pkg:</span> openssh-server</span></span><br><span class="line"><span class="ruby">      - <span class="symbol">file:</span> /etc/ssh/banner</span></span><br><span class="line"><span class="ruby">      - <span class="symbol">file:</span> /etc/ssh/sshd_config</span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby">/etc/ssh/<span class="symbol">sshd_config:</span></span></span><br><span class="line"><span class="ruby">  file.<span class="symbol">managed:</span></span></span><br><span class="line"><span class="ruby">    - <span class="symbol">user:</span> root</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">group:</span> root</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">mode:</span> <span class="number">644</span></span></span><br><span class="line"><span class="ruby">    - <span class="symbol">source:</span> <span class="symbol">salt:</span>/<span class="regexp">/ssh/sshd</span>_config</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">require:</span></span></span><br><span class="line"><span class="ruby">      - <span class="symbol">pkg:</span> openssh-server</span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby">/etc/ssh/<span class="symbol">banner:</span></span></span><br><span class="line"><span class="ruby">  <span class="symbol">file:</span></span></span><br><span class="line"><span class="ruby">    - managed</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">user:</span> root</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">group:</span> root</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">mode:</span> <span class="number">644</span></span></span><br><span class="line"><span class="ruby">    - <span class="symbol">source:</span> <span class="symbol">salt:</span>/<span class="regexp">/ssh/banner</span></span></span><br><span class="line"><span class="ruby">    - <span class="symbol">require:</span></span></span><br><span class="line"><span class="ruby">      - <span class="symbol">pkg:</span> openssh-server</span></span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>
+<p>include语句将别的state添加到当前文件中，使得state可以跨文件引用。</p>
+<p>使用include相当于把被引用的内容文件添加到自身，可以require、watch或extend被引用的SLS中定义的内容。</p>
+<p>这里引用了<code>ssh</code>state。</p>
+</li>
+<li>
+<p><code>openssh-server</code>配置项</p>
+</li>
+<li>
+<p><code>sshd</code></p>
+</li>
+<li>
+<p><code>/etc/ssh/sshd_config</code>配置项</p>
+</li>
+<li>
+<p><code>/etc/ssh/banner</code>配置项</p>
+</li>
+</ul>
+<h1 id="sshcustom-serversls"><a class="markdownIt-Anchor" href="#sshcustom-serversls"></a> ssh/custom-server.sls</h1>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">include</span>:</span><br><span class="line">  - ssh.server</span><br><span class="line"></span><br><span class="line"><span class="attribute">extend</span>:</span><br><span class="line">  /etc/ssh/<span class="attribute">banner</span>:</span><br><span class="line">    <span class="attribute">file</span>:</span><br><span class="line">      - <span class="attribute">source</span>: <span class="attribute">salt</span>:<span class="comment">//ssh/custom-banner</span></span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>引用<code>ssh</code>state的server配置项</li>
+<li><code>extend</code>可以复用已有的state，在原来的基础上进行扩展，增加新的配置或修改已有的配置。
+<ol>
+<li>将<code>/etc/ssh/banner</code>配置项的文件修改为<code>salt://ssh/custom-banner</code></li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/06/25/salt_usage.html" rel="next" title="salt的主要功能及使用">
+                <i class="fa fa-chevron-left"></i> salt的主要功能及使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/07/01/salt_state_config_structure.html" rel="prev" title="Salt state 配置结构">
+                Salt state 配置结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Holbrook</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">1.</span> <span class="nav-text"> 目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apacheinitsls"><span class="nav-number">2.</span> <span class="nav-text"> apache/init.sls</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sshinitsls"><span class="nav-number">3.</span> <span class="nav-text"> ssh/init.sls</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sshserversls"><span class="nav-number">4.</span> <span class="nav-text"> ssh/server.sls</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sshcustom-serversls"><span class="nav-number">5.</span> <span class="nav-text"> ssh/custom-server.sls</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://holbrook.github.io/2013/06/30/salt_sls_sample.html';
+          this.page.identifier = '2013/06/30/salt_sls_sample.html';
+          this.page.title = 'Salt state实例解析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
