@@ -3,7 +3,7 @@ title: 《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记�
 postslug: quantitative_investment6
 date: 2017-10-08
 category: 量化交易
-tags: 量化分析
+tags: 量化交易
 
 ---
 
