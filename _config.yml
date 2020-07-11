@@ -32,6 +32,8 @@ i18n_dir: :lang
 skip_render:
   - "*.json"
   - "*.html"
+  - '_posts/dataology/python-for-data-analysis/data/**'
+  - '_posts/machine_learning/Neural-Networks-digital-recognition/fig/**'
 
 # Writing
 new_post_name: :title.md # File name of new posts
