@@ -107,6 +107,14 @@ tag_plantuml:
 #graphviz:
 #  enable: true
 
+
+# 添加站点地图sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
+
 # Deployment
 ## Docs: https://hexo.io/zh-cn/docs/one-command-deployment
 deploy:
