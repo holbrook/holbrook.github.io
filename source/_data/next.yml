@@ -623,7 +623,7 @@ livere_uid: # <your_uid>
 # Gitalk
 # For more information: https://gitalk.github.io, https://github.com/gitalk/gitalk
 gitalk:
-  enable: ture
+  enable: true
   github_id: holbrook # GitHub repo owner
   repo: holbrook.github.io # Repository name to store issues
   client_id: e6bfda915e630f4340f3 # GitHub Application Client ID
