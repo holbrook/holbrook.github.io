@@ -48,7 +48,7 @@
 
 {% block markdowncell scoped %}
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 {{ cell.source  | markdown2html | strip_files_prefix }}
