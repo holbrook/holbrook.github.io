@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="回归问题,scikit-learn,statsmodels," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="从机器学习的角度，线性回归是回归问题中最简单的模型。回归问题属于监督式机器学习。">
-<meta name="keywords" content="回归问题,scikit-learn,statsmodels">
+  <meta name="description" content="从机器学习的角度，线性回归是回归问题中最简单的模型。回归问题属于监督式机器学习。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性回归">
 <meta property="og:url" content="http://holbrook.github.io/2018/02/28/linear_regression.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="从机器学习的角度，线性回归是回归问题中最简单的模型。回归问题属于监督式机器学习。">
-<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACzQAAAFdCAYAAABv1cmJAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xt0m/d5J/gvCYLgnQTB+0UiRUowL6autkwptuTazmSS
 aTuu3daz2c6eM2dbOyfZcXtOZ/bs2Y7rcTJnzna7u/FJW8f1bGZnTruTdK0kTZu0ia1YlC3RkkxK
@@ -7684,10 +7626,13 @@ bfnfQRD8IXCa7AHDry9tiKota9Yx2XujfwZoXbqaHeDXwjCMbANUwdbdlqMtmkpoo+/sXwO+ufTc
 qdG6UkiSJEmrMhhLkiRJGIwlSZIkwGAsSZIkAQZjSZIkCTAYS5IkSYDBWJIkSQIMxpIkSRIA/x9y
 g2lzBj7F3wAAAABJRU5ErkJggg==
 ">
-<meta property="og:updated_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:published_time" content="2018-02-27T16:00:00.000Z">
+<meta property="article:modified_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="回归问题">
+<meta property="article:tag" content="scikit-learn">
+<meta property="article:tag" content="statsmodels">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线性回归">
-<meta name="twitter:description" content="从机器学习的角度，线性回归是回归问题中最简单的模型。回归问题属于监督式机器学习。">
 <meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACzQAAAFdCAYAAABv1cmJAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xt0m/d5J/gvCYLgnQTB+0UiRUowL6autkwptuTazmSS
 aTuu3daz2c6eM2dbOyfZcXtOZ/bs2Y7rcTJnzna7u/FJW8f1bGZnTruTdK0kTZu0ia1YlC3RkkxK
@@ -10725,52 +10670,28 @@ iIiIiIiIiIiIiIiIiIiIiIiIiIhrNKFZREREREREREREREREREREREREREREXKMJzSIiIiIiIiIi
 IiIiIiIiIiIiIiIiIuKa/x+3ccQMTlZRLgAAAABJRU5ErkJggg==
 ">
 
+<link rel="canonical" href="http://holbrook.github.io/2018/02/28/linear_regression.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2018/02/28/linear_regression.html"/>
-
-
-
-
 
   <title>线性回归 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -10779,213 +10700,247 @@ IiIiIiIiIiIiIiIiIuKa/x+3ccQMTlZRLgAAAABJRU5ErkJggg==
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#回顾线性回归"><span class="nav-number">1.</span> <span class="nav-text">回顾线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习角度的线性回归"><span class="nav-number">2.</span> <span class="nav-text">机器学习角度的线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn糖尿病数据集"><span class="nav-number">3.</span> <span class="nav-text">scikit-learn糖尿病数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用-scikit-learn处理线性回归问题"><span class="nav-number">4.</span> <span class="nav-text">用 scikit-learn处理线性回归问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型评价和特征选择"><span class="nav-number">5.</span> <span class="nav-text">模型评价和特征选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式回归"><span class="nav-number">6.</span> <span class="nav-text">多项式回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2018/02/28/linear_regression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">线性回归</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          线性回归
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-28T00:00:00+08:00">
-                2018-02-28
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2018-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-28T00:00:00+08:00">2018-02-28</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2018/02/28/linear_regression.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/28/linear_regression.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 1970-01-01 08:00:00" itemprop="dateModified" datetime="1970-01-01T08:00:00+08:00">1970-01-01</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -10993,29 +10948,17 @@ IiIiIiIiIiIiIiIiIuKa/x+3ccQMTlZRLgAAAABJRU5ErkJggg==
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>从机器学习的角度，线性回归是<a href="/tags/%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98">回归问题</a>中最简单的模型。回归问题属于监督式机器学习。</p>
+        <p>从机器学习的角度，线性回归是<a href="/tags/回归问题">回归问题</a>中最简单的模型。回归问题属于监督式机器学习。</p>
 <a id="more"></a>
-<h1 id="回顾线性回归"><a class="markdownIt-Anchor" href="#回顾线性回归"></a> 回顾线性回归</h1>
-<p>在线性代数中，我们就学过用最小二乘法做线性回归:</p>
-<p>对于平面上的 N 个点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P_i(x_i,y_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>，满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mo>∑</mo><msup><mrow><mi mathvariant="normal">Δ</mi><msub><mi>Y</mi><mi>i</mi></msub></mrow><mrow><mn>2</mn></mrow></msup><mo>=</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>∑</mo><msup><mrow><mi mathvariant="normal">∣</mi><msub><mi>Y</mi><mi>i</mi></msub><mo>−</mo><mi>f</mi><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>)</mo><mi mathvariant="normal">∣</mi></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">min \sum {\Delta Y_i}^{2} = min \sum {|Y_i-f(x_i)|}^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8151079999999999em;"></span><span class="strut bottom" style="height:1.065118em;vertical-align:-0.25001em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathrm">Δ</span><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.22222em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathrm">∣</span><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.22222em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mord mathrm">∣</span></span><span class="vlist"><span style="top:-0.364em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><br>
-的直线<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">y=f(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>，是这 N 个点的线性拟合直线。</p>
-<h1 id="机器学习角度的线性回归"><a class="markdownIt-Anchor" href="#机器学习角度的线性回归"></a> 机器学习角度的线性回归</h1>
-<p>从机器学习的角度，线性回归是<a href="/tags/%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98">回归问题</a>中最简单的模型。回归问题属于监督式机器学习：<br>
-给定训练样本，「学习」一个函数，每一个样本数据就是需要学习的函数的输入输出数据。<br>
-并且这个函数能够很好的泛化到不在训练集中的输入值上。可以通过测试数据来检验泛化的效果。</p>
-<p>线性回归通常用于根据符合直线关系的连续变量估计实际数值。<br>
-其优点是快速、没有调节参数、可轻易解释、可理解；缺点是相比其他复杂一些的模型，其预测准确率不是太高，<br>
-因为它假设特征和响应之间存在确定的线性关系，这种假设对于非线性的关系，线性回归模型显然不能很好的对这种数据建模。</p>
-<p>线性回归的两种主要类型是一元线性回归和多元线性回归。</p>
-<p>一元线性回归的特点是只有一个自变量，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mi>y</mi><mo>=</mo><mi>α</mi><mi>x</mi><mo>+</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">y=y=\alpha x+\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.0037em;">α</span><span class="mord mathit">x</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.05278em;">β</span></span></span></span>.<br>
-而多元线性回归存在多个自变量，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>b</mi><mn>0</mn></msub><mo>+</mo><msub><mi>b</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><msub><mi>b</mi><mi>p</mi></msub><msub><mi>x</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">y=b_0+b_1x_1+...+b_px_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mbin">+</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
-<p>其实多项式回归可以看做是一种特殊的多元线性回归：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>b</mi><mn>0</mn></msub><mo>+</mo><msub><mi>b</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>b</mi><mn>2</mn></msub><msup><mi>x</mi><mn>2</mn></msup><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><msub><mi>b</mi><mi>p</mi></msub><msup><mi>x</mi><mi>p</mi></msup></mrow><annotation encoding="application/x-tex">y=b_0+b_1x+ b_2x^2...+b_px^p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.1002159999999999em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">x</span><span class="mbin">+</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mbin">+</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
-<h1 id="scikit-learn糖尿病数据集"><a class="markdownIt-Anchor" href="#scikit-learn糖尿病数据集"></a> scikit-learn糖尿病数据集</h1>
-<p>我们用 scikit-learn 的糖尿病数据集来演示线性回归。</p>
 
+<h1 id="回顾线性回归"><a href="#回顾线性回归" class="headerlink" title="回顾线性回归"></a>回顾线性回归</h1><p>在线性代数中，我们就学过用最小二乘法做线性回归:</p>
+<p>对于平面上的 N 个点$P_i(x_i,y_i)$，满足$min \sum {\Delta Y_i}^{2} = min \sum {|Y_i-f(x_i)|}^2$<br>的直线$y=f(x)$，是这 N 个点的线性拟合直线。</p>
+<h1 id="机器学习角度的线性回归"><a href="#机器学习角度的线性回归" class="headerlink" title="机器学习角度的线性回归"></a>机器学习角度的线性回归</h1><p>从机器学习的角度，线性回归是<a href="/tags/回归问题">回归问题</a>中最简单的模型。回归问题属于监督式机器学习：<br>给定训练样本，「学习」一个函数，每一个样本数据就是需要学习的函数的输入输出数据。<br>并且这个函数能够很好的泛化到不在训练集中的输入值上。可以通过测试数据来检验泛化的效果。</p>
+<p>线性回归通常用于根据符合直线关系的连续变量估计实际数值。<br>其优点是快速、没有调节参数、可轻易解释、可理解；缺点是相比其他复杂一些的模型，其预测准确率不是太高，<br>因为它假设特征和响应之间存在确定的线性关系，这种假设对于非线性的关系，线性回归模型显然不能很好的对这种数据建模。</p>
+<p>线性回归的两种主要类型是一元线性回归和多元线性回归。</p>
+<p>一元线性回归的特点是只有一个自变量，即$y=y=\alpha x+\beta$.<br>而多元线性回归存在多个自变量，即$y=b_0+b_1x_1+…+b_px_p$</p>
+<p>其实多项式回归可以看做是一种特殊的多元线性回归：$y=b_0+b_1x+ b_2x^2…+b_px^p$</p>
+<h1 id="scikit-learn糖尿病数据集"><a href="#scikit-learn糖尿病数据集" class="headerlink" title="scikit-learn糖尿病数据集"></a>scikit-learn糖尿病数据集</h1><p>我们用 scikit-learn 的糖尿病数据集来演示线性回归。</p>
 <div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
@@ -11058,7 +11001,7 @@ IiIiIiIiIiIiIiIiIuKa/x+3ccQMTlZRLgAAAABJRU5ErkJggg==
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">datasets</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>  
 <span class="n">diabetes</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_diabetes</span><span class="p">()</span>  
 </pre></div>
 
@@ -14321,7 +14264,8 @@ iIiIiIjMhFZoFhEREREREREREREREREREREREREREdfkul2AiIiIiIiIiIiIiIiIiIiIiIiIiIiI
 zF2a0CwiIiIiIiIiIiIiIiIiIiIiIiIiIiKu0YRmERERERERERERERERERERERERERERcY0mNIuI
 iIiIiIiIiIiIiIiIiIiIiIiIiIhrNKFZREREREREREREREREREREREREREREXKMJzSIiIiIiIiIi
 IiIiIiIiIiIiIiIiIuKa/x+3ccQMTlZRLgAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -16884,7 +16828,8 @@ ERER6RU6oSW94jngYtM0H8MpNfhd4I7qvyIiIiIiIiIiIiIiIiuBTmiJiIiIiIiIiIiIiIiIrwW6
 3QARERERERERERERERGRapTQEhEREREREREREREREV9TQktERERERERERERERER8TQktERERERER
 ERERERER8TUltERERERERERERERERMTXlNASERERERERERERERERX/v/AXJttv0hqaUbAAAAAElF
 TkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -16910,11 +16855,8 @@ TkSuQmCC
   </div>
 </div>
 
-<h1 id="用-scikit-learn处理线性回归问题"><a class="markdownIt-Anchor" href="#用-scikit-learn处理线性回归问题"></a> 用 <a href="/tags.html#scikit-learn">scikit-learn</a>处理线性回归问题</h1>
-<p>LinearRegression模型在<code>Sklearn.linear_model</code>下，<br>
-它主要是通过 <code>fit(x,y)</code> 的方法来训练模型，其中x为特征，y为标记。<br>
-然后通过<code>predict()</code> 预测, 以fit()算出的模型参数, 预测特性 x 所对应的预测值y_pred。</p>
 
+<h1 id="用-scikit-learn处理线性回归问题"><a href="#用-scikit-learn处理线性回归问题" class="headerlink" title="用 scikit-learn处理线性回归问题"></a>用 <a href="/tags.html#scikit-learn">scikit-learn</a>处理线性回归问题</h1><p>LinearRegression模型在<code>Sklearn.linear_model</code>下，<br>它主要是通过 <code>fit(x,y)</code> 的方法来训练模型，其中x为特征，y为标记。<br>然后通过<code>predict()</code> 预测, 以fit()算出的模型参数, 预测特性 x 所对应的预测值y_pred。</p>
 <div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
@@ -16957,7 +16899,7 @@ TkSuQmCC
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">datasets</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>  
 <span class="n">diabetes</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_diabetes</span><span class="p">()</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diabetes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">diabetes</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">diabetes</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
@@ -17093,7 +17035,7 @@ TkSuQmCC
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 拆分数据</span>
-<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="k">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">diabetes</span><span class="o">.</span><span class="n">feature_names</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">x_test</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
 </pre></div>
@@ -17123,7 +17065,7 @@ TkSuQmCC
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
 <span class="n">linear</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
 
 
@@ -17173,7 +17115,7 @@ variance score: 0.44
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Residual sum of square: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">np</span>.mean((y_pred - y_test) ** 2))  
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;variance score: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">linear</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
 
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
 <span class="c1"># 用scikit-learn计算MSE</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 <span class="c1"># 用scikit-learn计算RMSE</span>
@@ -17394,7 +17336,8 @@ J+CrzrmDazzv0/XnfQg403ieJzquE2vtfuBZVnf+99Wf91HgEWvt68DLwIdTb3n8dgPvttZ+HxgA
 PmitfQA46pz7U2vtH7H6QxwEPlEfveDztgG9rZMHgcestb8FLAG/mVXjE9J2nazxnNDfWRJUnEtE
 xBNlSrmIiHhNAV1ExBMK6CIinlBAFxHxhAK6iIgnFNBFRDyhgC4i4on/D2VRCdUPm6bYAAAAAElF
 TkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -17409,7 +17352,7 @@ TkSuQmCC
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 交叉验证</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_predict</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_predict</span>
 <span class="n">predicted</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">diabetes</span><span class="o">.</span><span class="n">feature_names</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
@@ -17480,22 +17423,17 @@ RMSE: 54.7634210553
   </div>
 </div>
 
-<h1 id="模型评价和特征选择"><a class="markdownIt-Anchor" href="#模型评价和特征选择"></a> 模型评价和特征选择</h1>
-<p>回归问题不能用准确率评价。对于回归这种连续数值，评价测度(evaluation metrics)主要用以下指标：</p>
+
+<h1 id="模型评价和特征选择"><a href="#模型评价和特征选择" class="headerlink" title="模型评价和特征选择"></a>模型评价和特征选择</h1><p>回归问题不能用准确率评价。对于回归这种连续数值，评价测度(evaluation metrics)主要用以下指标：</p>
 <ul>
-<li>
-<p>平均绝对误差(Mean Absolute Error, MAE)</p>
+<li><p>平均绝对误差(Mean Absolute Error, MAE)</p>
 </li>
-<li>
-<p>均方误差(Mean Squared Error, MSE)，即残差平方和</p>
+<li><p>均方误差(Mean Squared Error, MSE)，即残差平方和</p>
 </li>
-<li>
-<p>均方根误差(Root Mean Squared Error, RMSE)</p>
+<li><p>均方根误差(Root Mean Squared Error, RMSE)</p>
 </li>
 </ul>
-<p>在数据探索的时候，我们就发现 sex、s1、s2、 s4 与 target 的相关度不高。现在移除这些特征，<br>
-看看回归的结果是否更好。</p>
-
+<p>在数据探索的时候，我们就发现 sex、s1、s2、 s4 与 target 的相关度不高。现在移除这些特征，<br>看看回归的结果是否更好。</p>
 <div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
@@ -17538,7 +17476,7 @@ RMSE: 54.7634210553
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">datasets</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>  
 <span class="n">diabetes</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_diabetes</span><span class="p">()</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diabetes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">diabetes</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">diabetes</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
@@ -17673,9 +17611,9 @@ RMSE: 54.7634210553
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="k">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">metrics</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
 </pre></div>
 
 </div>
@@ -17811,18 +17749,17 @@ RMSE: 55.61533673
   </div>
 </div>
 
-<h1 id="多项式回归"><a class="markdownIt-Anchor" href="#多项式回归"></a> 多项式回归</h1>
-<p>这里，用一个2次函数加上随机的扰动来生成500个点，然后尝试用1、2、100次方的多项式对该数据进行拟合。<br>
-拟合的目的是使得根据训练数据能够拟合出一个多项式函数，这个函数能够很好的拟合现有数据，并且能对未知的数据进行预测<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+
+
+
+<h1 id="多项式回归"><a href="#多项式回归" class="headerlink" title="多项式回归"></a>多项式回归</h1><p>这里，用一个2次函数加上随机的扰动来生成500个点，然后尝试用1、2、100次方的多项式对该数据进行拟合。<br>拟合的目的是使得根据训练数据能够拟合出一个多项式函数，这个函数能够很好的拟合现有数据，并且能对未知的数据进行预测[^5]。</p>
 <p>结果评价：</p>
 <p>做回归分析，常用的误差主要有均方误差根（RMSE）和R-平方（R2）。</p>
 <p>RMSE是预测值与真实值的误差平方根的均值。这种度量方法很流行（Netflix机器学习比赛的评价方法），是一种定量的权衡方法。</p>
 <p>R2方法是将预测值跟只使用均值的情况下相比，看能好多少。其区间通常在（0,1）之间。0表示还不如什么都不预测，直接取均值的情况，而1表示所有预测跟真实结果完美匹配的情况。</p>
 <p>R2的计算方法，不同的文献稍微有不同。如本文中函数R2是依据scikit-learn官网文档实现的，跟clf.score函数结果一致。</p>
 <p>而R22函数的实现来自Conway的著作《机器学习使用案例解析》，不同在于他用的是2个RMSE的比值来计算R2。</p>
-<p>我们看到多项式次数为1的时候，虽然拟合的不太好，R2也能达到0.82。2次多项式提高到了0.88。<br>
-而次数提高到100次，R2也只提高到了0.89。</p>
-
+<p>我们看到多项式次数为1的时候，虽然拟合的不太好，R2也能达到0.82。2次多项式提高到了0.88。<br>而次数提高到100次，R2也只提高到了0.89。</p>
 <div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
@@ -17867,7 +17804,7 @@ RMSE: 55.61533673
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 生成数据</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>  
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">norm</span>  
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>  
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">)</span>  
 <span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>  
@@ -18850,7 +18787,8 @@ IURJEhiFEEIIIURJEhiFEEIIIURJ0rhbCDFraZr2O1hnVl+H1ez+/wIbdV0fntGBCSHEAiMzjEKI
 mR6MEEIsRBIYhRCzlqZpIeCbwEeAGPDrMzsiIYRYmCQwCiFms/uAx3RdfxX4LeDPs0vUQgghakj2
 MAohhBBCiJJkhlEIIYQQQpQkgVEIIYQQQpQkgVEIIYQQQpQkgVEIIYQQQpQkgVEIIYQQQpQkgVEI
 IYQQQpQkgVEIIYQQQpT0/wBZoygO97BYLgAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -18897,13 +18835,13 @@ IYQQQpQkgVEIIYQQQpT0/wBZoygO97BYLgAAAABJRU5ErkJggg==
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># 线性回归</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="n">regressor</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 
 <span class="c1"># 多项式回归</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">PolynomialFeatures</span>  
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>  
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>  
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>  
 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">degree</span><span class="p">:</span>  
     <span class="n">clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="n">d</span><span class="p">)),</span>  
                     <span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">))])</span>  
@@ -19885,7 +19823,8 @@ bfnfQRD8IXCa7AHDry9tiKota9Yx2XujfwZoXbqaHeDXwjCMbANUwdbdlqMtmkpoo+/sXwO+ufTc
 /xWGoY0ZtWejOu4HXgmCYJFs39PBCMuqEgqC4HPA5jAM/2ipzr9JNn99LQzDy1GVqymTcWQbSZIk
 qdG6UkiSJEmrMhhLkiRJGIwlSZIkwGAsSZIkAQZjSZIkCTAYS5IkSYDBWJIkSQIMxpIkSRIA/x9y
 g2lzBj7F3wAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -19925,427 +19864,130 @@ g2lzBj7F3wAAAABJRU5ErkJggg==
   </div>
 </div>
 
-<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="http://blog.csdn.net/lsldd/article/details/41251583" target="_blank" rel="noopener">用Python开始机器学习（3：数据拟合与广义线性回归）</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
 
-      
+
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[^1]: <a href="http://scikit-learn.org/dev/auto_examples/linear_model/plot_ols.html#example-linear-model-plot-ols-py" target="_blank" rel="noopener">Linear Regression Example</a><br>[^2]: <a href="http://blog.csdn.net/SA14023053/article/details/51703204" target="_blank" rel="noopener">scikit-learn : 线性回归，多元回归，多项式回归</a><br>[^3]: <a href="http://52opencourse.com/83/coursera公开课笔记-斯坦福大学机器学习第二课-单变量线性回归-linear-regression-with-one-variable" target="_blank" rel="noopener">Coursera公开课笔记: 斯坦福大学机器学习第二课“单变量线性回归(Linear regression with one variable)”</a><br>[^4]: <a href="http://www.cnblogs.com/pinard/p/6016029.html" target="_blank" rel="noopener">用scikit-learn和pandas学习线性回归</a><br>[^5]: <a href="http://blog.csdn.net/lsldd/article/details/41251583" target="_blank" rel="noopener">用Python开始机器学习（3：数据拟合与广义线性回归）</a><br>[^6]: <a href="http://52opencourse.com/108/coursera公开课笔记-斯坦福大学机器学习第四课-多变量线性回归-linear-regression-with-multiple-variables" target="_blank" rel="noopener">Coursera公开课笔记: 斯坦福大学机器学习第四课“多变量线性回归(Linear Regression with Multiple Variables)”</a><br>[^7]: <a href="http://www.cnblogs.com/magle/p/5881170.html" target="_blank" rel="noopener">sklearn学习笔记之简单线性回归</a></p>
+
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/回归问题/" rel="tag"># 回归问题</a>
-          
-            <a href="/tags/scikit-learn/" rel="tag"># scikit-learn</a>
-          
-            <a href="/tags/statsmodels/" rel="tag"># statsmodels</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/02/23/Neural-Networks-digital-recognition.html" rel="next" title="用神经网络识别手写数字">
-                <i class="fa fa-chevron-left"></i> 用神经网络识别手写数字
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98/" rel="tag"># 回归问题</a>
+              <a href="/tags/scikit-learn/" rel="tag"># scikit-learn</a>
+              <a href="/tags/statsmodels/" rel="tag"># statsmodels</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/01/logistic_regression.html" rel="prev" title="逻辑回归">
-                逻辑回归 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/02/23/classify-and-neural-networks.html" rel="prev" title="分类问题与神经网络">
+      <i class="fa fa-chevron-left"></i> 分类问题与神经网络
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/01/logistic_regression.html" rel="next" title="逻辑回归">
+      逻辑回归 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#回顾线性回归"><span class="nav-number">1.</span> <span class="nav-text"> 回顾线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习角度的线性回归"><span class="nav-number">2.</span> <span class="nav-text"> 机器学习角度的线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn糖尿病数据集"><span class="nav-number">3.</span> <span class="nav-text"> scikit-learn糖尿病数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用-scikit-learn处理线性回归问题"><span class="nav-number">4.</span> <span class="nav-text"> 用 scikit-learn处理线性回归问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型评价和特征选择"><span class="nav-number">5.</span> <span class="nav-text"> 模型评价和特征选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式回归"><span class="nav-number">6.</span> <span class="nav-text"> 多项式回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2018/02/28/linear_regression.html';
-          this.page.identifier = '2018/02/28/linear_regression.html';
-          this.page.title = '线性回归';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -20360,24 +20002,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '2bd2a1bd5e8b3939243b2b4b6cff4865',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

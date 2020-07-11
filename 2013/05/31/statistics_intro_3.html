@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="统计学," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 ##第3章 数据的描述 2013-05-31: 1st 数据难以一目了然，但数据的特征容易掌握（如：定性or定量，变量的个数，收集目的等） 借助图表和一些运算有利于掌握更多关于数据的特征 数据的特征反映了总体的特征  数据特征的图形表示   定量变量的图形表示   直方图 表达数据分布的疏密。纵坐标可以是数量或百分比">
-<meta name="keywords" content="统计学">
+  <meta name="description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 ##第3章 数据的描述 2013-05-31: 1st 数据难以一目了然，但数据的特征容易掌握（如：定性or定量，变量的个数，收集目的等） 借助图表和一些运算有利于掌握更多关于数据的特征 数据的特征反映了总体的特征  数据特征的图形表示  定量变量的图形表示  直方图 表达数据分布的疏密。纵坐标可以是数量或百分比">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《统计学》读书笔记(3&#x2F;17:数据的描述)">
 <meta property="og:url" content="http://holbrook.github.io/2013/05/31/statistics_intro_3.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 ##第3章 数据的描述 2013-05-31: 1st 数据难以一目了然，但数据的特征容易掌握（如：定性or定量，变量的个数，收集目的等） 借助图表和一些运算有利于掌握更多关于数据的特征 数据的特征反映了总体的特征  数据特征的图形表示   定量变量的图形表示   直方图 表达数据分布的疏密。纵坐标可以是数量或百分比">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="og:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 ##第3章 数据的描述 2013-05-31: 1st 数据难以一目了然，但数据的特征容易掌握（如：定性or定量，变量的个数，收集目的等） 借助图表和一些运算有利于掌握更多关于数据的特征 数据的特征反映了总体的特征  数据特征的图形表示  定量变量的图形表示  直方图 表达数据分布的疏密。纵坐标可以是数量或百分比">
+<meta property="article:published_time" content="2013-05-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="统计学">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《统计学》读书笔记(3&#x2F;17:数据的描述)">
-<meta name="twitter:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 ##第3章 数据的描述 2013-05-31: 1st 数据难以一目了然，但数据的特征容易掌握（如：定性or定量，变量的个数，收集目的等） 借助图表和一些运算有利于掌握更多关于数据的特征 数据的特征反映了总体的特征  数据特征的图形表示   定量变量的图形表示   直方图 表达数据分布的疏密。纵坐标可以是数量或百分比">
+
+<link rel="canonical" href="http://holbrook.github.io/2013/05/31/statistics_intro_3.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2013/05/31/statistics_intro_3.html"/>
-
-
-
-
 
   <title>《统计学》读书笔记(3/17:数据的描述) | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,246 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/05/31/statistics_intro_3.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">《统计学》读书笔记(3/17:数据的描述)</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          《统计学》读书笔记(3/17:数据的描述)
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-31T00:00:00+08:00">
-                2013-05-31
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2013-05-31 00:00:00" itemprop="dateCreated datePublished" datetime="2013-05-31T00:00:00+08:00">2013-05-31</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2013/05/31/statistics_intro_3.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/05/31/statistics_intro_3.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,10 +312,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @<a href="http://book.douban.com/subject/2193810/" target="_blank" rel="noopener">豆瓣</a></p>
+        <p> 统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @<a href="http://book.douban.com/subject/2193810/" target="_blank" rel="noopener">豆瓣</a></p>
 <p>##第3章 数据的描述</p>
 <p>2013-05-31: 1st</p>
 <p>数据难以一目了然，但数据的特征容易掌握（如：定性or定量，变量的个数，收集目的等）</p>
@@ -372,36 +321,28 @@
 <hr>
 <p>数据特征的图形表示</p>
 <ul>
-<li>
-<p>定量变量的图形表示</p>
+<li><p>定量变量的图形表示</p>
 <ul>
-<li>
-<p><a href="http://zh.wikipedia.org/wiki/%E7%9B%B4%E6%96%B9%E5%9B%BE" target="_blank" rel="noopener">直方图</a></p>
+<li><p><a href="http://zh.wikipedia.org/wiki/%E7%9B%B4%E6%96%B9%E5%9B%BE" target="_blank" rel="noopener">直方图</a></p>
 <p>表达数据分布的疏密。纵坐标可以是数量或百分比</p>
 <p>如：人数-年龄，人数-财富值。</p>
 </li>
-<li>
-<p><a href="http://zh.wikipedia.org/wiki/%E7%AE%B1%E5%BD%A2%E5%9C%96" target="_blank" rel="noopener">盒形图</a></p>
+<li><p><a href="http://zh.wikipedia.org/wiki/%E7%AE%B1%E5%BD%A2%E5%9C%96" target="_blank" rel="noopener">盒形图</a></p>
 <p>指标(最大值,上四分位数,中位数,下四分位数,最小值)-&gt; 条件，表达指标的多个特征在某种条件下的分布形态</p>
 </li>
-<li>
-<p><a href="http://wiki.mbalib.com/wiki/%E8%8C%8E%E5%8F%B6%E5%9B%BE" target="_blank" rel="noopener">茎叶图</a></p>
+<li><p><a href="http://wiki.mbalib.com/wiki/%E8%8C%8E%E5%8F%B6%E5%9B%BE" target="_blank" rel="noopener">茎叶图</a></p>
 <p>既表达形状，又包含数据</p>
 </li>
-<li>
-<p><a href="http://marslau.com/archives/713.html" target="_blank" rel="noopener">散点图</a></p>
+<li><p><a href="http://marslau.com/archives/713.html" target="_blank" rel="noopener">散点图</a></p>
 <p>用于比较成对的数值。散点图通常用于比较跨类别的聚合数据</p>
 </li>
 </ul>
 </li>
-<li>
-<p>定性变量（属性变量，分类变量）的图形表示</p>
+<li><p>定性变量（属性变量，分类变量）的图形表示</p>
 <ul>
-<li>
-<p><a href="http://marslau.com/archives/701.html" target="_blank" rel="noopener">饼图</a></p>
+<li><p><a href="http://marslau.com/archives/701.html" target="_blank" rel="noopener">饼图</a></p>
 </li>
-<li>
-<p><a href="http://marslau.com/archives/710.html" target="_blank" rel="noopener">条形图</a></p>
+<li><p><a href="http://marslau.com/archives/710.html" target="_blank" rel="noopener">条形图</a></p>
 </li>
 </ul>
 </li>
@@ -413,434 +354,161 @@
 <p>样本的随机性决定了统计量的随机性</p>
 <p>样本统计量 vs 总体统计量</p>
 <ul>
-<li>
-<p>可以用样本统计量估计总体统计量</p>
+<li><p>可以用样本统计量估计总体统计量</p>
 </li>
-<li>
-<p>可以用样本统计量来检验对总体的假设</p>
+<li><p>可以用样本统计量来检验对总体的假设</p>
 </li>
 </ul>
 <p>概括数据通常使用以下统计量</p>
 <ul>
-<li>
-<p>数据的位置</p>
+<li><p>数据的位置</p>
 <p>均值容易受单个样本偏差 or 少数极端值的影响，但位置不会</p>
 <p>中位数比均值稳健(robust)</p>
 <p>中位数，上下四分位数，</p>
 <p>alpha= k百分位数(k-pecentile)：有k% 的观测值小于alpha,  alpha称为alpha分位数(quantile)</p>
 <p>众数(mode)：样本中出现最多的数目。 使用得较少</p>
 </li>
-<li>
-<p>数据的尺度</p>
+<li><p>数据的尺度</p>
 <p>描述数据的分布是否均匀</p>
 <p>尺度统计量描述数据集中与分散的程度或变化（散度统计量）</p>
 <p>数据越分散，尺度统计量的值越大</p>
 <ul>
-<li>
-<p>极差(range), 最大、最小值之差</p>
+<li><p>极差(range), 最大、最小值之差</p>
 <p>如，盒形图中盒子的高度(有时为宽度)表示四分位间距(interquantile range)</p>
 </li>
-<li>
-<p>标准差，方差</p>
+<li><p>标准差，方差</p>
 <p>标准差是方差的平方根</p>
 <p>单峰值数据的分布(1delta=68%, 2delta=95%)，多峰值数据的分布。。。</p>
 <p>同一总体，多个不同样本的均值的标准差称为标准误差(standand error)</p>
 </li>
 </ul>
 </li>
-<li>
-<p>数据的标准得分</p>
-<p>如，两个水平接近的班级，两个老师进行评分。由于评分标准不同，两个班成绩的均值和标准差都不一样。<br>
-如何放在一起评价？</p>
+</ul>
+<ul>
+<li><p>数据的标准得分</p>
+<p>如，两个水平接近的班级，两个老师进行评分。由于评分标准不同，两个班成绩的均值和标准差都不一样。<br>如何放在一起评价？</p>
 <p>方法：数据标准化——可以理解为对盒形图的缩放和位移</p>
 <p>标准得分是比较常用的一种标准化方法：</p>
 <p>标准得分z = (得分-样本均值)/样本标准差</p>
 </li>
 </ul>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/统计学/" rel="tag"># 统计学</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/05/28/quant_resource.html" rel="next" title="量化金融相关的网络资源">
-                <i class="fa fa-chevron-left"></i> 量化金融相关的网络资源
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/" rel="tag"># 统计学</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/06/02/lvs_lb_strategy.html" rel="prev" title="lvs的三种负载均衡机制">
-                lvs的三种负载均衡机制 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2013/05/28/quant_resource.html" rel="prev" title="量化金融相关的网络资源">
+      <i class="fa fa-chevron-left"></i> 量化金融相关的网络资源
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2013/06/02/lvs_lb_strategy.html" rel="next" title="lvs的三种负载均衡机制">
+      lvs的三种负载均衡机制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2013/05/31/statistics_intro_3.html';
-          this.page.identifier = '2013/05/31/statistics_intro_3.html';
-          this.page.title = '《统计学》读书笔记(3/17:数据的描述)';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -855,24 +523,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '1e907ce527f760e3d8b1136fe034d2fa',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

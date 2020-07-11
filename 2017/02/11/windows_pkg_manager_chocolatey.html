@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="env," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="操作系统级别的包管理器，Linux 下面有 yum, apt, Mac OS 下面有 Homebrew。 Windows 下面可以使用 windows下面的包管理器：Chocolatey。">
-<meta name="keywords" content="env">
+  <meta name="description" content="操作系统级别的包管理器，Linux 下面有 yum, apt, Mac OS 下面有 Homebrew。Windows 下面可以使用 windows下面的包管理器：Chocolatey。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows下面的包管理器：Chocolatey">
 <meta property="og:url" content="http://holbrook.github.io/2017/02/11/windows_pkg_manager_chocolatey.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="操作系统级别的包管理器，Linux 下面有 yum, apt, Mac OS 下面有 Homebrew。 Windows 下面可以使用 windows下面的包管理器：Chocolatey。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta property="og:description" content="操作系统级别的包管理器，Linux 下面有 yum, apt, Mac OS 下面有 Homebrew。Windows 下面可以使用 windows下面的包管理器：Chocolatey。">
+<meta property="article:published_time" content="2017-02-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:22.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="env">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="windows下面的包管理器：Chocolatey">
-<meta name="twitter:description" content="操作系统级别的包管理器，Linux 下面有 yum, apt, Mac OS 下面有 Homebrew。 Windows 下面可以使用 windows下面的包管理器：Chocolatey。">
+
+<link rel="canonical" href="http://holbrook.github.io/2017/02/11/windows_pkg_manager_chocolatey.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/02/11/windows_pkg_manager_chocolatey.html"/>
-
-
-
-
 
   <title>windows下面的包管理器：Chocolatey | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#系统级别的包管理器"><span class="nav-number">1.</span> <span class="nav-text">系统级别的包管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/02/11/windows_pkg_manager_chocolatey.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">windows下面的包管理器：Chocolatey</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          windows下面的包管理器：Chocolatey
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-11T00:00:00+08:00">
-                2017-02-11
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/方法工具/" itemprop="url" rel="index">
-                    <span itemprop="name">方法工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-02-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-11T00:00:00+08:00">2017-02-11</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/02/11/windows_pkg_manager_chocolatey.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/02/11/windows_pkg_manager_chocolatey.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:22" itemprop="dateModified" datetime="2018-04-16T11:04:22+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%96%B9%E6%B3%95%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">方法工具</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,27 +313,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>操作系统级别的包管理器，Linux 下面有 yum, apt, Mac OS 下面有 Homebrew。<br>
-Windows 下面可以使用 windows下面的包管理器：<a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>。</p>
+        <p>操作系统级别的包管理器，Linux 下面有 yum, apt, Mac OS 下面有 Homebrew。<br>Windows 下面可以使用 windows下面的包管理器：<a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>。</p>
 <a id="more"></a>
-<h1 id="系统级别的包管理器"><a class="markdownIt-Anchor" href="#系统级别的包管理器"></a> 系统级别的包管理器</h1>
-<p>开发人员一般都喜欢命令行操作，因为效率更高。在管理系统上的软件时，更喜欢用包管理器(<code>package manager</code>)。<br>
-Linux 下面我们已经熟悉了 <code>yum</code>, <code>apt</code>等，在 Mac OS 下面，<code>Homebrew</code> 最终战胜了 <code>MacPort</code>。<br>
-但是有时候我们不得不使用 windows，比如 万德。</p>
-<p>Windows 的软件管理，以前是一些第三方的“软件仓库”，比如 百度软件管理等，但是难保上面没有地雷。<br>
-Windows 10 自己提供了“软件商店”，安全性应该大有改观，但是使用仍很受限制，尤其是开发用的软件很不全。</p>
-<p>我们需要一个 Windows 下面的包管理器。所幸，现在有了 <a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>。<br>
-使用包管理的好处不仅仅是提高效率，更重要的是使得 Windows 的自动运维成为可能。<br>
-比如，原来 <code>SaltStack</code>的很多脚本在 Windows 下很难实现，但有了 Chocolatey ，<br>
-用 SaltStack 管理Windows 服务器的难度大大降低。</p>
-<h1 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h1>
-<p><a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>使用 Nuget 协议，将软件的官方链接封装到描述文件中。<br>
-可以查看 <a href="https://chocolatey.org/packages" target="_blank" rel="noopener">软件包列表</a>。</p>
-<h1 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h1>
-<p><a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>需要的环境为：</p>
+
+<h1 id="系统级别的包管理器"><a href="#系统级别的包管理器" class="headerlink" title="系统级别的包管理器"></a>系统级别的包管理器</h1><p>开发人员一般都喜欢命令行操作，因为效率更高。在管理系统上的软件时，更喜欢用包管理器(<code>package manager</code>)。<br>Linux 下面我们已经熟悉了 <code>yum</code>, <code>apt</code>等，在 Mac OS 下面，<code>Homebrew</code> 最终战胜了 <code>MacPort</code>。<br>但是有时候我们不得不使用 windows，比如 万德。</p>
+<p>Windows 的软件管理，以前是一些第三方的“软件仓库”，比如 百度软件管理等，但是难保上面没有地雷。<br>Windows 10 自己提供了“软件商店”，安全性应该大有改观，但是使用仍很受限制，尤其是开发用的软件很不全。</p>
+<p>我们需要一个 Windows 下面的包管理器。所幸，现在有了 <a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>。<br>使用包管理的好处不仅仅是提高效率，更重要的是使得 Windows 的自动运维成为可能。<br>比如，原来 <code>SaltStack</code>的很多脚本在 Windows 下很难实现，但有了 Chocolatey ，<br>用 SaltStack 管理Windows 服务器的难度大大降低。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p><a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>使用 Nuget 协议，将软件的官方链接封装到描述文件中。<br>可以查看 <a href="https://chocolatey.org/packages" target="_blank" rel="noopener">软件包列表</a>。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a href="https://chocolatey.org/" target="_blank" rel="noopener">Chocolatey</a>需要的环境为：</p>
 <ul>
 <li>Windows 7+ / Windows Server 2003+</li>
 <li>PowerShell v2+</li>
@@ -388,14 +328,15 @@ Windows 10 自己提供了“软件商店”，安全性应该大有改观，但
 <li>管理员权限</li>
 </ul>
 <p>以管理员的权限安装。可以使用 <code>PowerShell</code>，但先要修改 PowerShell的执行策略：</p>
-<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Set</span>-ExecutionPolicy <span class="comment">unrestricted</span></span><br><span class="line">iwr <span class="comment">https:</span>//<span class="comment">chocolatey.org</span>/install.ps1 -UseBasicParsing | iex</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-ExecutionPolicy unrestricted</span><br><span class="line">iwr https:&#x2F;&#x2F;chocolatey.org&#x2F;install.ps1 -UseBasicParsing | iex</span><br></pre></td></tr></table></figure>
+
 <p>也可以使用<code>Cmd</code> 、<code>CygWin</code>、。。。 等命令行工具：</p>
-<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.<span class="built_in">Net</span>.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" &amp;&amp; <span class="built_in">SET</span> "<span class="built_in">PATH</span>=<span class="variable">%PATH%</span>;<span class="variable">%ALLUSERSPROFILE%</span>\chocolatey\bin"</span><br></pre></td></tr></table></figure>
-<h1 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h1>
-<p>安装好 Chocolatey 后，可以通过如下命令查看使用帮助：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco <span class="built_in">help</span></span><br></pre></td></tr></table></figure>
-<p>Chocolatey 的命令一般提供两种格式，比如安装软件可以使用长格式 <code>choco install</code> , 或者短格式 <code>cinst</code>。<br>
-可以根据需要选择。但我个人更喜欢长格式，因为跟其他包管理器的命令更接近。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iex ((New-Object System.Net.WebClient).DownloadString(&#39;https:&#x2F;&#x2F;chocolatey.org&#x2F;install.ps1&#39;))&quot; &amp;&amp; SET &quot;PATH&#x3D;%PATH%;%ALLUSERSPROFILE%\chocolatey\bin&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>安装好 Chocolatey 后，可以通过如下命令查看使用帮助：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco help</span><br></pre></td></tr></table></figure>
+
+<p>Chocolatey 的命令一般提供两种格式，比如安装软件可以使用长格式 <code>choco install</code> , 或者短格式 <code>cinst</code>。<br>可以根据需要选择。但我个人更喜欢长格式，因为跟其他包管理器的命令更接近。</p>
 <p>Chocolatey 的常用命令包括：</p>
 <ul>
 <li>搜索: <code>choco search</code>，用 <code>-all</code>参数会显示所有可用的版本</li>
@@ -404,421 +345,125 @@ Windows 10 自己提供了“软件商店”，安全性应该大有改观，但
 <li>升级: <code>choco upgrade</code></li>
 <li>卸载: <code>choco uninstall</code></li>
 </ul>
-<h1 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h1>
-<p>使用 Chocolatey 可以管理很多软件包，比如 Linux 下面常用的 <sub>curl</sub>, 一些小工具如 <sub>7zip</sub>，<br>
-各种开发环境和工具如 <sub>git</sub>, <sub>nodejs</sub>, 甚至一些大型 GUI程序如<br>
-<sub>SublimeText3</sub>, <sub>virtualbox</sub>, <sub>VisualStudio2013Ultimate</sub>.<br>
-通过命令行的方式，可以将按照操作纳入到 SaltStack 的管理中。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>使用 Chocolatey 可以管理很多软件包，比如 Linux 下面常用的 <del>curl</del>, 一些小工具如 <del>7zip</del>，<br>各种开发环境和工具如 <del>git</del>, <del>nodejs</del>, 甚至一些大型 GUI程序如<br> <del>SublimeText3</del>, <del>virtualbox</del>, <del>VisualStudio2013Ultimate</del>.<br>通过命令行的方式，可以将按照操作纳入到 SaltStack 的管理中。</p>
 <p>相信通过深入挖掘，Chocolatey 能够发挥很大的作用。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/env/" rel="tag"># env</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/02/11/dataology_python_env.html" rel="next" title="基于Python的数据科学环境">
-                <i class="fa fa-chevron-left"></i> 基于Python的数据科学环境
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/env/" rel="tag"># env</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/14/python_data_analysis2.html" rel="prev" title="利用Python进行数据分析(2)：引言">
-                利用Python进行数据分析(2)：引言 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/02/11/dataology_python_env.html" rel="prev" title="基于Python的数据科学环境">
+      <i class="fa fa-chevron-left"></i> 基于Python的数据科学环境
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/02/14/python_data_analysis2.html" rel="next" title="利用Python进行数据分析(2)：引言">
+      利用Python进行数据分析(2)：引言 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#系统级别的包管理器"><span class="nav-number">1.</span> <span class="nav-text"> 系统级别的包管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text"> 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text"> 使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text"> 小结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/02/11/windows_pkg_manager_chocolatey.html';
-          this.page.identifier = '2017/02/11/windows_pkg_manager_chocolatey.html';
-          this.page.title = 'windows下面的包管理器：Chocolatey';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -833,24 +478,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'ac8559e08697a1b225b20bf05291b7d2',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

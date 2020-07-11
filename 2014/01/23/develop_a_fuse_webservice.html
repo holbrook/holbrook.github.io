@@ -1,145 +1,67 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="SOA,FUSE,OSGi,Maven," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="快速开始 因为Fuse的核心组成部分是ServiceMix， 所以“用Fuse开发WebService”也就是“用ServiceMix开发WebService”。 [ServiceMix提供了大量的开发工具(http://search.maven.org/#search|ga|1|org.apache.servicemix.tooling)， 其中servicemix-cxf-code-firs">
-<meta name="keywords" content="SOA,FUSE,OSGi,Maven">
+  <meta name="description" content="快速开始因为Fuse的核心组成部分是ServiceMix，所以“用Fuse开发WebService”也就是“用ServiceMix开发WebService”。 [ServiceMix提供了大量的开发工具(http:&#x2F;&#x2F;search.maven.org&#x2F;#search%7Cga%7C1%7Corg.apache.servicemix.tooling)， 其中servicemix-cxf-code-f">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JBoss Fuse：开发和部署Web Service">
 <meta property="og:url" content="http://holbrook.github.io/2014/01/23/develop_a_fuse_webservice.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="快速开始 因为Fuse的核心组成部分是ServiceMix， 所以“用Fuse开发WebService”也就是“用ServiceMix开发WebService”。 [ServiceMix提供了大量的开发工具(http://search.maven.org/#search|ga|1|org.apache.servicemix.tooling)， 其中servicemix-cxf-code-firs">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="快速开始因为Fuse的核心组成部分是ServiceMix，所以“用Fuse开发WebService”也就是“用ServiceMix开发WebService”。 [ServiceMix提供了大量的开发工具(http:&#x2F;&#x2F;search.maven.org&#x2F;#search%7Cga%7C1%7Corg.apache.servicemix.tooling)， 其中servicemix-cxf-code-f">
 <meta property="og:image" content="http://holbrook.github.io/images/fuse/webservice-demo-structure.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2014-01-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="SOA">
+<meta property="article:tag" content="FUSE">
+<meta property="article:tag" content="OSGi">
+<meta property="article:tag" content="Maven">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JBoss Fuse：开发和部署Web Service">
-<meta name="twitter:description" content="快速开始 因为Fuse的核心组成部分是ServiceMix， 所以“用Fuse开发WebService”也就是“用ServiceMix开发WebService”。 [ServiceMix提供了大量的开发工具(http://search.maven.org/#search|ga|1|org.apache.servicemix.tooling)， 其中servicemix-cxf-code-firs">
 <meta name="twitter:image" content="http://holbrook.github.io/images/fuse/webservice-demo-structure.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2014/01/23/develop_a_fuse_webservice.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2014/01/23/develop_a_fuse_webservice.html"/>
-
-
-
-
 
   <title>JBoss Fuse：开发和部署Web Service | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -148,213 +70,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">1.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Apache-CXF与Spring"><span class="nav-number">2.</span> <span class="nav-text">Apache CXF与Spring</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署到ServiceMix"><span class="nav-number">3.</span> <span class="nav-text">部署到ServiceMix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从ServiceMix到Fuse"><span class="nav-number">4.</span> <span class="nav-text">从ServiceMix到Fuse</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/23/develop_a_fuse_webservice.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">JBoss Fuse：开发和部署Web Service</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          JBoss Fuse：开发和部署Web Service
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-23T00:00:00+08:00">
-                2014-01-23
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2014-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2014-01-23T00:00:00+08:00">2014-01-23</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2014/01/23/develop_a_fuse_webservice.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/23/develop_a_fuse_webservice.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -362,450 +318,147 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h1 id="快速开始"><a class="markdownIt-Anchor" href="#快速开始"></a> 快速开始</h1>
-<p>因为<a href="/2014/01/20/about_fuse_esb.html#menuIndex1">Fuse的核心组成部分是ServiceMix</a>，<br>
-所以“用Fuse开发WebService”也就是“用ServiceMix开发WebService”。</p>
-<p>[ServiceMix提供了大量的开发工具(<a href="http://search.maven.org/#search%7Cga%7C1%7Corg.apache.servicemix.tooling" target="_blank" rel="noopener">http://search.maven.org/#search|ga|1|org.apache.servicemix.tooling</a>)，</p>
+        <h1 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h1><p>因为<a href="/2014/01/20/about_fuse_esb.html#menuIndex1">Fuse的核心组成部分是ServiceMix</a>，<br>所以“用Fuse开发WebService”也就是“用ServiceMix开发WebService”。</p>
+<p>[ServiceMix提供了大量的开发工具(<a href="http://search.maven.org/#search%7Cga%7C1%7Corg.apache.servicemix.tooling)，" target="_blank" rel="noopener">http://search.maven.org/#search%7Cga%7C1%7Corg.apache.servicemix.tooling)，</a></p>
 <p>其中<a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22servicemix-cxf-code-first-osgi-bundle%22" target="_blank" rel="noopener">servicemix-cxf-code-first-osgi-bundle</a>是用于开发“代码优先”的Web Service的一个<a href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html" target="_blank" rel="noopener">maven archetype</a>。可以快速创建一个demo:</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate  \</span><br><span class="line"><span class="attribute">-DarchetypeGroupId</span>=org.apache.servicemix.tooling \</span><br><span class="line"><span class="attribute">-DarchetypeArtifactId</span>=servicemix-cxf-code-first-osgi-bundle \</span><br><span class="line"><span class="attribute">-DarchetypeVersion</span>=2013.01 \</span><br><span class="line"><span class="attribute">-DgroupId</span>=thinkinside.demo.fuse \</span><br><span class="line"><span class="attribute">-DartifactId</span>=webservice-demo \</span><br><span class="line"><span class="attribute">-Dversion</span>=1.0.0-SNAPSHOT</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate  \</span><br><span class="line">-DarchetypeGroupId&#x3D;org.apache.servicemix.tooling \</span><br><span class="line">-DarchetypeArtifactId&#x3D;servicemix-cxf-code-first-osgi-bundle \</span><br><span class="line">-DarchetypeVersion&#x3D;2013.01 \</span><br><span class="line">-DgroupId&#x3D;thinkinside.demo.fuse \</span><br><span class="line">-DartifactId&#x3D;webservice-demo \</span><br><span class="line">-Dversion&#x3D;1.0.0-SNAPSHOT</span><br></pre></td></tr></table></figure>
+
 <p>会创建如下结构的一个工程：</p>
 <p><img src="/images/fuse/webservice-demo-structure.png" alt="webservice工程目录结构"></p>
 <p>从<code>pom.xml</code>来看，这是一个<a href="/2014/01/21/tycho_vs_maven_bundle_plugin.html">使用maven-bundle-plugin构建的OSGi bundle工程</a>。</p>
-<h1 id="apache-cxf与spring"><a class="markdownIt-Anchor" href="#apache-cxf与spring"></a> Apache CXF与Spring</h1>
-<p>上面的工程中包含了`META-INF/spring/beans.xml’文件:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="comment">&lt;!-- Generated by Apache ServiceMix Archetype --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:jaxws</span>=<span class="string">"http://cxf.apache.org/jaxws"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">      http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">      http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">jaxws:endpoint</span> <span class="attr">id</span>=<span class="string">"HTTPEndpoint"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">implementor</span>=<span class="string">"thinkinside.demo.fuse.person.PersonImpl"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">address</span>=<span class="string">"/PersonServiceCF"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>说明这个bundle依赖<a href="/2014/01/20/about_fuse_esb.html#menuIndex5">ServiceMix中集成的Spring DM插件</a><br>
-可见，该工程中使用了Spring DM。</p>
+<h1 id="Apache-CXF与Spring"><a href="#Apache-CXF与Spring" class="headerlink" title="Apache CXF与Spring"></a>Apache CXF与Spring</h1><p>上面的工程中包含了`META-INF/spring/beans.xml’文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!-- Generated by Apache ServiceMix Archetype --&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">  xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">  xmlns:jaxws&#x3D;&quot;http:&#x2F;&#x2F;cxf.apache.org&#x2F;jaxws&quot;</span><br><span class="line">  xsi:schemaLocation&#x3D;&quot;</span><br><span class="line">      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">      http:&#x2F;&#x2F;cxf.apache.org&#x2F;jaxws http:&#x2F;&#x2F;cxf.apache.org&#x2F;schemas&#x2F;jaxws.xsd</span><br><span class="line">      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;osgi http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;osgi&#x2F;spring-osgi.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;jaxws:endpoint id&#x3D;&quot;HTTPEndpoint&quot;</span><br><span class="line">      implementor&#x3D;&quot;thinkinside.demo.fuse.person.PersonImpl&quot;</span><br><span class="line">      address&#x3D;&quot;&#x2F;PersonServiceCF&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>说明这个bundle依赖<a href="/2014/01/20/about_fuse_esb.html#menuIndex5">ServiceMix中集成的Spring DM插件</a><br>可见，该工程中使用了Spring DM。</p>
 <p>之所以在ServiceMix中既有Apache Areis Blueprint，又有Spring DM，是因为有很多遗留系统是基于Srping的。比如，Apache CXF就专门提供了<a href="http://cxf.apache.org/docs/writing-a-service-with-spring.html" target="_blank" rel="noopener">使用Sping集成和发布WebService的机制</a>。</p>
 <p>上面<code>beans.xml</code>中的<code>&lt;jaxws:endpoint&gt;</code>标签，就是由CXF提供的专门用于spring的schema中定义。</p>
 <p>在ServiceMix中，CXF通过OSGi bundle: <code>cxf-bundle-compatible</code>被容器管理。</p>
-<h1 id="部署到servicemix"><a class="markdownIt-Anchor" href="#部署到servicemix"></a> 部署到ServiceMix</h1>
-<p>执行<code>mvn package</code>后，得到<code>webservice-demo-1.0.0-SNAPSHOT.jar</code>，这是一个OSGi bundle。可以将jar文件部署到</p>
-<p><code>$SERVICEMIX_HOME/deploy/</code>目录中。正常情况下，bundle的依赖关系被满足，该bundle会被自动启动。<br>
-此时访问<a href="http://localhost:8181/cxf" target="_blank" rel="noopener">http://localhost:8181/cxf</a>，应该能够在Apache CXF服务清单中看到<code>beans.xml</code>中定义的web service。</p>
-<h1 id="从servicemix到fuse"><a class="markdownIt-Anchor" href="#从servicemix到fuse"></a> 从ServiceMix到Fuse</h1>
-<p>上述的过程也适用于JBoss Fuse。</p>
+<h1 id="部署到ServiceMix"><a href="#部署到ServiceMix" class="headerlink" title="部署到ServiceMix"></a>部署到ServiceMix</h1><p>执行<code>mvn package</code>后，得到<code>webservice-demo-1.0.0-SNAPSHOT.jar</code>，这是一个OSGi bundle。可以将jar文件部署到</p>
+<p><code>$SERVICEMIX_HOME/deploy/</code>目录中。正常情况下，bundle的依赖关系被满足，该bundle会被自动启动。<br>此时访问<a href="http://localhost:8181/cxf" target="_blank" rel="noopener">http://localhost:8181/cxf</a>，应该能够在Apache CXF服务清单中看到<code>beans.xml</code>中定义的web service。</p>
+<h1 id="从ServiceMix到Fuse"><a href="#从ServiceMix到Fuse" class="headerlink" title="从ServiceMix到Fuse"></a>从ServiceMix到Fuse</h1><p>上述的过程也适用于JBoss Fuse。</p>
 <p>但是Fuse对ServiceMix进行了再次封装，需要使用Fuse对应的版本。比如，<code>servicemix-cxf-code-first-osgi-bundle</code>的版本可能要使用<code>2012.01.0.redhat-60024</code>这样的“Fuse版本号”，否则在部署到Fuse是可能会发生版本不匹配的问题。</p>
 <p>Fuse提供了一个maven仓库，专门提供这种定制版本的组件，需要在maven中配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>fusesource<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://repo.fusesource.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;repository&gt;</span><br><span class="line">    &lt;id&gt;fusesource&lt;&#x2F;id&gt;</span><br><span class="line">    &lt;url&gt;http:&#x2F;&#x2F;repo.fusesource.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;snapshots&gt;</span><br><span class="line">        &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">    &lt;&#x2F;snapshots&gt;</span><br><span class="line">    &lt;releases&gt;</span><br><span class="line">         &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">     &lt;&#x2F;releases&gt;</span><br><span class="line">&lt;&#x2F;repository&gt;</span><br></pre></td></tr></table></figure>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/SOA/" rel="tag"># SOA</a>
-          
-            <a href="/tags/FUSE/" rel="tag"># FUSE</a>
-          
-            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
-          
-            <a href="/tags/Maven/" rel="tag"># Maven</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2014/01/22/osgi_blueprint_container.html" rel="next" title="Blueprint：OSGi的依赖注入(DI)容器">
-                <i class="fa fa-chevron-left"></i> Blueprint：OSGi的依赖注入(DI)容器
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SOA/" rel="tag"># SOA</a>
+              <a href="/tags/FUSE/" rel="tag"># FUSE</a>
+              <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+              <a href="/tags/Maven/" rel="tag"># Maven</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/01/29/svn_install_config_and_mgnt.html" rel="prev" title="subversion安装、配置和管理">
-                subversion安装、配置和管理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2014/01/22/osgi_blueprint_container.html" rel="prev" title="Blueprint：OSGi的依赖注入(DI)容器">
+      <i class="fa fa-chevron-left"></i> Blueprint：OSGi的依赖注入(DI)容器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2014/01/29/svn_install_config_and_mgnt.html" rel="next" title="subversion安装、配置和管理">
+      subversion安装、配置和管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">1.</span> <span class="nav-text"> 快速开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apache-cxf与spring"><span class="nav-number">2.</span> <span class="nav-text"> Apache CXF与Spring</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署到servicemix"><span class="nav-number">3.</span> <span class="nav-text"> 部署到ServiceMix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从servicemix到fuse"><span class="nav-number">4.</span> <span class="nav-text"> 从ServiceMix到Fuse</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2014/01/23/develop_a_fuse_webservice.html';
-          this.page.identifier = '2014/01/23/develop_a_fuse_webservice.html';
-          this.page.title = 'JBoss Fuse：开发和部署Web Service';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -820,24 +473,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'ae1763b6c3e590a7ad759fbca3a3a1e2',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

@@ -1,143 +1,63 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="web,env," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="使用yoeman, bower, grunt等工具开发web。">
-<meta name="keywords" content="web,env">
+  <meta name="description" content="使用yoeman, bower, grunt等工具开发web。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建一个“现代化”的web开发环境">
 <meta property="og:url" content="http://holbrook.github.io/2015/05/04/modern_web_dev_env.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="使用yoeman, bower, grunt等工具开发web。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2015-05-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="env">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建一个“现代化”的web开发环境">
-<meta name="twitter:description" content="使用yoeman, bower, grunt等工具开发web。">
+
+<link rel="canonical" href="http://holbrook.github.io/2015/05/04/modern_web_dev_env.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2015/05/04/modern_web_dev_env.html"/>
-
-
-
-
 
   <title>搭建一个“现代化”的web开发环境 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +66,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具和框架"><span class="nav-number">2.</span> <span class="nav-text">工具和框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">2.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架和插件"><span class="nav-number">2.2.</span> <span class="nav-text">框架和插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">2.3.</span> <span class="nav-text">环境准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建工程"><span class="nav-number">3.</span> <span class="nav-text">搭建工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建工程目录"><span class="nav-number">3.1.</span> <span class="nav-text">创建工程目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建前端工程"><span class="nav-number">3.2.</span> <span class="nav-text">创建前端工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置前端工程"><span class="nav-number">3.3.</span> <span class="nav-text">配置前端工程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动前端"><span class="nav-number">4.1.</span> <span class="nav-text">启动前端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动后端"><span class="nav-number">4.2.</span> <span class="nav-text">启动后端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#知识准备"><span class="nav-number">5.</span> <span class="nav-text">知识准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2015/05/04/modern_web_dev_env.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">搭建一个“现代化”的web开发环境</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          搭建一个“现代化”的web开发环境
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-05-04T00:00:00+08:00">
-                2015-05-04
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2015-05-04 00:00:00" itemprop="dateCreated datePublished" datetime="2015-05-04T00:00:00+08:00">2015-05-04</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2015/05/04/modern_web_dev_env.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/05/04/modern_web_dev_env.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,556 +314,219 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>使用yoeman, bower, grunt等工具开发web。</p>
 <a id="more"></a>
-<h1 id="目标"><a class="markdownIt-Anchor" href="#目标"></a> 目标</h1>
-<p>将要开展的一个项目，使用Angularjs 和 Flask开发一个web界面，<br>
-作为saltstack和其他自行开发的python小工具的前端界面，<br>
-实现自己的“运维操作平台”。</p>
-<p>为了统一框架、工具和开发方式，在本文中描述了项目的一些约定。<br>
-这些约定具有通用性，应该是目前基于python的web开发技术中，<br>
-比较”主流“和”先进“的方式，所以也可以作为开发其他应用的参考。</p>
-<h1 id="工具和框架"><a class="markdownIt-Anchor" href="#工具和框架"></a> 工具和框架</h1>
-<h2 id="工具"><a class="markdownIt-Anchor" href="#工具"></a> 工具</h2>
-<ul>
-<li>
-<p>版本管理<br>
-基于<a href="http://gogs.io/" target="_blank" rel="noopener">gogs</a> 的私有git</p>
+
+
+<h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p>将要开展的一个项目，使用Angularjs 和 Flask开发一个web界面，<br>作为saltstack和其他自行开发的python小工具的前端界面，<br>实现自己的“运维操作平台”。</p>
+<p>为了统一框架、工具和开发方式，在本文中描述了项目的一些约定。<br>这些约定具有通用性，应该是目前基于python的web开发技术中，<br>比较”主流“和”先进“的方式，所以也可以作为开发其他应用的参考。</p>
+<h1 id="工具和框架"><a href="#工具和框架" class="headerlink" title="工具和框架"></a>工具和框架</h1><h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
+<li><p>版本管理<br>  基于<a href="http://gogs.io/" target="_blank" rel="noopener">gogs</a> 的私有git</p>
 </li>
-<li>
-<p>问题管理、版本发布、资料共享<br>
-<a href="http://www.redmine.org/" target="_blank" rel="noopener">redmine</a></p>
+<li><p>问题管理、版本发布、资料共享<br>  <a href="http://www.redmine.org/" target="_blank" rel="noopener">redmine</a></p>
 </li>
-<li>
-<p>项目管理<br>
-<a href="http://www.redminebacklogs.net/" target="_blank" rel="noopener">redmine的scrum插件</a></p>
+<li><p>项目管理<br>  <a href="http://www.redminebacklogs.net/" target="_blank" rel="noopener">redmine的scrum插件</a></p>
 </li>
-<li>
-<p>nodejs包管理器<br>
-<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a>(node package manager)。</p>
-<p>本文中，npm仅作为安装yoeman, bower，grunt等的基础工具。</p>
+<li><p>nodejs包管理器<br>  <a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a>(node package manager)。</p>
+<p>  本文中，npm仅作为安装yoeman, bower，grunt等的基础工具。</p>
 </li>
-<li>
-<p>js依赖管理: <a href="http://bower.io/" target="_blank" rel="noopener">bower</a><br>
-npm可以安装js包，但是没有解决依赖的问题。而bower解决了js包的依赖管理。类似maven中的依赖管理功能。</p>
+<li><p>js依赖管理: <a href="http://bower.io/" target="_blank" rel="noopener">bower</a><br>  npm可以安装js包，但是没有解决依赖的问题。而bower解决了js包的依赖管理。类似maven中的依赖管理功能。</p>
 </li>
-<li>
-<p>前端构建工具: <a href="http://gruntjs.com/" target="_blank" rel="noopener">grunt</a><br>
-js开发中的项目构建工具，类似maven/ant/makefile，<br>
-通过配置文件执行压缩,编译, 单元测试, 代码检查以及打包发布的任务。</p>
+<li><p>前端构建工具: <a href="http://gruntjs.com/" target="_blank" rel="noopener">grunt</a><br>  js开发中的项目构建工具，类似maven/ant/makefile，<br>  通过配置文件执行压缩,编译, 单元测试, 代码检查以及打包发布的任务。</p>
 </li>
-<li>
-<p>前端脚手架工具<br>
-<a href="">yoeman</a>。类似maven的archetypes。</p>
+<li><p>前端脚手架工具<br>  <a href="">yoeman</a>。类似maven的archetypes。</p>
 </li>
-<li>
-<p>python开发环境管理<br>
-<a href="http://virtualenv-chinese-docs.readthedocs.org/en/latest/" target="_blank" rel="noopener">virtualenv</a></p>
+<li><p>python开发环境管理<br><a href="http://virtualenv-chinese-docs.readthedocs.org/en/latest/" target="_blank" rel="noopener">virtualenv</a></p>
 </li>
 </ul>
-<h2 id="框架和插件"><a class="markdownIt-Anchor" href="#框架和插件"></a> 框架和插件</h2>
-<ul>
-<li>
-<p>样式库 <a href="http://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap</a></p>
+<h2 id="框架和插件"><a href="#框架和插件" class="headerlink" title="框架和插件"></a>框架和插件</h2><ul>
+<li><p>样式库 <a href="http://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap</a></p>
 <ul>
 <li><a href="https://github.com/nnnick/Chart.js/" target="_blank" rel="noopener">chartjs</a></li>
 </ul>
 </li>
-<li>
-<p>前端框架：<a href="https://angularjs.org/" target="_blank" rel="noopener">AngularJS</a></p>
+<li><p>前端框架：<a href="https://angularjs.org/" target="_blank" rel="noopener">AngularJS</a></p>
 </li>
-<li>
-<p>后端框架：<a href="">Flask</a></p>
+<li><p>后端框架：<a href="">Flask</a></p>
 <ul>
 <li>Flask-SQLAlchemy</li>
 <li>Flask-RESTful</li>
 </ul>
 </li>
 </ul>
-<h2 id="环境准备"><a class="markdownIt-Anchor" href="#环境准备"></a> 环境准备</h2>
-<pre><code>本文中仅给出MacOS下的安装方法，其他系统可以阅读官方文档或参考资料。
-</code></pre>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装npm</span></span><br><span class="line">brew install npm</span><br><span class="line"></span><br><span class="line"><span class="comment">#全局安装工具</span></span><br><span class="line">npm install -g yo grunt-cli grunt bower generator-angular</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装virtualenv</span></span><br><span class="line">sudo easy_install pip</span><br><span class="line">sudo pip install virtualenv</span><br></pre></td></tr></table></figure>
-<h1 id="搭建工程"><a class="markdownIt-Anchor" href="#搭建工程"></a> 搭建工程</h1>
-<h2 id="创建工程目录"><a class="markdownIt-Anchor" href="#创建工程目录"></a> 创建工程目录</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p PROJ\_ROOT/web \<span class="comment"># 前端工程目录 mkdir -p</span></span><br><span class="line">PROJ\_ROOT/app/APP\_NAME \<span class="comment"># 后端工程目录 \#+END</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建前端工程"><a class="markdownIt-Anchor" href="#创建前端工程"></a> 创建前端工程</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ\_ROOT/web yo angular \<span class="comment"># 一些交互，按照自己的需要选择即可。 \#...</span></span><br></pre></td></tr></table></figure>
-<h2 id="配置前端工程"><a class="markdownIt-Anchor" href="#配置前端工程"></a> 配置前端工程</h2>
-<ol>
-<li>
-<p>修改IP地址</p>
-<p>将connect -&gt; hostname, 由’localhost’ 改为 ‘0.0.0.0’</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><pre><code>本文中仅给出MacOS下的安装方法，其他系统可以阅读官方文档或参考资料。</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装npm</span></span><br><span class="line">brew install npm</span><br><span class="line"></span><br><span class="line"><span class="comment">#全局安装工具</span></span><br><span class="line">npm install -g yo grunt-cli grunt bower generator-angular</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装virtualenv</span></span><br><span class="line">sudo easy_install pip</span><br><span class="line">sudo pip install virtualenv</span><br></pre></td></tr></table></figure>
+
+<h1 id="搭建工程"><a href="#搭建工程" class="headerlink" title="搭建工程"></a>搭建工程</h1><h2 id="创建工程目录"><a href="#创建工程目录" class="headerlink" title="创建工程目录"></a>创建工程目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p PROJ\_ROOT/web \<span class="comment"># 前端工程目录 mkdir -p</span></span><br><span class="line">PROJ\_ROOT/app/APP\_NAME \<span class="comment"># 后端工程目录 \#+END</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建前端工程"><a href="#创建前端工程" class="headerlink" title="创建前端工程"></a>创建前端工程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ\_ROOT/web yo angular \<span class="comment"># 一些交互，按照自己的需要选择即可。 \#...</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置前端工程"><a href="#配置前端工程" class="headerlink" title="配置前端工程"></a>配置前端工程</h2><ol>
+<li><p>修改IP地址</p>
+<p> 将connect -&gt; hostname, 由’localhost’ 改为 ‘0.0.0.0’</p>
 </li>
-<li>
-<p>修改dist目录</p>
-<p>将appConfig -&gt; dist 有 ‘dist’ 改为 ‘…/app/APP_NAME/static’</p>
+<li><p>修改dist目录</p>
+<p> 将appConfig -&gt; dist 有 ‘dist’ 改为 ‘../app/APP_NAME/static’</p>
 </li>
-<li>
-<p>virtualenv</p>
+<li><p>virtualenv</p>
 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ\_ROOT</span><br><span class="line">virtualenv venv</span><br><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br><span class="line">pip install flask</span><br><span class="line">pip install sqlalchemy</span><br><span class="line">pip install flask-sqlalchemy</span><br><span class="line">...</span><br><span class="line">pip freeze &gt; app/requirements.txt</span><br></pre></td></tr></table></figure>
+
+
 <ol start="4">
 <li>构建Flask工程</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p PROJ\_ROOT/app/APP\_NAME/common</span><br><span class="line">mkdir -p PROJ\_ROOT/app/APP\_NAME/models</span><br><span class="line">mkdir -p PROJ\_ROOT/app/APP\_NAME/static</span><br><span class="line">mkdir -p PROJ\_ROOT/app/APP\_NAME/templates</span><br><span class="line">mkdir -p PROJ\_ROOT/app/APP\_NAME/views</span><br><span class="line"></span><br><span class="line">touch PROJ\_ROOT/app/APP\_NAME/common/__init__.py</span><br><span class="line">touch PROJ\_ROOT/app/APP\_NAME/models/__init__.py</span><br><span class="line">touch PROJ\_ROOT/app/APP\_NAME/views/__init__.py</span><br></pre></td></tr></table></figure>
+
 <ol start="6">
 <li>配置git</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ\_ROOT</span><br><span class="line">mv web/.gitattributes .</span><br><span class="line">rm -f web/.gitignore</span><br><span class="line">cat &gt; .gitignore &lt;&lt; EOF</span><br><span class="line">web/node_modules</span><br><span class="line">web/.tmp</span><br><span class="line">web/.sass-cache</span><br><span class="line">web/bower_components</span><br><span class="line">dist</span><br><span class="line">venv</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<h1 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h1>
-<p>以上是工程框架搭建的过程，对于开发人员，不需要要这么麻烦，只要从版本库中获取源代码后进行初始化即可：</p>
+
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>  以上是工程框架搭建的过程，对于开发人员，不需要要这么麻烦，只要从版本库中获取源代码后进行初始化即可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> xxxx <span class="built_in">cd</span> PROJ_ROOT</span><br><span class="line">virtualenv venv</span><br><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br><span class="line">pip install -r app/requirements.txt</span><br><span class="line"><span class="built_in">cd</span> web</span><br><span class="line">npm install</span><br><span class="line">bower install</span><br></pre></td></tr></table></figure>
-<h2 id="启动前端"><a class="markdownIt-Anchor" href="#启动前端"></a> 启动前端</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ_ROOT/web</span><br><span class="line">grunt serve</span><br></pre></td></tr></table></figure>
-<p>然后通过http://0.0.0.0:9000可以访问前端界面。</p>
-<h2 id="启动后端"><a class="markdownIt-Anchor" href="#启动后端"></a> 启动后端</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ\_ROOT/app</span><br><span class="line">python run.py</span><br></pre></td></tr></table></figure>
-<pre><code>然后通过http://127.0.0.1:5000/ 访问后端应用。
-</code></pre>
-<h1 id="知识准备"><a class="markdownIt-Anchor" href="#知识准备"></a> 知识准备</h1>
-<pre><code>在开始开发之前，开发人员最好熟悉以下内容：
+
+<h2 id="启动前端"><a href="#启动前端" class="headerlink" title="启动前端"></a>启动前端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ_ROOT/web</span><br><span class="line">grunt serve</span><br></pre></td></tr></table></figure>
+
+<p>  然后通过<a href="http://0.0.0.0:9000可以访问前端界面。">http://0.0.0.0:9000可以访问前端界面。</a></p>
+<h2 id="启动后端"><a href="#启动后端" class="headerlink" title="启动后端"></a>启动后端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> PROJ\_ROOT/app</span><br><span class="line">python run.py</span><br></pre></td></tr></table></figure>
+
+<pre><code>然后通过http://127.0.0.1:5000/ 访问后端应用。</code></pre><h1 id="知识准备"><a href="#知识准备" class="headerlink" title="知识准备"></a>知识准备</h1><pre><code>在开始开发之前，开发人员最好熟悉以下内容：
 
 - Bootstrap入门: http://v3.bootcss.com/getting-started/
 - Angularjs入门教程: http://www.ituring.com.cn/article/13471
 - Flask系列教程 :http://www.oschina.net/translate/the-flask-mega-tutorial-part-i-hello-world
-- SQLAlchemy教程:
-</code></pre>
-<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
-<ol>
+- SQLAlchemy教程:</code></pre><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
 <li>NPM小结 chyingp <a href="http://www.cnblogs.com/chyingp/p/npm.html" target="_blank" rel="noopener">http://www.cnblogs.com/chyingp/p/npm.html</a></li>
-<li>bower解决js的依赖管理 | 粉丝日志<br>
-<a href="http://blog.fens.me/nodejs-bower-intro/" target="_blank" rel="noopener">http://blog.fens.me/nodejs-bower-intro/</a></li>
+<li>bower解决js的依赖管理 | 粉丝日志<br><a href="http://blog.fens.me/nodejs-bower-intro/" target="_blank" rel="noopener">http://blog.fens.me/nodejs-bower-intro/</a></li>
 <li>getting started with Yeoman <a href="http://yeoman.io/learning/index.html" target="_blank" rel="noopener">http://yeoman.io/learning/index.html</a></li>
-<li>Yeoman自动构建js项目 | 粉丝日志<br>
-<a href="http://blog.fens.me/nodejs-yeoman-intro/" target="_blank" rel="noopener">http://blog.fens.me/nodejs-yeoman-intro/</a></li>
-<li>grunt让Nodejs规范起来 | 粉丝日志<br>
-<a href="http://blog.fens.me/nodejs-grunt-intro/" target="_blank" rel="noopener">http://blog.fens.me/nodejs-grunt-intro/</a></li>
+<li>Yeoman自动构建js项目 | 粉丝日志<br><a href="http://blog.fens.me/nodejs-yeoman-intro/" target="_blank" rel="noopener">http://blog.fens.me/nodejs-yeoman-intro/</a></li>
+<li>grunt让Nodejs规范起来 | 粉丝日志<br><a href="http://blog.fens.me/nodejs-grunt-intro/" target="_blank" rel="noopener">http://blog.fens.me/nodejs-grunt-intro/</a></li>
 <li>Bootstrap入门 <a href="http://v3.bootcss.com/getting-started/" target="_blank" rel="noopener">http://v3.bootcss.com/getting-started/</a></li>
 <li>AngularJS入门教程 <a href="http://www.ituring.com.cn/article/13471" target="_blank" rel="noopener">http://www.ituring.com.cn/article/13471</a></li>
-<li>Flask系列教程<br>
-<a href="http://www.oschina.net/translate/the-flask-mega-tutorial-part-i-hello-world" target="_blank" rel="noopener">http://www.oschina.net/translate/the-flask-mega-tutorial-part-i-hello-world</a></li>
-<li>使用 Flask 和 AngularJS 构建博客 - 1<br>
-<a href="http://segmentfault.com/a/1190000000654088" target="_blank" rel="noopener">http://segmentfault.com/a/1190000000654088</a></li>
-<li>使用 Flask 和 AngularJS 构建博客 - 2<br>
-<a href="http://segmentfault.com/a/1190000000665636" target="_blank" rel="noopener">http://segmentfault.com/a/1190000000665636</a></li>
+<li>Flask系列教程<br><a href="http://www.oschina.net/translate/the-flask-mega-tutorial-part-i-hello-world" target="_blank" rel="noopener">http://www.oschina.net/translate/the-flask-mega-tutorial-part-i-hello-world</a></li>
+<li>使用 Flask 和 AngularJS 构建博客 - 1<br><a href="http://segmentfault.com/a/1190000000654088" target="_blank" rel="noopener">http://segmentfault.com/a/1190000000654088</a></li>
+<li>使用 Flask 和 AngularJS 构建博客 - 2<br><a href="http://segmentfault.com/a/1190000000665636" target="_blank" rel="noopener">http://segmentfault.com/a/1190000000665636</a></li>
 </ol>
 <hr>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/web/" rel="tag"># web</a>
-          
-            <a href="/tags/env/" rel="tag"># env</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2014/04/29/cm_tools_via_salt.html" rel="next" title="基于salt开发配置管理工具">
-                <i class="fa fa-chevron-left"></i> 基于salt开发配置管理工具
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+              <a href="/tags/env/" rel="tag"># env</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/05/05/git_branch_within_scrum.html" rel="prev" title="scrum和分支管理策略">
-                scrum和分支管理策略 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2014/04/29/cm_tools_via_salt.html" rel="prev" title="基于salt开发配置管理工具">
+      <i class="fa fa-chevron-left"></i> 基于salt开发配置管理工具
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/05/05/git_branch_within_scrum.html" rel="next" title="scrum和分支管理策略">
+      scrum和分支管理策略 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text"> 目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具和框架"><span class="nav-number">2.</span> <span class="nav-text"> 工具和框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">2.1.</span> <span class="nav-text"> 工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架和插件"><span class="nav-number">2.2.</span> <span class="nav-text"> 框架和插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">2.3.</span> <span class="nav-text"> 环境准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建工程"><span class="nav-number">3.</span> <span class="nav-text"> 搭建工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建工程目录"><span class="nav-number">3.1.</span> <span class="nav-text"> 创建工程目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建前端工程"><span class="nav-number">3.2.</span> <span class="nav-text"> 创建前端工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置前端工程"><span class="nav-number">3.3.</span> <span class="nav-text"> 配置前端工程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text"> 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动前端"><span class="nav-number">4.1.</span> <span class="nav-text"> 启动前端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动后端"><span class="nav-number">4.2.</span> <span class="nav-text"> 启动后端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#知识准备"><span class="nav-number">5.</span> <span class="nav-text"> 知识准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2015/05/04/modern_web_dev_env.html';
-          this.page.identifier = '2015/05/04/modern_web_dev_env.html';
-          this.page.title = '搭建一个“现代化”的web开发环境';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -924,24 +541,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '3f34bd680409a249f3e59e4d93e3a668',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

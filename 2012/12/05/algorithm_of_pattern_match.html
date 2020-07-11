@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="规则引擎," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 前面提到，规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 对于规则的模式匹配，可以定义为： 一个规则是一组模式的集合。如果事实/假设的状态符合该规则的所有模式，则称为该规则是可满足的。 模式匹配的任务就是">
-<meta name="keywords" content="规则引擎">
+  <meta name="description" content="规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 前面提到，规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 对于规则的模式匹配，可以定义为： 一个规则是一组模式的集合。如果事实&#x2F;假设的状态符合该规则的所有模式，则称为该规则是可满足的。 模式匹配的任务就">
 <meta property="og:type" content="article">
 <meta property="og:title" content="规则引擎中常用的模式匹配算法">
 <meta property="og:url" content="http://holbrook.github.io/2012/12/05/algorithm_of_pattern_match.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 前面提到，规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 对于规则的模式匹配，可以定义为： 一个规则是一组模式的集合。如果事实/假设的状态符合该规则的所有模式，则称为该规则是可满足的。 模式匹配的任务就是">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="og:description" content="规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 前面提到，规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 对于规则的模式匹配，可以定义为： 一个规则是一组模式的集合。如果事实&#x2F;假设的状态符合该规则的所有模式，则称为该规则是可满足的。 模式匹配的任务就">
+<meta property="article:published_time" content="2012-12-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="规则引擎">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="规则引擎中常用的模式匹配算法">
-<meta name="twitter:description" content="规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 前面提到，规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。 对于规则的模式匹配，可以定义为： 一个规则是一组模式的集合。如果事实/假设的状态符合该规则的所有模式，则称为该规则是可满足的。 模式匹配的任务就是">
+
+<link rel="canonical" href="http://holbrook.github.io/2012/12/05/algorithm_of_pattern_match.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2012/12/05/algorithm_of_pattern_match.html"/>
-
-
-
-
 
   <title>规则引擎中常用的模式匹配算法 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是模式匹配"><span class="nav-number">1.</span> <span class="nav-text">什么是模式匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rete算法"><span class="nav-number">2.</span> <span class="nav-text">Rete算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tread算法"><span class="nav-number">3.</span> <span class="nav-text">Tread算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Leaps-算法"><span class="nav-number">4.</span> <span class="nav-text">Leaps 算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他算法"><span class="nav-number">5.</span> <span class="nav-text">其他算法</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2012/12/05/algorithm_of_pattern_match.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">规则引擎中常用的模式匹配算法</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          规则引擎中常用的模式匹配算法
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-12-05T00:00:00+08:00">
-                2012-12-05
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2012-12-05 00:00:00" itemprop="dateCreated datePublished" datetime="2012-12-05T00:00:00+08:00">2012-12-05</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2012/12/05/algorithm_of_pattern_match.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2012/12/05/algorithm_of_pattern_match.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,14 +313,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。</p>
+        <p> 规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。</p>
 <p><a href="/2012/03/20/rule_engine_1.html">前面</a>提到，规则引擎的核心是Pattern Matcher(模式匹配器)。不管是正向推理还是反向推理，首先要解决一个模式匹配的问题。</p>
 <p>对于规则的模式匹配，可以定义为： 一个规则是一组模式的集合。如果事实/假设的状态符合该规则的所有模式，则称为该规则是可满足的。 模式匹配的任务就是将事实/假设的状态与规则库中的规则一一匹配，找到所有可满足的规则。</p>
-<h1 id="什么是模式匹配"><a class="markdownIt-Anchor" href="#什么是模式匹配"></a> 什么是模式匹配</h1>
-<p>对于模式匹配我们都应该不陌生，我们经常使用的正则表达式就是一种模式匹配。</p>
+<h1 id="什么是模式匹配"><a href="#什么是模式匹配" class="headerlink" title="什么是模式匹配"></a>什么是模式匹配</h1><p>对于模式匹配我们都应该不陌生，我们经常使用的正则表达式就是一种模式匹配。</p>
 <ul>
 <li>正则表达式是一种“模式（pattern）”</li>
 <li>编程语言提供的“正则表达式引擎”就是Pattern Matcher。比如python中的re模块</li>
@@ -380,28 +329,25 @@
 <li>条件部分，也称为LHS(left-hand side)</li>
 <li>事实部分，也称为RHS(right-hand side)</li>
 </ul>
-<p>假设系统中有N条规则，平均每个规则的条件部分有P个模式，在某个时点有M个事实需要处理。则规则匹配要做的事情就是： 对每一个规则r，判断当前的事实o是否满足LHS®=True,如果满足，则将规则r的实例r(o)，即规则+满足该规则的事实，加到冲突集中等待处理。 通常采取如下过程：</p>
+<p>假设系统中有N条规则，平均每个规则的条件部分有P个模式，在某个时点有M个事实需要处理。则规则匹配要做的事情就是： 对每一个规则r，判断当前的事实o是否满足LHS(r)=True,如果满足，则将规则r的实例r(o)，即规则+满足该规则的事实，加到冲突集中等待处理。 通常采取如下过程：</p>
 <ul>
 <li>从N条规则中取出一条r；</li>
 <li>从M个事实中取出P个事实的一个组合c；</li>
-<li>用c测试LHS®，如果LHS(r（c）)=True，将RHS(r（c）)加入队列中；</li>
+<li>用c测试LHS(r)，如果LHS(r（c）)=True，将RHS(r（c）)加入队列中；</li>
 <li>如果M个事实还存在其他的组合c，goto 3；</li>
 <li>取出下一条规则r，goto 2；</li>
 </ul>
 <p>实际的问题可能更复杂，在规则的执行过程中可能会改变RHS的数据，从而使得已经匹配的规则实例失效或者产生新的满足规则的匹配，形成一种“动态”的匹配链。</p>
 <p>上面的处理由于涉及到组合，过程很复杂。有必要通过特定的算法优化匹配的效率。目前常见的模式匹配算法包括Rete、Treat、Leaps，HAL，Matchbox等。</p>
-<h1 id="rete算法"><a class="markdownIt-Anchor" href="#rete算法"></a> Rete算法</h1>
-<p>Rete算法是目前使用最广泛的规则匹配算法，由Charles L. Forgy博士在1979年发明。Rete算法是一种快速的Forward-Chaining推理算法，其匹配速度与规则的数量无关。 Rete的高效率主要来自两个重要的假设：</p>
+<h1 id="Rete算法"><a href="#Rete算法" class="headerlink" title="Rete算法"></a>Rete算法</h1><p>Rete算法是目前使用最广泛的规则匹配算法，由Charles L. Forgy博士在1979年发明。Rete算法是一种快速的Forward-Chaining推理算法，其匹配速度与规则的数量无关。 Rete的高效率主要来自两个重要的假设：</p>
 <ol>
-<li>
-<p>时间冗余性</p>
+<li><p>时间冗余性</p>
 <p>假设facts在推理过程中的变化是缓慢的, 即在每个执行周期中,只有少数的facts发生变化，因此影响到的规则也只占很小的比例。所以可以只考虑每个执行周期中已经匹配的facts.</p>
 </li>
-<li>
-<p>结构相似性</p>
+<li><p>结构相似性</p>
+<p>假设许多规则常常包含类似的模式和模式组。</p>
 </li>
 </ol>
-<p>假设许多规则常常包含类似的模式和模式组。</p>
 <p>Rete算法的基本思想是保存过去匹配过程中留下的全部信息,以空间代价来换取执行效率 。对每一个模式 ,附加一个匹配元素表来记录WorkingMemory中所有能与之匹配的元素。当一个新元素加入到WorkingMemory时, 找出所有能与之匹配的模式, 并将该元素加入到匹配元素表中; 当一个无素从WorkingMemory中删除时,同样找出所有与该元素匹配的模式,并将元素从匹配元素表中删除。 Rete算法接受对工作存储器的修改操作描述 ,产生一个修改冲突集的动作 。</p>
 <p>Rete算法的步骤如下：</p>
 <ol>
@@ -411,8 +357,7 @@
 <li>解决冲突，将激活的规则按顺序放入Agenda。</li>
 <li>使用规则引擎执行Agenda中的规则。重复步骤2至5，直到执行完毕所有Agenda中的规则。</li>
 </ol>
-<h1 id="tread算法"><a class="markdownIt-Anchor" href="#tread算法"></a> Tread算法</h1>
-<p>在 Rete算法中 ,同一规则连接结点上的寄存器保留了大量的冗余结果。实际上, 寄存器中大部分信息已经体现在冲突集的规则实例中。因此 ,如果在部分匹配过程中直接使用冲突集来限制模式之间的变量约束,不仅可以减少寄存器的数量 ,而且能够加快匹配处理效率 。这一思想称为 冲突集支撑策略 。</p>
+<h1 id="Tread算法"><a href="#Tread算法" class="headerlink" title="Tread算法"></a>Tread算法</h1><p>在 Rete算法中 ,同一规则连接结点上的寄存器保留了大量的冗余结果。实际上, 寄存器中大部分信息已经体现在冲突集的规则实例中。因此 ,如果在部分匹配过程中直接使用冲突集来限制模式之间的变量约束,不仅可以减少寄存器的数量 ,而且能够加快匹配处理效率 。这一思想称为 冲突集支撑策略 。</p>
 <p>考虑增删事实对匹配过程的影响，当向工作存储器增加一个事实时 ,冲突集中已有的规则实例仍然保留,只是将与该事实匹配的规则实例加入到冲突集中; 当从工作存储器删去一个事实时，不可能有新的规则实例产生, 只是将 包含该事实的规则实例从冲突集中删去。</p>
 <p>基于冲突集支撑策略和上述观察, Treat算法放弃了Rete算法中利用寄存器保存模式之间变量约束中间结果的思想,对于每一个模式 ,除保留原有 a寄存器的外 ,增加两个新链来记录与该模式匹配的增删事实,一个叫做增链 (addlist),另一个叫做删链 (deletelist)。当修改描述的操作符为 “+”时,临时执行部分连接任务;当修改描述的操作符为 “一”时,直接删去冲突集中包含该事实的规则实例。</p>
 <p>Treat算法的步骤如下：</p>
@@ -422,421 +367,127 @@
 <li>删去事实的处理:对于任一模式链中的每一个事实,找到冲突集中所有包含该事实 的规则实例,并将这一规则实例从冲突集中删去。相应地修改该模式的 a寄存器 。</li>
 <li>新增事实的处理:对 于 每 一 模 式 ,若 其 增 链 非 空 ,则 将 增 链 中 的 所 有 事 实 加 入 该 模 式的a寄存器 ,并对与新增事实相关的每一条规则临时执行部分匹配,寻找该规则新的实 例。具体做法为:首先将第一个模式增链中的事实集合与后一模式的 a寄存器进行连接 , 再将部分连接结果与第三个模式的a寄存器进行连接 ,一直到所有模式均连接完成为止。 其中 ,a寄存器 的内容包括新增 事实。若连接结果非空 ,则将找到 的规则 实例插入到冲突 集中。</li>
 </ol>
-<h1 id="leaps-算法"><a class="markdownIt-Anchor" href="#leaps-算法"></a> Leaps 算法</h1>
-<p>前向推理引擎，包括LEAPS，都包括了匹配-选择-执行（match-select-action）循环。即，确定可以匹配的规则，选择某个匹配的元 组，此元组相应的规则动作被执行。重复这一过程，直到某一状态（如没有更多的规则动作）。RETE和TREAT匹配算法速度慢的原因是，它们把满足规则条 件的元组都实例化。Leaps算法的最大的改进就是使用一种&quot;lazy&quot;的方法来评估条件（conditions），即仅当必要时才进行元组的实例化。这 一改进极大的减少了前向推理引擎的时空复杂度，极大提高了规则执行速度。</p>
+<h1 id="Leaps-算法"><a href="#Leaps-算法" class="headerlink" title="Leaps 算法"></a>Leaps 算法</h1><p>前向推理引擎，包括LEAPS，都包括了匹配-选择-执行（match-select-action）循环。即，确定可以匹配的规则，选择某个匹配的元 组，此元组相应的规则动作被执行。重复这一过程，直到某一状态（如没有更多的规则动作）。RETE和TREAT匹配算法速度慢的原因是，它们把满足规则条 件的元组都实例化。Leaps算法的最大的改进就是使用一种”lazy”的方法来评估条件（conditions），即仅当必要时才进行元组的实例化。这 一改进极大的减少了前向推理引擎的时空复杂度，极大提高了规则执行速度。</p>
 <p>Leaps算法将所有的 asserted 的 facts ，按照其被 asserted 在 Working Memory 中的顺序（ FIFO ），放在主堆栈中。它一个个的检查 facts ，通过迭代匹配 data type 的 facts 集合来找出每一个相关规则的匹配。当一个匹配的数据被发现时，系统记住此时的迭代位置以备待会的继续迭代，并且激发规则结果（ consequence ）。当结果（ consequence ）执行完成以后，系统就会继续处理处于主堆栈顶部的 fact 。如此反复。</p>
 <p>Leaps算法的效率可以比Rete算法和Tread算法高几个数量级。</p>
-<h1 id="其他算法"><a class="markdownIt-Anchor" href="#其他算法"></a> 其他算法</h1>
-<p>对于HAL算法和Matchbox算法，使用的范围不是很广，这里不做过多的介绍。</p>
+<h1 id="其他算法"><a href="#其他算法" class="headerlink" title="其他算法"></a>其他算法</h1><p>对于HAL算法和Matchbox算法，使用的范围不是很广，这里不做过多的介绍。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/规则引擎/" rel="tag"># 规则引擎</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2012/12/05/python_env.html" rel="next" title="python的环境管理">
-                <i class="fa fa-chevron-left"></i> python的环境管理
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/" rel="tag"># 规则引擎</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2012/12/06/rule_language.html" rel="prev" title="Drools规则描述语言快速手册">
-                Drools规则描述语言快速手册 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2012/11/06/cep_about.html" rel="prev" title="CEP：鱼与熊掌可以兼得">
+      <i class="fa fa-chevron-left"></i> CEP：鱼与熊掌可以兼得
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2012/12/05/python_env.html" rel="next" title="python的环境管理">
+      python的环境管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是模式匹配"><span class="nav-number">1.</span> <span class="nav-text"> 什么是模式匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rete算法"><span class="nav-number">2.</span> <span class="nav-text"> Rete算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tread算法"><span class="nav-number">3.</span> <span class="nav-text"> Tread算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#leaps-算法"><span class="nav-number">4.</span> <span class="nav-text"> Leaps 算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他算法"><span class="nav-number">5.</span> <span class="nav-text"> 其他算法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2012/12/05/algorithm_of_pattern_match.html';
-          this.page.identifier = '2012/12/05/algorithm_of_pattern_match.html';
-          this.page.title = '规则引擎中常用的模式匹配算法';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -851,24 +502,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '260c83e4db53698ea9d4f1d3eba3ba1f',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

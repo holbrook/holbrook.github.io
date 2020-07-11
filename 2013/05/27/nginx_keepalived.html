@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="cluster," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="实施nginx和keepalived的规划、安装、配置等步骤。 前面的《统一web访问层方案》中就目的、目标和整体方案进行了讨论，本文讨论具体的实施。简单来说就是在两台服务器上分别部署NginX，并通过keepalived实现高可用。  规划和准备 需要统一访问的应用系统：    应用系统	域名/虚拟目录应用服务器及URL   svn	dev.mycompany.com/svn	http://50">
-<meta name="keywords" content="cluster">
+  <meta name="description" content="实施nginx和keepalived的规划、安装、配置等步骤。 前面的《统一web访问层方案》中就目的、目标和整体方案进行了讨论，本文讨论具体的实施。简单来说就是在两台服务器上分别部署NginX，并通过keepalived实现高可用。 规划和准备需要统一访问的应用系统：    应用系统    域名&#x2F;虚拟目录应用服务器及URL   svn    dev.mycompany.com&#x2F;svn    h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用nginX+keepalived实现高可用的负载均衡">
 <meta property="og:url" content="http://holbrook.github.io/2013/05/27/nginx_keepalived.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="实施nginx和keepalived的规划、安装、配置等步骤。 前面的《统一web访问层方案》中就目的、目标和整体方案进行了讨论，本文讨论具体的实施。简单来说就是在两台服务器上分别部署NginX，并通过keepalived实现高可用。  规划和准备 需要统一访问的应用系统：    应用系统	域名/虚拟目录应用服务器及URL   svn	dev.mycompany.com/svn	http://50">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="og:description" content="实施nginx和keepalived的规划、安装、配置等步骤。 前面的《统一web访问层方案》中就目的、目标和整体方案进行了讨论，本文讨论具体的实施。简单来说就是在两台服务器上分别部署NginX，并通过keepalived实现高可用。 规划和准备需要统一访问的应用系统：    应用系统    域名&#x2F;虚拟目录应用服务器及URL   svn    dev.mycompany.com&#x2F;svn    h">
+<meta property="article:published_time" content="2013-05-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="cluster">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用nginX+keepalived实现高可用的负载均衡">
-<meta name="twitter:description" content="实施nginx和keepalived的规划、安装、配置等步骤。 前面的《统一web访问层方案》中就目的、目标和整体方案进行了讨论，本文讨论具体的实施。简单来说就是在两台服务器上分别部署NginX，并通过keepalived实现高可用。  规划和准备 需要统一访问的应用系统：    应用系统	域名/虚拟目录应用服务器及URL   svn	dev.mycompany.com/svn	http://50">
+
+<link rel="canonical" href="http://holbrook.github.io/2013/05/27/nginx_keepalived.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2013/05/27/nginx_keepalived.html"/>
-
-
-
-
 
   <title>用nginX+keepalived实现高可用的负载均衡 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#规划和准备"><span class="nav-number">1.</span> <span class="nav-text">规划和准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置NginX"><span class="nav-number">3.1.</span> <span class="nav-text">配置NginX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置keepalived"><span class="nav-number">3.2.</span> <span class="nav-text">配置keepalived</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-让keepalived监控NginX的状态"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 让keepalived监控NginX的状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-还可以做什么"><span class="nav-number">4.</span> <span class="nav-text">4 还可以做什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-支持https"><span class="nav-number">5.</span> <span class="nav-text">5 支持https</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-支持webservice"><span class="nav-number">6.</span> <span class="nav-text">6 支持webservice</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-状态监控"><span class="nav-number">7.</span> <span class="nav-text">7 状态监控</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/05/27/nginx_keepalived.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">用nginX+keepalived实现高可用的负载均衡</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          用nginX+keepalived实现高可用的负载均衡
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-05-27T00:00:00+08:00">
-                2013-05-27
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
-                    <span itemprop="name">软件基础设施</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2013-05-27 00:00:00" itemprop="dateCreated datePublished" datetime="2013-05-27T00:00:00+08:00">2013-05-27</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2013/05/27/nginx_keepalived.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/05/27/nginx_keepalived.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">软件基础设施</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,538 +313,234 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>实施nginx和keepalived的规划、安装、配置等步骤。</p>
+        <p> 实施nginx和keepalived的规划、安装、配置等步骤。</p>
 <p>前面的<a href="http://thinkinside.tk/weblayer_nginx_keepalived/" target="_blank" rel="noopener">《统一web访问层方案》</a>中就目的、目标和整体方案进行了讨论，本文讨论具体的实施。简单来说就是在两台服务器上分别部署NginX，并通过keepalived实现高可用。</p>
-<h1 id="规划和准备"><a class="markdownIt-Anchor" href="#规划和准备"></a> 规划和准备</h1>
-<p>需要统一访问的应用系统：</p>
+<h1 id="规划和准备"><a href="#规划和准备" class="headerlink" title="规划和准备"></a>规划和准备</h1><p>需要统一访问的应用系统：</p>
 <table>
-  <tr><th>应用系统</th><th>	域名/虚拟目录</th><th>应用服务器及URL</th></tr>
-  <tr><td>svn</td><td>	dev.mycompany.com/svn	</td><td>http://50.1.1.21/svn</td></tr>
-  <tr><td>svn web管理</td><td>	dev.mycompany.com/submin	</td><td>http://50.1.1.21/submin</td></tr>
-  <tr><td>网站	</td><td>www.mycompany.com	</td><td>http://50.1.1.10; http://50.1.1.11; http://50.1.1.12</td></tr>
-  <tr><td>OA</td><td>	oa.mycompany.com	</td><td>http://50.1.1.13:8080; http://50.1.1.14:8080</td></tr>
+  <tr><th>应用系统</th><th>    域名/虚拟目录</th><th>应用服务器及URL</th></tr>
+  <tr><td>svn</td><td>    dev.mycompany.com/svn    </td><td>http://50.1.1.21/svn</td></tr>
+  <tr><td>svn web管理</td><td>    dev.mycompany.com/submin    </td><td>http://50.1.1.21/submin</td></tr>
+  <tr><td>网站    </td><td>www.mycompany.com    </td><td>http://50.1.1.10; http://50.1.1.11; http://50.1.1.12</td></tr>
+  <tr><td>OA</td><td>    oa.mycompany.com    </td><td>http://50.1.1.13:8080; http://50.1.1.14:8080</td></tr>
 </table>
+
+
 <p>web访问服务器</p>
 <p>用两台接入服务器50.1.1.3/4分别作为主、备(MASTER、BACKUP)服务器，使用RHEL5.6x64，配置了yum 私服。</p>
 <p>两台接入服务器公用一个虚拟IP（VIP）：50.1.1.2</p>
-<h1 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h1>
-<p>两台接入服务器分别安装NginX和keepalived:</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>两台接入服务器分别安装NginX和keepalived:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#准备依赖包：</span></span><br><span class="line">yum -y install gcc pcre-devel zlib-devel openssl-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载</span></span><br><span class="line">wget http://nginx.org/download/nginx-1.2.4.tar.gz</span><br><span class="line">wget http://www.keepalived.org/software/keepalived-1.2.7.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装NginX</span></span><br><span class="line">tar zxvf nginx-1.2.4.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.2.4</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装keepalived</span></span><br><span class="line">tar zxvf keepalived-1.2.7.tar.gz</span><br><span class="line"><span class="built_in">cd</span> keepalived-1.2.7</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line">cp /usr/<span class="built_in">local</span>/etc/rc.d/init.d/keepalived /etc/rc.d/init.d/</span><br><span class="line">cp /usr/<span class="built_in">local</span>/etc/sysconfig/keepalived /etc/sysconfig/</span><br><span class="line">mkdir /etc/keepalived</span><br><span class="line">cp /usr/<span class="built_in">local</span>/etc/keepalived/keepalived.conf /etc/keepalived/</span><br><span class="line">cp /usr/<span class="built_in">local</span>/sbin/keepalived /usr/sbin/</span><br><span class="line"></span><br><span class="line"><span class="comment">#加入启动</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx"</span> &gt;&gt; /etc/rc.local</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"/etc/init.d/keepalived start"</span> &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
-<h1 id="配置"><a class="markdownIt-Anchor" href="#配置"></a> 配置</h1>
-<h2 id="配置nginx"><a class="markdownIt-Anchor" href="#配置nginx"></a> 配置NginX</h2>
-<p>两台接入服务器的NginX的配置完全一样,主要是配置/usr/local/nginx/conf/nginx.conf的http。其中多域名指向是通过虚拟主机（配置http下面的server）实现；同一域名的不同虚拟目录通过每个server下面的不同location实现；到后端的服务器在http下面配置upstream,然后在server或location中通过proxypass引用。要实现前面规划的接入方式，http的配置如下：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line"></span><br><span class="line">    upstream dev.hysec.com &#123;</span><br><span class="line">        <span class="keyword">server</span> <span class="number">50.1</span><span class="number">.1</span><span class="number">.21</span>:<span class="number">80</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    upstream www.hysec.com &#123;</span><br><span class="line">      ip_hash;</span><br><span class="line">      <span class="keyword">server</span> <span class="number">50.1</span><span class="number">.1</span><span class="number">.10</span>:<span class="number">80</span>;</span><br><span class="line">      <span class="keyword">server</span> <span class="number">50.1</span><span class="number">.1</span><span class="number">.11</span>:<span class="number">80</span>;</span><br><span class="line">      <span class="keyword">server</span> <span class="number">50.1</span><span class="number">.1</span><span class="number">.12</span>:<span class="number">80</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    upstream oa.hysec.com &#123;</span><br><span class="line">      ip_hash;</span><br><span class="line">      <span class="keyword">server</span> <span class="number">50.1</span><span class="number">.1</span><span class="number">.13</span>:<span class="number">8080</span>;</span><br><span class="line">      <span class="keyword">server</span> <span class="number">50.1</span><span class="number">.1</span><span class="number">.14</span>:<span class="number">8080</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">server</span> &#123;</span><br><span class="line">        listen      <span class="number">80</span>;</span><br><span class="line">        server_name dev.hysec.com;</span><br><span class="line">        location /svn &#123;</span><br><span class="line">            proxy_pass http:<span class="comment">//dev.hysec.com;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /submin &#123;</span><br><span class="line">            proxy_pass http:<span class="comment">//dev.hysec.com;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">server</span> &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  www.hysec.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http:<span class="comment">//www.hysec.com;</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">server</span> &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  oa.hysec.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http:<span class="comment">//oa.hysec.com;</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="配置NginX"><a href="#配置NginX" class="headerlink" title="配置NginX"></a>配置NginX</h2><p>两台接入服务器的NginX的配置完全一样,主要是配置/usr/local/nginx/conf/nginx.conf的http。其中多域名指向是通过虚拟主机（配置http下面的server）实现；同一域名的不同虚拟目录通过每个server下面的不同location实现；到后端的服务器在http下面配置upstream,然后在server或location中通过proxypass引用。要实现前面规划的接入方式，http的配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application&#x2F;octet-stream;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line"></span><br><span class="line">    upstream dev.hysec.com &#123;</span><br><span class="line">        server 50.1.1.21:80;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    upstream www.hysec.com &#123;</span><br><span class="line">      ip_hash;</span><br><span class="line">      server 50.1.1.10:80;</span><br><span class="line">      server 50.1.1.11:80;</span><br><span class="line">      server 50.1.1.12:80;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    upstream oa.hysec.com &#123;</span><br><span class="line">      ip_hash;</span><br><span class="line">      server 50.1.1.13:8080;</span><br><span class="line">      server 50.1.1.14:8080;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen      80;</span><br><span class="line">        server_name dev.hysec.com;</span><br><span class="line">        location &#x2F;svn &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;dev.hysec.com;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location &#x2F;submin &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;dev.hysec.com;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  www.hysec.com;</span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;www.hysec.com;</span><br><span class="line">        &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  oa.hysec.com;</span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;oa.hysec.com;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>验证方法：</p>
 <p>首先用IP访问前表中各个应用服务器的url，再用域名和路径访问前表中各个应用系统的域名/虚拟路径</p>
-<h2 id="配置keepalived"><a class="markdownIt-Anchor" href="#配置keepalived"></a> 配置keepalived</h2>
-<p>按照上面的安装方法，keepalived的配置文件在/etc/keepalived/keepalived.conf。主、从服务器的配置相关联但有所不同。如下：</p>
+<h2 id="配置keepalived"><a href="#配置keepalived" class="headerlink" title="配置keepalived"></a>配置keepalived</h2><p>按照上面的安装方法，keepalived的配置文件在/etc/keepalived/keepalived.conf。主、从服务器的配置相关联但有所不同。如下：</p>
 <ul>
 <li>Master配置</li>
 </ul>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">notification_email &#123;</span><br><span class="line">        wanghaikuo@hysec.com</span><br><span class="line">        wanghaikuo@gmail.com</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from wanghaikuo@hysec.com</span><br><span class="line">   smtp_server smtp.hysec.com</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id nginx_master</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">   <span class="built_in"> interface </span>eth0</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 101</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        50.1.1.2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">notification_email &#123;</span><br><span class="line">        wanghaikuo@hysec.com</span><br><span class="line">        wanghaikuo@gmail.com</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from wanghaikuo@hysec.com</span><br><span class="line">   smtp_server smtp.hysec.com</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id nginx_master</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 101</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        50.1.1.2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>Backup配置</li>
 </ul>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">notification_email &#123;</span><br><span class="line">        wanghaikuo@hysec.com</span><br><span class="line">        wanghaikuo@gmail.com</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from wanghaikuo@hysec.com</span><br><span class="line">   smtp_server smtp.hysec.com</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id nginx_backup</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">   <span class="built_in"> interface </span>eth0</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 99</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        50.1.1.2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">notification_email &#123;</span><br><span class="line">        wanghaikuo@hysec.com</span><br><span class="line">        wanghaikuo@gmail.com</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from wanghaikuo@hysec.com</span><br><span class="line">   smtp_server smtp.hysec.com</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id nginx_backup</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 99</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        50.1.1.2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>验证：</p>
 <ol>
-<li>
-<p>先后在主、从服务器上启动keepalived:</p>
-<p>/etc/init.d/keepalived start</p>
+<li><p>先后在主、从服务器上启动keepalived:</p>
+<p> /etc/init.d/keepalived start</p>
 </li>
-<li>
-<p>在主服务器上查看是否已经绑定了虚拟IP：</p>
-<p>ip addr</p>
+<li><p>在主服务器上查看是否已经绑定了虚拟IP：</p>
+<p> ip addr</p>
 </li>
-<li>
-<p>停止主服务器上的keepalived:</p>
-<p>/etc/init.d/keepalived stop</p>
+<li><p>停止主服务器上的keepalived:</p>
+<p> /etc/init.d/keepalived stop</p>
 </li>
-<li>
-<p>然后在从服务器上查看是否已经绑定了虚拟IP</p>
+<li><p>然后在从服务器上查看是否已经绑定了虚拟IP</p>
 </li>
-<li>
-<p>启动主服务器上的keepalived，看看主服务器能否重新接管虚拟IP</p>
+<li><p>启动主服务器上的keepalived，看看主服务器能否重新接管虚拟IP</p>
 </li>
 </ol>
-<h2 id="33-让keepalived监控nginx的状态"><a class="markdownIt-Anchor" href="#33-让keepalived监控nginx的状态"></a> 3.3 让keepalived监控NginX的状态</h2>
-<p>经过前面的配置，如果主服务器的keepalived停止服务，从服务器会自动接管VIP对外服务；一旦主服务器的keepalived恢复，会重新接管VIP。 但这并不是我们需要的，我们需要的是当NginX停止服务的时候能够自动切换。</p>
+<h2 id="3-3-让keepalived监控NginX的状态"><a href="#3-3-让keepalived监控NginX的状态" class="headerlink" title="3.3 让keepalived监控NginX的状态"></a>3.3 让keepalived监控NginX的状态</h2><p>经过前面的配置，如果主服务器的keepalived停止服务，从服务器会自动接管VIP对外服务；一旦主服务器的keepalived恢复，会重新接管VIP。 但这并不是我们需要的，我们需要的是当NginX停止服务的时候能够自动切换。</p>
 <p>keepalived支持配置监控脚本，我们可以通过脚本监控NginX的状态，如果状态不正常则进行一系列的操作，最终仍不能恢复NginX则杀掉keepalived，使得从服务器能够接管服务。</p>
-<p>如何监控NginX的状态<br>
-最简单的做法是监控NginX进程，更靠谱的做法是检查NginX端口，最靠谱的做法是检查多个url能否获取到页面。</p>
-<p>如何尝试恢复服务<br>
-如果发现NginX不正常，重启之。等待3秒再次校验，仍然失败则不再尝试。</p>
+<p>如何监控NginX的状态<br>最简单的做法是监控NginX进程，更靠谱的做法是检查NginX端口，最靠谱的做法是检查多个url能否获取到页面。</p>
+<p>如何尝试恢复服务<br>如果发现NginX不正常，重启之。等待3秒再次校验，仍然失败则不再尝试。</p>
 <p>根据上述策略很容易写出监控脚本。这里使用nmap检查nginx端口来判断nginx的状态，记得要首先安装nmap。监控脚本如下:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># check nginx server status</span></span><br><span class="line">NGINX=/usr/<span class="built_in">local</span>/nginx/sbin/nginx</span><br><span class="line">PORT=80</span><br><span class="line"></span><br><span class="line">nmap localhost -p<span class="variable">$PORT</span> | grep <span class="string">"<span class="variable">$PORT</span>/tcp open"</span></span><br><span class="line"><span class="comment">#echo$?</span></span><br><span class="line"><span class="keyword">if</span> [$? -ne 0 ];<span class="keyword">then</span></span><br><span class="line">   <span class="variable">$NGINX</span> -s stop</span><br><span class="line">   <span class="variable">$NGINX</span></span><br><span class="line">    sleep 3</span><br><span class="line">    nmap localhost -p<span class="variable">$PORT</span> | grep <span class="string">"<span class="variable">$PORT</span>/tcp open"</span></span><br><span class="line">    [$? -ne 0 ] &amp;&amp; /etc/init.d/keepalived stop</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"># check nginx server status</span><br><span class="line">NGINX&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx</span><br><span class="line">PORT&#x3D;80</span><br><span class="line"></span><br><span class="line">nmap localhost -p$PORT | grep &quot;$PORT&#x2F;tcp open&quot;</span><br><span class="line">#echo$?</span><br><span class="line">if [$? -ne 0 ];then</span><br><span class="line">   $NGINX -s stop</span><br><span class="line">   $NGINX</span><br><span class="line">    sleep 3</span><br><span class="line">    nmap localhost -p$PORT | grep &quot;$PORT&#x2F;tcp open&quot;</span><br><span class="line">    [$? -ne 0 ] &amp;&amp; &#x2F;etc&#x2F;init.d&#x2F;keepalived stop</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
 <p>不要忘了设置脚本的执行权限，否则不起作用。</p>
 <p>假设上述脚本放在/opt/chk_nginx.sh，则keepalived.conf中增加如下配置：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">vrrp_script chk_http_port &#123;</span><br><span class="line">   <span class="built_in"> script </span><span class="string">"/opt/chk_nginx.sh"</span></span><br><span class="line">    interval 2</span><br><span class="line">    weight 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">track_script &#123;</span><br><span class="line">    chk_http_port</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">vrrp_script chk_http_port &#123;</span><br><span class="line">    script &quot;&#x2F;opt&#x2F;chk_nginx.sh&quot;</span><br><span class="line">    interval 2</span><br><span class="line">    weight 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">track_script &#123;</span><br><span class="line">    chk_http_port</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>更进一步，为了避免启动keepalived之前没有启动nginx , 可以在/etc/init.d/keepalived的start中首先启动nginx:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="title">start</span></span>() &#123;</span><br><span class="line">    /usr/<span class="built_in">local</span>/nginx/sbin/nginx</span><br><span class="line">    sleep 3</span><br><span class="line">    <span class="built_in">echo</span> -n$<span class="string">"Starting<span class="variable">$prog</span>: "</span></span><br><span class="line">    daemon keepalived<span class="variable">$&#123;KEEPALIVED_OPTIONS&#125;</span></span><br><span class="line">    RETVAL=$?</span><br><span class="line">    <span class="built_in">echo</span></span><br><span class="line">    [<span class="variable">$RETVAL</span> -eq 0 ] &amp;&amp; touch /var/lock/subsys/<span class="variable">$prog</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="4-还可以做什么"><a class="markdownIt-Anchor" href="#4-还可以做什么"></a> 4 还可以做什么</h1>
-<p>对于简单重复性劳动，人总是容易犯错，这种事情最好交给机器去做。 比如，在这个案例中，作为统一接入服务器，可能经常要修改nginx的配置、nginx下面的html文件等。而且，一定要保证集群中的每台服务器的配置相同。 最好的做法是由配置管理服务器来管理，如果没有，也可以使用简单的linux文件同步来解决。</p>
-<h1 id="5-支持https"><a class="markdownIt-Anchor" href="#5-支持https"></a> 5 支持https</h1>
-<p>需要安装openSSL：</p>
-<pre><code>yum install openssl-devel
-</code></pre>
-<p>在nginx/conf下生成秘钥：</p>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#生成RSA密钥</span></span><br><span class="line">openssl dsaparam -rand -genkey -out myRSA.<span class="keyword">key</span> <span class="number">1024</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#生成CA密钥：(要输入一个自己记得的密码)</span></span><br><span class="line">openssl gendsa -des3 -out cert.<span class="keyword">key</span> myRSA.<span class="keyword">key</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#用这个CA密钥来创建证书，需要上一步创建的密码</span></span><br><span class="line">openssl req -<span class="keyword">new</span> -x509 -days <span class="number">365</span> -<span class="keyword">key</span> cert.<span class="keyword">key</span> -out cert.pem</span><br><span class="line"></span><br><span class="line"><span class="meta">#把证书设置为root专用</span></span><br><span class="line">chmod <span class="number">700</span> cert.*</span><br><span class="line"></span><br><span class="line"><span class="meta">#生成免密码文件</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> cert.<span class="keyword">key</span> -out cert.<span class="keyword">key</span>.unsecure</span><br></pre></td></tr></table></figure>
-<p>如果要启用SSL，首先在安装nginx是要增加配置参数：–with-http_ssl_module ，<br>
-然后在nginx中进行如下配置：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里是SSL的相关配置</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">443</span>;</span><br><span class="line">  <span class="attribute">server_name</span> www.example.com; <span class="comment"># 你自己的域名</span></span><br><span class="line">  <span class="attribute">root</span> /home/www;</span><br><span class="line">  <span class="attribute">ssl</span> <span class="literal">on</span>;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert.perm;</span><br><span class="line">  <span class="comment">#使用.unsecure文件可以在nginx启动时不输入密码</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert.key.unsecure;</span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="comment">#...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">start() &#123;</span><br><span class="line">    &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx</span><br><span class="line">    sleep 3</span><br><span class="line">    echo -n$&quot;Starting$prog: &quot;</span><br><span class="line">    daemon keepalived$&#123;KEEPALIVED_OPTIONS&#125;</span><br><span class="line">    RETVAL&#x3D;$?</span><br><span class="line">    echo</span><br><span class="line">    [$RETVAL -eq 0 ] &amp;&amp; touch &#x2F;var&#x2F;lock&#x2F;subsys&#x2F;$prog</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-还可以做什么"><a href="#4-还可以做什么" class="headerlink" title="4 还可以做什么"></a>4 还可以做什么</h1><p>对于简单重复性劳动，人总是容易犯错，这种事情最好交给机器去做。 比如，在这个案例中，作为统一接入服务器，可能经常要修改nginx的配置、nginx下面的html文件等。而且，一定要保证集群中的每台服务器的配置相同。 最好的做法是由配置管理服务器来管理，如果没有，也可以使用简单的linux文件同步来解决。</p>
+<h1 id="5-支持https"><a href="#5-支持https" class="headerlink" title="5 支持https"></a>5 支持https</h1><p>需要安装openSSL：</p>
+<pre><code>yum install openssl-devel</code></pre><p>在nginx/conf下生成秘钥：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#生成RSA密钥</span><br><span class="line">openssl dsaparam -rand -genkey -out myRSA.key 1024</span><br><span class="line"></span><br><span class="line">#生成CA密钥：(要输入一个自己记得的密码)</span><br><span class="line">openssl gendsa -des3 -out cert.key myRSA.key</span><br><span class="line"></span><br><span class="line">#用这个CA密钥来创建证书，需要上一步创建的密码</span><br><span class="line">openssl req -new -x509 -days 365 -key cert.key -out cert.pem</span><br><span class="line"></span><br><span class="line">#把证书设置为root专用</span><br><span class="line">chmod 700 cert.*</span><br><span class="line"></span><br><span class="line">#生成免密码文件</span><br><span class="line">openssl rsa -in cert.key -out cert.key.unsecure</span><br></pre></td></tr></table></figure>
+
+<p>如果要启用SSL，首先在安装nginx是要增加配置参数：–with-http_ssl_module ，<br>然后在nginx中进行如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 这里是SSL的相关配置</span><br><span class="line">server &#123;</span><br><span class="line">  listen 443;</span><br><span class="line">  server_name www.example.com; # 你自己的域名</span><br><span class="line">  root &#x2F;home&#x2F;www;</span><br><span class="line">  ssl on;</span><br><span class="line">  ssl_certificate cert.perm;</span><br><span class="line">  #使用.unsecure文件可以在nginx启动时不输入密码</span><br><span class="line">  ssl_certificate_key cert.key.unsecure;</span><br><span class="line">  location &#x2F; &#123;</span><br><span class="line">  #...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>公共证书的申请过程：</p>
 <ol>
-<li>
-<p>生成RSA(私钥)文件：</p>
-<p><code>openssl genrsa -des3 -out myRSA.key 2048</code></p>
+<li><p>生成RSA(私钥)文件：</p>
+<p> <code>openssl genrsa -des3 -out myRSA.key 2048</code></p>
 </li>
-<li>
-<p>生成csr文件：</p>
-<p><code>openssl req -new -key myRSA.key -out my.csr</code></p>
+<li><p>生成csr文件：</p>
+<p> <code>openssl req -new -key myRSA.key -out my.csr</code></p>
 </li>
-<li>
-<p>将csr提交给证书机构，比如GlobalSign。</p>
+<li><p>将csr提交给证书机构，比如GlobalSign。</p>
 </li>
-<li>
-<p>证书机构会返回私有证书(crt)和中级证书（crt）</p>
+<li><p>证书机构会返回私有证书(crt)和中级证书（crt）</p>
 </li>
-<li>
-<p>到机构网站下载根证书（root_CA.cer), 将根证书拼接到私有证书之后</p>
+<li><p>到机构网站下载根证书（root_CA.cer), 将根证书拼接到私有证书之后</p>
 </li>
-<li>
-<p>在nginx中配置证书：</p>
+<li><p>在nginx中配置证书：</p>
 </li>
 </ol>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssl_certificate /etc/ssl/my.crt<span class="comment">;</span></span><br><span class="line">ssl_certificate_key /etc/ssl/myRSA.key<span class="comment">;</span></span><br><span class="line">ssl_client_certificate /etc/ssl/root_CA.cer<span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<h1 id="6-支持webservice"><a class="markdownIt-Anchor" href="#6-支持webservice"></a> 6 支持webservice</h1>
-<p>通过chunkin-nginx-module模块支持webservice。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;my.crt;</span><br><span class="line">ssl_certificate_key &#x2F;etc&#x2F;ssl&#x2F;myRSA.key;</span><br><span class="line">ssl_client_certificate &#x2F;etc&#x2F;ssl&#x2F;root_CA.cer;</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-支持webservice"><a href="#6-支持webservice" class="headerlink" title="6 支持webservice"></a>6 支持webservice</h1><p>通过chunkin-nginx-module模块支持webservice。</p>
 <p>否则会报错：411：http 头中缺少 Conten-Length 参数</p>
 <p>步骤：</p>
-<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/agentzh/chunkin-nginx-<span class="keyword">module</span>.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#重新编译nginx</span></span><br><span class="line">cd PATH/<span class="keyword">TO</span>/NGINX/SOURCE</span><br><span class="line">./configure xxx --add-<span class="keyword">module</span>=/PATH/<span class="keyword">TO</span>/chunkin-nginx-<span class="keyword">module</span></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;agentzh&#x2F;chunkin-nginx-module.git</span><br><span class="line"></span><br><span class="line">#重新编译nginx</span><br><span class="line">cd PATH&#x2F;TO&#x2F;NGINX&#x2F;SOURCE</span><br><span class="line">.&#x2F;configure xxx --add-module&#x3D;&#x2F;PATH&#x2F;TO&#x2F;chunkin-nginx-module</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
 <p>在nginx的server{}节点中增加配置：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">chunkin <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">error_page <span class="number">411</span> = @my_411_error;</span><br><span class="line"></span><br><span class="line">location @my_411_error &#123;</span><br><span class="line">    chunkin_resume;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="7-状态监控"><a class="markdownIt-Anchor" href="#7-状态监控"></a> 7 状态监控</h1>
-<p>编译时需要增加<code>--with-http_stub_status_module</code>参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">chunkin on;</span><br><span class="line"></span><br><span class="line">error_page 411 &#x3D; @my_411_error;</span><br><span class="line"></span><br><span class="line">location @my_411_error &#123;</span><br><span class="line">    chunkin_resume;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-状态监控"><a href="#7-状态监控" class="headerlink" title="7 状态监控"></a>7 状态监控</h1><p>编译时需要增加<code>--with-http_stub_status_module</code>参数。</p>
 <p>查看编译参数：使用命令<code>/usr/local/nginx/sbin/nginx -V</code></p>
 <p>安装好之后增加配置：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attribute">location</span> /nginx_status &#123;</span><br><span class="line">    <span class="attribute">stub_status</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">access_log</span>   <span class="literal">off</span>;</span><br><span class="line">    <span class="comment"># deny all;</span></span><br><span class="line">    <span class="attribute">allow</span> all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">location &#x2F;nginx_status &#123;</span><br><span class="line">    stub_status on;</span><br><span class="line">    access_log   off;</span><br><span class="line">    # deny all;</span><br><span class="line">    allow all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>重新加载配置后，会看到一些文本：</p>
 <p>Active connections: 1 （对后端发起的活动连接数）</p>
 <p>server accepts handled requests</p>
-<p>5 5 5  （处理连接个数，成功握手次数，处理请求数）</p>
+<p> 5 5 5  （处理连接个数，成功握手次数，处理请求数）</p>
 <p>Reading: 0 Writing: 1 Waiting: 0 （读取客户端header数，返回客户端header数，等待数即active-reading-writing）</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/cluster/" rel="tag"># cluster</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/05/23/vim_addon_manager.html" rel="next" title="重拾vim">
-                <i class="fa fa-chevron-left"></i> 重拾vim
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cluster/" rel="tag"># cluster</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/05/27/jekyll_mysite.html" rel="prev" title="Jekyll建站过程">
-                Jekyll建站过程 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2013/05/27/jekyll_mysite.html" rel="prev" title="Jekyll建站过程">
+      <i class="fa fa-chevron-left"></i> Jekyll建站过程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2013/05/28/quant_resource.html" rel="next" title="量化金融相关的网络资源">
+      量化金融相关的网络资源 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#规划和准备"><span class="nav-number">1.</span> <span class="nav-text"> 规划和准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text"> 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置nginx"><span class="nav-number">3.1.</span> <span class="nav-text"> 配置NginX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置keepalived"><span class="nav-number">3.2.</span> <span class="nav-text"> 配置keepalived</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-让keepalived监控nginx的状态"><span class="nav-number">3.3.</span> <span class="nav-text"> 3.3 让keepalived监控NginX的状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-还可以做什么"><span class="nav-number">4.</span> <span class="nav-text"> 4 还可以做什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-支持https"><span class="nav-number">5.</span> <span class="nav-text"> 5 支持https</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-支持webservice"><span class="nav-number">6.</span> <span class="nav-text"> 6 支持webservice</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-状态监控"><span class="nav-number">7.</span> <span class="nav-text"> 7 状态监控</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2013/05/27/nginx_keepalived.html';
-          this.page.identifier = '2013/05/27/nginx_keepalived.html';
-          this.page.title = '用nginX+keepalived实现高可用的负载均衡';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -906,24 +555,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '46e49de7fa9c6bc3a746015edf62e5d2',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

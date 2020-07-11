@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="python," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="《利用Python进行数据分析》读书笔记。 第 10 章：时间序列。 时间序列(time series)，是一种重要的结构化数据形式，在很多领域都有应用。">
-<meta name="keywords" content="python">
+  <meta name="description" content="《利用Python进行数据分析》读书笔记。第 10 章：时间序列。 时间序列(time series)，是一种重要的结构化数据形式，在很多领域都有应用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Python进行数据分析(10)：时间序列">
 <meta property="og:url" content="http://holbrook.github.io/2017/07/20/python_data_analysis10.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="《利用Python进行数据分析》读书笔记。 第 10 章：时间序列。 时间序列(time series)，是一种重要的结构化数据形式，在很多领域都有应用。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="《利用Python进行数据分析》读书笔记。第 10 章：时间序列。 时间序列(time series)，是一种重要的结构化数据形式，在很多领域都有应用。">
 <meta property="og:image" content="http://holbrook.github.io/2017/07/20/base_freq.png">
 <meta property="og:image" content="http://holbrook.github.io/2017/07/20/base_freq1.png">
 <meta property="og:image" content="http://holbrook.github.io/2017/07/20/resample_params.png">
@@ -5264,58 +5206,35 @@ cByox6rlT7WXl2Gd5OwCfkc3b9LHOLZf2c+99vcfdfdvLdov7bmrlFIpJqVLPUoplYo08SulVIrR
 xK+UUilGE79SSqUYTfxKKZViNPErpVSK0cSvlFIpRhO/UkqlmP8PzwA7ZJ9IemwAAAAASUVORK5C
 YII=
 ">
-<meta property="og:updated_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:published_time" content="2017-07-19T16:00:00.000Z">
+<meta property="article:modified_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Python进行数据分析(10)：时间序列">
-<meta name="twitter:description" content="《利用Python进行数据分析》读书笔记。 第 10 章：时间序列。 时间序列(time series)，是一种重要的结构化数据形式，在很多领域都有应用。">
 <meta name="twitter:image" content="http://holbrook.github.io/2017/07/20/base_freq.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2017/07/20/python_data_analysis10.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/07/20/python_data_analysis10.html"/>
-
-
-
-
 
   <title>利用Python进行数据分析(10)：时间序列 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -5324,213 +5243,247 @@ YII=
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日期和时间数据类型及工具"><span class="nav-number">1.</span> <span class="nav-text">日期和时间数据类型及工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#23383;&#31526;&#20018;&#21644;datetime&#30340;&#36716;&#25442;"><span class="nav-number">1.1.</span> <span class="nav-text">&amp;#23383;&amp;#31526;&amp;#20018;&amp;#21644;datetime&amp;#30340;&amp;#36716;&amp;#25442;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间序列基础"><span class="nav-number">2.</span> <span class="nav-text">时间序列基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#32034;&#24341;&#12289;&#36873;&#21462;&#12289;&#23376;&#38598;&#26500;&#24314;"><span class="nav-number">2.1.</span> <span class="nav-text">&amp;#32034;&amp;#24341;&amp;#12289;&amp;#36873;&amp;#21462;&amp;#12289;&amp;#23376;&amp;#38598;&amp;#26500;&amp;#24314;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#24102;&#26377;&#37325;&#22797;&#32034;&#24341;&#30340;&#26102;&#38388;&#24207;&#21015;"><span class="nav-number">2.2.</span> <span class="nav-text">&amp;#24102;&amp;#26377;&amp;#37325;&amp;#22797;&amp;#32034;&amp;#24341;&amp;#30340;&amp;#26102;&amp;#38388;&amp;#24207;&amp;#21015;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日期的范围、频率以及移动"><span class="nav-number">3.</span> <span class="nav-text">日期的范围、频率以及移动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#29983;&#25104;&#26085;&#26399;&#33539;&#22260;"><span class="nav-number">3.1.</span> <span class="nav-text">&amp;#29983;&amp;#25104;&amp;#26085;&amp;#26399;&amp;#33539;&amp;#22260;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#39057;&#29575;&#21644;&#26085;&#26399;&#20559;&#31227;&#37327;"><span class="nav-number">3.2.</span> <span class="nav-text">&amp;#39057;&amp;#29575;&amp;#21644;&amp;#26085;&amp;#26399;&amp;#20559;&amp;#31227;&amp;#37327;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#31227;&#21160;&#65288;&#36229;&#21069;&#21644;&#28382;&#21518;&#65289;&#25968;&#25454;"><span class="nav-number">3.3.</span> <span class="nav-text">&amp;#31227;&amp;#21160;&amp;#65288;&amp;#36229;&amp;#21069;&amp;#21644;&amp;#28382;&amp;#21518;&amp;#65289;&amp;#25968;&amp;#25454;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#&#36890;&#36807;&#20559;&#31227;&#37327;&#23545;&#26085;&#26399;&#36827;&#34892;&#20301;&#31227;"><span class="nav-number">3.3.1.</span> <span class="nav-text">&amp;#36890;&amp;#36807;&amp;#20559;&amp;#31227;&amp;#37327;&amp;#23545;&amp;#26085;&amp;#26399;&amp;#36827;&amp;#34892;&amp;#20301;&amp;#31227;&amp;#182;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时区处理"><span class="nav-number">4.</span> <span class="nav-text">时区处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#26412;&#22320;&#21270;&#21644;&#36716;&#25442;"><span class="nav-number">4.1.</span> <span class="nav-text">&amp;#26412;&amp;#22320;&amp;#21270;&amp;#21644;&amp;#36716;&amp;#25442;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#25805;&#20316;&#26102;&#21306;&#24847;&#35782;&#22411;&#65288;time-zone-aware&#65289;Timestamp&#23545;&#35937;"><span class="nav-number">4.2.</span> <span class="nav-text">&amp;#25805;&amp;#20316;&amp;#26102;&amp;#21306;&amp;#24847;&amp;#35782;&amp;#22411;&amp;#65288;time zone-aware&amp;#65289;Timestamp&amp;#23545;&amp;#35937;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#19981;&#21516;&#26102;&#21306;&#20043;&#38388;&#30340;&#36816;&#31639;"><span class="nav-number">4.3.</span> <span class="nav-text">&amp;#19981;&amp;#21516;&amp;#26102;&amp;#21306;&amp;#20043;&amp;#38388;&amp;#30340;&amp;#36816;&amp;#31639;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时期及其算数运算"><span class="nav-number">5.</span> <span class="nav-text">时期及其算数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#26102;&#26399;&#30340;&#39057;&#29575;&#36716;&#25442;"><span class="nav-number">5.1.</span> <span class="nav-text">&amp;#26102;&amp;#26399;&amp;#30340;&amp;#39057;&amp;#29575;&amp;#36716;&amp;#25442;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#25353;&#23395;&#24230;&#35745;&#31639;&#30340;&#26102;&#26399;&#39057;&#29575;"><span class="nav-number">5.2.</span> <span class="nav-text">&amp;#25353;&amp;#23395;&amp;#24230;&amp;#35745;&amp;#31639;&amp;#30340;&amp;#26102;&amp;#26399;&amp;#39057;&amp;#29575;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timestamp&#19982;Period&#30340;&#20114;&#30456;&#36716;&#25442;"><span class="nav-number">5.3.</span> <span class="nav-text">Timestamp&amp;#19982;Period&amp;#30340;&amp;#20114;&amp;#30456;&amp;#36716;&amp;#25442;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#36890;&#36807;&#25968;&#32452;&#21019;&#24314;PeriodIndex"><span class="nav-number">5.4.</span> <span class="nav-text">&amp;#36890;&amp;#36807;&amp;#25968;&amp;#32452;&amp;#21019;&amp;#24314;PeriodIndex&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重采样及频率转换"><span class="nav-number">6.</span> <span class="nav-text">重采样及频率转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#38477;&#37319;&#26679;"><span class="nav-number">6.1.</span> <span class="nav-text">&amp;#38477;&amp;#37319;&amp;#26679;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OHLC&#37325;&#37319;&#26679;"><span class="nav-number">6.1.1.</span> <span class="nav-text">OHLC&amp;#37325;&amp;#37319;&amp;#26679;&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#36890;&#36807;groupby&#36827;&#34892;&#37325;&#37319;&#26679;"><span class="nav-number">6.1.2.</span> <span class="nav-text">&amp;#36890;&amp;#36807;groupby&amp;#36827;&amp;#34892;&amp;#37325;&amp;#37319;&amp;#26679;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#21319;&#37319;&#26679;&#21644;&#25554;&#20540;"><span class="nav-number">6.2.</span> <span class="nav-text">&amp;#21319;&amp;#37319;&amp;#26679;&amp;#21644;&amp;#25554;&amp;#20540;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#36890;&#36807;&#26102;&#26399;&#36827;&#34892;&#37325;&#37319;&#26679;"><span class="nav-number">6.3.</span> <span class="nav-text">&amp;#36890;&amp;#36807;&amp;#26102;&amp;#26399;&amp;#36827;&amp;#34892;&amp;#37325;&amp;#37319;&amp;#26679;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间序列绘图"><span class="nav-number">7.</span> <span class="nav-text">时间序列绘图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动窗口函数"><span class="nav-number">8.</span> <span class="nav-text">移动窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#25351;&#25968;&#21152;&#26435;&#20989;&#25968;"><span class="nav-number">8.1.</span> <span class="nav-text">&amp;#25351;&amp;#25968;&amp;#21152;&amp;#26435;&amp;#20989;&amp;#25968;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20108;&#20803;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;"><span class="nav-number">8.2.</span> <span class="nav-text">&amp;#20108;&amp;#20803;&amp;#31227;&amp;#21160;&amp;#31383;&amp;#21475;&amp;#20989;&amp;#25968;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#29992;&#25143;&#33258;&#23450;&#20041;&#30340;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;"><span class="nav-number">8.3.</span> <span class="nav-text">&amp;#29992;&amp;#25143;&amp;#33258;&amp;#23450;&amp;#20041;&amp;#30340;&amp;#31227;&amp;#21160;&amp;#31383;&amp;#21475;&amp;#20989;&amp;#25968;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能和内存使用方面的注意事项"><span class="nav-number">9.</span> <span class="nav-text">性能和内存使用方面的注意事项</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/07/20/python_data_analysis10.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">利用Python进行数据分析(10)：时间序列</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          利用Python进行数据分析(10)：时间序列
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T00:00:00+08:00">
-                2017-07-20
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-20T00:00:00+08:00">2017-07-20</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/07/20/python_data_analysis10.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/20/python_data_analysis10.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 1970-01-01 08:00:00" itemprop="dateModified" datetime="1970-01-01T08:00:00+08:00">1970-01-01</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -5538,33 +5491,26 @@ YII=
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>
-第 10 章：时间序列。</p>
+        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>第 10 章：时间序列。</p>
 <p>时间序列(time series)，是一种重要的结构化数据形式，在很多领域都有应用。</p>
 <a id="more"></a>
+
 <p>时间序列数据的形式主要有：</p>
 <ul>
 <li>时间戳(timestamp), 特定的时刻数据，时点数据。</li>
 <li>固定时期(period)，如2007年1月份， 2010年全年，阶段数据。</li>
 <li>时间间隔(interval)，由起始和终止的时间戳表示。 period可以看做特殊的interval。</li>
-<li>过程时间。 相对于特定起始时间的时间点。比如，从放入烤箱时起，每秒钟的饼干直径。<br>
-过程时间可以用起始时间戳加上一系列整数（表示从起始时间开始经过的时间）来表示。</li>
+<li>过程时间。 相对于特定起始时间的时间点。比如，从放入烤箱时起，每秒钟的饼干直径。<br>过程时间可以用起始时间戳加上一系列整数（表示从起始时间开始经过的时间）来表示。</li>
 </ul>
 <p>其中，最简单、最常见的时间序列是用时间戳进行索引。</p>
-<p>pandas提供了一组标准的时间序列处理工具和算法，可以高效处理非常大的时间序列，进行<br>
-切片/切块，聚合，定期/不定期采样等操作。</p>
+<p>pandas提供了一组标准的时间序列处理工具和算法，可以高效处理非常大的时间序列，进行<br>切片/切块，聚合，定期/不定期采样等操作。</p>
 <p>这些数据对金融和经济数据尤为有用，也可以用于日志分析。</p>
-<h1 id="日期和时间数据类型及工具"><a class="markdownIt-Anchor" href="#日期和时间数据类型及工具"></a> 日期和时间数据类型及工具</h1>
-
-<div class="notebook-border">
+<h1 id="日期和时间数据类型及工具"><a href="#日期和时间数据类型及工具" class="headerlink" title="日期和时间数据类型及工具"></a>日期和时间数据类型及工具</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -5581,7 +5527,7 @@ YII=
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -5603,7 +5549,7 @@ YII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>python提供了关于日期(date)，时间(time)，日历(calendar)的模块。
@@ -5624,7 +5570,7 @@ YII=
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># datetime 以毫秒形式存储日期和时间</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
 <span class="n">now</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">day</span>
@@ -5701,7 +5647,7 @@ YII=
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># datetime 可以 加减 timedelta, 得到一个新的 datetime</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
 </pre></div>
@@ -5727,7 +5673,7 @@ YII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#23383;&#31526;&#20018;&#21644;datetime&#30340;&#36716;&#25442;">&#23383;&#31526;&#20018;&#21644;datetime&#30340;&#36716;&#25442;<a class="anchor-link" href="#&#23383;&#31526;&#20018;&#21644;datetime&#30340;&#36716;&#25442;">&#182;</a></h2>
@@ -5855,7 +5801,7 @@ YII=
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># dateutil包提供了一些更方便的方法</span>
-<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="k">import</span> <span class="n">parse</span>
+<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span>
 <span class="n">parse</span><span class="p">(</span><span class="s1">&#39;2011-01-03&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -6097,14 +6043,14 @@ YII=
   </div>
 </div>
 
-<h1 id="时间序列基础"><a class="markdownIt-Anchor" href="#时间序列基础"></a> 时间序列基础</h1>
 
-<div class="notebook-border">
+
+<h1 id="时间序列基础"><a href="#时间序列基础" class="headerlink" title="时间序列基础"></a>时间序列基础</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -6121,7 +6067,7 @@ YII=
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -6143,7 +6089,7 @@ YII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>pandas中最基本的时间序列类型是以时间戳（字符串或datetime对象）为索引的Series。</p>
@@ -6156,7 +6102,7 @@ YII=
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
          <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)]</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
@@ -6294,7 +6240,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#32034;&#24341;&#12289;&#36873;&#21462;&#12289;&#23376;&#38598;&#26500;&#24314;">&#32034;&#24341;&#12289;&#36873;&#21462;&#12289;&#23376;&#38598;&#26500;&#24314;<a class="anchor-link" href="#&#32034;&#24341;&#12289;&#36873;&#21462;&#12289;&#23376;&#38598;&#26500;&#24314;">&#182;</a></h2><p>TimeSeries是Series的一个子类，所以在索引以及数据选取方面跟Series一样。</p>
@@ -6584,7 +6530,7 @@ Freq: D, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#24102;&#26377;&#37325;&#22797;&#32034;&#24341;&#30340;&#26102;&#38388;&#24207;&#21015;">&#24102;&#26377;&#37325;&#22797;&#32034;&#24341;&#30340;&#26102;&#38388;&#24207;&#21015;<a class="anchor-link" href="#&#24102;&#26377;&#37325;&#22797;&#32034;&#24341;&#30340;&#26102;&#38388;&#24207;&#21015;">&#182;</a></h2>
@@ -6739,14 +6685,14 @@ dtype: int32</pre>
   </div>
 </div>
 
-<h1 id="日期的范围-频率以及移动"><a class="markdownIt-Anchor" href="#日期的范围-频率以及移动"></a> 日期的范围、频率以及移动</h1>
 
-<div class="notebook-border">
+
+<h1 id="日期的范围、频率以及移动"><a href="#日期的范围、频率以及移动" class="headerlink" title="日期的范围、频率以及移动"></a>日期的范围、频率以及移动</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -6763,8 +6709,8 @@ dtype: int32</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -6786,7 +6732,7 @@ dtype: int32</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>pandas中的时间序列一般被认为是不规则的，没有固定的频率。</p>
@@ -6937,7 +6883,7 @@ Freq: 2D, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#29983;&#25104;&#26085;&#26399;&#33539;&#22260;">&#29983;&#25104;&#26085;&#26399;&#33539;&#22260;<a class="anchor-link" href="#&#29983;&#25104;&#26085;&#26399;&#33539;&#22260;">&#182;</a></h2>
@@ -7150,7 +7096,7 @@ Freq: 2D, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#39057;&#29575;&#21644;&#26085;&#26399;&#20559;&#31227;&#37327;">&#39057;&#29575;&#21644;&#26085;&#26399;&#20559;&#31227;&#37327;<a class="anchor-link" href="#&#39057;&#29575;&#21644;&#26085;&#26399;&#20559;&#31227;&#37327;">&#182;</a></h2><p>pandas中的频率，由基础频率(base frequency)和乘数组成，比如 H，5H。偏移量与之类似。</p>
@@ -7161,7 +7107,7 @@ Freq: 2D, dtype: float64</pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#31227;&#21160;&#65288;&#36229;&#21069;&#21644;&#28382;&#21518;&#65289;&#25968;&#25454;">&#31227;&#21160;&#65288;&#36229;&#21069;&#21644;&#28382;&#21518;&#65289;&#25968;&#25454;<a class="anchor-link" href="#&#31227;&#21160;&#65288;&#36229;&#21069;&#21644;&#28382;&#21518;&#65289;&#25968;&#25454;">&#182;</a></h2><p>移动（shifting）指的是沿着时间轴将数据前移或后移。</p>
@@ -7432,7 +7378,7 @@ Freq: M, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#36890;&#36807;&#20559;&#31227;&#37327;&#23545;&#26085;&#26399;&#36827;&#34892;&#20301;&#31227;">&#36890;&#36807;&#20559;&#31227;&#37327;&#23545;&#26085;&#26399;&#36827;&#34892;&#20301;&#31227;<a class="anchor-link" href="#&#36890;&#36807;&#20559;&#31227;&#37327;&#23545;&#26085;&#26399;&#36827;&#34892;&#20301;&#31227;">&#182;</a></h3><p>pandas的日期偏移量还可以用在datetime或Timestemp对象上</p>
@@ -7445,7 +7391,7 @@ Freq: M, dtype: float64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.tseries.offsets</span> <span class="k">import</span> <span class="n">Day</span><span class="p">,</span> <span class="n">MonthEnd</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.tseries.offsets</span> <span class="kn">import</span> <span class="n">Day</span><span class="p">,</span> <span class="n">MonthEnd</span>
 <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
 <span class="n">now</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">Day</span><span class="p">()</span>
 </pre></div>
@@ -7669,14 +7615,15 @@ Freq: M, dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="时区处理"><a class="markdownIt-Anchor" href="#时区处理"></a> 时区处理</h1>
 
-<div class="notebook-border">
+
+
+<h1 id="时区处理"><a href="#时区处理" class="headerlink" title="时区处理"></a>时区处理</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -7693,8 +7640,8 @@ Freq: M, dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -7716,7 +7663,7 @@ Freq: M, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>时间序列最让人不爽的就是对时区的处理。很多人已经用协调世界时（UTC，格林尼治时间接替者，目前是国际标准）来处理时间序列。</p>
@@ -7787,7 +7734,7 @@ Freq: M, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#26412;&#22320;&#21270;&#21644;&#36716;&#25442;">&#26412;&#22320;&#21270;&#21644;&#36716;&#25442;<a class="anchor-link" href="#&#26412;&#22320;&#21270;&#21644;&#36716;&#25442;">&#182;</a></h2><p>默认情况下，pandas中的序列是单纯的（naive）时区，其索引的tz字段为None.</p>
@@ -7968,7 +7915,7 @@ Freq: D, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#25805;&#20316;&#26102;&#21306;&#24847;&#35782;&#22411;&#65288;time-zone-aware&#65289;Timestamp&#23545;&#35937;">&#25805;&#20316;&#26102;&#21306;&#24847;&#35782;&#22411;&#65288;time zone-aware&#65289;Timestamp&#23545;&#35937;<a class="anchor-link" href="#&#25805;&#20316;&#26102;&#21306;&#24847;&#35782;&#22411;&#65288;time-zone-aware&#65289;Timestamp&#23545;&#35937;">&#182;</a></h2><p>跟时间序列和日期序列差不多，Timestamp对象也能被从单纯型（navie）本地化为time zone-aware，并从一个时区转换为另一个时区。</p>
@@ -8099,7 +8046,7 @@ Freq: D, dtype: float64</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 30 minutes before DST transition</span>
-<span class="kn">from</span> <span class="nn">pandas.tseries.offsets</span> <span class="k">import</span> <span class="n">Hour</span>
+<span class="kn">from</span> <span class="nn">pandas.tseries.offsets</span> <span class="kn">import</span> <span class="n">Hour</span>
 <span class="n">stamp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2012-03-12 01:30&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">)</span>
 <span class="n">stamp</span>
 </pre></div>
@@ -8211,7 +8158,7 @@ Freq: D, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#19981;&#21516;&#26102;&#21306;&#20043;&#38388;&#30340;&#36816;&#31639;">&#19981;&#21516;&#26102;&#21306;&#20043;&#38388;&#30340;&#36816;&#31639;<a class="anchor-link" href="#&#19981;&#21516;&#26102;&#21306;&#20043;&#38388;&#30340;&#36816;&#31639;">&#182;</a></h2><p>如果时间时间时区不同，那么结果就会是UTC时间，由于时间戳其实是以UTC储存的，索引计算很方便。</p>
@@ -8314,14 +8261,15 @@ Freq: B, dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="时期及其算数运算"><a class="markdownIt-Anchor" href="#时期及其算数运算"></a> 时期及其算数运算</h1>
 
-<div class="notebook-border">
+
+
+<h1 id="时期及其算数运算"><a href="#时期及其算数运算" class="headerlink" title="时期及其算数运算"></a>时期及其算数运算</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -8338,8 +8286,8 @@ Freq: B, dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -8361,7 +8309,7 @@ Freq: B, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>时期（period）,表示时间区间，比如几日、几月、几年等。</p>
@@ -8555,7 +8503,7 @@ Freq: M, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#26102;&#26399;&#30340;&#39057;&#29575;&#36716;&#25442;">&#26102;&#26399;&#30340;&#39057;&#29575;&#36716;&#25442;<a class="anchor-link" href="#&#26102;&#26399;&#30340;&#39057;&#29575;&#36716;&#25442;">&#182;</a></h2><p>Period和PeriodIndex对象都可以通过其asfreq方法转换为别的频率。</p>
@@ -8782,7 +8730,7 @@ Freq: B, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#25353;&#23395;&#24230;&#35745;&#31639;&#30340;&#26102;&#26399;&#39057;&#29575;">&#25353;&#23395;&#24230;&#35745;&#31639;&#30340;&#26102;&#26399;&#39057;&#29575;<a class="anchor-link" href="#&#25353;&#23395;&#24230;&#35745;&#31639;&#30340;&#26102;&#26399;&#39057;&#29575;">&#182;</a></h2><p>季度型数据在会计、金融等领域中很常见。许多季度型数据都会涉及“财年末”的概念，通常是一年12个月中某月的最后一个日历日或工作日。就这一点来说，“2012Q4”根据财年末的会有不同含义。pandas支持12种可能的季度频率，即Q-JAN、Q-DEC。</p>
@@ -9006,7 +8954,7 @@ dtype: int32</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Timestamp&#19982;Period&#30340;&#20114;&#30456;&#36716;&#25442;">Timestamp&#19982;Period&#30340;&#20114;&#30456;&#36716;&#25442;<a class="anchor-link" href="#Timestamp&#19982;Period&#30340;&#20114;&#30456;&#36716;&#25442;">&#182;</a></h2><p>通过to_period方法，可以将由时间戳索引的Series和DataFrame对象转换为以时期为索引的对象</p>
@@ -9183,7 +9131,7 @@ Freq: M, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#36890;&#36807;&#25968;&#32452;&#21019;&#24314;PeriodIndex">&#36890;&#36807;&#25968;&#32452;&#21019;&#24314;PeriodIndex<a class="anchor-link" href="#&#36890;&#36807;&#25968;&#32452;&#21019;&#24314;PeriodIndex">&#182;</a></h2><p>固定频率的数据集通常会将时间信息分开存放在多个列中。例如下面的这个宏观经济数据集中，年度和季度就分别存放在不同的列中。</p>
@@ -9345,14 +9293,15 @@ Freq: Q-DEC, Name: infl, dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="重采样及频率转换"><a class="markdownIt-Anchor" href="#重采样及频率转换"></a> 重采样及频率转换</h1>
 
-<div class="notebook-border">
+
+
+<h1 id="重采样及频率转换"><a href="#重采样及频率转换" class="headerlink" title="重采样及频率转换"></a>重采样及频率转换</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -9369,8 +9318,8 @@ Freq: Q-DEC, Name: infl, dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -9392,7 +9341,7 @@ Freq: Q-DEC, Name: infl, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>pandas对象都提供了resample方法，用于重采样。</p>
@@ -9470,7 +9419,7 @@ Freq: M, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>resample方法的主要参数包括：</p>
@@ -9481,7 +9430,7 @@ Freq: M, dtype: float64</pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#38477;&#37319;&#26679;">&#38477;&#37319;&#26679;<a class="anchor-link" href="#&#38477;&#37319;&#26679;">&#182;</a></h2><p>将数据的频率降低称为降采样，也就是将数据进行聚合。
@@ -9672,7 +9621,7 @@ Freq: 5T, dtype: int32</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="OHLC&#37325;&#37319;&#26679;">OHLC&#37325;&#37319;&#26679;<a class="anchor-link" href="#OHLC&#37325;&#37319;&#26679;">&#182;</a></h3><p>对于ohlc数据，pandas做了专门处理</p>
@@ -9743,7 +9692,7 @@ Freq: 5T, dtype: int32</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#36890;&#36807;groupby&#36827;&#34892;&#37325;&#37319;&#26679;">&#36890;&#36807;groupby&#36827;&#34892;&#37325;&#37319;&#26679;<a class="anchor-link" href="#&#36890;&#36807;groupby&#36827;&#34892;&#37325;&#37319;&#26679;">&#182;</a></h3><p>另一种方法是使用pandas的groupby功能。例如，你打算根据月份或者周几进行分组，只需传入一个能够访问时间序列的索引上的这些字段的函数即可：</p>
@@ -9821,7 +9770,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#21319;&#37319;&#26679;&#21644;&#25554;&#20540;">&#21319;&#37319;&#26679;&#21644;&#25554;&#20540;<a class="anchor-link" href="#&#21319;&#37319;&#26679;&#21644;&#25554;&#20540;">&#182;</a></h2><p>将数据从低频率转换到高频率时，就不需要聚合了。</p>
@@ -10239,7 +10188,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#36890;&#36807;&#26102;&#26399;&#36827;&#34892;&#37325;&#37319;&#26679;">&#36890;&#36807;&#26102;&#26399;&#36827;&#34892;&#37325;&#37319;&#26679;<a class="anchor-link" href="#&#36890;&#36807;&#26102;&#26399;&#36827;&#34892;&#37325;&#37319;&#26679;">&#182;</a></h2><p>对那些使用时期索引的数据进行重采样是一件非常简单的事情。</p>
@@ -10626,7 +10575,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>由于时期指的是时间区间，所以升采样和降采样的规则就比较严格:</p>
@@ -10754,14 +10703,14 @@ dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="时间序列绘图"><a class="markdownIt-Anchor" href="#时间序列绘图"></a> 时间序列绘图</h1>
 
-<div class="notebook-border">
+
+<h1 id="时间序列绘图"><a href="#时间序列绘图" class="headerlink" title="时间序列绘图"></a>时间序列绘图</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -10778,8 +10727,8 @@ dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -10801,7 +10750,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>pandas时间序列的绘图功能在日期格式化方面比matplotlib原生的要好。</p>
@@ -11231,7 +11180,8 @@ xwjOWn4a2EVwMsa8Cct8neDs5h2c4sxcYDGVfXWLSDIjOKP3hbCdrcC9nOKqBDN9inIdA84C/ha2
 /NUEG0NeAe4jvLFaJU0R53V3+LwY/rw96frKNemOeyIiIiIik+hwCxERERGRSTRIFhERERGZRINk
 EREREZFJNEgWEREREZlEg2QRERERkUk0SBYRERERmUSDZBERERGRSTRIFhERERGZ5L8jOSKQlCIu
 vQAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -11808,7 +11758,8 @@ FPBb4IjW+qFuN/0d+KT19yeBF7ptv0Mp5VJK5QLTgO3WsVKs63jMkqS/uRhlFkIIIYQQosPFmt1i
 NaZ7xAGgY+Wub2L6JT8DZAOFwO1a6zprnweAu4AApnvGK9b2p4D51jG+p7X+87AXWAghhBBCiG5k
 xT0hhBBCCCF6kRX3hBBCCCGE6EWCZCGEEEIIIXqRIFkIIYQQQoheJEgWQgghhBCiFwmShRBCCCGE
 6EWCZCGEEEIIIXqRIFkIIYQQQohe/n/R9q409mtuhwAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -12294,7 +12245,8 @@ REQGK1HdLQy4F6hz938JW/UocEfw/g7gF4k4voiIiIjIUCSqu8VVwB+AbUBvsPgzhOqSHwImE+pY
 8U53Pxl8zz5gFJAHtAAr3H2nmX0NeA8wETgM/NDd/yHuQYuIiIiIBDTjnoiIiIhIBM24JyIiIiIS
 QUmyiIiIiEgEJckiIiIiIhGUJIuIiIiIRFCSLCIiIiISQUmyiIiIiEgEJckiIiIiIhH+Pz0nH/Sp
 On0GAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -12562,7 +12514,8 @@ DAc8AOw1s3sHPfUMcJv3+Dbg6UHHb3bOxTvniglOECr3XmuG93k68BfA/xuLmkXk1M6gPZ+S99+/
 1cxe8I4/BpzrvcY/mNnjo16wiHyoM2zPNUAKEAccAz5uZnucc2XAz4AE4AXgr0zbkoqMi1Fuy98H
 Pg3kAkeA/2dm3xq3mxEJAW2jLSIiIiIyBO0IKCIiIiIyBIVmEREREZEhKDSLiIiIiAxBoVlERERE
 ZAgKzSIiIiIiQ1BoFhEREREZgkKziIiIiMgQ/j8ypw7zus5zwAAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -12588,14 +12541,15 @@ ZAgKzSIiIiIiQ1BoFhEREREZgkKziIiIiMgQ/j8ypw7zus5zwAAAAABJRU5ErkJggg==
   </div>
 </div>
 
-<h1 id="移动窗口函数"><a class="markdownIt-Anchor" href="#移动窗口函数"></a> 移动窗口函数</h1>
 
-<div class="notebook-border">
+
+
+<h1 id="移动窗口函数"><a href="#移动窗口函数" class="headerlink" title="移动窗口函数"></a>移动窗口函数</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -12612,8 +12566,8 @@ ZAgKzSIiIiIiQ1BoFhEREREZgkKziIiIiMgQ/j8ypw7zus5zwAAAAABJRU5ErkJggg==
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -12635,7 +12589,7 @@ ZAgKzSIiIiIiQ1BoFhEREREZgkKziIiIiMgQ/j8ypw7zus5zwAAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>在移动窗口（可以带有指数衰减权数）上计算的各种统计函数也是一类常见于时间序列的数组变换。</p>
@@ -12930,7 +12884,8 @@ B4oIzKybgMSG8fR/vXmfrcBfcDO7JBRfM4wHi5+Z91oGDAqHuMxju4HR4fLf0Wy/CSO5b8L4IZkV
 JnG9jPFDehuwIARfr71AJVCPMRY/1mwvxujU7AIeowcP1QMc10Pmvt38+56e/n/m6x95M1YIISLc
 CTV0I4QQJyJJ9EIIEeEk0QshRISTRC+EEBFOEr0QQkQ4SfRCCBHhJNELIUSEk0QvhBAR7v8DA1BT
 SNwSXaEAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -13250,7 +13205,8 @@ Geb/qJcAtZ4V5MN/M42xZHuMed14YEdDx+V037X4oDfvw7gygF5KqbJ9NicAO/0gLpQ5i8uccXIn
 H5It/SSuDzF+SO8ApjfAv1c6cAbIxxiL72WeH4LRqdkHvEYdHqr7OK5nzNd288/H6vr/mbdfsjJW
 CCGauGY1dCOEEM2RJHohhGjiJNELIUQTJ4leCCGaOEn0QgjRxEmiF0KIJk4SvRBCNHGS6IUQoon7
 f59o3GrAZxCtAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -13584,7 +13540,8 @@ uYVxNQKrRMQzr/RVwNEIiQ1xV065Kzw+DfwihHFNyd0N0iciF7jP+dHZjglFXBEjXJ33wXzgSr4G
 w32u7UBJJMTlfq0KWBFJv1+4qiWOus/1eyArgmJ7CNcb8hHgljDEVQN0Af24+spXubeX42rAnAJ+
 TAA3uC2O6x739073168F+rvm60NHiiql1DwxL7tclFLqXKQJXSml5glN6EopNU9oQldKqXlCE7pS
 Ss0TmtCVUmqe0ISulFLzhCZ0pZSaJ/4/i9Fddl2sHJ0AAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -13884,7 +13841,8 @@ ccd8Hdcd/sNMcNccKCLwXi6WxIXrTvsO93n2Az9hgt4c4fh+4brB94b7XBuBgukQl/u9CmDxdPr5
 wtVb4qD7XH8G0qZRbE/i+oN8ALgjDHFVAW1AD65a+VL39hJcDZhy4KcEcIPb4ri+737tdH99INCf
 NV8fOlJUKaVmiVlZclFKqbORJnSllJolNKErpdQsoQldKaVmCU3oSik1S2hCV0qpWUITulJKzRKa
 0JVSapb4/4SIm44Y5FMgAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -13894,7 +13852,7 @@ NV8fOlJUKaVmiVlZclFKqbORJnSllJolNKErpdQsoQldKaVmCU3oSik1S2hCV0qpWUITulJKzRKa
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>要计算扩展窗口平均（expanding window mean），可以将扩展窗口看作一个特殊的窗口，</p>
@@ -14261,7 +14219,8 @@ iw900fism0K8yO787/E4B4GXGGF2SRn9RXZj8VOPtRO4MgUvX/ctcG1KxxfZ7I3DHmsHMCUht81k
 b9SHgN4SvE4AvwNDZGPx3V7fQ3ZhcxxYTwM31gv2WufP//HH1Y0ea7WW+GZsEARBi9NWQzdBEATt
 SCT6IAiCFicSfRAEQYsTiT4IgqDFiUQfBEHQ4kSiD4IgaHEi0QdBELQ4keiDIAhanH8BR2kXDgbp
 On0AAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -14284,7 +14243,7 @@ On0AAAAASUVORK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>pandas中的移动窗口和指数加权函数：</p>
@@ -14294,7 +14253,7 @@ On0AAAAASUVORK5CYII=
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#25351;&#25968;&#21152;&#26435;&#20989;&#25968;">&#25351;&#25968;&#21152;&#26435;&#20989;&#25968;<a class="anchor-link" href="#&#25351;&#25968;&#21152;&#26435;&#20989;&#25968;">&#182;</a></h2><p>另一种使用固定大小窗口及相等权数观测值的方法是，</p>
@@ -15371,7 +15330,8 @@ YJiqfuc8ZjrlN2OVUP7zybsi0gTYAvgDvpQPrP/rhXexm4bBXe3CWd4B+CfldyifBH6nqkc8Vxvj
 Lu5sF85tXwG/UdXPPVYJ43Zu/rz4PTABKHYe84iqnvJcbYy7uLldrAZucZ7jGVVN9lQ9TMNgy1Ib
 Y4wxxhhzAVtxzxhjjDHGmAtYkmyMMcYYY8wFLEk2xhhjjDHmApYkG2OMMcYYcwFLko0xxhhjjLmA
 JcnGGGOMMcZcwJJkY4wxxhhjLvD/hjK2vFhwFSAAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -15381,7 +15341,7 @@ JcnGGGOMMcZcwJJkY4wxxhhjLvD/hjK2vFhwFSAAAAAASUVORK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#20108;&#20803;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;">&#20108;&#20803;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;<a class="anchor-link" href="#&#20108;&#20803;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;">&#182;</a></h2><p>有些统计运算（如相关系数和协方差）需要在两个时间序列上执行。</p>
@@ -15747,7 +15707,8 @@ kor3C9LG4MfyuZYAGG4Fu+THdgIYZ7XPGKTKi83yud4AUG4Ru/4F6ct5E4DLUvB+7QZwBEAnpNz6
 ePl4HaRgZgeARxHH5rjJdj0o3/fK/99txmctmn/cocowDJOBZHxahmEYpj/Czp1hGCYDYefOMAyT
 gbBzZxiGyUDYuTMMw2Qg7NwZhmEyEHbuDMMwGQg7d4ZhmAzk/wOuWOT04/eIcAAAAABJRU5ErkJg
 gg==
-">
+"
+>
 </div>
 
 </div>
@@ -16420,7 +16381,8 @@ i/WcEzGvpKGugv0n6g9liCXqEneF8XcuKgPgU+AH4BMgz/ac+1CZAhtxWH0H8ql5tkxC5oVasV9q
 oBQVW+9lbB+Mcma2ALOoweJ4guf1O+O+3/j/UCK+a1X50xWqGo1G0wBp8GEZjUajORnRxl2j0Wga
 INq4azQaTQNEG3eNRqNpgGjjrtFoNA0Qbdw1Go2mAaKNu0aj0TRAtHHXaDSaBsj/B16LQWjecSBg
 AAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -16430,7 +16392,7 @@ AAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#29992;&#25143;&#33258;&#23450;&#20041;&#30340;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;">&#29992;&#25143;&#33258;&#23450;&#20041;&#30340;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;<a class="anchor-link" href="#&#29992;&#25143;&#33258;&#23450;&#20041;&#30340;&#31227;&#21160;&#31383;&#21475;&#20989;&#25968;">&#182;</a></h2><p>rolling_apply函数使你能够在移动窗口上应用自己设计的数组函数。</p>
@@ -16445,7 +16407,7 @@ AAAAAElFTkSuQmCC
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">percentileofscore</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">percentileofscore</span>
 <span class="n">score_at_2percent</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">percentileofscore</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">AAPL</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span><span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">score_at_2percent</span><span class="p">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -16743,7 +16705,8 @@ be9nE/AbwrReicfxwrpR+a69r7eA0kSIy35tNzA5kf6+sFqHbLH39RIwMEHiegLrQ3szsDAOx2sv
 cByox6rlT7WXl2Gd5OwCfkc3b9LHOLZf2c+99vcfdfdvLdov7bmrlFIpJqVLPUoplYo08SulVIrR
 xK+UUilGE79SSqUYTfxKKZViNPErpVSK0cSvlFIpRhO/UkqlmP8PzwA7ZJ9IemwAAAAASUVORK5C
 YII=
-">
+"
+>
 </div>
 
 </div>
@@ -16769,14 +16732,15 @@ YII=
   </div>
 </div>
 
-<h1 id="性能和内存使用方面的注意事项"><a class="markdownIt-Anchor" href="#性能和内存使用方面的注意事项"></a> 性能和内存使用方面的注意事项</h1>
 
-<div class="notebook-border">
+
+
+<h1 id="性能和内存使用方面的注意事项"><a href="#性能和内存使用方面的注意事项" class="headerlink" title="性能和内存使用方面的注意事项"></a>性能和内存使用方面的注意事项</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -16793,8 +16757,8 @@ YII=
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -16816,7 +16780,7 @@ YII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>TimeSeries和Period都是以64位整数表示的（即NumPy的datetime64数据类型）。</p>
@@ -16936,414 +16900,127 @@ Freq: 10L, dtype: float64</pre>
 </div>
 
 
-      
+
+
+
+
+
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/07/19/python_data_analysis9.html" rel="next" title="利用Python进行数据分析(9)：数据聚合和分组运算">
-                <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(9)：数据聚合和分组运算
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/24/python_data_analysis11.html" rel="prev" title="利用Python进行数据分析(11)：金融和经济数据应用">
-                利用Python进行数据分析(11)：金融和经济数据应用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/07/19/python_data_analysis9.html" rel="prev" title="利用Python进行数据分析(9)：数据聚合和分组运算">
+      <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(9)：数据聚合和分组运算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/24/python_data_analysis12.html" rel="next" title="利用Python进行数据分析(12)：NumPy高级应用">
+      利用Python进行数据分析(12)：NumPy高级应用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日期和时间数据类型及工具"><span class="nav-number">1.</span> <span class="nav-text"> 日期和时间数据类型及工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串和datetime的转换"><span class="nav-number">1.1.</span> <span class="nav-text">字符串和datetime的转换¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间序列基础"><span class="nav-number">2.</span> <span class="nav-text"> 时间序列基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引、选取、子集构建"><span class="nav-number">2.1.</span> <span class="nav-text">索引、选取、子集构建¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带有重复索引的时间序列"><span class="nav-number">2.2.</span> <span class="nav-text">带有重复索引的时间序列¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日期的范围-频率以及移动"><span class="nav-number">3.</span> <span class="nav-text"> 日期的范围、频率以及移动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成日期范围"><span class="nav-number">3.1.</span> <span class="nav-text">生成日期范围¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#频率和日期偏移量"><span class="nav-number">3.2.</span> <span class="nav-text">频率和日期偏移量¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动（超前和滞后）数据"><span class="nav-number">3.3.</span> <span class="nav-text">移动（超前和滞后）数据¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过偏移量对日期进行位移"><span class="nav-number">3.3.1.</span> <span class="nav-text">通过偏移量对日期进行位移¶</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时区处理"><span class="nav-number">4.</span> <span class="nav-text"> 时区处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地化和转换"><span class="nav-number">4.1.</span> <span class="nav-text">本地化和转换¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作时区意识型（time-zone-aware）Timestamp对象"><span class="nav-number">4.2.</span> <span class="nav-text">操作时区意识型（time zone-aware）Timestamp对象¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同时区之间的运算"><span class="nav-number">4.3.</span> <span class="nav-text">不同时区之间的运算¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时期及其算数运算"><span class="nav-number">5.</span> <span class="nav-text"> 时期及其算数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#时期的频率转换"><span class="nav-number">5.1.</span> <span class="nav-text">时期的频率转换¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按季度计算的时期频率"><span class="nav-number">5.2.</span> <span class="nav-text">按季度计算的时期频率¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timestamp与Period的互相转换"><span class="nav-number">5.3.</span> <span class="nav-text">Timestamp与Period的互相转换¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过数组创建PeriodIndex"><span class="nav-number">5.4.</span> <span class="nav-text">通过数组创建PeriodIndex¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重采样及频率转换"><span class="nav-number">6.</span> <span class="nav-text"> 重采样及频率转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#降采样"><span class="nav-number">6.1.</span> <span class="nav-text">降采样¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OHLC重采样"><span class="nav-number">6.1.1.</span> <span class="nav-text">OHLC重采样¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过groupby进行重采样"><span class="nav-number">6.1.2.</span> <span class="nav-text">通过groupby进行重采样¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升采样和插值"><span class="nav-number">6.2.</span> <span class="nav-text">升采样和插值¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过时期进行重采样"><span class="nav-number">6.3.</span> <span class="nav-text">通过时期进行重采样¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间序列绘图"><span class="nav-number">7.</span> <span class="nav-text"> 时间序列绘图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动窗口函数"><span class="nav-number">8.</span> <span class="nav-text"> 移动窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指数加权函数"><span class="nav-number">8.1.</span> <span class="nav-text">指数加权函数¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二元移动窗口函数"><span class="nav-number">8.2.</span> <span class="nav-text">二元移动窗口函数¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户自定义的移动窗口函数"><span class="nav-number">8.3.</span> <span class="nav-text">用户自定义的移动窗口函数¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能和内存使用方面的注意事项"><span class="nav-number">9.</span> <span class="nav-text"> 性能和内存使用方面的注意事项</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/07/20/python_data_analysis10.html';
-          this.page.identifier = '2017/07/20/python_data_analysis10.html';
-          this.page.title = '利用Python进行数据分析(10)：时间序列';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -17358,24 +17035,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'bd6c5e0c4a427ea914990f225103301c',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

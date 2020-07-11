@@ -1,95 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="神经网络,分类问题," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="分类问题是机器学习中的一种常见问题。 在机器学习领域，有很多分类算法。而神经网络的优势在于：几乎可以实现任意复杂的分类边界，无误差地实现训练集上的分类[1]。 由于神经网络的拟合能力很强大，常常容易产生过拟合，所以需要进行相应的处理。 而且，神经网络的可解释性往往是个非常大的难题。">
-<meta name="keywords" content="神经网络,分类问题">
+  <meta name="description" content="分类问题是机器学习中的一种常见问题。在机器学习领域，有很多分类算法。而神经网络的优势在于：几乎可以实现任意复杂的分类边界，无误差地实现训练集上的分类^3。 由于神经网络的拟合能力很强大，常常容易产生过拟合，所以需要进行相应的处理。而且，神经网络的可解释性往往是个非常大的难题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分类问题与神经网络">
 <meta property="og:url" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="分类问题是机器学习中的一种常见问题。 在机器学习领域，有很多分类算法。而神经网络的优势在于：几乎可以实现任意复杂的分类边界，无误差地实现训练集上的分类[1]。 由于神经网络的拟合能力很强大，常常容易产生过拟合，所以需要进行相应的处理。 而且，神经网络的可解释性往往是个非常大的难题。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/logistic01.png">
-<meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/logistic02.jpg">
-<meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/perceptron.jpg">
+<meta property="og:description" content="分类问题是机器学习中的一种常见问题。在机器学习领域，有很多分类算法。而神经网络的优势在于：几乎可以实现任意复杂的分类边界，无误差地实现训练集上的分类^3。 由于神经网络的拟合能力很强大，常常容易产生过拟合，所以需要进行相应的处理。而且，神经网络的可解释性往往是个非常大的难题。">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/perceptron2.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/ANN.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/xor.png">
@@ -97,58 +36,36 @@
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/multi-layer.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/capability.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/XNN.jpg">
-<meta property="og:updated_time" content="2018-04-16T06:59:55.000Z">
+<meta property="article:published_time" content="2018-02-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T06:59:55.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="分类问题">
+<meta property="article:tag" content="神经网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类问题与神经网络">
-<meta name="twitter:description" content="分类问题是机器学习中的一种常见问题。 在机器学习领域，有很多分类算法。而神经网络的优势在于：几乎可以实现任意复杂的分类边界，无误差地实现训练集上的分类[1]。 由于神经网络的拟合能力很强大，常常容易产生过拟合，所以需要进行相应的处理。 而且，神经网络的可解释性往往是个非常大的难题。">
-<meta name="twitter:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/logistic01.png">
+<meta name="twitter:image" content="http://holbrook.github.io/2018/02/23/classify-and-neural-networks/perceptron2.jpg">
+
+<link rel="canonical" href="http://holbrook.github.io/2018/02/23/classify-and-neural-networks.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2018/02/23/classify-and-neural-networks.html"/>
-
-
-
-
 
   <title>分类问题与神经网络 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -157,213 +74,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归的机器学习解释"><span class="nav-number">1.</span> <span class="nav-text">线性回归的机器学习解释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类问题和逻辑回归"><span class="nav-number">2.</span> <span class="nav-text">分类问题和逻辑回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络原理"><span class="nav-number">3.</span> <span class="nav-text">神经网络原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机-Perceptron"><span class="nav-number">3.1.</span> <span class="nav-text">感知机(Perceptron)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机的学习机制"><span class="nav-number">3.2.</span> <span class="nav-text">感知机的学习机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从感知机到神经网络"><span class="nav-number">3.3.</span> <span class="nav-text">从感知机到神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多层网络"><span class="nav-number">3.4.</span> <span class="nav-text">多层网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2018/02/23/classify-and-neural-networks.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">分类问题与神经网络</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          分类问题与神经网络
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-23T00:00:00+08:00">
-                2018-02-23
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2018-02-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-23T00:00:00+08:00">2018-02-23</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2018/02/23/classify-and-neural-networks.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/23/classify-and-neural-networks.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 14:59:55" itemprop="dateModified" datetime="2018-04-16T14:59:55+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -371,40 +322,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>分类问题是机器学习中的一种常见问题。<br>
-在机器学习领域，有很多分类算法。而神经网络的优势在于：几乎可以实现任意复杂的分类边界，无误差地实现训练集上的分类<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
-<p>由于神经网络的拟合能力很强大，常常容易产生过拟合，所以需要进行相应的处理。<br>
-而且，神经网络的可解释性往往是个非常大的难题。</p>
+        <p>分类问题是机器学习中的一种常见问题。<br>在机器学习领域，有很多分类算法。而神经网络的优势在于：几乎可以实现任意复杂的分类边界，无误差地实现训练集上的分类<a href="[从初等数学的角度初探神经网络](http://www.cvvision.cn/1973.html)">^3</a>。</p>
+<p>由于神经网络的拟合能力很强大，常常容易产生过拟合，所以需要进行相应的处理。<br>而且，神经网络的可解释性往往是个非常大的难题。</p>
 <a id="more"></a>
-<h1 id="线性回归的机器学习解释"><a class="markdownIt-Anchor" href="#线性回归的机器学习解释"></a> 线性回归的机器学习解释</h1>
-<p>线性回归是一个有着两百年历史从一些输入输出对组中推断出一般函数的技巧。<br>
-线性回归所做的基本上就是监督式机器学习：给定训练样本，「学习」一个函数，每一个样本数据就是需要学习的函数的输入输出数据。并且这个函数能够很好的泛化到不在训练集中的输入值上。并且可以通过测试数据来检验泛化的效果<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>。</p>
-<h1 id="分类问题和逻辑回归"><a class="markdownIt-Anchor" href="#分类问题和逻辑回归"></a> 分类问题和逻辑回归</h1>
-<p>逻辑回归，就是把线性回归的思路应用到分类问题上<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>：</p>
-<pre><code>空间中有两群点，一群是圆点“〇”，一群是叉点“X”。我们希望从空间中选出一个分离边界，将这两群点分开。
-</code></pre>
-<img src="/2018/02/23/classify-and-neural-networks/logistic01.png" title="逻辑回归原理">
+
+<h1 id="线性回归的机器学习解释"><a href="#线性回归的机器学习解释" class="headerlink" title="线性回归的机器学习解释"></a>线性回归的机器学习解释</h1><p>线性回归是一个有着两百年历史从一些输入输出对组中推断出一般函数的技巧。<br>线性回归所做的基本上就是监督式机器学习：给定训练样本，「学习」一个函数，每一个样本数据就是需要学习的函数的输入输出数据。并且这个函数能够很好的泛化到不在训练集中的输入值上。并且可以通过测试数据来检验泛化的效果<a href="[神经网络和深度学习简史（一）](http://www.cnblogs.com/DjangoBlog/p/7699764.html)">^4</a>。</p>
+<h1 id="分类问题和逻辑回归"><a href="#分类问题和逻辑回归" class="headerlink" title="分类问题和逻辑回归"></a>分类问题和逻辑回归</h1><p>逻辑回归，就是把线性回归的思路应用到分类问题上<a href="[从初等数学视角解读逻辑回归](http://www.cvvision.cn/1911.html)">^2</a>：</p>
+<pre><code>空间中有两群点，一群是圆点“〇”，一群是叉点“X”。我们希望从空间中选出一个分离边界，将这两群点分开。</code></pre>{% asset_img logistic01.png 逻辑回归原理 %}
+
 <p>具体过程如下图：</p>
-<img src="/2018/02/23/classify-and-neural-networks/logistic02.jpg" title="逻辑回归过程">
-<h1 id="神经网络原理"><a class="markdownIt-Anchor" href="#神经网络原理"></a> 神经网络原理</h1>
-<h2 id="感知机perceptron"><a class="markdownIt-Anchor" href="#感知机perceptron"></a> 感知机(Perceptron)</h2>
-<p>一个心理学家弗兰克· 罗森布拉特(Frank Rosenblatt)构想了感知机，使用简化的数学模型解释大脑神经元如何工作：</p>
-<img src="/2018/02/23/classify-and-neural-networks/perceptron.jpg" title="感知机">
-<p>取一组二进制输入值<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>（附近的神经元） ，将每个输入值乘以一个连续值权重<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>（每个附近神经元的突触强度），并设立一个阈值，如果这些加权输入值的和超过这个阈值，就输出1，否则输出0（同理于神经元是否放电）。</p>
-<p>对于感知机，绝大多数输入值不是一些数据，就是别的感知机的输出值。但有一个额外的细节：感知机有一个特殊的 <em>偏置</em> 输入，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x_0=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span>。这样可以通过调节其权重<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">w_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，使得感知机能够适应更广泛的输入值。</p>
-<h2 id="感知机的学习机制"><a class="markdownIt-Anchor" href="#感知机的学习机制"></a> 感知机的学习机制</h2>
-<p>赫布认为知识和学习发生在大脑主要是通过神经元间突触的形成与变化，即赫布法则：</p>
-<pre><code>当细胞A的轴突足以接近以激发细胞B，并反复持续地对细胞B放电，一些生长过程或代谢变化将发生在某一个或这两个细胞内，以致A作为对B放电的细胞中的一个，效率增加。
-</code></pre>
-<p>如果感知机的 <code>偏置</code> 输入不是固定为1，而是一个<code>偏置</code> 函数：</p>
+{% asset_img logistic02.jpg 逻辑回归过程 %}
+
+<h1 id="神经网络原理"><a href="#神经网络原理" class="headerlink" title="神经网络原理"></a>神经网络原理</h1><h2 id="感知机-Perceptron"><a href="#感知机-Perceptron" class="headerlink" title="感知机(Perceptron)"></a>感知机(Perceptron)</h2><p>一个心理学家弗兰克· 罗森布拉特(Frank Rosenblatt)构想了感知机，使用简化的数学模型解释大脑神经元如何工作：</p>
+{% asset_img perceptron.jpg 感知机 %}
+
+
+<p>取一组二进制输入值$x_i$（附近的神经元） ，将每个输入值乘以一个连续值权重$w_i$（每个附近神经元的突触强度），并设立一个阈值，如果这些加权输入值的和超过这个阈值，就输出1，否则输出0（同理于神经元是否放电）。</p>
+<p>对于感知机，绝大多数输入值不是一些数据，就是别的感知机的输出值。但有一个额外的细节：感知机有一个特殊的 <em>偏置</em> 输入，$x_0=1$。这样可以通过调节其权重$w_0$，使得感知机能够适应更广泛的输入值。</p>
+<h2 id="感知机的学习机制"><a href="#感知机的学习机制" class="headerlink" title="感知机的学习机制"></a>感知机的学习机制</h2><p>赫布认为知识和学习发生在大脑主要是通过神经元间突触的形成与变化，即赫布法则：</p>
+<pre><code>当细胞A的轴突足以接近以激发细胞B，并反复持续地对细胞B放电，一些生长过程或代谢变化将发生在某一个或这两个细胞内，以致A作为对B放电的细胞中的一个，效率增加。</code></pre><p>如果感知机的 <code>偏置</code> 输入不是固定为1，而是一个<code>偏置</code> 函数：</p>
 <ol>
 <li>从感知机有随机的权重和一个训练集开始</li>
 <li>对于训练集中一个实例的输入值，计算感知机的输出值</li>
-<li>如若感知机的输出值和实例中默认正确的输出值不同：
-<ul>
+<li>如若感知机的输出值和实例中默认正确的输出值不同：<ul>
 <li>若输出值应该为0但实际为1，减少输入值是1的例子的权重</li>
 <li>若输出值应该为1但实际为0，增加输入值是1的例子的权重</li>
 </ul>
@@ -412,460 +352,156 @@
 <li>对于训练集中下一个例子做同样的事，重复步骤2-4直到感知机不再出错</li>
 </ol>
 <p>则感知机就有了记忆和学习的功能。</p>
-<img src="/2018/02/23/classify-and-neural-networks/perceptron2.jpg" title="可学习的感知机">
+<img src="/2018/02/23/classify-and-neural-networks/perceptron2.jpg" class="" title="可学习的感知机">
+
+
 <p>从数学角度来看，感知机的函数为：</p>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msub><mi>w</mi><mi>i</mi></msub><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">f = \sum_{i=0}^{n}w_ix_i+b
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.6513970000000002em;"></span><span class="strut bottom" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">b</span></span></span></span></span></p>
+<p>$$f = \sum_{i=0}^{n}w_ix_i+b$$</p>
 <p>其本质是一种线性变换。</p>
-<h2 id="从感知机到神经网络"><a class="markdownIt-Anchor" href="#从感知机到神经网络"></a> 从感知机到神经网络</h2>
-<p>单个感知机智能处理二元的逻辑分类。如果由多个感知机组合，就可以处理多分类问题：</p>
-<img src="/2018/02/23/classify-and-neural-networks/ANN.jpg" title="人工神经网络">
-<p>如上图，将多个感知机连接起来，使得所有的感知机输入都相同，但调节后每次只有一个感知机输出，<br>
-就形成了一个多元的分类器。这种结构称为人工神经网络（ANN，Artificial Neural Networks）。<br>
-在ANN中，感知机被重新命名为“神经元”。</p>
+<h2 id="从感知机到神经网络"><a href="#从感知机到神经网络" class="headerlink" title="从感知机到神经网络"></a>从感知机到神经网络</h2><p>单个感知机智能处理二元的逻辑分类。如果由多个感知机组合，就可以处理多分类问题：</p>
+<img src="/2018/02/23/classify-and-neural-networks/ANN.jpg" class="" title="人工神经网络">
+
+<p>如上图，将多个感知机连接起来，使得所有的感知机输入都相同，但调节后每次只有一个感知机输出，<br>就形成了一个多元的分类器。这种结构称为人工神经网络（ANN，Artificial Neural Networks）。<br>在ANN中，感知机被重新命名为“神经元”。</p>
 <p>我们可以看出，这个神经网络只有一层，即“输出层”。</p>
-<p>尽管将<code>感知机</code>组成了单层的网络，但其本质上仍然是线性变换，处理能力很有限。<br>
-比如，感知机不能学习简单的异或(XOR)——因为XOR不是线性可分的。</p>
-<img src="/2018/02/23/classify-and-neural-networks/xor.png" title="XOR">
+<p>尽管将<code>感知机</code>组成了单层的网络，但其本质上仍然是线性变换，处理能力很有限。<br>比如，感知机不能学习简单的异或(XOR)——因为XOR不是线性可分的。</p>
+<img src="/2018/02/23/classify-and-neural-networks/xor.png" class="" title="XOR">
+
 <p>这种网络的处理能力，与逻辑回归完全相同。</p>
-<h2 id="多层网络"><a class="markdownIt-Anchor" href="#多层网络"></a> 多层网络</h2>
-<p>但是神经网络有一个好处，就是很容易增加层数(即神经网络的深度)。</p>
+<h2 id="多层网络"><a href="#多层网络" class="headerlink" title="多层网络"></a>多层网络</h2><p>但是神经网络有一个好处，就是很容易增加层数(即神经网络的深度)。</p>
 <p>比如，一个三层(单隐层)的神经网络，对n个逻辑回归的n个输出再做m个逻辑回归:</p>
-<img src="/2018/02/23/classify-and-neural-networks/3layer.jpg" title="单隐层神经网络">
+<img src="/2018/02/23/classify-and-neural-networks/3layer.jpg" class="" title="单隐层神经网络">
+
 <p>而且这个过程可以无限递归下去：</p>
-<img src="/2018/02/23/classify-and-neural-networks/multi-layer.jpg" title="多层神经网络">
+<img src="/2018/02/23/classify-and-neural-networks/multi-layer.jpg" class="" title="多层神经网络">
+
 <p>在多层神经网络中，通常把层分为输入层、隐藏层、输出层；所谓的深度学习，就是对有较多隐藏层的神经网络进行训练。</p>
 <p>多层神经网络的数学解释是：</p>
 <p>通过连续多次简单的逻辑回归，最终使得复杂问题线性可分。</p>
-<img src="/2018/02/23/classify-and-neural-networks/capability.jpg" title="处理能力">
-<p>数学家们经过严格的数学证明，双隐层神经网络能够解决任意复杂的分类问题。<br>
-尽管如此，多个隐藏层可以逐步提取特征，使得后续层不必处理嘈杂庞大的原始数据，<br>
-能够简化问题和提高效率。因此深度学习还是很有必要的。</p>
-<p>经过多年的发展，已经形成了很多种变体。下图展示了最流行的神经网络变体，可参考这篇博客 (<a href="http://www.asimovinstitute.org/neural-network-zoo/" target="_blank" rel="noopener">http://www.asimovinstitute.org/neural-network-zoo/</a>)。</p>
-<img src="/2018/02/23/classify-and-neural-networks/XNN.jpg" title="神经网络的变体">
-<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="http://www.cvvision.cn/1973.html" target="_blank" rel="noopener">从初等数学的角度初探神经网络</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p><a href="http://www.cnblogs.com/DjangoBlog/p/7699764.html" target="_blank" rel="noopener">神经网络和深度学习简史（一）</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn3" class="footnote-item"><p><a href="http://www.cvvision.cn/1911.html" target="_blank" rel="noopener">从初等数学视角解读逻辑回归</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
+<img src="/2018/02/23/classify-and-neural-networks/capability.jpg" class="" title="处理能力">
 
-      
+<p>数学家们经过严格的数学证明，双隐层神经网络能够解决任意复杂的分类问题。<br>尽管如此，多个隐藏层可以逐步提取特征，使得后续层不必处理嘈杂庞大的原始数据，<br>能够简化问题和提高效率。因此深度学习还是很有必要的。</p>
+<p>经过多年的发展，已经形成了很多种变体。下图展示了最流行的神经网络变体，可参考这篇博客 (<a href="http://www.asimovinstitute.org/neural-network-zoo/)。" target="_blank" rel="noopener">http://www.asimovinstitute.org/neural-network-zoo/)。</a></p>
+<img src="/2018/02/23/classify-and-neural-networks/XNN.jpg" class="" title="神经网络的变体">
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1>
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
-          
-            <a href="/tags/分类问题/" rel="tag"># 分类问题</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/02/06/the_order.html" rel="next" title="交易系统中的订单(Order)">
-                <i class="fa fa-chevron-left"></i> 交易系统中的订单(Order)
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/" rel="tag"># 分类问题</a>
+              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"># 神经网络</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/23/Neural-Networks-digital-recognition.html" rel="prev" title="用神经网络识别手写数字">
-                用神经网络识别手写数字 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/02/23/Neural-Networks-digital-recognition.html" rel="prev" title="用神经网络识别手写数字">
+      <i class="fa fa-chevron-left"></i> 用神经网络识别手写数字
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/02/28/linear_regression.html" rel="next" title="线性回归">
+      线性回归 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归的机器学习解释"><span class="nav-number">1.</span> <span class="nav-text"> 线性回归的机器学习解释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类问题和逻辑回归"><span class="nav-number">2.</span> <span class="nav-text"> 分类问题和逻辑回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络原理"><span class="nav-number">3.</span> <span class="nav-text"> 神经网络原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机perceptron"><span class="nav-number">3.1.</span> <span class="nav-text"> 感知机(Perceptron)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机的学习机制"><span class="nav-number">3.2.</span> <span class="nav-text"> 感知机的学习机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从感知机到神经网络"><span class="nav-number">3.3.</span> <span class="nav-text"> 从感知机到神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多层网络"><span class="nav-number">3.4.</span> <span class="nav-text"> 多层网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2018/02/23/classify-and-neural-networks.html';
-          this.page.identifier = '2018/02/23/classify-and-neural-networks.html';
-          this.page.title = '分类问题与神经网络';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -880,24 +516,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'f4ff3cd2240d94fa264501fae46550bc',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

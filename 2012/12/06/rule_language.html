@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="规则引擎," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="在规则引擎中，通常会使用某种表述性的语言（而不是编程语言）来描述规则。 所以规则描述语言也是规则引擎的一个重要组成部分。 目前在规则描述语言方面，并没有一个通用的标准获得规则引擎厂商的广泛支持，大部分规则描述语言都是厂商私有的。 大体来说，规则语言可以分为结构化的（Structured)和基于标记的（Markup，通常为xml）。 常见的规则描述语言包括：  srl(Structured Rule">
-<meta name="keywords" content="规则引擎">
+  <meta name="description" content="在规则引擎中，通常会使用某种表述性的语言（而不是编程语言）来描述规则。所以规则描述语言也是规则引擎的一个重要组成部分。 目前在规则描述语言方面，并没有一个通用的标准获得规则引擎厂商的广泛支持，大部分规则描述语言都是厂商私有的。大体来说，规则语言可以分为结构化的（Structured)和基于标记的（Markup，通常为xml）。 常见的规则描述语言包括：  srl(Structured Rule L">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Drools规则描述语言快速手册">
 <meta property="og:url" content="http://holbrook.github.io/2012/12/06/rule_language.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="在规则引擎中，通常会使用某种表述性的语言（而不是编程语言）来描述规则。 所以规则描述语言也是规则引擎的一个重要组成部分。 目前在规则描述语言方面，并没有一个通用的标准获得规则引擎厂商的广泛支持，大部分规则描述语言都是厂商私有的。 大体来说，规则语言可以分为结构化的（Structured)和基于标记的（Markup，通常为xml）。 常见的规则描述语言包括：  srl(Structured Rule">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="og:description" content="在规则引擎中，通常会使用某种表述性的语言（而不是编程语言）来描述规则。所以规则描述语言也是规则引擎的一个重要组成部分。 目前在规则描述语言方面，并没有一个通用的标准获得规则引擎厂商的广泛支持，大部分规则描述语言都是厂商私有的。大体来说，规则语言可以分为结构化的（Structured)和基于标记的（Markup，通常为xml）。 常见的规则描述语言包括：  srl(Structured Rule L">
+<meta property="article:published_time" content="2012-12-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="规则引擎">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Drools规则描述语言快速手册">
-<meta name="twitter:description" content="在规则引擎中，通常会使用某种表述性的语言（而不是编程语言）来描述规则。 所以规则描述语言也是规则引擎的一个重要组成部分。 目前在规则描述语言方面，并没有一个通用的标准获得规则引擎厂商的广泛支持，大部分规则描述语言都是厂商私有的。 大体来说，规则语言可以分为结构化的（Structured)和基于标记的（Markup，通常为xml）。 常见的规则描述语言包括：  srl(Structured Rule">
+
+<link rel="canonical" href="http://holbrook.github.io/2012/12/06/rule_language.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2012/12/06/rule_language.html"/>
-
-
-
-
 
   <title>Drools规则描述语言快速手册 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#package和import声明"><span class="nav-number">2.</span> <span class="nav-text">package和import声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#规则定义"><span class="nav-number">3.</span> <span class="nav-text">规则定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件部分-LHS"><span class="nav-number">3.1.</span> <span class="nav-text">条件部分(LHS)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果部分-RHS"><span class="nav-number">3.2.</span> <span class="nav-text">结果部分(RHS)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用宏函数"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用宏函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#modify代码块"><span class="nav-number">3.2.2.</span> <span class="nav-text">modify代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#drools宏对象"><span class="nav-number">3.2.3.</span> <span class="nav-text">drools宏对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kcontext宏对象"><span class="nav-number">3.2.4.</span> <span class="nav-text">kcontext宏对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规则属性"><span class="nav-number">3.3.</span> <span class="nav-text">规则属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注释"><span class="nav-number">4.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型声明"><span class="nav-number">5.</span> <span class="nav-text">类型声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全局变量（TODO）"><span class="nav-number">6.</span> <span class="nav-text">全局变量（TODO）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数和import-function"><span class="nav-number">7.</span> <span class="nav-text">函数和import function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的定义和使用"><span class="nav-number">7.1.</span> <span class="nav-text">函数的定义和使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入静态方法"><span class="nav-number">7.2.</span> <span class="nav-text">引入静态方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询定义"><span class="nav-number">8.</span> <span class="nav-text">查询定义</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2012/12/06/rule_language.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Drools规则描述语言快速手册</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Drools规则描述语言快速手册
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-12-06T00:00:00+08:00">
-                2012-12-06
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2012-12-06 00:00:00" itemprop="dateCreated datePublished" datetime="2012-12-06T00:00:00+08:00">2012-12-06</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2012/12/06/rule_language.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2012/12/06/rule_language.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,26 +313,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>在规则引擎中，通常会使用某种表述性的语言（而不是编程语言）来描述规则。<br>
-所以规则描述语言也是规则引擎的一个重要组成部分。</p>
-<p>目前在规则描述语言方面，并没有一个通用的标准获得规则引擎厂商的广泛支持，大部分规则描述语言都是厂商私有的。<br>
-大体来说，规则语言可以分为结构化的（Structured)和基于标记的（Markup，通常为xml）。</p>
+        <p>在规则引擎中，通常会使用某种表述性的语言（而不是编程语言）来描述规则。<br>所以规则描述语言也是规则引擎的一个重要组成部分。</p>
+<p>目前在规则描述语言方面，并没有一个通用的标准获得规则引擎厂商的广泛支持，大部分规则描述语言都是厂商私有的。<br>大体来说，规则语言可以分为结构化的（Structured)和基于标记的（Markup，通常为xml）。</p>
 <p>常见的规则描述语言包括：</p>
 <ul>
-<li>srl(Structured Rule Language)	: Fair Isaac（以前是Blaze Software）定义的结构化规则描述语言</li>
-<li>drl(Drools Rule Language)	: Jboss（<a href="http://xn--drools-2x8iq6u483c.org" target="_blank" rel="noopener">以前是drools.org</a>)定义的结构化规则描述语言</li>
-<li>RuleML(Rule Markup Language）: www.ruleml.org定义的xml规则描述语言</li>
+<li>srl(Structured Rule Language)    : Fair Isaac（以前是Blaze Software）定义的结构化规则描述语言</li>
+<li>drl(Drools Rule Language)    : Jboss（以前是drools.org)定义的结构化规则描述语言</li>
+<li>RuleML(Rule Markup Language）: <a href="http://www.ruleml.org定义的xml规则描述语言" target="_blank" rel="noopener">www.ruleml.org定义的xml规则描述语言</a></li>
 <li>SRML(Simple Rule Markup Language): xml规则描述语言</li>
 <li>BRML(Business Rules Markup Language):xml规则描述语言</li>
-<li>SWRL（A Semantic Web Rule Language):www.daml.org定义的xml规则描述语言</li>
+<li>SWRL（A Semantic Web Rule Language):<a href="http://www.daml.org定义的xml规则描述语言" target="_blank" rel="noopener">www.daml.org定义的xml规则描述语言</a></li>
 </ul>
 <p>不管是哪种规则描述语言，都需要描述一组条件以及在此条件下执行的操作（即规则）。</p>
-<h1 id="概览"><a class="markdownIt-Anchor" href="#概览"></a> 概览</h1>
-<p>下面是一个drl的例子：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="title">com.sample</span></span><br><span class="line"></span><br><span class="line">import com.sample.DroolsTest.Message;</span><br><span class="line"></span><br><span class="line">rule <span class="string">"Hello World"</span></span><br><span class="line">    <span class="keyword">when</span></span><br><span class="line">        m : <span class="type">Message</span>( status == Message.HELLO, myMessage : <span class="type">message</span> )</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        System.<span class="keyword">out</span>.println( myMessage );</span><br><span class="line">        m.setMessage( <span class="string">"Goodbye cruel world"</span> );</span><br><span class="line">        m.setStatus( Message.GOODBYE );</span><br><span class="line">        update( m );</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">rule <span class="string">"GoodBye"</span></span><br><span class="line">    <span class="keyword">when</span></span><br><span class="line">        Message( status == Message.GOODBYE, myMessage : <span class="type">message</span> )</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        System.<span class="keyword">out</span>.println( myMessage );</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><p>下面是一个drl的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package com.sample</span><br><span class="line"></span><br><span class="line">import com.sample.DroolsTest.Message;</span><br><span class="line"></span><br><span class="line">rule &quot;Hello World&quot;</span><br><span class="line">    when</span><br><span class="line">        m : Message( status &#x3D;&#x3D; Message.HELLO, myMessage : message )</span><br><span class="line">    then</span><br><span class="line">        System.out.println( myMessage );</span><br><span class="line">        m.setMessage( &quot;Goodbye cruel world&quot; );</span><br><span class="line">        m.setStatus( Message.GOODBYE );</span><br><span class="line">        update( m );</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">rule &quot;GoodBye&quot;</span><br><span class="line">    when</span><br><span class="line">        Message( status &#x3D;&#x3D; Message.GOODBYE, myMessage : message )</span><br><span class="line">    then</span><br><span class="line">        System.out.println( myMessage );</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
 <p>完整的drl文件会包含以下几个部分：</p>
 <ul>
 <li>package 声明</li>
@@ -390,32 +338,31 @@
 <li>queries</li>
 <li>rules</li>
 </ul>
-<h1 id="package和import声明"><a class="markdownIt-Anchor" href="#package和import声明"></a> package和import声明</h1>
-<p>与Java语言类似，drl的头部需要有package和import的声明。</p>
+<h1 id="package和import声明"><a href="#package和import声明" class="headerlink" title="package和import声明"></a>package和import声明</h1><p>与Java语言类似，drl的头部需要有package和import的声明。</p>
 <p>规则文件当中必须要有一个 <strong>package</strong> 声明,同时 package 声明必须要放在规则文件的第一行。</p>
-<h1 id="规则定义"><a class="markdownIt-Anchor" href="#规则定义"></a> 规则定义</h1>
-<p>drl中，一个规则的标准结构如下：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rule <span class="string">"name"</span></span><br><span class="line">    attributes</span><br><span class="line">    <span class="keyword">when</span></span><br><span class="line">        LHS</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        RHS</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="规则定义"><a href="#规则定义" class="headerlink" title="规则定义"></a>规则定义</h1><p>drl中，一个规则的标准结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rule &quot;name&quot;</span><br><span class="line">    attributes</span><br><span class="line">    when</span><br><span class="line">        LHS</span><br><span class="line">    then</span><br><span class="line">        RHS</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
 <p>一个规则通常包括三个部分:属性部分(attribute)、条件 部分(LHS)和结果部分(RHS)。</p>
-<h2 id="条件部分lhs"><a class="markdownIt-Anchor" href="#条件部分lhs"></a> 条件部分(LHS)</h2>
-<p>在 LHS 当中,可以包含多个条件,如果 LHS 部分没空的话,那么引擎会自动添加一 个 eval(true)的条件。</p>
+<h2 id="条件部分-LHS"><a href="#条件部分-LHS" class="headerlink" title="条件部分(LHS)"></a>条件部分(LHS)</h2><p>在 LHS 当中,可以包含多个条件,如果 LHS 部分没空的话,那么引擎会自动添加一 个 eval(true)的条件。</p>
 <p>多个条件之间之间用可以使用 <strong>and</strong> 或 <strong>or</strong> 来进行连接。默认是 <strong>and</strong> 关系。</p>
 <p>每个条件的语法为：</p>
 <p>[绑定变量名:]Object([field 约束])</p>
 <p>“绑定变量名”是可选的。绑定的变量可以在该LHS后续的条件中引用。</p>
 <p>“field 约束”是指当前对象里相关字段的条件限制, 多个约束之间可以用“&amp;&amp;”(and)、“||”(or)和“,”(and)来连接。</p>
 <p>举例如下：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">when</span></span><br><span class="line">   $customer<span class="symbol">:Customer</span>()</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">when</span></span><br><span class="line">   $customer<span class="symbol">:Customer</span>(age&gt;<span class="number">20</span>,gender==􏰃male􏰃)</span><br><span class="line">    Order(customer==$customer,price&gt;<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">when</span></span><br><span class="line">    Customer(age&gt;<span class="number">20</span> <span class="params">||</span> (gender==<span class="string">'male'</span> &amp;&amp; city==‘sh<span class="string">'))</span></span><br><span class="line"><span class="string">then</span></span><br><span class="line"><span class="string">    ……</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">when</span><br><span class="line">   $customer:Customer()</span><br><span class="line">then</span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   $customer:Customer(age&gt;20,gender&#x3D;&#x3D;􏰃male􏰃)</span><br><span class="line">    Order(customer&#x3D;&#x3D;$customer,price&gt;1000)</span><br><span class="line">then</span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">    Customer(age&gt;20 || (gender&#x3D;&#x3D;&#39;male&#39; &amp;&amp; city&#x3D;&#x3D;‘sh&#39;))</span><br><span class="line">then</span><br><span class="line">    ……</span><br></pre></td></tr></table></figure>
+
 <p>约束中可以使用的比较操作符包括：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;、&gt;=、&lt;、&lt;=、= =、!=、<span class="keyword">contains</span>、<span class="keyword">not</span> <span class="keyword">contains</span>、 memberof、<span class="keyword">not</span> memberof、matches、<span class="keyword">not</span> matches</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;、&gt;&#x3D;、&lt;、&lt;&#x3D;、&#x3D; &#x3D;、!&#x3D;、contains、not contains、 memberof、not memberof、matches、not matches</span><br></pre></td></tr></table></figure>
+
 <p>举例如下：</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">when</span></span><br><span class="line">   <span class="variable">$order</span><span class="symbol">:Order</span>();</span><br><span class="line">   <span class="variable">$customer</span><span class="symbol">:Customer</span>(age &gt;<span class="number">20</span>, orders contains<span class="variable">$order</span>);</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">when</span></span><br><span class="line">   <span class="variable">$order</span><span class="symbol">:Order</span>(name memberOf orderNames); <span class="comment"># orderNames为数组或集合类型</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line"><span class="keyword">when</span></span><br><span class="line">   <span class="variable">$customer</span><span class="symbol">:Customer</span>(name matches <span class="string">"李.*"</span>); <span class="comment"># 正则表达式匹配</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    ……</span><br></pre></td></tr></table></figure>
-<h2 id="结果部分rhs"><a class="markdownIt-Anchor" href="#结果部分rhs"></a> 结果部分(RHS)</h2>
-<p>RHS 部分定义了当LHS满足是要进行的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">when</span><br><span class="line">   $order:Order();</span><br><span class="line">   $customer:Customer(age &gt;20, orders contains$order);</span><br><span class="line">then</span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   $order:Order(name memberOf orderNames); # orderNames为数组或集合类型</span><br><span class="line">then</span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   $customer:Customer(name matches &quot;李.*&quot;); # 正则表达式匹配</span><br><span class="line">then</span><br><span class="line">    ……</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果部分-RHS"><a href="#结果部分-RHS" class="headerlink" title="结果部分(RHS)"></a>结果部分(RHS)</h2><p>RHS 部分定义了当LHS满足是要进行的操作。</p>
 <p>RHS中可以编写代码，可以使用 LHS 部分当中定义的绑定变量名以及drl头部定义的全局变量。</p>
 <p>在 RHS 当中虽然可以直接编写 Java 代码,但不建议在代码当中有条件判断,如果需要条件判断,那么请重新考虑将其放在 LHS 当中,否则就违背了使用规则的初衷。</p>
-<h3 id="使用宏函数"><a class="markdownIt-Anchor" href="#使用宏函数"></a> 使用宏函数</h3>
-<p>RHS中可以使用宏函数对工作空间(Working Memory)进行操作。当调用宏函数后，所有未设置“no-loop”属性的规则都会被重新匹配，符合条件的重新触发。</p>
+<h3 id="使用宏函数"><a href="#使用宏函数" class="headerlink" title="使用宏函数"></a>使用宏函数</h3><p>RHS中可以使用宏函数对工作空间(Working Memory)进行操作。当调用宏函数后，所有未设置“no-loop”属性的规则都会被重新匹配，符合条件的重新触发。</p>
 <p>宏函数包括：</p>
 <ul>
 <li>insert：将一个 Fact 对象插入到当前的 Working Memory</li>
@@ -424,12 +371,13 @@
 </ul>
 <p>这些宏函数都是StatefulSession中定义的方法。</p>
 <p>举例如下：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">when</span><br><span class="line">    ……</span><br><span class="line">then</span><br><span class="line">   <span class="built_in"> Customer </span><span class="attribute">cus</span>=new Customer();</span><br><span class="line">    cus.setName(<span class="string">"张三"</span>);</span><br><span class="line">    insert(cus);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   <span class="variable">$customer</span>:Customer(<span class="attribute">name</span>=="张三",age&lt;10);</span><br><span class="line">then</span><br><span class="line">   <span class="variable">$customer</span>.setAge(<span class="variable">$customer</span>.getAge()+1);</span><br><span class="line">    update(<span class="variable">$customer</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   <span class="variable">$customer</span>:Customer(<span class="attribute">name</span>=="张三",age&lt;10);</span><br><span class="line">then</span><br><span class="line">   <span class="built_in"> Customer </span><span class="attribute">customer</span>=new Customer();</span><br><span class="line">    customer.setName(<span class="string">"张三"</span>);</span><br><span class="line">    customer.setAge(<span class="variable">$customer</span>.getAge()+1);</span><br><span class="line"></span><br><span class="line">    # 用新对象替换Working Memory中的旧对象</span><br><span class="line">    update(drools.getWorkingMemory().getFactHandleByIdentity(<span class="variable">$customer</span>),customer);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   <span class="variable">$customer</span>:Customer(<span class="attribute">name</span>=="张三");</span><br><span class="line">then</span><br><span class="line">    retract(<span class="variable">$customer</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="modify代码块"><a class="markdownIt-Anchor" href="#modify代码块"></a> modify代码块</h3>
-<p>modify代码块用于快速修改并更新(update)某个 Fact 对象的多个属性。语法及例子如下：</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">modify</span>(fact-expression)&#123;</span><br><span class="line">    &lt;修改 Fact 属性的表达式&gt;[,&lt;修改 Fact 属性的表达式&gt;*]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">when</span></span><br><span class="line">   $customer:Customer(name==<span class="string">"张三"</span>,age==<span class="number">20</span>);</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="keyword">modify</span>($customer)&#123;</span><br><span class="line">        setId(<span class="string">"super man"</span>),</span><br><span class="line">        setAge(<span class="number">30</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="drools宏对象"><a class="markdownIt-Anchor" href="#drools宏对象"></a> drools宏对象</h3>
-<p>通过使用 drools 宏对象可以实现在规则文件里直接访问 Working Memory, 从而获取对当前的 Working Memory 的更多控制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">when</span><br><span class="line">    ……</span><br><span class="line">then</span><br><span class="line">    Customer cus&#x3D;new Customer();</span><br><span class="line">    cus.setName(&quot;张三&quot;);</span><br><span class="line">    insert(cus);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   $customer:Customer(name&#x3D;&#x3D;&quot;张三&quot;,age&lt;10);</span><br><span class="line">then</span><br><span class="line">   $customer.setAge($customer.getAge()+1);</span><br><span class="line">    update($customer);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   $customer:Customer(name&#x3D;&#x3D;&quot;张三&quot;,age&lt;10);</span><br><span class="line">then</span><br><span class="line">    Customer customer&#x3D;new Customer();</span><br><span class="line">    customer.setName(&quot;张三&quot;);</span><br><span class="line">    customer.setAge($customer.getAge()+1);</span><br><span class="line"></span><br><span class="line">    # 用新对象替换Working Memory中的旧对象</span><br><span class="line">    update(drools.getWorkingMemory().getFactHandleByIdentity($customer),customer);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   $customer:Customer(name&#x3D;&#x3D;&quot;张三&quot;);</span><br><span class="line">then</span><br><span class="line">    retract($customer);</span><br></pre></td></tr></table></figure>
+
+<h3 id="modify代码块"><a href="#modify代码块" class="headerlink" title="modify代码块"></a>modify代码块</h3><p>modify代码块用于快速修改并更新(update)某个 Fact 对象的多个属性。语法及例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">modify(fact-expression)&#123;</span><br><span class="line">    &lt;修改 Fact 属性的表达式&gt;[,&lt;修改 Fact 属性的表达式&gt;*]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">when</span><br><span class="line">   $customer:Customer(name&#x3D;&#x3D;&quot;张三&quot;,age&#x3D;&#x3D;20);</span><br><span class="line">then</span><br><span class="line">    modify($customer)&#123;</span><br><span class="line">        setId(&quot;super man&quot;),</span><br><span class="line">        setAge(30)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="drools宏对象"><a href="#drools宏对象" class="headerlink" title="drools宏对象"></a>drools宏对象</h3><p>通过使用 drools 宏对象可以实现在规则文件里直接访问 Working Memory, 从而获取对当前的 Working Memory 的更多控制。</p>
 <p>drools 宏对象的常用方法包括：</p>
 <ul>
 <li>drools.getWorkingMemory()：获取当前的 WorkingMemory 对象</li>
@@ -441,509 +389,210 @@
 <li>drools.retract(new Object)：从当前的 WorkingMemory 中删除指 定的对象,功能与宏函数 retract 相 同。</li>
 </ul>
 <p>例如：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">when</span><br><span class="line">    eval(<span class="literal">true</span>);</span><br><span class="line">then</span><br><span class="line">   <span class="built_in"> Customer </span><span class="attribute">cus</span>=new Customer();</span><br><span class="line">    cus.setName(<span class="string">"张三"</span>);</span><br><span class="line">    drools.insert(cus)</span><br></pre></td></tr></table></figure>
-<h3 id="kcontext宏对象"><a class="markdownIt-Anchor" href="#kcontext宏对象"></a> kcontext宏对象</h3>
-<p>kcontext 也是 Drools 提供的一个宏对象,它的作用主要是用来得到当前的 KnowledgeRuntime 对象,KnowledgeRuntime 对象可以实现与引擎的各种交互。</p>
-<h2 id="规则属性"><a class="markdownIt-Anchor" href="#规则属性"></a> 规则属性</h2>
-<p>主要的规则属性如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">when</span><br><span class="line">    eval(true);</span><br><span class="line">then</span><br><span class="line">    Customer cus&#x3D;new Customer();</span><br><span class="line">    cus.setName(&quot;张三&quot;);</span><br><span class="line">    drools.insert(cus)</span><br></pre></td></tr></table></figure>
+
+<h3 id="kcontext宏对象"><a href="#kcontext宏对象" class="headerlink" title="kcontext宏对象"></a>kcontext宏对象</h3><p>kcontext 也是 Drools 提供的一个宏对象,它的作用主要是用来得到当前的 KnowledgeRuntime 对象,KnowledgeRuntime 对象可以实现与引擎的各种交互。</p>
+<h2 id="规则属性"><a href="#规则属性" class="headerlink" title="规则属性"></a>规则属性</h2><p>主要的规则属性如下：</p>
 <p>13 个:  auto-focus、、lock-on-active、no-loop、 ruleflow-group、、when。</p>
 <ul>
-<li>
-<p>salience</p>
+<li><p>salience</p>
 <p>设置规则执行的优先级,数字越大越先执行，数字相同的使用随机顺序。默认值为0，可以设置为负数。</p>
 </li>
-<li>
-<p>no-loop</p>
+<li><p>no-loop</p>
 <p>默认为false。设置为true时，表示该规则只会被引擎检查一次。引擎内部对Fact更新时，忽略本规则的再次检查。</p>
 </li>
-<li>
-<p>date-effective</p>
+<li><p>date-effective</p>
 <p>设置规则的开始生效日期。默认接受“dd-MMM-yyyy”格式的字符串。可以用代码修改日期格式，如：</p>
 <p><code>System.setProperty(&quot;drools.dateformat&quot;,&quot;yyyy-MM-dd&quot;)</code>。</p>
 </li>
-<li>
-<p>date-expires</p>
+<li><p>date-expires</p>
 <p>设置规则的过期日期。格式与<code>date-effective</code>相同。</p>
 </li>
-<li>
-<p>enabled</p>
+<li><p>enabled</p>
 <p>默认为true。设置规则是否可用。</p>
 </li>
-<li>
-<p>dialect</p>
+<li><p>dialect</p>
 <p>设置规则中使用的编程语言。默认为java，还可以设置为mvel。通过drools.getRule().getDialect()可以获取该属性的设置。</p>
 </li>
-<li>
-<p>duration</p>
+<li><p>duration</p>
 <p>延迟指定的时间后，在 <strong>另一个线程中</strong> 触发规则。单位为毫秒。</p>
 </li>
-<li>
-<p>activation-group</p>
+<li><p>activation-group</p>
 <p>为规则划指定一个活动组（组名为字符串）。同一个活动组中的规则只执行一个，根据优先级(salience)来决定执行哪一个规则。</p>
 </li>
-<li>
-<p>agenda-group 和 auto-focus</p>
+<li><p>agenda-group 和 auto-focus</p>
 <p>为规则指定一个议程(agenda)组。指定了议程组的规则只有在该议程组得到焦点时才被触发。但如果规则同时指定了auto-focus属性为true，则该规则自动得到焦点。</p>
 <p>指定议程组焦点可以通过回话(session)：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">session</span><span class="selector-class">.getAgenda</span>()<span class="selector-class">.getAgendaGroup</span>(<span class="string">"GROUP_NAME"</span>)<span class="selector-class">.setFocus</span>();</span><br><span class="line"><span class="selector-tag">session</span><span class="selector-class">.fireAllRules</span>();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">session.getAgenda().getAgendaGroup(&quot;GROUP_NAME&quot;).setFocus();</span><br><span class="line">session.fireAllRules();</span><br></pre></td></tr></table></figure>
+
 <p>也可以实现org.drools.runtime.rule.AgendaFilter 接口：</p>
 </li>
 </ul>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">import</span> org.drools.runtime.rule.Activation;</span><br><span class="line"><span class="keyword">import</span> org.drools.runtime.rule.AgendaFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAgendaFilter</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">AgendaFilter</span></span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> startName;</span><br><span class="line">    <span class="keyword">public</span> TestAgendaFilter(<span class="keyword">String</span> startName)&#123;</span><br><span class="line">        <span class="built_in">this</span>.startName=startName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> boolean accept(Activation activation) &#123;</span><br><span class="line">        <span class="keyword">String</span> ruleName=activation.getRule().getName();</span><br><span class="line">        <span class="keyword">if</span>(ruleName.startsWith(<span class="built_in">this</span>.startName))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line">import org.drools.runtime.rule.Activation;</span><br><span class="line">import org.drools.runtime.rule.AgendaFilter;</span><br><span class="line"></span><br><span class="line">public class TestAgendaFilter implements AgendaFilter &#123;</span><br><span class="line">    private String startName;</span><br><span class="line">    public TestAgendaFilter(String startName)&#123;</span><br><span class="line">        this.startName&#x3D;startName;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean accept(Activation activation) &#123;</span><br><span class="line">        String ruleName&#x3D;activation.getRule().getName();</span><br><span class="line">        if(ruleName.startsWith(this.startName))&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>
-<p>ruleflow-group</p>
+<li><p>ruleflow-group</p>
 <p>指定规则流组。</p>
 </li>
-<li>
-<p>lock-on-active</p>
+<li><p>lock-on-active</p>
 <p>当在规则上使用 ruleflow-group 属性或 agenda-group 属性的时候,将 lock-on-action 属性 的值设置为 true,可能避免因某些 Fact 对象被修改而使已经执行过的规则再次被激活执行。lock-on-active 是 no-loop 的增强版属性，在规则流中很有用。</p>
 </li>
 </ul>
 <p>举例如下：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rule <span class="string">"rule1"</span></span><br><span class="line">    salience <span class="number">1</span></span><br><span class="line">    <span class="keyword">when</span></span><br><span class="line">    ……</span><br></pre></td></tr></table></figure>
-<h1 id="注释"><a class="markdownIt-Anchor" href="#注释"></a> 注释</h1>
-<p>Drools 当中注释的写法与编写 Java 类的注 释的写法完全相同,注释的写法分两种:单行注释与多行注释。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rule &quot;rule1&quot;</span><br><span class="line">    salience 1</span><br><span class="line">    when</span><br><span class="line">    ……</span><br></pre></td></tr></table></figure>
+
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p>Drools 当中注释的写法与编写 Java 类的注 释的写法完全相同,注释的写法分两种:单行注释与多行注释。</p>
 <p>单行注释可以采用“#”或者“//”来进行标记， 多行注释以“/<em>”开始,以“</em>/”结束。</p>
 <p>例如：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 规则rule1的注释</span></span><br><span class="line"><span class="comment">这是一个测试用规则</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">rule <span class="string">"rule1"</span></span><br><span class="line">    when</span><br><span class="line">        eval(<span class="literal">true</span>) <span class="comment">#没有条件判断</span></span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        System.out.println(<span class="string">"rule1 execute"</span>);<span class="comment"> //仅仅是输出</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h1 id="类型声明"><a class="markdownIt-Anchor" href="#类型声明"></a> 类型声明</h1>
-<p>可以在规则文件中定义Fact类型，而不需要编写Java类。比如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> Address</span><br><span class="line">    city : <span class="keyword">String</span></span><br><span class="line">    addressName : <span class="keyword">String</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> Person</span><br><span class="line">    <span class="keyword">name</span>:<span class="keyword">String</span></span><br><span class="line">    birthday:<span class="built_in">Date</span></span><br><span class="line">    address:Address //使用<span class="keyword">declare</span>声明的对象作为address属性类型</span><br><span class="line">    <span class="keyword">order</span>:<span class="keyword">Order</span> //使用名为<span class="keyword">Order</span>的JavaBean作为<span class="keyword">order</span>属性类型</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 规则rule1的注释</span><br><span class="line">这是一个测试用规则</span><br><span class="line">*&#x2F;</span><br><span class="line">rule &quot;rule1&quot;</span><br><span class="line">    when</span><br><span class="line">        eval(true) #没有条件判断</span><br><span class="line">    then</span><br><span class="line">        System.out.println(&quot;rule1 execute&quot;); &#x2F;&#x2F;仅仅是输出</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h1><p>可以在规则文件中定义Fact类型，而不需要编写Java类。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">declare Address</span><br><span class="line">    city : String</span><br><span class="line">    addressName : String</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">declare Person</span><br><span class="line">    name:String</span><br><span class="line">    birthday:Date</span><br><span class="line">    address:Address &#x2F;&#x2F;使用declare声明的对象作为address属性类型</span><br><span class="line">    order:Order &#x2F;&#x2F;使用名为Order的JavaBean作为order属性类型</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
 <p>在KnowledgeBase中可以获取规则文件中定义的Fact类型，比如：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//获取规则文件当中定义的Address对象并对其进行实例化</span><br><span class="line">FactType addressType=knowledgeBase.getFactType(<span class="string">"test"</span>,<span class="string">"Address"</span>);</span><br><span class="line">Object <span class="keyword">add</span><span class="bash">=addressType.newInstance();</span></span><br><span class="line"><span class="bash">addressType.set(add, <span class="string">"city"</span>,<span class="string">"Beijing"</span>);</span></span><br><span class="line"><span class="bash">addressType.set(add, <span class="string">"addressName"</span>,<span class="string">"Capital"</span>);</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;获取规则文件当中定义的Address对象并对其进行实例化</span><br><span class="line">FactType addressType&#x3D;knowledgeBase.getFactType(&quot;test&quot;,&quot;Address&quot;);</span><br><span class="line">Object add&#x3D;addressType.newInstance();</span><br><span class="line">addressType.set(add, &quot;city&quot;,&quot;Beijing&quot;);</span><br><span class="line">addressType.set(add, &quot;addressName&quot;,&quot;Capital&quot;);</span><br></pre></td></tr></table></figure>
+
 <p>在声明中还可以定义元数据。可以为 Fact 对象、Fact对象的属性或者是规则来定义元数据,元数据定义采用的是“@”符号开头。</p>
 <p>比如：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">declare User</span><br><span class="line">    @createTime(2009-10-25)</span><br><span class="line">    username : String @maxLenth(30)</span><br><span class="line">    userid : String @key</span><br><span class="line">    birthday : java.util.Date</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">declare User</span><br><span class="line">    @createTime(2009-10-25)</span><br><span class="line">    username : String @maxLenth(30)</span><br><span class="line">    userid : String @key</span><br><span class="line">    birthday : java.util.Date</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
 <p>元数据的获取？(TODO)</p>
-<h1 id="全局变量todo"><a class="markdownIt-Anchor" href="#全局变量todo"></a> 全局变量（TODO）</h1>
-<h1 id="函数和import-function"><a class="markdownIt-Anchor" href="#函数和import-function"></a> 函数和import function</h1>
-<h2 id="函数的定义和使用"><a class="markdownIt-Anchor" href="#函数的定义和使用"></a> 函数的定义和使用</h2>
-<p>函数是定义在规则文件当中一代码块,作用是将在规则文件当中若干个规则都会用到的业务操作封装起来,实现业务代码的复用,减少规则编写的工作量。<br>
-函数的可见范围是函数所在的规则文件。</p>
+<h1 id="全局变量（TODO）"><a href="#全局变量（TODO）" class="headerlink" title="全局变量（TODO）"></a>全局变量（TODO）</h1><h1 id="函数和import-function"><a href="#函数和import-function" class="headerlink" title="函数和import function"></a>函数和import function</h1><h2 id="函数的定义和使用"><a href="#函数的定义和使用" class="headerlink" title="函数的定义和使用"></a>函数的定义和使用</h2><p>函数是定义在规则文件当中一代码块,作用是将在规则文件当中若干个规则都会用到的业务操作封装起来,实现业务代码的复用,减少规则编写的工作量。<br>函数的可见范围是函数所在的规则文件。</p>
 <p>函数以function定义，可以是void，也可以有返回值。例如：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package <span class="keyword">test</span></span><br><span class="line">import java.util.<span class="keyword">List</span>;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">一个测试函数</span></span><br><span class="line"><span class="comment">用来向Customer对象当中添加指定数量的Order对象的函数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line">function void setOrder(Customer customer,int orderSize) &#123;</span><br><span class="line">    <span class="keyword">List</span> <span class="keyword">ls</span>=new ArrayList();</span><br><span class="line">    <span class="keyword">for</span>(int i=0;i&lt; orderSize;i++)&#123;</span><br><span class="line">        <span class="keyword">Order</span> <span class="keyword">order</span>=new <span class="keyword">Order</span>();</span><br><span class="line">        <span class="keyword">ls</span>.add(<span class="keyword">order</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    customer.setOrders(<span class="keyword">ls</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试规则</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">rule <span class="string">"rule1"</span> when</span><br><span class="line">   <span class="variable">$customer</span> :Customer();</span><br><span class="line">then</span><br><span class="line">    setOrder(<span class="variable">$customer</span>,5);</span><br><span class="line">    System.<span class="keyword">out</span>.println(<span class="string">"rule 1 customer has order size:"</span>+<span class="variable">$customer</span>.getOrders().size());</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试规则</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">rule <span class="string">"rule2"</span> when</span><br><span class="line">   <span class="variable">$customer</span> :Customer();</span><br><span class="line">then</span><br><span class="line">    setOrder(<span class="variable">$customer</span>,10);</span><br><span class="line">    System.<span class="keyword">out</span>.println(<span class="string">"rule 2 customer has order size:"</span>+<span class="variable">$customer</span>.getOrders().size());</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<h2 id="引入静态方法"><a class="markdownIt-Anchor" href="#引入静态方法"></a> 引入静态方法</h2>
-<p>实际应用当中,可以考虑使用在 Java 类当中定义静态方法的办法来替代在规则文件当 中定义函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package test</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">&#x2F;*</span><br><span class="line">一个测试函数</span><br><span class="line">用来向Customer对象当中添加指定数量的Order对象的函数</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line">function void setOrder(Customer customer,int orderSize) &#123;</span><br><span class="line">    List ls&#x3D;new ArrayList();</span><br><span class="line">    for(int i&#x3D;0;i&lt; orderSize;i++)&#123;</span><br><span class="line">        Order order&#x3D;new Order();</span><br><span class="line">        ls.add(order);</span><br><span class="line">    &#125;</span><br><span class="line">    customer.setOrders(ls);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">测试规则</span><br><span class="line">*&#x2F;</span><br><span class="line">rule &quot;rule1&quot; when</span><br><span class="line">   $customer :Customer();</span><br><span class="line">then</span><br><span class="line">    setOrder($customer,5);</span><br><span class="line">    System.out.println(&quot;rule 1 customer has order size:&quot;+$customer.getOrders().size());</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">测试规则</span><br><span class="line">*&#x2F;</span><br><span class="line">rule &quot;rule2&quot; when</span><br><span class="line">   $customer :Customer();</span><br><span class="line">then</span><br><span class="line">    setOrder($customer,10);</span><br><span class="line">    System.out.println(&quot;rule 2 customer has order size:&quot;+$customer.getOrders().size());</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h2 id="引入静态方法"><a href="#引入静态方法" class="headerlink" title="引入静态方法"></a>引入静态方法</h2><p>实际应用当中,可以考虑使用在 Java 类当中定义静态方法的办法来替代在规则文件当 中定义函数。</p>
 <p>Drools 提供了一个特殊的 import 语句:import function,通过该 import 语句,可以实现将一个 Java 类中静态方法引入到一个规则文件当中,使得该文件当中的规 则可以像使用普通的 Drools 函数一样来使用 Java 类中某个静态方法。</p>
 <p>比如：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RuleTools</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printInfo</span>(<span class="params">String name</span>)</span>&#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"your name is :"</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test</span><br><span class="line">import <span class="keyword">function</span> test.RuleTools.printInfo;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试规则</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">rule <span class="string">"rule1"</span></span><br><span class="line">    <span class="keyword">when</span></span><br><span class="line">        eval(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        printInfo(<span class="string">"test import function"</span>);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h1 id="查询定义"><a class="markdownIt-Anchor" href="#查询定义"></a> 查询定义</h1>
-<p>查询用于根据条件在当前的 WorkingMemory 当中查找 Fact。Drools 当中查询可分为两种:一种是不需要外部传入参数;一种是需要外部传入参 数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line">public class RuleTools &#123;</span><br><span class="line">    public static void printInfo(String name)&#123;</span><br><span class="line">        System.out.println(&quot;your name is :&quot;+name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package test</span><br><span class="line">import function test.RuleTools.printInfo;</span><br><span class="line">&#x2F;*</span><br><span class="line">测试规则</span><br><span class="line">*&#x2F;</span><br><span class="line">rule &quot;rule1&quot;</span><br><span class="line">    when</span><br><span class="line">        eval(true);</span><br><span class="line">    then</span><br><span class="line">        printInfo(&quot;test import function&quot;);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h1 id="查询定义"><a href="#查询定义" class="headerlink" title="查询定义"></a>查询定义</h1><p>查询用于根据条件在当前的 WorkingMemory 当中查找 Fact。Drools 当中查询可分为两种:一种是不需要外部传入参数;一种是需要外部传入参 数。</p>
 <p>如：</p>
-<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">query <span class="string">"testQuery"</span></span><br><span class="line">    customer:Customer(age&gt;<span class="number">30</span>,orders.size &gt;<span class="number">10</span>)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">query <span class="string">"testQuery2"</span>(<span class="built_in">int</span>$age,<span class="built_in">String</span>$gender)</span><br><span class="line">    customer:Customer(age&gt;$age,gender==$gender)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">query &quot;testQuery&quot;</span><br><span class="line">    customer:Customer(age&gt;30,orders.size &gt;10)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">query &quot;testQuery2&quot;(int$age,String$gender)</span><br><span class="line">    customer:Customer(age&gt;$age,gender&#x3D;&#x3D;$gender)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
 <p>通过session可以在外部调用规则文件中的查询，比如：</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">QueryResults queryResults=statefulSession.getQueryResults(<span class="string">"testQuery"</span>);</span><br><span class="line"><span class="keyword">for</span>(QueryResultsRow <span class="built_in">qr</span>:queryResults)&#123;</span><br><span class="line">    Customer cus=(Customer)<span class="built_in">qr</span>.get(<span class="string">"customer"</span>); <span class="comment">//打印查询结果</span></span><br><span class="line">    <span class="keyword">System</span>.out.println(<span class="string">"customer name :"</span>+cus.<span class="built_in">getName</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">QueryResults queryResults2=statefulSession.getQueryResults(<span class="string">"testQuery2"</span>, <span class="keyword">new</span> Object[]&#123;<span class="keyword">new</span> Integer(<span class="number">20</span>),<span class="string">"F"</span>&#125;);</span><br><span class="line"></span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">QueryResults queryResults&#x3D;statefulSession.getQueryResults(&quot;testQuery&quot;);</span><br><span class="line">for(QueryResultsRow qr:queryResults)&#123;</span><br><span class="line">    Customer cus&#x3D;(Customer)qr.get(&quot;customer&quot;); &#x2F;&#x2F;打印查询结果</span><br><span class="line">    System.out.println(&quot;customer name :&quot;+cus.getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">QueryResults queryResults2&#x3D;statefulSession.getQueryResults(&quot;testQuery2&quot;, new Object[]&#123;new Integer(20),&quot;F&quot;&#125;);</span><br><span class="line"></span><br><span class="line">……</span><br></pre></td></tr></table></figure>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/规则引擎/" rel="tag"># 规则引擎</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2012/12/05/algorithm_of_pattern_match.html" rel="next" title="规则引擎中常用的模式匹配算法">
-                <i class="fa fa-chevron-left"></i> 规则引擎中常用的模式匹配算法
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/" rel="tag"># 规则引擎</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2012/12/07/jsr94.html" rel="prev" title="Java规则引擎规范：JSR94">
-                Java规则引擎规范：JSR94 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2012/12/05/python_env.html" rel="prev" title="python的环境管理">
+      <i class="fa fa-chevron-left"></i> python的环境管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2012/12/07/jsr94.html" rel="next" title="Java规则引擎规范：JSR94">
+      Java规则引擎规范：JSR94 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text"> 概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#package和import声明"><span class="nav-number">2.</span> <span class="nav-text"> package和import声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#规则定义"><span class="nav-number">3.</span> <span class="nav-text"> 规则定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件部分lhs"><span class="nav-number">3.1.</span> <span class="nav-text"> 条件部分(LHS)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果部分rhs"><span class="nav-number">3.2.</span> <span class="nav-text"> 结果部分(RHS)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用宏函数"><span class="nav-number">3.2.1.</span> <span class="nav-text"> 使用宏函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#modify代码块"><span class="nav-number">3.2.2.</span> <span class="nav-text"> modify代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#drools宏对象"><span class="nav-number">3.2.3.</span> <span class="nav-text"> drools宏对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kcontext宏对象"><span class="nav-number">3.2.4.</span> <span class="nav-text"> kcontext宏对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规则属性"><span class="nav-number">3.3.</span> <span class="nav-text"> 规则属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注释"><span class="nav-number">4.</span> <span class="nav-text"> 注释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型声明"><span class="nav-number">5.</span> <span class="nav-text"> 类型声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全局变量todo"><span class="nav-number">6.</span> <span class="nav-text"> 全局变量（TODO）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数和import-function"><span class="nav-number">7.</span> <span class="nav-text"> 函数和import function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的定义和使用"><span class="nav-number">7.1.</span> <span class="nav-text"> 函数的定义和使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入静态方法"><span class="nav-number">7.2.</span> <span class="nav-text"> 引入静态方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询定义"><span class="nav-number">8.</span> <span class="nav-text"> 查询定义</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2012/12/06/rule_language.html';
-          this.page.identifier = '2012/12/06/rule_language.html';
-          this.page.title = 'Drools规则描述语言快速手册';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -958,24 +607,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '91d50a88491895ae46604de659a40cd4',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

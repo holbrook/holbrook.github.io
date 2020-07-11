@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="python," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="《利用Python进行数据分析》读书笔记。 第8章：绘图和可视化。">
-<meta name="keywords" content="python">
+  <meta name="description" content="《利用Python进行数据分析》读书笔记。 第8章：绘图和可视化。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Python进行数据分析(8)：绘图和可视化">
 <meta property="og:url" content="http://holbrook.github.io/2017/03/15/python_data_analysis8.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="《利用Python进行数据分析》读书笔记。 第8章：绘图和可视化。">
-<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAADFCAYAAACinb+CAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3Xt4VPW1//H3SkQEhAYUMQQxRUWMoOiJUitejlilVgp4
 APXXAmotnvOIUM8BBf1paRVEsXikXlq0VqzSU0EREdRyU7THnxiUi0BRQW4xAoIICgWSrN8fmdCo
@@ -8463,10 +8405,11 @@ g4k3yjq01r5VVSeSPJvktSRfbK1d9U/g3IpG/Fn4oyRfrqrnsvqO5c+01l4d26S3QFX9WZKPJnlX
 VS0l+cMkP5WMlouyVbYmsvUy2SpbL3uz2dr9uqtn4wEAgPXcwQ8AADqUZQAA6FCWAQCgQ1kGAIAO
 ZRkAADqUZQAA6FCWAQCgQ1kGAICO/x9rLLf8FVQBQAAAAABJRU5ErkJggg==
 ">
-<meta property="og:updated_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:published_time" content="2017-03-14T16:00:00.000Z">
+<meta property="article:modified_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Python进行数据分析(8)：绘图和可视化">
-<meta name="twitter:description" content="《利用Python进行数据分析》读书笔记。 第8章：绘图和可视化。">
 <meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAADFCAYAAACinb+CAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3Xt4VPW1//H3SkQEhAYUMQQxRUWMoOiJUitejlilVgp4
 APXXAmotnvOIUM8BBf1paRVEsXikXlq0VqzSU0EREdRyU7THnxiUi0BRQW4xAoIICgWSrN8fmdCo
@@ -8642,52 +8585,28 @@ iU/aJ8siIiIiIomS7mUYIiIiIiIJo2RZRERERKQGSpZFRERERGqgZFlEREREpAZKlkVEREREaqBk
 WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
 ">
 
+<link rel="canonical" href="http://holbrook.github.io/2017/03/15/python_data_analysis8.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/03/15/python_data_analysis8.html"/>
-
-
-
-
 
   <title>利用Python进行数据分析(8)：绘图和可视化 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -8696,213 +8615,247 @@ WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#matplotlib-API&#20837;&#38376;"><span class="nav-number">1.</span> <span class="nav-text">matplotlib API&amp;#20837;&amp;#38376;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Figure&#21644;Subplot"><span class="nav-number">1.1.</span> <span class="nav-text">Figure&amp;#21644;Subplot&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#35843;&#25972;subplot&#21608;&#22260;&#30340;&#38388;&#36317;"><span class="nav-number">1.2.</span> <span class="nav-text">&amp;#35843;&amp;#25972;subplot&amp;#21608;&amp;#22260;&amp;#30340;&amp;#38388;&amp;#36317;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#39068;&#33394;&#12289;&#26631;&#35760;&#21644;&#32447;&#22411;"><span class="nav-number">1.3.</span> <span class="nav-text">&amp;#39068;&amp;#33394;&amp;#12289;&amp;#26631;&amp;#35760;&amp;#21644;&amp;#32447;&amp;#22411;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#21051;&#24230;&#12289;&#26631;&#31614;&#21644;&#22270;&#20363;"><span class="nav-number">1.4.</span> <span class="nav-text">&amp;#21051;&amp;#24230;&amp;#12289;&amp;#26631;&amp;#31614;&amp;#21644;&amp;#22270;&amp;#20363;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#27880;&#35299;&#21450;&#22312;-subplot-&#19978;&#32472;&#22270;"><span class="nav-number">1.5.</span> <span class="nav-text">&amp;#27880;&amp;#35299;&amp;#21450;&amp;#22312; subplot &amp;#19978;&amp;#32472;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20445;&#23384;&#21040;&#25991;&#20214;"><span class="nav-number">1.6.</span> <span class="nav-text">&amp;#20445;&amp;#23384;&amp;#21040;&amp;#25991;&amp;#20214;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pandas&#20013;&#30340;&#32472;&#22270;&#20989;&#25968;"><span class="nav-number">2.</span> <span class="nav-text">pandas&amp;#20013;&amp;#30340;&amp;#32472;&amp;#22270;&amp;#20989;&amp;#25968;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#32447;&#24418;&#22270;"><span class="nav-number">2.1.</span> <span class="nav-text">&amp;#32447;&amp;#24418;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#26609;&#29366;&#22270;"><span class="nav-number">2.2.</span> <span class="nav-text">&amp;#26609;&amp;#29366;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#30452;&#26041;&#22270;&#21644;&#23494;&#24230;&#22270;"><span class="nav-number">2.3.</span> <span class="nav-text">&amp;#30452;&amp;#26041;&amp;#22270;&amp;#21644;&amp;#23494;&amp;#24230;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#25955;&#28857;&#22270;"><span class="nav-number">2.4.</span> <span class="nav-text">&amp;#25955;&amp;#28857;&amp;#22270;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#32472;&#21046;&#22320;&#22270;"><span class="nav-number">3.</span> <span class="nav-text">&amp;#32472;&amp;#21046;&amp;#22320;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-&#22270;&#24418;&#21270;&#24037;&#20855;&#29983;&#24577;&#31995;&#32479;"><span class="nav-number">4.</span> <span class="nav-text">Python &amp;#22270;&amp;#24418;&amp;#21270;&amp;#24037;&amp;#20855;&amp;#29983;&amp;#24577;&amp;#31995;&amp;#32479;&amp;#182;</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/03/15/python_data_analysis8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">利用Python进行数据分析(8)：绘图和可视化</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          利用Python进行数据分析(8)：绘图和可视化
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-15T00:00:00+08:00">
-                2017-03-15
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-15T00:00:00+08:00">2017-03-15</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/03/15/python_data_analysis8.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/03/15/python_data_analysis8.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 1970-01-01 08:00:00" itemprop="dateModified" datetime="1970-01-01T08:00:00+08:00">1970-01-01</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -8910,11 +8863,7 @@ WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>
-第8章：绘图和可视化。</p>
+        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br> 第8章：绘图和可视化。</p>
 <a id="more"></a>
 
 <div class="notebook-border">
@@ -8922,7 +8871,7 @@ WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -8939,7 +8888,7 @@ WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -8961,7 +8910,7 @@ WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>绘图是数据分析工作中，最重要的任务之一。是数据探索过程的一部分。</p>
@@ -8983,7 +8932,7 @@ WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
 <span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># 默认在最后一个 subplot 上绘制</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">randn</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(),</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
 
 <span class="c1">#fig.add_subplot 返回的对象是AxesSubplot对象</span>
@@ -9184,7 +9133,8 @@ IvFJ+zv4mdllVNRPZgNPuPvYkENqEDP7M3AhcDSwBfgl8ALwLNAe2AAMcPdvLgJMC2bWHXgDWME/
 611vo6JuOSpjPI2KxV/ZVPxB+qy7/9rMjiIiY6wUK8MY4e6XR2l8ZtaBitlkqChXm+ruY6M0RhER
 iU/aJ8siIiIiIomS7mUYIiIiIiIJo2RZRERERKQGSpZFRERERGqgZFlEREREpAZKlkVEREREaqBk
 WURERESkBkqWRURERERq8P8BJiGEYEL1aLQAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -9360,7 +9310,8 @@ xZr9i4jfRsRbyesngcslbWxeF+uikhw6IVdIR7aV5tAJ2aYhV6gih1YVglpuW9Eu1twGSddJUvJ6
 O4XP+82m97Q2leTQCblCOrKtNIdOyDYNuUIVObTkq6Go4bYV7aLMbfgMcJ+kBeAdYDiSw/rtQtIh
 CmdKbJQ0B3yJws3HKs6hE3KFzsi2nrkmy6z7bDshV6h/tuBbTJiZpZ6vLDYzSzkXAjOzlHMhMDNL
 ORcCM7OUcyEwM0s5FwIzs5RzITAzS7n/D6S4WVnyisIiAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -9403,7 +9354,7 @@ ORcCM7OUcyEwM0s5FwIzs5RzITAzS7n/D6S4WVnyisIiAAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>可以指定多个 subplot  共用坐标轴。</p>
@@ -9522,7 +9473,8 @@ PW2TZHx2cmxKOcYnB0VLtg9JelLSX0TERtP17Mb2Tdo88HRAm/9YXpT0t20+U9e2Ja1LejciHmu6
 nq7pyvjs4tiU8oxPAr1k+w1JfyrpnXLRjyLiCw2WtCvbfy3pn/SHyy58peGSdmX7zyX9p6RXJP1v
 ufiJ8mxjjNCl8dm1sSnlGZ8EOgAkwadcACAJAh0AkiDQASAJAh0AkiDQASAJAh0AkiDQASAJAh0A
 kvg/bx6P45HuWvQAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -9532,7 +9484,7 @@ kvg/bx6P45HuWvQAAAAASUVORK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#39068;&#33394;&#12289;&#26631;&#35760;&#21644;&#32447;&#22411;">&#39068;&#33394;&#12289;&#26631;&#35760;&#21644;&#32447;&#22411;<a class="anchor-link" href="#&#39068;&#33394;&#12289;&#26631;&#35760;&#21644;&#32447;&#22411;">&#182;</a></h2>
@@ -9762,7 +9714,8 @@ e7XOkSsV9lNAiyteNy99z2VprU+V/vsc8C0lw03u4GzpOGjZeOg5k/PYRGt9tvQXzwp8iIudp9Jx
 lgCLgDBKVvEcr7V2iS8kKzmeQZT8770GkoEpV4x9OjWlVD9gI7AXsJa+PZOSMWlXPUeVHdO9uOB5
 Ukp1puTLUQslF9uLtNZ/U0o1oobnyKUKuxBCiBtzpaEYIYQQVSCFXQgh3IwUdiGEcDNS2IUQws1I
 YRdCCDcjhV0IIdyMFHYhhHAzUtiFEMLN/D8HzhLE2JwTuAAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -9999,7 +9952,8 @@ vxPGIcpxjVyiVwlAQdeezwBPYI7W+j2DI5WLUqoh+XfZAF7Ad2Y7J6XUIqA7+bOYnQPeBJYB3wNh
 5M8AOVJrbZoP+4o5p+7kv/3WwAlg/E1tjy5NKdUV+B3YB1gKHn6N/DZhU16nEs7pL5jwOimlWpL/
 4aMn+TfL32ut31ZKVaeM18hlCrcQQgjruEpTiRBCCCtJ4RZCCJORwi2EECYjhVsIIUxGCrcQQpiM
 FG4hhDAZKdxCCGEyUriFEMJk/j/TfiZ0AnIJMgAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -10252,7 +10206,8 @@ ImpHRG1qvw5DTYHIfij4jHRTFQMAteVL8wEEAljMzLqdLp6IuqLmKh2oeQL4fT2eDxF9ACARNZ3o
 TgJ4HsBaAB8CiAZgBTCOmXVxQ7KR80lEza/3DMAC4M+XjX36NSK6HcBWALsB2GsX/z/UjEnr9TNq
 7Jz+CB1+TkQUh5qbo4Goudj+kJn/TkTXwMPPSFeJXQghhHN6GooRQgjhAknsQghhMJLYhRDCYCSx
 CyGEwUhiF0IIg5HELoQQBiOJXQghDEYSuxBCGMz/B72+iboRgZQwAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -10508,7 +10463,8 @@ wSGZRSlVj5xRPYAL8J29HZNSaiHQmZzKfmeAl4GfgR+Ae8ipivqY1tpuLoIWcEydyZkq0MBR4Nnb
 5lZtmlKqA7AB2Alk5748mZx5b7s7T4UcTwT2e46Cybko60zOAP0HrfWrSilfSnCOHCLhCyGEKJoj
 TOkIIYQwgSR8IYQoIyThCyFEGSEJXwghyghJ+EIIUUZIwhdCiDJCEr4QQpQRkvCFEKKM+H/JWjnL
 FEHs2QAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -10518,7 +10474,7 @@ FEHs2QAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#21051;&#24230;&#12289;&#26631;&#31614;&#21644;&#22270;&#20363;">&#21051;&#24230;&#12289;&#26631;&#31614;&#21644;&#22270;&#20363;<a class="anchor-link" href="#&#21051;&#24230;&#12289;&#26631;&#31614;&#21644;&#22270;&#20363;">&#182;</a></h2>
@@ -10930,7 +10886,8 @@ TZQC0DdJ24BDdft7YFjSzvr9aOd37gNnFtqxkkbr5zBlyr8M3KZ0QCMGKhN7tGYIuFLvg/+mpALH
 gWPAPUmfbR+QNAO8o+TengDY/inpdD3uB9DtnV6khJtfSloH9IExSsDjuKRflPzexGpcZMRS8vA0
 okPSkO35OplfBeZsXxr0eUUsR27FRPztZH1A+hrYDFwb8PlELFsm9oiIxmRij4hoTBb2iIjGZGGP
 iGhMFvaIiMZkYY+IaMwfYdfbRzZnyQQAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -11557,7 +11514,8 @@ fCAUESxXAXxQ3e0xYb+eg+J1LxHAOeVnIAAXAIcBXAFwCEADwTEfKO9DCio4k28OHwDB+C9Kpzb0
 tzOAM8q/9U4AzpbcbwCfArgMIAnAL1BEplhcfwFsgmKeogSKN7lJFekngO7Ke3UVwEook2YN/UiZ
 thISEhK1BEtw6UhISEhI6IFk8CUkJCRqCZLBl5CQkKglSAZfQkJCopYgGXwJCQmJWoJk8CUkJCRq
 CZLBl5CQkKglSAZfQkJCopbw/9YXlV/VyYhaAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -11567,7 +11525,7 @@ CZLBl5CQkKglSAZfQkJCopbw/9YXlV/VyYhaAAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#27880;&#35299;&#21450;&#22312;-subplot-&#19978;&#32472;&#22270;">&#27880;&#35299;&#21450;&#22312; subplot &#19978;&#32472;&#22270;<a class="anchor-link" href="#&#27880;&#35299;&#21450;&#22312;-subplot-&#19978;&#32472;&#22270;">&#182;</a></h2>
@@ -11579,7 +11537,7 @@ CZLBl5CQkKglSAZfQkJCopbw/9YXlV/VyYhaAAAAAElFTkSuQmCC
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -12023,7 +11981,8 @@ z0pU009iP6F53g7gtJgBvwbsN7M1DfIhi+CYUATXIjiCe9Ya96wtRfEsTzUVGMCZhA+8BphTzbF5
 /RXBsUiuRXB0T/d0z+z+ksGjOoWkYYROPv9soSt5w1EEx4QiuBbBEdyz1rhnbSmKZzmqShKO4zjO
 4UWuc1w7juM4xcKThOM4jlMRTxKO4zhORTxJOI7jOBXxJOE4juNUxJOE4ziOUxFPEo7jOE5F/h8P
 Yj7K91t+EQAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -12215,7 +12174,8 @@ O5Ep5WaqA/9ELRdOdZtccKp/z9vx7+C5aNKxMLNK4C/I/UZ8ifxerARmm9nvzGy3md2aturSK5Gx
 z8z+D3gLiANPOudyrrV4gr8XDwE/MrM9+BUqX3PO5VzbZDP7CXAlMNfMGoF/APJhermp1goiIiGh
 M21FREJCgS8iEhIKfBGRkFDgi4iEhAJfRCQkFPgiIiGhwBcRCYn/B7z1NrTn3CazAAAAAElFTkSu
 QmCC
-">
+"
+>
 </div>
 
 </div>
@@ -12225,7 +12185,7 @@ QmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#20445;&#23384;&#21040;&#25991;&#20214;">&#20445;&#23384;&#21040;&#25991;&#20214;<a class="anchor-link" href="#&#20445;&#23384;&#21040;&#25991;&#20214;">&#182;</a></h2>
@@ -12264,7 +12224,7 @@ QmCC
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
 <span class="n">buffer</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
 <span class="n">plot_data</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
@@ -12305,7 +12265,7 @@ QmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="pandas&#20013;&#30340;&#32472;&#22270;&#20989;&#25968;">pandas&#20013;&#30340;&#32472;&#22270;&#20989;&#25968;<a class="anchor-link" href="#pandas&#20013;&#30340;&#32472;&#22270;&#20989;&#25968;">&#182;</a></h1><p>matplotlib是一种比较低级的工具，需要将各种组件组合好：数据展示（线型图、柱状图等）、图例、标题、刻度标签以及注解。</p>
@@ -12666,7 +12626,8 @@ HoTu5/49sDHJ/s1n+ysYXNTQ9dwkWd38PAJ4LfA1Rsg91huNJjmNwZiNxcAlVXXR2DY+ZkkuBTYx
 nHtYkk3Au6vq9K7nTrKWwbdWMDht9rWquqjruQGSrAO+ACwFfgu8ieZ3nm7nXs6gcKytqt3NvD4c
 7wuBNzC4QvyXwJuBA+h+7muBlcAe4J1Vdc0ox9s7uUuSJLXMQe6SJEkts2BJkiS1zIIlSZLUMguW
 JElSyyxYkiRJLbNgSZIktcyCJUmS1DILliRJUsv+Ccf8hJFiT+aKAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -13473,7 +13434,8 @@ XwcA71pr7zPGxOHD467JGHMS8Htr7WhfH7cxJgVn1gqcZbM3rbUP+Pq4AYwxacCLQAiQDYzD8/88
 vj3uCJzAkWKtzfPc5w/f73uBMThniC8GrgQi8f1xzwbigHLgFmvtV0fz/VYndxEREREv0yZ3ERER
 ES9TwBIRERHxMgUsERERES9TwBIRERHxMgUsERERES9TwBIRERHxMgUsERERES9TwBIRERHxsv8H
 Ok2EOQqyYncAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -13483,7 +13445,7 @@ Ok2EOQqyYncAAAAASUVORK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#26609;&#29366;&#22270;">&#26609;&#29366;&#22270;<a class="anchor-link" href="#&#26609;&#29366;&#22270;">&#182;</a></h2>
@@ -13683,7 +13645,8 @@ rpOvNcu8fSK7q4ypqm9K8rQkdyy0Sk7F8Awy1xWr7r63ql6b5N3ZfTfFFd19S1W9anL+8uy+Q+lF
 SbaTfCm7aZ8lmXHO/lWSxyd582QF5N724aNLM+OcsUJmmbPuvq2q3pXkpiT3JXlLd5/wLeMsxoyv
 tZ9J8taqujm77zT7ye6+Z2lFP8xV1X9J8sIkZ1fVXUl+OskjkvllEDuvAwAMYud1AIBBBCsAgEEE
 KwCAQQQrAIBBBCsAgEEEKwCAQQQrAIBBBCsAgEH+BzC0wOksSwJhAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -13870,7 +13833,8 @@ KyDJwuGpJM9OcmP+/6Hv4aTe6fFDHuaPsAKSJFW1I8mx7p0GsP+eNOsBgBXjliTPmPUQAAcyJ6/D
 KldV/zMLJ+8+JckfVtXvZ+EOA0mSMcbfmdVsAAcaYQW8MwsnTb89C594fcQjywCYkLCCVW6McW2S
 VNVBj/z+EVX15NlMBXBgElawyrkoK0AfnwqEVa6qDsnCTcZdlBXgCRJWAABNXG4BAKCJsAIAaCKs
 AACaCCtzhRi+AAAADklEQVQAgCbCCgCgyf8DZk3yEDs3lGkAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -14079,7 +14043,8 @@ par2TvKSJDdut5pzcQctituRY4yfVtWZSS7L1t/w+9AY4/qqOmPm+T9P8g/Z+psX30zy4ySv7Zp3
 sZrjcXxVkv9SVT9Ncl+SU8YYPrF3G1V1Ubb+ttSTqmpjkrdn65tQnYs7YA7H0bk4uzVJXp3kqzPv
 xUmSP0ryy4nzcY7mcgydi7N7SpIPV9WybI3Uj44xPun/p+fHJ+YDADRYLLcjAQD2KCIMAKCBCAMA
 aCDCAAAaiDAAgAYiDACggQgDAGggwgAAGvx/OrTqoGGVaCQAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -14122,7 +14087,7 @@ aCDCAAAaiDAAgAYiDACggQgDAGggwgAAGvx/OrTqoGGVaCQAAAAASUVORK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#30452;&#26041;&#22270;&#21644;&#23494;&#24230;&#22270;">&#30452;&#26041;&#22270;&#21644;&#23494;&#24230;&#22270;<a class="anchor-link" href="#&#30452;&#26041;&#22270;&#21644;&#23494;&#24230;&#22270;">&#182;</a></h2>
@@ -14276,7 +14241,8 @@ YVXdmuQf5srelpJHphZgXOejeKrqn88u/49V9fVJtpP8jSSPV9W/zpV3Ofzpda/4JjVlX0l+Osnf
 TPLzs7/PL48V+YDMeZq4q3+c5Eeq6i+SfDHJP7nqBemHxsRdkcm7+oEk/6KqLufK/eqH3K+uvasx
 xier6teTfDzJ40l+cYzx4OKmXow9/Bm8O8l/nT2St5T8BnQAgAZP8wEANIgpAIAGMQUA0CCmAAAa
 xBQAQIOYAgBoEFMAAA1iCgCg4f8DdtJxM/UlzGgAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -14592,7 +14558,8 @@ qyS9X9KjxpjDza/7hLX27iAK9pO1tmqM+aikf1DjLp8/stY+boz5uebn/z817hR7m6SjklbV+L/G
 rtPitfo1SWOSPtns2FRtBx72upEWrxWaWrle1tojxpi/l/SIpLoaP78uekt/J2vxv63/TdKfGGMe
 VeNOu1+x1s4HVnRAjDGfl/RaSePGmFOSfl1SUurcn+1MkAcAAHCIZUQAAACHCFsAAAAOEbYAAAAc
 ImwBAAA4RNgCAABwiLAFAADgEGELAADAIcIWAACAQ/8/5Yt5Au0Cy4MAAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -14933,7 +14900,8 @@ pJnpRmAkzQTupO4+0mkYWJOW1wAfZ2xLMWo/r0gS8BZwKCJeadtUdX/plUuu/uKnQQshaQXwGjAb
 rTUTSduAJcAs4CjwPPAR8D5wNfAzsDIiqrrZvkcuS6j4vCJpMfAFMErrjQQAz9K6P6va/jJJLqvJ
 0F88WDMzMzMrmC+DmpmZmRXMgzUzMzOzgnmwZmZmZlYwD9bMzMzMCubBmpmZmVnBPFgzMzMzK5gH
 a2ZmZmYF82DNzMzMrGD/AhRyY4E8x1Z5AAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -14943,7 +14911,7 @@ a2ZmZmYF82DNzMzMrGD/AhRyY4E8x1Z5AAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#25955;&#28857;&#22270;">&#25955;&#28857;&#22270;<a class="anchor-link" href="#&#25955;&#28857;&#22270;">&#182;</a></h2>
@@ -15355,7 +15323,8 @@ yqprRtJnzOznJT0i6S2SZGbrJV3n7he5+2Eze7ekXWqOvrne3e+Ljv8DST8k6bbmd5LudPd3Dfsi
 qirp3prZu6LXr5F0q5ojmh6UdEjSO7sdW8JljIw8z0PSFklvl7TXzO6Otv2mu986zGsYJTmfBwpW
 wPP4FUl/HgW6h8SzGhiWWQIAAAgAzZcAAAABIJQBAAAEgFAGAAAQAEIZAABAAAhlAAAAASCUAQAA
 BIBQBgAAEID/H5+5W48xCWvQAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -16668,7 +16637,8 @@ didwKLCK1Gn7LWkH82OBWbaPy9c9G1hrO0bcQgihkJgeDaHd/mz7NtubSB23JU6f5EbvSB5CCKGw
 mB5tAdunls4QqjXeHclDCCEUFiNtIYQQQggNEJ+kQwh9SXoasJK0gGWTpA8BL7L9cNlkIYTQPrEQ
 IYQQQgihAWJ6NIQQQgihAaLTFkIIIYTQANFpCyGEEEJogOi0hRBCCCE0QHTaQgghhBAaIDptIYQQ
 QggNEJ22EEIIIYQGiE5bCCGEEEID/B+A4W/IIxV1jwAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -16678,7 +16648,7 @@ QggNEJ22EEIIIYQGiE5bCCGEEEID/B+A4W/IIxV1jwAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#32472;&#21046;&#22320;&#22270;">&#32472;&#21046;&#22320;&#22270;<a class="anchor-link" href="#&#32472;&#21046;&#22320;&#22270;">&#182;</a></h1><p>需要安装 Basemap:</p>
@@ -17163,7 +17133,7 @@ memory usage: 167.3 KB
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.basemap</span> <span class="k">import</span> <span class="n">Basemap</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.basemap</span> <span class="kn">import</span> <span class="n">Basemap</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="k">def</span> <span class="nf">basic_haiti_map</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lllat</span><span class="o">=</span><span class="mf">17.25</span><span class="p">,</span> <span class="n">urlat</span><span class="o">=</span><span class="mf">20.25</span><span class="p">,</span>
@@ -18912,7 +18882,8 @@ M8sYY4wxxhQWN7OMMcYYY0xhcTPLGGOMMcYUFjezjDHGGGNMYXEzyxhjjDHGFBY3s4wxxhhjTGFx
 M8sYY4wxxhSWiIiaPlgkKgTwUHpxGGNM4XQhIsN3uQDXVsYYe02Ta2uzmlnGGGOMMcbkCS8zYIwx
 xhhjCoubWcYYY4wxprC4mWWMMcYYYwqLm1nGGGOMMaawuJlljDHGGGMKi5tZxhhjjDGmsLiZZYwx
 xhhjCoubWcYYY4wxprC4mWWMMcYYYwrr/wFp+5Ndp3lcawAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -19140,7 +19111,8 @@ F5PsSfLSts5y/DbKRdkqWxPZeplsla2juqFc3NIzy82tskddgz9I8gtJPj/81/+l1trcuOa82UZc
 g4k3yjq01r5VVSeSPJvktSRfbK1d9U/g3IpG/Fn4oyRfrqrnsvqO5c+01l4d26S3QFX9WZKPJnlX
 VS0l+cMkP5WMlouyVbYmsvUy2SpbL3uz2dr9uqtn4wEAgPXcwQ8AADqUZQAA6FCWAQCgQ1kGAIAO
 ZRkAADqUZQAA6FCWAQCgQ1kGAICO/x9rLLf8FVQBQAAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -19214,7 +19186,7 @@ ZRkAADqUZQAA6FCWAQCgQ1kGAICO/x9rLLf8FVQBQAAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Python-&#22270;&#24418;&#21270;&#24037;&#20855;&#29983;&#24577;&#31995;&#32479;">Python &#22270;&#24418;&#21270;&#24037;&#20855;&#29983;&#24577;&#31995;&#32479;<a class="anchor-link" href="#Python-&#22270;&#24418;&#21270;&#24037;&#20855;&#29983;&#24577;&#31995;&#32479;">&#182;</a></h1><ul>
@@ -19233,414 +19205,122 @@ ZRkAADqUZQAA6FCWAQCgQ1kGAICO/x9rLLf8FVQBQAAAAABJRU5ErkJggg==
   </div>
 </div>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/03/10/python_data_analysis7.html" rel="next" title="利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑">
-                <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/19/python_data_analysis9.html" rel="prev" title="利用Python进行数据分析(9)：数据聚合和分组运算">
-                利用Python进行数据分析(9)：数据聚合和分组运算 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/10/python_data_analysis7.html" rel="prev" title="利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑">
+      <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/19/python_data_analysis9.html" rel="next" title="利用Python进行数据分析(9)：数据聚合和分组运算">
+      利用Python进行数据分析(9)：数据聚合和分组运算 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#matplotlib-API入门"><span class="nav-number">1.</span> <span class="nav-text">matplotlib API入门¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Figure和Subplot"><span class="nav-number">1.1.</span> <span class="nav-text">Figure和Subplot¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整subplot周围的间距"><span class="nav-number">1.2.</span> <span class="nav-text">调整subplot周围的间距¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#颜色、标记和线型"><span class="nav-number">1.3.</span> <span class="nav-text">颜色、标记和线型¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刻度、标签和图例"><span class="nav-number">1.4.</span> <span class="nav-text">刻度、标签和图例¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解及在-subplot-上绘图"><span class="nav-number">1.5.</span> <span class="nav-text">注解及在 subplot 上绘图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存到文件"><span class="nav-number">1.6.</span> <span class="nav-text">保存到文件¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pandas中的绘图函数"><span class="nav-number">2.</span> <span class="nav-text">pandas中的绘图函数¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线形图"><span class="nav-number">2.1.</span> <span class="nav-text">线形图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#柱状图"><span class="nav-number">2.2.</span> <span class="nav-text">柱状图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直方图和密度图"><span class="nav-number">2.3.</span> <span class="nav-text">直方图和密度图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散点图"><span class="nav-number">2.4.</span> <span class="nav-text">散点图¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#绘制地图"><span class="nav-number">3.</span> <span class="nav-text">绘制地图¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-图形化工具生态系统"><span class="nav-number">4.</span> <span class="nav-text">Python 图形化工具生态系统¶</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/03/15/python_data_analysis8.html';
-          this.page.identifier = '2017/03/15/python_data_analysis8.html';
-          this.page.title = '利用Python进行数据分析(8)：绘图和可视化';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -19655,24 +19335,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'd716c2ef961464d0e89f7cf64a31e043',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

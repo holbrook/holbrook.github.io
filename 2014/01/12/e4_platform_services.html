@@ -1,146 +1,67 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="java,OSGi,GUI," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="概述 前面提到，e4中可以通过依赖注入进行服务的发布和获取。并且，”在Eclipse e4中，将全局的上下文分成了多个层次“：  e4提供了很多平台级的服务，注册于OSGi context之上的其他各个context层。这些服务提供了开发应用的很多通用的功能。一些常用的服务包括： 展现层MVC的视图、模型、控制器相关的服务，以及逻辑层服务。   视图相关服务   EPartService 访问和">
-<meta name="keywords" content="java,OSGi,GUI">
+  <meta name="description" content="概述前面提到，e4中可以通过依赖注入进行服务的发布和获取。并且，”在Eclipse e4中，将全局的上下文分成了多个层次“：    e4提供了很多平台级的服务，注册于OSGi context之上的其他各个context层。这些服务提供了开发应用的很多通用的功能。一些常用的服务包括： 展现层MVC的视图、模型、控制器相关的服务，以及逻辑层服务。  视图相关服务  EPartService   访问和">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eclipse e4中的平台服务">
 <meta property="og:url" content="http://holbrook.github.io/2014/01/12/e4_platform_services.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="概述 前面提到，e4中可以通过依赖注入进行服务的发布和获取。并且，”在Eclipse e4中，将全局的上下文分成了多个层次“：  e4提供了很多平台级的服务，注册于OSGi context之上的其他各个context层。这些服务提供了开发应用的很多通用的功能。一些常用的服务包括： 展现层MVC的视图、模型、控制器相关的服务，以及逻辑层服务。   视图相关服务   EPartService 访问和">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="概述前面提到，e4中可以通过依赖注入进行服务的发布和获取。并且，”在Eclipse e4中，将全局的上下文分成了多个层次“：    e4提供了很多平台级的服务，注册于OSGi context之上的其他各个context层。这些服务提供了开发应用的很多通用的功能。一些常用的服务包括： 展现层MVC的视图、模型、控制器相关的服务，以及逻辑层服务。  视图相关服务  EPartService   访问和">
 <meta property="og:image" content="http://holbrook.github.io/2014/01/12/e4_platform_services/e4_context_hierarchy.png">
 <meta property="og:image" content="http://holbrook.github.io/2014/01/12/e4_platform_services/PartDescriptors.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2014-01-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="OSGi">
+<meta property="article:tag" content="GUI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Eclipse e4中的平台服务">
-<meta name="twitter:description" content="概述 前面提到，e4中可以通过依赖注入进行服务的发布和获取。并且，”在Eclipse e4中，将全局的上下文分成了多个层次“：  e4提供了很多平台级的服务，注册于OSGi context之上的其他各个context层。这些服务提供了开发应用的很多通用的功能。一些常用的服务包括： 展现层MVC的视图、模型、控制器相关的服务，以及逻辑层服务。   视图相关服务   EPartService 访问和">
 <meta name="twitter:image" content="http://holbrook.github.io/2014/01/12/e4_platform_services/e4_context_hierarchy.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2014/01/12/e4_platform_services.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2014/01/12/e4_platform_services.html"/>
-
-
-
-
 
   <title>Eclipse e4中的平台服务 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -149,213 +70,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#视图相关服务"><span class="nav-number">2.</span> <span class="nav-text">视图相关服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EPartService"><span class="nav-number">2.1.</span> <span class="nav-text">EPartService</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ESelectionService"><span class="nav-number">2.2.</span> <span class="nav-text">ESelectionService</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型相关服务EModelService"><span class="nav-number">3.</span> <span class="nav-text">模型相关服务EModelService</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制器相关服务"><span class="nav-number">4.</span> <span class="nav-text">控制器相关服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MDirtyable和-Persist注解"><span class="nav-number">4.1.</span> <span class="nav-text">MDirtyable和@Persist注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECommandService和EHandlerService"><span class="nav-number">4.2.</span> <span class="nav-text">ECommandService和EHandlerService</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑层相关服务"><span class="nav-number">5.</span> <span class="nav-text">逻辑层相关服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IEventBroker"><span class="nav-number">5.1.</span> <span class="nav-text">IEventBroker</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/12/e4_platform_services.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Eclipse e4中的平台服务</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Eclipse e4中的平台服务
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-12T00:00:00+08:00">
-                2014-01-12
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2014-01-12 00:00:00" itemprop="dateCreated datePublished" datetime="2014-01-12T00:00:00+08:00">2014-01-12</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2014/01/12/e4_platform_services.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/12/e4_platform_services.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -363,588 +318,265 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><a href="/2014/01/12/dependency_injection_in_e4.html">前面</a>提到，e4中可以通过依赖注入进行服务的发布和获取。并且，”在Eclipse e4中，将全局的上下文分成了多个层次“：</p>
+<img src="/2014/01/12/e4_platform_services/e4_context_hierarchy.png" class="" title="e4上下文的层级">
 
-      
-        <h1 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h1>
-<p><a href="/2014/01/12/dependency_injection_in_e4.html">前面</a>提到，e4中可以通过依赖注入进行服务的发布和获取。并且，”在Eclipse e4中，将全局的上下文分成了多个层次“：</p>
-<img src="/2014/01/12/e4_platform_services/e4_context_hierarchy.png" title="e4上下文的层级">
+
 <p>e4提供了很多平台级的服务，注册于OSGi context之上的其他各个context层。这些服务提供了开发应用的很多通用的功能。一些常用的服务包括：</p>
 <p>展现层MVC的视图、模型、控制器相关的服务，以及逻辑层服务。</p>
 <ul>
-<li>
-<p>视图相关服务</p>
+<li><p>视图相关服务</p>
 <ul>
-<li>
-<p>EPartService</p>
-<p>访问和修改Part，使用Part模板，切换perspectives，支持Edit方法</p>
+<li><p>EPartService</p>
+<p>  访问和修改Part，使用Part模板，切换perspectives，支持Edit方法</p>
 </li>
-<li>
-<p>ESelectionService</p>
+<li><p>ESelectionService</p>
 <p>处理GUI界面中的”选中“</p>
 </li>
-<li>
-<p>EMenuService</p>
+<li><p>EMenuService</p>
 <p>Registers a popup menu (MPopupMenu) for an SWT control.</p>
 </li>
-<li>
-<p>org.eclipse.jface.window.IShellProvider</p>
+<li><p>org.eclipse.jface.window.IShellProvider</p>
 <p>在SWT环境中访问Shell</p>
 </li>
-<li>
-<p>IThemeEngine</p>
+<li><p>IThemeEngine</p>
 <p>Allows to switch the styling of the application at runtime.</p>
 </li>
 </ul>
 </li>
-<li>
-<p>模型相关服务</p>
+</ul>
 <ul>
-<li>
-<p>EModelService</p>
+<li><p>模型相关服务</p>
+<ul>
+<li><p>EModelService</p>
 <p>在运行时访问或更改e4的<a href="/2014/01/07/eclipse_e4_RCP_quickstart.html#menuIndex1">应用模型</a></p>
 </li>
 </ul>
 </li>
-<li>
-<p>控制器相关服务</p>
+</ul>
 <ul>
-<li>
-<p>MDirtyable</p>
+<li><p>控制器相关服务</p>
+<ul>
+<li><p>MDirtyable</p>
 <p>用于标记Part中的内容是否被修改过</p>
 </li>
-<li>
-<p>ECommandService</p>
+<li><p>ECommandService</p>
 <p>访问、创建和更改应用模型中的command对象</p>
 </li>
-<li>
-<p>EHandlerService</p>
-<p>访问、更改或触发(trigger)应用模型中的handler对象</p>
+<li><p>EHandlerService</p>
+<p>  访问、更改或触发(trigger)应用模型中的handler对象</p>
 </li>
 </ul>
 </li>
-<li>
-<p>逻辑层相关服务</p>
+</ul>
 <ul>
-<li>
-<p>IEventBroker</p>
+<li><p>逻辑层相关服务</p>
+<ul>
+<li><p>IEventBroker</p>
 <p>提供基于发布、订阅机制的事件处理功能</p>
 </li>
-<li>
-<p>StatusReporter</p>
+<li><p>StatusReporter</p>
 <p>Allows you to report Status objects.</p>
 </li>
-<li>
-<p>EContextService</p>
+<li><p>EContextService</p>
 <p>Activate and deactivate key bindings defined as BindingContext in the application model. The content referred to in this service is the BindingContext and not the IEclipseContext.</p>
 </li>
-<li>
-<p>Logger</p>
+<li><p>Logger</p>
 <p><code>org.eclipse.e4.core.services</code>插件中的<code>Logger</code>提供了日志功能</p>
 </li>
-<li>
-<p>Adapter</p>
+<li><p>Adapter</p>
 <p>An adapter can adapt an object to the specified type, allowing clients to request domain-specific behavior for an object. It integrates IAdaptable and IAdapterManager</p>
 </li>
 </ul>
 </li>
 </ul>
-<h1 id="视图相关服务"><a class="markdownIt-Anchor" href="#视图相关服务"></a> 视图相关服务</h1>
-<h2 id="epartservice"><a class="markdownIt-Anchor" href="#epartservice"></a> EPartService</h2>
-<p>在应用模型中，可以定义PartDescriptors。PartDescriptors可以作为创建Part的模板。</p>
-<img src="/2014/01/12/e4_platform_services/PartDescriptors.png">
+<h1 id="视图相关服务"><a href="#视图相关服务" class="headerlink" title="视图相关服务"></a>视图相关服务</h1><h2 id="EPartService"><a href="#EPartService" class="headerlink" title="EPartService"></a>EPartService</h2><p>在应用模型中，可以定义PartDescriptors。PartDescriptors可以作为创建Part的模板。</p>
+<img src="/2014/01/12/e4_platform_services/PartDescriptors.png" class="">
+
 <p>通过EPartService可以访问这些模板，比如：</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Inject</span> <span class="keyword">private</span> EPartService partService;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Showing and hiding parts</span></span><br><span class="line">detailsTodoPart = partService.findPart(<span class="string">"com.example.todo.rcp.parts.tododetails"</span>);</span><br><span class="line">partService.hidePart(detailsTodoPart);</span><br><span class="line">……</span><br><span class="line">detailsTodoPart.setVisible(<span class="keyword">true</span>);</span><br><span class="line">partService.showPart(detailsTodoPart, PartState.VISIBLE);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Switching perspectives</span></span><br><span class="line"><span class="meta">@Execute</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> execute(MApplication app, EPartService partService,</span><br><span class="line">      EModelService modelService) &#123;</span><br><span class="line">    MPerspective element =</span><br><span class="line">        (MPerspective) modelService.find(<span class="string">"secondperspective"</span>, app);</span><br><span class="line">    <span class="comment">// now switch perspective</span></span><br><span class="line">    partService.switchPerspective(element);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// creating parts dynamically</span></span><br><span class="line"><span class="meta">@Execute</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">(EPartService partService)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// create a new Part based on a PartDescriptor</span></span><br><span class="line">    <span class="comment">// in the application model</span></span><br><span class="line">    <span class="comment">// assume the ID is used for the PartDescriptor</span></span><br><span class="line">    MPart part = partService</span><br><span class="line">        .createPart(<span class="string">"com.example.e4.rcp.todo.partdescriptor.fileeditor"</span>);</span><br><span class="line">    part.setLabel(<span class="string">"New Dynamic Part"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If multiple parts of this type are now allowed</span></span><br><span class="line">    <span class="comment">// in the application model,</span></span><br><span class="line">    <span class="comment">// then the provided part will be shown</span></span><br><span class="line">    <span class="comment">// and returned</span></span><br><span class="line">    partService.showPart(part, PartState.ACTIVATE);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//switch perspective</span></span><br><span class="line"><span class="meta">@Execute</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> execute(MApplication app, EPartService partService,</span><br><span class="line">      EModelService modelService) &#123;</span><br><span class="line">    MPerspective element =</span><br><span class="line">        (MPerspective) modelService.find(<span class="string">"secondperspective"</span>, app);</span><br><span class="line">    partService.switchPerspective(element);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="eselectionservice"><a class="markdownIt-Anchor" href="#eselectionservice"></a> ESelectionService</h2>
-<p>e4的应用模型中，MWindow对象可以保持选中的Part。e4在IEclipseContext中注册了<code>ESelectionService</code>，可以设置或获取选中的组件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Inject private EPartService partService;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Showing and hiding parts</span><br><span class="line">detailsTodoPart &#x3D; partService.findPart(&quot;com.example.todo.rcp.parts.tododetails&quot;);</span><br><span class="line">partService.hidePart(detailsTodoPart);</span><br><span class="line">……</span><br><span class="line">detailsTodoPart.setVisible(true);</span><br><span class="line">partService.showPart(detailsTodoPart, PartState.VISIBLE);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Switching perspectives</span><br><span class="line">@Execute</span><br><span class="line">  public void execute(MApplication app, EPartService partService,</span><br><span class="line">      EModelService modelService) &#123;</span><br><span class="line">    MPerspective element &#x3D;</span><br><span class="line">        (MPerspective) modelService.find(&quot;secondperspective&quot;, app);</span><br><span class="line">    &#x2F;&#x2F; now switch perspective</span><br><span class="line">    partService.switchPerspective(element);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; creating parts dynamically</span><br><span class="line">@Execute</span><br><span class="line">  public void execute(EPartService partService) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; create a new Part based on a PartDescriptor</span><br><span class="line">    &#x2F;&#x2F; in the application model</span><br><span class="line">    &#x2F;&#x2F; assume the ID is used for the PartDescriptor</span><br><span class="line">    MPart part &#x3D; partService</span><br><span class="line">        .createPart(&quot;com.example.e4.rcp.todo.partdescriptor.fileeditor&quot;);</span><br><span class="line">    part.setLabel(&quot;New Dynamic Part&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; If multiple parts of this type are now allowed</span><br><span class="line">    &#x2F;&#x2F; in the application model,</span><br><span class="line">    &#x2F;&#x2F; then the provided part will be shown</span><br><span class="line">    &#x2F;&#x2F; and returned</span><br><span class="line">    partService.showPart(part, PartState.ACTIVATE);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;switch perspective</span><br><span class="line">@Execute</span><br><span class="line">  public void execute(MApplication app, EPartService partService,</span><br><span class="line">      EModelService modelService) &#123;</span><br><span class="line">    MPerspective element &#x3D;</span><br><span class="line">        (MPerspective) modelService.find(&quot;secondperspective&quot;, app);</span><br><span class="line">    partService.switchPerspective(element);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="ESelectionService"><a href="#ESelectionService" class="headerlink" title="ESelectionService"></a>ESelectionService</h2><p>e4的应用模型中，MWindow对象可以保持选中的Part。e4在IEclipseContext中注册了<code>ESelectionService</code>，可以设置或获取选中的组件。</p>
 <p>使用<code>setSelection()</code>方法可以设置选中状态：</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// use field injection for the service</span></span><br><span class="line"><span class="meta">@Inject</span> ESelectionService selectionService;</span><br><span class="line"></span><br><span class="line"><span class="comment">// viewer is a JFace Viewer</span></span><br><span class="line">viewer.addSelectionChangedListener(<span class="keyword">new</span> ISelectionChangedListener() &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">selectionChanged</span><span class="params">(SelectionChangedEvent event)</span> </span>&#123;</span><br><span class="line">    IStructuredSelection selection = (IStructuredSelection)</span><br><span class="line">        viewer.getSelection();</span><br><span class="line">    selectionService.setSelection(selection.getFirstElement());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; use field injection for the service</span><br><span class="line">@Inject ESelectionService selectionService;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; viewer is a JFace Viewer</span><br><span class="line">viewer.addSelectionChangedListener(new ISelectionChangedListener() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void selectionChanged(SelectionChangedEvent event) &#123;</span><br><span class="line">    IStructuredSelection selection &#x3D; (IStructuredSelection)</span><br><span class="line">        viewer.getSelection();</span><br><span class="line">    selectionService.setSelection(selection.getFirstElement());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
 <p>使用<code>getSelection(partId)</code>方法可以获取选中的组件，更常用的做法是使用<code>IServiceConstants.ACTIVE_SELECTION</code>作为<code>@Named</code>注解的参数，自动注入选中的组件：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Inject</span></span><br><span class="line">public void setTodo(<span class="variable">@Optional</span></span><br><span class="line">    <span class="variable">@Named</span>(IServiceConstants.ACTIVE_SELECTION) Todo todo) &#123;</span><br><span class="line">  <span class="selector-tag">if</span> (todo != null) &#123;</span><br><span class="line">    <span class="comment">// do something with the value</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="模型相关服务emodelservice"><a class="markdownIt-Anchor" href="#模型相关服务emodelservice"></a> 模型相关服务EModelService</h1>
-<p>使用<code>EModelService</code>可以在运行时访问或更改e4的<a href="/2014/01/07/eclipse_e4_RCP_quickstart.html#menuIndex1">应用模型</a>，比如增加或删除模型元素。EModelService中一些常用的方法包括：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Inject</span><br><span class="line">public void setTodo(@Optional</span><br><span class="line">    @Named(IServiceConstants.ACTIVE_SELECTION) Todo todo) &#123;</span><br><span class="line">  if (todo !&#x3D; null) &#123;</span><br><span class="line">    &#x2F;&#x2F; do something with the value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="模型相关服务EModelService"><a href="#模型相关服务EModelService" class="headerlink" title="模型相关服务EModelService"></a>模型相关服务EModelService</h1><p>使用<code>EModelService</code>可以在运行时访问或更改e4的<a href="/2014/01/07/eclipse_e4_RCP_quickstart.html#menuIndex1">应用模型</a>，比如增加或删除模型元素。EModelService中一些常用的方法包括：</p>
 <ul>
 <li><code>cloneElement()</code>和<code>cloneSnippet()</code>：克隆元素或模型片段</li>
 <li><code>findElements()</code>：通过ID、类型、或标签(tags)搜索元素</li>
 </ul>
 <p>使用举例：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//search by type</span></span><br><span class="line">  private <span class="keyword">void</span> findParts(MApplication application,</span><br><span class="line">      EModelService service) &#123;</span><br><span class="line">    <span class="built_in">List</span>&lt;MPart&gt; parts = service.findElements(application, <span class="keyword">null</span>,</span><br><span class="line">        MPart.<span class="keyword">class</span>, <span class="keyword">null</span>);</span><br><span class="line">    System.out.println(<span class="string">"Found parts(s) : "</span> + parts.size());</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Dynamically create a new window</span></span><br><span class="line">MWindow <span class="built_in">window</span> = modelService.createModelElement(MWindow.<span class="keyword">class</span>);</span><br><span class="line"><span class="built_in">window</span>.setWidth(<span class="number">200</span>);</span><br><span class="line"><span class="built_in">window</span>.setHeight(<span class="number">300</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// add new Window to the application</span></span><br><span class="line">application.getChildren().add(<span class="built_in">window</span>);</span><br></pre></td></tr></table></figure>
-<h1 id="控制器相关服务"><a class="markdownIt-Anchor" href="#控制器相关服务"></a> 控制器相关服务</h1>
-<h2 id="mdirtyable和persist注解"><a class="markdownIt-Anchor" href="#mdirtyable和persist注解"></a> MDirtyable和@Persist注解</h2>
-<p>e4中不再区分ViewPart和EditPart，而是统一使用Part。通过MDirtyable可以标记Part中的内容是否被修改过；使用<code>@Persist</code>注解可以标记持久化Part内容的方法。比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyEditPart</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Inject</span></span><br><span class="line">  MDirtyable dirty;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@PostConstruct</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createControls</span><span class="params">(Composite parent)</span> </span>&#123;</span><br><span class="line">    Button button = <span class="keyword">new</span> Button(parent, SWT.PUSH);</span><br><span class="line">    button.addSelectionListener(<span class="keyword">new</span> SelectionAdapter() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">widgetSelected</span><span class="params">(SelectionEvent e)</span> </span>&#123;</span><br><span class="line">        dirty.setDirty(<span class="keyword">true</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Persist</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(MDirtyable dirty, ITodoService todoService)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// save changes via ITodoService for example</span></span><br><span class="line">    todoService.saveTodo(todo);</span><br><span class="line">    <span class="comment">// save was successful</span></span><br><span class="line">    dirty.setDirty(<span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;search by type</span><br><span class="line">  private void findParts(MApplication application,</span><br><span class="line">      EModelService service) &#123;</span><br><span class="line">    List&lt;MPart&gt; parts &#x3D; service.findElements(application, null,</span><br><span class="line">        MPart.class, null);</span><br><span class="line">    System.out.println(&quot;Found parts(s) : &quot; + parts.size());</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Dynamically create a new window</span><br><span class="line">MWindow window &#x3D; modelService.createModelElement(MWindow.class);</span><br><span class="line">window.setWidth(200);</span><br><span class="line">window.setHeight(300);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; add new Window to the application</span><br><span class="line">application.getChildren().add(window);</span><br></pre></td></tr></table></figure>
+
+<h1 id="控制器相关服务"><a href="#控制器相关服务" class="headerlink" title="控制器相关服务"></a>控制器相关服务</h1><h2 id="MDirtyable和-Persist注解"><a href="#MDirtyable和-Persist注解" class="headerlink" title="MDirtyable和@Persist注解"></a>MDirtyable和@Persist注解</h2><p>   e4中不再区分ViewPart和EditPart，而是统一使用Part。通过MDirtyable可以标记Part中的内容是否被修改过；使用<code>@Persist</code>注解可以标记持久化Part内容的方法。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class MyEditPart &#123;</span><br><span class="line"></span><br><span class="line">  @Inject</span><br><span class="line">  MDirtyable dirty;</span><br><span class="line"></span><br><span class="line">  @PostConstruct</span><br><span class="line">  public void createControls(Composite parent) &#123;</span><br><span class="line">    Button button &#x3D; new Button(parent, SWT.PUSH);</span><br><span class="line">    button.addSelectionListener(new SelectionAdapter() &#123;</span><br><span class="line">      @Override</span><br><span class="line">      public void widgetSelected(SelectionEvent e) &#123;</span><br><span class="line">        dirty.setDirty(true);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Persist</span><br><span class="line">  public void save(MDirtyable dirty, ITodoService todoService) &#123;</span><br><span class="line">    &#x2F;&#x2F; save changes via ITodoService for example</span><br><span class="line">    todoService.saveTodo(todo);</span><br><span class="line">    &#x2F;&#x2F; save was successful</span><br><span class="line">    dirty.setDirty(false);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在上面的例子中，看起来<code>@Persist</code>注解没有多大用处。其实，该注解主要用于EPartService的<code>saveAll()</code>方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SaveHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Execute</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">(EPartService partService)</span> </span>&#123;</span><br><span class="line">    partService.saveAll(<span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ecommandservice和ehandlerservice"><a class="markdownIt-Anchor" href="#ecommandservice和ehandlerservice"></a> ECommandService和EHandlerService</h2>
-<p>举例如下：</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Command command = commandService.getCommand(<span class="string">"com.example.mycommand"</span>);</span><br><span class="line"></span><br><span class="line">//<span class="built_in"> check </span>if the command is defined</span><br><span class="line">System.out.println(command.isDefined());</span><br><span class="line"></span><br><span class="line">// activate Handler, assume AboutHandler() class exists already</span><br><span class="line">handlerService.activateHandler(<span class="string">"com.example.mycommand"</span>,</span><br><span class="line">   <span class="built_in"> new </span>AboutHandler());</span><br><span class="line"></span><br><span class="line">ParameterizedCommand cmd =</span><br><span class="line">  commandService.createCommand(<span class="string">"com.example.mycommand"</span>, null);</span><br><span class="line"></span><br><span class="line">//<span class="built_in"> check </span>if the command can get executed</span><br><span class="line">System.out.println(handlerService.canExecute(cmd));</span><br><span class="line"></span><br><span class="line">//<span class="built_in"> execute </span>the command</span><br><span class="line">handlerService.executeHandler(cmd);</span><br></pre></td></tr></table></figure>
-<h1 id="逻辑层相关服务"><a class="markdownIt-Anchor" href="#逻辑层相关服务"></a> 逻辑层相关服务</h1>
-<h2 id="ieventbroker"><a class="markdownIt-Anchor" href="#ieventbroker"></a> IEventBroker</h2>
-<p>Eclipse 3.x中，事件处理使用Observer模式：事件接收者实现事件发布者指定的Listener接口，并注册到事件发布者。<br>
-这带来两个问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class SaveHandler &#123;</span><br><span class="line"></span><br><span class="line">  @Execute</span><br><span class="line">  void execute(EPartService partService) &#123;</span><br><span class="line">    partService.saveAll(false);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ECommandService和EHandlerService"><a href="#ECommandService和EHandlerService" class="headerlink" title="ECommandService和EHandlerService"></a>ECommandService和EHandlerService</h2><p>举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Command command &#x3D; commandService.getCommand(&quot;com.example.mycommand&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; check if the command is defined</span><br><span class="line">System.out.println(command.isDefined());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; activate Handler, assume AboutHandler() class exists already</span><br><span class="line">handlerService.activateHandler(&quot;com.example.mycommand&quot;,</span><br><span class="line">    new AboutHandler());</span><br><span class="line"></span><br><span class="line">ParameterizedCommand cmd &#x3D;</span><br><span class="line">  commandService.createCommand(&quot;com.example.mycommand&quot;, null);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; check if the command can get executed</span><br><span class="line">System.out.println(handlerService.canExecute(cmd));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; execute the command</span><br><span class="line">handlerService.executeHandler(cmd);</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="逻辑层相关服务"><a href="#逻辑层相关服务" class="headerlink" title="逻辑层相关服务"></a>逻辑层相关服务</h1><h2 id="IEventBroker"><a href="#IEventBroker" class="headerlink" title="IEventBroker"></a>IEventBroker</h2><p>Eclipse 3.x中，事件处理使用Observer模式：事件接收者实现事件发布者指定的Listener接口，并注册到事件发布者。<br>这带来两个问题：</p>
 <ul>
 <li>一个Listener接口要写很多个实现，这些实现中的代码有重复</li>
 <li>事件发布者和接收者的生命周期紧耦合</li>
 </ul>
 <p>Eclipse e4中，将OSGi的<code>EventAdmin</code>API封装为事件服务，提供了基于发布、订阅机制的事件处理功能：<code>EventBroker</code>作为事件总线，通过<code>EventBroker</code>可以发布和订阅事件。</p>
-<p>要使用e4事件服务，需要增加依赖插件：<br>
-* org.eclipse.e4.core.services<br>
-* org.eclipse.osgi.services</p>
+<p>要使用e4事件服务，需要增加依赖插件：<br>    * org.eclipse.e4.core.services<br>    * org.eclipse.osgi.services</p>
 <ul>
 <li>获取EventBroker</li>
 </ul>
 <p>e4中定义了<code>org.eclipse.e4.core.services.events.IEventBroker</code>接口，可以通过依赖注入、e4上下文等方式获取：</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  @Inject</span><br><span class="line">  IEventBroker eventBroker;</span><br><span class="line"></span><br><span class="line">  @Inject</span><br><span class="line">  private IEclipseContext eclipseContext;</span><br><span class="line">  ……</span><br><span class="line">  IEventBroker eventBroker = eclipseContext.get(IEventBroker.<span class="keyword">class</span>);</span><br><span class="line"></span><br><span class="line">- 发布事件</span><br><span class="line"></span><br><span class="line">可以用`IEventBroker`的`post()`或`send()`方法，进行同步(synchronous)或异步(asynchronous)事件的发布：</span><br></pre></td></tr></table></figure>
-<p>boolean IEventBroker.post(String topic, Object data) // synchronous delivery</p>
-<p>boolean IEventBroker.send(String topic, Object data) // asynchronous delivery</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">返回值为是否发生成功。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- 订阅事件</span><br><span class="line"></span><br><span class="line">可以通过依赖注入或者`IEventBroker`的`subscribe()`方法订阅事件：</span><br></pre></td></tr></table></figure>
-<p>@Inject<br>
-@Optional<br>
-private void closeHandler(@UIEventTopic(’‘TOPIC_STRING’’) foo.Bar payload) {<br>
-//do something with payload<br>
-}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  @Inject</span><br><span class="line">  IEventBroker eventBroker;</span><br><span class="line"></span><br><span class="line">  @Inject</span><br><span class="line">  private IEclipseContext eclipseContext;</span><br><span class="line">  ……</span><br><span class="line">  IEventBroker eventBroker &#x3D; eclipseContext.get(IEventBroker.class);</span><br><span class="line"></span><br><span class="line">- 发布事件</span><br><span class="line"></span><br><span class="line">可以用&#96;IEventBroker&#96;的&#96;post()&#96;或&#96;send()&#96;方法，进行同步(synchronous)或异步(asynchronous)事件的发布：</span><br></pre></td></tr></table></figure>
+<p>  boolean IEventBroker.post(String topic, Object data) // synchronous delivery</p>
+<p>  boolean IEventBroker.send(String topic, Object data) // asynchronous delivery</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">返回值为是否发生成功。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- 订阅事件</span><br><span class="line"></span><br><span class="line">可以通过依赖注入或者&#96;IEventBroker&#96;的&#96;subscribe()&#96;方法订阅事件：</span><br></pre></td></tr></table></figure>
+<p>  @Inject<br>  @Optional<br>  private void closeHandler(@UIEventTopic(‘’TOPIC_STRING’’) foo.Bar payload) {<br>    //do something with payload<br>  }</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>@Inject<br>
-IEventBroker eventBroker;</p>
-<p>org.osgi.service.event.EventHandler closeHandler = new EventHandler() {<br>
-public void handleEvent(Event event) {<br>
-foo.Bar payload = (foo.Bar) event.getProperty(IEventBroker.DATA);<br>
-}<br>
-}</p>
-<p>eventBroker.subscribe(TOPIC_STRING, closeHandler);<br>
-……<br>
-eventBroker.unsubscribe(closeHandler);</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">消息对象(payload)作为附件存储在`IEventBroker.DATA`属性中。对于`Dictionary`或`Map`等集合类型的消息，会将其中所有的值按照KEY添加为属性。</span><br><span class="line"></span><br><span class="line">## Logger</span><br><span class="line"></span><br><span class="line">Eclipse <span class="number">3.</span>x中，Log的接口和实现类分别为`org.eclipse.core.runtime.ILog`和`org.osgi.service.log.LogService`，可以使用`ServiceTracker`获取：</span><br></pre></td></tr></table></figure>
-<p>LogService getLog() {<br>
-fLogServiceTracker = new ServiceTracker(fBundleContext, LogService.class.getName(), null);<br>
-return (LogService) fLogServiceTracker.getService();<br>
-}</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">为了方便，在`Plugin`的基类中实现了`getLog()`方法，所有的`Plugin`子类可以直接使用。</span><br><span class="line"></span><br><span class="line">在`org.eclipse.e4.core.services`插件中提供了`org.eclipse.e4.core.services.Logger`类，可以通过`@Inject`注解或使用`IEclipseContext`接口获取：</span><br></pre></td></tr></table></figure>
-<p>@Inject<br>
-private Logger logger;</p>
-<p>//or use code:<br>
-Logger log = (Logger) context.get(Logger.class.getName());</p>
-<pre class="highlight"><code class="">
+<p>  @Inject<br>  IEventBroker eventBroker;</p>
+<p>  org.osgi.service.event.EventHandler closeHandler = new EventHandler() {<br>    public void handleEvent(Event event) {<br>        foo.Bar payload = (foo.Bar) event.getProperty(IEventBroker.DATA);<br>    }<br>  }</p>
+<p>  eventBroker.subscribe(TOPIC_STRING, closeHandler);<br>  ……<br>  eventBroker.unsubscribe(closeHandler);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">消息对象(payload)作为附件存储在&#96;IEventBroker.DATA&#96;属性中。对于&#96;Dictionary&#96;或&#96;Map&#96;等集合类型的消息，会将其中所有的值按照KEY添加为属性。</span><br><span class="line"></span><br><span class="line">## Logger</span><br><span class="line"></span><br><span class="line">Eclipse 3.x中，Log的接口和实现类分别为&#96;org.eclipse.core.runtime.ILog&#96;和&#96;org.osgi.service.log.LogService&#96;，可以使用&#96;ServiceTracker&#96;获取：</span><br></pre></td></tr></table></figure>
+<p>LogService getLog() {<br>  fLogServiceTracker = new ServiceTracker(fBundleContext, LogService.class.getName(), null);<br>  return (LogService) fLogServiceTracker.getService();<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">为了方便，在&#96;Plugin&#96;的基类中实现了&#96;getLog()&#96;方法，所有的&#96;Plugin&#96;子类可以直接使用。</span><br><span class="line"></span><br><span class="line">在&#96;org.eclipse.e4.core.services&#96;插件中提供了&#96;org.eclipse.e4.core.services.Logger&#96;类，可以通过&#96;@Inject&#96;注解或使用&#96;IEclipseContext&#96;接口获取：</span><br></pre></td></tr></table></figure>
+<p>@Inject<br>private Logger logger;</p>
+<p>//or use code:<br>Logger log = (Logger) context.get(Logger.class.getName());</p>
+<pre><code>
 
 
 # 实现自己的服务
 
 Usually services have two parts: the interface definition and the implementation. How these two are linked is defined by a context function , an OSGi service or plain context value setting (IEclipseContext). Please note that there can be more than one service implementation for an interface.
-
 </code></pre>
-
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-            <a href="/tags/OSGi/" rel="tag"># OSGi</a>
-          
-            <a href="/tags/GUI/" rel="tag"># GUI</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2014/01/12/emf.html" rel="next" title="仰望MDA，拥抱EMF">
-                <i class="fa fa-chevron-left"></i> 仰望MDA，拥抱EMF
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/OSGi/" rel="tag"># OSGi</a>
+              <a href="/tags/GUI/" rel="tag"># GUI</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/01/17/jfreechart.html" rel="prev" title="JFreeChart概述">
-                JFreeChart概述 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2014/01/12/emf.html" rel="prev" title="仰望MDA，拥抱EMF">
+      <i class="fa fa-chevron-left"></i> 仰望MDA，拥抱EMF
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2014/01/12/dependency_injection_in_e4.html" rel="next" title="Eclipse e4：从OSGi-DS到依赖注入">
+      Eclipse e4：从OSGi-DS到依赖注入 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text"> 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#视图相关服务"><span class="nav-number">2.</span> <span class="nav-text"> 视图相关服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#epartservice"><span class="nav-number">2.1.</span> <span class="nav-text"> EPartService</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eselectionservice"><span class="nav-number">2.2.</span> <span class="nav-text"> ESelectionService</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型相关服务emodelservice"><span class="nav-number">3.</span> <span class="nav-text"> 模型相关服务EModelService</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制器相关服务"><span class="nav-number">4.</span> <span class="nav-text"> 控制器相关服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mdirtyable和persist注解"><span class="nav-number">4.1.</span> <span class="nav-text"> MDirtyable和@Persist注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ecommandservice和ehandlerservice"><span class="nav-number">4.2.</span> <span class="nav-text"> ECommandService和EHandlerService</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑层相关服务"><span class="nav-number">5.</span> <span class="nav-text"> 逻辑层相关服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ieventbroker"><span class="nav-number">5.1.</span> <span class="nav-text"> IEventBroker</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2014/01/12/e4_platform_services.html';
-          this.page.identifier = '2014/01/12/e4_platform_services.html';
-          this.page.title = 'Eclipse e4中的平台服务';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -959,24 +591,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'dbe260b5e567b6cf0f579b4139a852d0',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

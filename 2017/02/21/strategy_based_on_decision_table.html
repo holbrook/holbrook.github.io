@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="策略平台, C#," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="与编程语言级别的逻辑控制(if-then-else，switch) 相比，决策表能在一个平面中罗列出所有的可能情况，并清晰的指出相应的处理方式，不需要层层嵌套。用户不需要考虑其中的逻辑关系就能一眼看出其中什么样的动作对应什么样的情况，可读性大大提高，并且不容易因为疏忽产生不易察觉的错误。 所以决策表是进行实现复杂控制逻辑的一个有力工具。现在，考虑构建一个通用的决策表，用于定义交易策略。">
-<meta name="keywords" content="策略平台, C#">
+  <meta name="description" content="与编程语言级别的逻辑控制(if-then-else，switch) 相比，决策表能在一个平面中罗列出所有的可能情况，并清晰的指出相应的处理方式，不需要层层嵌套。用户不需要考虑其中的逻辑关系就能一眼看出其中什么样的动作对应什么样的情况，可读性大大提高，并且不容易因为疏忽产生不易察觉的错误。 所以决策表是进行实现复杂控制逻辑的一个有力工具。现在，考虑构建一个通用的决策表，用于定义交易策略。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于决策表实现交易策略">
 <meta property="og:url" content="http://holbrook.github.io/2017/02/21/strategy_based_on_decision_table.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="与编程语言级别的逻辑控制(if-then-else，switch) 相比，决策表能在一个平面中罗列出所有的可能情况，并清晰的指出相应的处理方式，不需要层层嵌套。用户不需要考虑其中的逻辑关系就能一眼看出其中什么样的动作对应什么样的情况，可读性大大提高，并且不容易因为疏忽产生不易察觉的错误。 所以决策表是进行实现复杂控制逻辑的一个有力工具。现在，考虑构建一个通用的决策表，用于定义交易策略。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta property="article:published_time" content="2017-02-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:22.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="策略平台, C#">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于决策表实现交易策略">
-<meta name="twitter:description" content="与编程语言级别的逻辑控制(if-then-else，switch) 相比，决策表能在一个平面中罗列出所有的可能情况，并清晰的指出相应的处理方式，不需要层层嵌套。用户不需要考虑其中的逻辑关系就能一眼看出其中什么样的动作对应什么样的情况，可读性大大提高，并且不容易因为疏忽产生不易察觉的错误。 所以决策表是进行实现复杂控制逻辑的一个有力工具。现在，考虑构建一个通用的决策表，用于定义交易策略。">
+
+<link rel="canonical" href="http://holbrook.github.io/2017/02/21/strategy_based_on_decision_table.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/02/21/strategy_based_on_decision_table.html"/>
-
-
-
-
 
   <title>基于决策表实现交易策略 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#决策表与规则引擎"><span class="nav-number">1.</span> <span class="nav-text">决策表与规则引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策表的构成"><span class="nav-number">2.</span> <span class="nav-text">决策表的构成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用决策表构建策略"><span class="nav-number">3.</span> <span class="nav-text">使用决策表构建策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">3.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">3.2.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件"><span class="nav-number">3.3.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动作"><span class="nav-number">3.4.</span> <span class="nav-text">动作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-表达式引擎-Expression-Evaluator"><span class="nav-number">4.</span> <span class="nav-text">C# 表达式引擎: Expression Evaluator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现要点"><span class="nav-number">5.</span> <span class="nav-text">实现要点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/02/21/strategy_based_on_decision_table.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">基于决策表实现交易策略</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          基于决策表实现交易策略
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T00:00:00+08:00">
-                2017-02-21
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/量化交易/" itemprop="url" rel="index">
-                    <span itemprop="name">量化交易</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-21T00:00:00+08:00">2017-02-21</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/02/21/strategy_based_on_decision_table.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/02/21/strategy_based_on_decision_table.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:22" itemprop="dateModified" datetime="2018-04-16T11:04:22+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" itemprop="url" rel="index"><span itemprop="name">量化交易</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,77 +313,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>与编程语言级别的逻辑控制(<code>if-then-else</code>，<code>switch</code>) 相比，决策表能在一个平面中罗列出所有的可能情况，并清晰的指出相应的处理方式，不需要层层嵌套。用户不需要考虑其中的逻辑关系就能一眼看出其中什么样的动作对应什么样的情况，可读性大大提高，并且不容易因为疏忽产生不易察觉的错误。</p>
 <p>所以决策表是进行实现复杂控制逻辑的一个有力工具。现在，考虑构建一个通用的决策表，用于定义交易策略。</p>
 <a id="more"></a>
-<h1 id="决策表与规则引擎"><a class="markdownIt-Anchor" href="#决策表与规则引擎"></a> 决策表与规则引擎</h1>
-<p>决策表又称判断表，是一种呈表格状的图形工具，适用于描述处理判断条件较多，各条件又相互组合、有多种决策方案的情况。<br>
-精确而简洁描述复杂逻辑的方式，将多个条件与这些条件满足后要执行动作相对应。<br>
-但不同于传统程序语言中的控制语句，决策表能将多个独立的条件和多个动作直接的联系清晰的表示出来<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
-<p>决策表用表格的形式表示一组输入与一组输出的相关规则，可以作为规则引擎的输入。比如，<a href="http://drools.org/" target="_blank" rel="noopener">Drools</a><br>
-就直接支持使用 Excel 定义的规则表作为规则。</p>
-<h1 id="决策表的构成"><a class="markdownIt-Anchor" href="#决策表的构成"></a> 决策表的构成</h1>
-<p>决策表通常包括以下组成部分：</p>
+
+
+<h1 id="决策表与规则引擎"><a href="#决策表与规则引擎" class="headerlink" title="决策表与规则引擎"></a>决策表与规则引擎</h1><p>决策表又称判断表，是一种呈表格状的图形工具，适用于描述处理判断条件较多，各条件又相互组合、有多种决策方案的情况。<br>精确而简洁描述复杂逻辑的方式，将多个条件与这些条件满足后要执行动作相对应。<br>但不同于传统程序语言中的控制语句，决策表能将多个独立的条件和多个动作直接的联系清晰的表示出来<a href="[决策表_百度百科](http://baike.baidu.com/subview/1448115/1448115.htm)">^1</a>。</p>
+<p>决策表用表格的形式表示一组输入与一组输出的相关规则，可以作为规则引擎的输入。比如，<a href="http://drools.org/" target="_blank" rel="noopener">Drools</a><br>就直接支持使用 Excel 定义的规则表作为规则。</p>
+<h1 id="决策表的构成"><a href="#决策表的构成" class="headerlink" title="决策表的构成"></a>决策表的构成</h1><p>决策表通常包括以下组成部分：</p>
 <ul>
-<li>
-<p>条件</p>
-<p>一组变量、关系或预测。条件可能的值的范围决定了决策表的类型。<br>
-最简单的形式为逻辑条件，取值为二元的 True/False。<br>
-也可以是用数组或字母代表的分类规则，可以取有限个离散值。</p>
+<li><p>条件</p>
+<p>一组变量、关系或预测。条件可能的值的范围决定了决策表的类型。<br>最简单的形式为逻辑条件，取值为二元的 True/False。<br>也可以是用数组或字母代表的分类规则，可以取有限个离散值。</p>
 </li>
-<li>
-<p>输入</p>
-<p>每个条件可能的值。决策表要覆盖条件的所有可能组合。<br>
-但可以用“不关心”符号来化简决策表。</p>
+<li><p>输入</p>
+<p>每个条件可能的值。决策表要覆盖条件的所有可能组合。<br>但可以用“不关心”符号来化简决策表。</p>
 </li>
-<li>
-<p>动作</p>
+<li><p>动作</p>
 <p>一组要执行的过程或操作</p>
 </li>
-<li>
-<p>输出</p>
-<p>根据输入，决定是否以及按怎样的顺序执行动作。</p>
+<li><p>输出</p>
+<p>根据输入，决定是否以及按怎样的顺序执行动作。　</p>
 </li>
 </ul>
-<p><a href="http://www.cnblogs.com/onlyforcloud/articles/4475370.html" target="_blank" rel="noopener">这里</a><br>
-有一些决策表的例子。</p>
-<h1 id="使用决策表构建策略"><a class="markdownIt-Anchor" href="#使用决策表构建策略"></a> 使用决策表构建策略</h1>
-<p>与编程语言级别的逻辑控制(<code>if-then-else</code>，<code>switch</code>) 相比，<br>
-决策表能在一个平面中罗列出所有的可能情况，并清晰的指出相应的处理方式，不需要层层嵌套。</p>
-<p>用户不需要考虑其中的逻辑关系就能一眼看出其中什么样的动作对应什么样的情况，<br>
-可读性大大提高，并且不容易因为疏忽产生不易察觉的错误。<br>
-所以决策表是进行实现复杂控制逻辑的一个有力工具。</p>
-<p>现在，考虑构建一个通用的决策表，用于定义交易策略。<br>
-这篇文章提供了一个很好的起点<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，让我们在此基础上更近一步：</p>
-<h2 id="输入"><a class="markdownIt-Anchor" href="#输入"></a> 输入</h2>
-<p>为了简化条件的处理，可以要求所有的输入都是 bool 值。非 bool 值的条件，可以通过变形和多种条件的组合转换成 bool 条件。<br>
-为了简化决策表，需要支持&quot;不关心&quot;符号。<br>
-这样，输入就只有三种情况 (<code>True</code>, <code>False</code>, <code>True or False</code>)，可以用符号(<code>T</code>,<code>F</code>,<code>-</code>)来表示。</p>
-<h2 id="输出"><a class="markdownIt-Anchor" href="#输出"></a> 输出</h2>
-<p>如果动作能够实现排列好顺序，则输出就是“是否执行特定的动作”的序列。可以用<code>X</code>表示执行，空白表示不执行。</p>
-<p>输出只是是否执行某个特定的动作。可以用 ``</p>
-<p>按照决策表原始的定义，</p>
-<p>输出应该是某种“动作”。这很复杂，<br>
-很可能需要用到<a href="https://github.com/dotnet/roslyn" target="_blank" rel="noopener">Roslyn</a>这样的大象。<br>
-但对于交易策略来说，所有的输出无非是某种“指令”。如果把这个“指令”延后到后面的环境去执行，<br>
-则所有的输出就变成了一个“表达式”。</p>
-<h2 id="条件"><a class="markdownIt-Anchor" href="#条件"></a> 条件</h2>
-<p>用 C# 的 lambda 表达式可以很容易的创建条件(Condition)，但这还是通过编码的方式，不够通用。<br>
-我更希望能够通过外部文件来定义条件（比如 文本文件 或 Excel)，这就需要用到表达式引擎。<br>
-由于我已经定义了策略上下文(Context)来封装策略的运行时环境，<br>
-只需要把策略上下文中的变量注册到表达式引擎中，就可以很容易通过表达式解析的方式定义条件了。</p>
-<h2 id="动作"><a class="markdownIt-Anchor" href="#动作"></a> 动作</h2>
-<p>与“条件”类似，我已经定义过策略的输出为<code>Action</code>，在后续环节再生成交易指令。<br>
-为了避免在动作中涉及到复杂的运算，需要丰富<code>Action Factory</code>的功能，实现各种不同的创建<code>Action</code>的方式。<br>
-这样，就可以用表达式为工厂方法传递参数，避免复杂运算。</p>
-<h1 id="c-表达式引擎-expression-evaluator"><a class="markdownIt-Anchor" href="#c-表达式引擎-expression-evaluator"></a> C# 表达式引擎: Expression Evaluator</h1>
-<p><a href="https://github.com/RupertAvery/csharpeval" target="_blank" rel="noopener">Expression Evaluator</a>是一个轻量级的 C#表达式引擎<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。<br>
-Expression Evaluator仅仅依赖<a href="www.antlr.org">Antlr</a>(“又一个语言识别工具”,一个开源的，支持多平台的语法解析器)，<br>
-并且自身还不到1M。</p>
-<p>Expression Evaluator的主要特性包括<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>：</p>
+<p><a href="http://www.cnblogs.com/onlyforcloud/articles/4475370.html" target="_blank" rel="noopener">这里</a><br>有一些决策表的例子。</p>
+<h1 id="使用决策表构建策略"><a href="#使用决策表构建策略" class="headerlink" title="使用决策表构建策略"></a>使用决策表构建策略</h1><p>与编程语言级别的逻辑控制(<code>if-then-else</code>，<code>switch</code>) 相比，<br>决策表能在一个平面中罗列出所有的可能情况，并清晰的指出相应的处理方式，不需要层层嵌套。</p>
+<p>用户不需要考虑其中的逻辑关系就能一眼看出其中什么样的动作对应什么样的情况，<br>可读性大大提高，并且不容易因为疏忽产生不易察觉的错误。<br>所以决策表是进行实现复杂控制逻辑的一个有力工具。</p>
+<p>现在，考虑构建一个通用的决策表，用于定义交易策略。<br>这篇文章提供了一个很好的起点[^2]，让我们在此基础上更近一步：</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>   为了简化条件的处理，可以要求所有的输入都是 bool 值。非 bool 值的条件，可以通过变形和多种条件的组合转换成 bool 条件。<br>   为了简化决策表，需要支持”不关心”符号。<br>   这样，输入就只有三种情况 (<code>True</code>, <code>False</code>, <code>True or False</code>)，可以用符号(<code>T</code>,<code>F</code>,<code>-</code>)来表示。</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>   如果动作能够实现排列好顺序，则输出就是“是否执行特定的动作”的序列。可以用<code>X</code>表示执行，空白表示不执行。</p>
+<p>   输出只是是否执行某个特定的动作。可以用 ``</p>
+<p>   按照决策表原始的定义，</p>
+<p>   输出应该是某种“动作”。这很复杂，<br>   很可能需要用到<a href="https://github.com/dotnet/roslyn" target="_blank" rel="noopener">Roslyn</a>这样的大象。<br>   但对于交易策略来说，所有的输出无非是某种“指令”。如果把这个“指令”延后到后面的环境去执行，<br>   则所有的输出就变成了一个“表达式”。</p>
+<h2 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h2><p>   用 C# 的 lambda 表达式可以很容易的创建条件(Condition)，但这还是通过编码的方式，不够通用。<br>   我更希望能够通过外部文件来定义条件（比如 文本文件 或 Excel)，这就需要用到表达式引擎。<br>   由于我已经定义了策略上下文(Context)来封装策略的运行时环境，<br>   只需要把策略上下文中的变量注册到表达式引擎中，就可以很容易通过表达式解析的方式定义条件了。</p>
+<h2 id="动作"><a href="#动作" class="headerlink" title="动作"></a>动作</h2><p>   与“条件”类似，我已经定义过策略的输出为<code>Action</code>，在后续环节再生成交易指令。<br>   为了避免在动作中涉及到复杂的运算，需要丰富<code>Action Factory</code>的功能，实现各种不同的创建<code>Action</code>的方式。<br>   这样，就可以用表达式为工厂方法传递参数，避免复杂运算。</p>
+<h1 id="C-表达式引擎-Expression-Evaluator"><a href="#C-表达式引擎-Expression-Evaluator" class="headerlink" title="C# 表达式引擎: Expression Evaluator"></a>C# 表达式引擎: Expression Evaluator</h1><p><a href="https://github.com/RupertAvery/csharpeval" target="_blank" rel="noopener">Expression Evaluator</a>是一个轻量级的 C#表达式引擎[^3]。<br>Expression Evaluator仅仅依赖<a href="www.antlr.org">Antlr</a>(“又一个语言识别工具”,一个开源的，支持多平台的语法解析器)，<br>并且自身还不到1M。</p>
+<p>Expression Evaluator的主要特性包括[^4]：</p>
 <ul>
 <li>支持算术运算符，支持关系运算符，以及逻辑运算符</li>
 <li>支持表达式分组和括号，以及递增递减运算符</li>
@@ -440,434 +357,128 @@ Expression Evaluator仅仅依赖<a href="www.antlr.org">Antlr</a>(“又一个�
 <li>支持一些默认的类型，如double, float, char, string, DateTime, Convert, Math</li>
 <li>支持foreach循环</li>
 </ul>
-<h1 id="实现要点"><a class="markdownIt-Anchor" href="#实现要点"></a> 实现要点</h1>
-<p>在我的架构中，策略要尽可能的简单，由 Context 封装策略的运行环境。？<br>
-那么很自然的，表达式引擎应该在 Context 中引入并创建，策略中只是调用其结果。</p>
+<h1 id="实现要点"><a href="#实现要点" class="headerlink" title="实现要点"></a>实现要点</h1><p>在我的架构中，策略要尽可能的简单，由 Context 封装策略的运行环境。？<br>那么很自然的，表达式引擎应该在 Context 中引入并创建，策略中只是调用其结果。</p>
 <p>在 Context 中：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表达式变量</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在构造函数中，定义引擎并注册变量</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StrategyContext</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> registry = <span class="keyword">new</span> TypeRegistry();</span><br><span class="line">    registry.RegisterSymbol(<span class="string">"当前委托"</span>, CurrentOrder);</span><br><span class="line">    registry.RegisterSymbol(<span class="string">"做市商行情"</span>, CurrentMMTick);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">……</span><br><span class="line"></span><br><span class="line"><span class="comment">// 提供</span></span><br></pre></td></tr></table></figure>
-<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="http://baike.baidu.com/subview/1448115/1448115.htm" target="_blank" rel="noopener">决策表_百度百科</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p><a href="http://lukevoss.com/blog/post/2008/09/Decision-Table-in-C.aspx" target="_blank" rel="noopener">Decision Table in C#</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn3" class="footnote-item"><p><a href="http://www.infoq.com/cn/news/2014/05/Expression-Evaluator" target="_blank" rel="noopener">Expression Evaluator：一个轻量级的C#编译器服务</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn4" class="footnote-item"><p><a href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_Expression_Evaluator.html" target="_blank" rel="noopener">Expression Evaluator表达式计算组件使用</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 表达式变量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 在构造函数中，定义引擎并注册变量</span><br><span class="line">public StrategyContext()</span><br><span class="line">&#123;</span><br><span class="line">    var registry &#x3D; new TypeRegistry();</span><br><span class="line">    registry.RegisterSymbol(&quot;当前委托&quot;, CurrentOrder);</span><br><span class="line">    registry.RegisterSymbol(&quot;做市商行情&quot;, CurrentMMTick);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">……</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 提供</span><br></pre></td></tr></table></figure>
 
-      
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[^2]: <a href="http://lukevoss.com/blog/post/2008/09/Decision-Table-in-C.aspx" target="_blank" rel="noopener">Decision Table in C#</a><br>[^3]: <a href="http://www.infoq.com/cn/news/2014/05/Expression-Evaluator" target="_blank" rel="noopener">Expression Evaluator：一个轻量级的C#编译器服务</a><br>[^4]: <a href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_Expression_Evaluator.html" target="_blank" rel="noopener">Expression Evaluator表达式计算组件使用</a></p>
+
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/策略平台-C/" rel="tag"># 策略平台, C#</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/02/17/python_data_analysis4.html" rel="next" title="利用Python进行数据分析(4)：NumPy">
-                <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(4)：NumPy
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AD%96%E7%95%A5%E5%B9%B3%E5%8F%B0-C/" rel="tag"># 策略平台, C#</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/23/python_data_analysis5.html" rel="prev" title="利用Python进行数据分析(5)：Pandas 入门">
-                利用Python进行数据分析(5)：Pandas 入门 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/02/17/python_data_analysis4.html" rel="prev" title="利用Python进行数据分析(4)：NumPy">
+      <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(4)：NumPy
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/02/23/python_data_analysis5.html" rel="next" title="利用Python进行数据分析(5)：Pandas 入门">
+      利用Python进行数据分析(5)：Pandas 入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#决策表与规则引擎"><span class="nav-number">1.</span> <span class="nav-text"> 决策表与规则引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策表的构成"><span class="nav-number">2.</span> <span class="nav-text"> 决策表的构成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用决策表构建策略"><span class="nav-number">3.</span> <span class="nav-text"> 使用决策表构建策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">3.1.</span> <span class="nav-text"> 输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">3.2.</span> <span class="nav-text"> 输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件"><span class="nav-number">3.3.</span> <span class="nav-text"> 条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动作"><span class="nav-number">3.4.</span> <span class="nav-text"> 动作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#c-表达式引擎-expression-evaluator"><span class="nav-number">4.</span> <span class="nav-text"> C# 表达式引擎: Expression Evaluator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现要点"><span class="nav-number">5.</span> <span class="nav-text"> 实现要点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/02/21/strategy_based_on_decision_table.html';
-          this.page.identifier = '2017/02/21/strategy_based_on_decision_table.html';
-          this.page.title = '基于决策表实现交易策略';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -882,24 +493,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'a66fcafef689b1a20fa0dc0904558e03',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

@@ -1,147 +1,66 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="CEP," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  从事件驱动编程（Event-driven Programming)开始 如果你写过GUI程序，对事件处理一定不陌生。事实上，事件驱动编程已经成为一种设计模式。大多数的GUI库都会采用这一模式。 简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  事件产生者（Events Generator）">
-<meta name="keywords" content="CEP">
+  <meta name="description" content="简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。 从事件驱动编程（Event-driven Programming)开始如果你写过GUI程序，对事件处理一定不陌生。事实上，事件驱动编程已经成为一种设计模式。大多数的GUI库都会采用这一模式。 简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  事件产生者（Events Generator）  决定">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CEP：鱼与熊掌可以兼得">
 <meta property="og:url" content="http://holbrook.github.io/2012/11/06/cep_about.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  从事件驱动编程（Event-driven Programming)开始 如果你写过GUI程序，对事件处理一定不陌生。事实上，事件驱动编程已经成为一种设计模式。大多数的GUI库都会采用这一模式。 简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  事件产生者（Events Generator）">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。 从事件驱动编程（Event-driven Programming)开始如果你写过GUI程序，对事件处理一定不陌生。事实上，事件驱动编程已经成为一种设计模式。大多数的GUI库都会采用这一模式。 简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  事件产生者（Events Generator）  决定">
 <meta property="og:image" content="http://holbrook.github.io/2012/11/06/cep_about/cep.png">
 <meta property="og:image" content="http://holbrook.github.io/2012/11/06/cep_about/complex.png">
 <meta property="og:image" content="http://holbrook.github.io/2012/11/06/cep_about/cep_architecture.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2012-11-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="CEP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CEP：鱼与熊掌可以兼得">
-<meta name="twitter:description" content="简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  从事件驱动编程（Event-driven Programming)开始 如果你写过GUI程序，对事件处理一定不陌生。事实上，事件驱动编程已经成为一种设计模式。大多数的GUI库都会采用这一模式。 简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。  事件产生者（Events Generator）">
 <meta name="twitter:image" content="http://holbrook.github.io/2012/11/06/cep_about/cep.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2012/11/06/cep_about.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2012/11/06/cep_about.html"/>
-
-
-
-
 
   <title>CEP：鱼与熊掌可以兼得 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -150,213 +69,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从事件驱动编程（Event-driven-Programming-开始"><span class="nav-number">1.</span> <span class="nav-text">从事件驱动编程（Event-driven Programming)开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件驱动业务（Event-driven-Business"><span class="nav-number">2.</span> <span class="nav-text">事件驱动业务（Event-driven Business)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#业务事件处理的几个层次"><span class="nav-number">3.</span> <span class="nav-text">业务事件处理的几个层次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CEP：鱼与熊掌可以兼得"><span class="nav-number">4.</span> <span class="nav-text">CEP：鱼与熊掌可以兼得</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#处理数据流"><span class="nav-number">4.1.</span> <span class="nav-text">处理数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理复杂性"><span class="nav-number">4.2.</span> <span class="nav-text">处理复杂性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CEP的架构"><span class="nav-number">4.3.</span> <span class="nav-text">CEP的架构</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2012/11/06/cep_about.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">CEP：鱼与熊掌可以兼得</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          CEP：鱼与熊掌可以兼得
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-06T00:00:00+08:00">
-                2012-11-06
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2012-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2012-11-06T00:00:00+08:00">2012-11-06</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2012/11/06/cep_about.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2012/11/06/cep_about.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -364,12 +317,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。</p>
-<h1 id="从事件驱动编程event-driven-programming开始"><a class="markdownIt-Anchor" href="#从事件驱动编程event-driven-programming开始"></a> 从事件驱动编程（Event-driven Programming)开始</h1>
-<p>如果你写过GUI程序，对事件处理一定不陌生。事实上，事件驱动编程已经成为一种设计模式。大多数的GUI库都会采用这一模式。</p>
+<h1 id="从事件驱动编程（Event-driven-Programming-开始"><a href="#从事件驱动编程（Event-driven-Programming-开始" class="headerlink" title="从事件驱动编程（Event-driven Programming)开始"></a>从事件驱动编程（Event-driven Programming)开始</h1><p>如果你写过GUI程序，对事件处理一定不陌生。事实上，事件驱动编程已经成为一种设计模式。大多数的GUI库都会采用这一模式。</p>
 <p>简单的说，事件驱动模式包括三个参与者：事件产生者，事件分发器和事件处理器。</p>
 <ul>
 <li>事件产生者（Events Generator）</li>
@@ -378,488 +327,172 @@
 <ul>
 <li>事件分发器（Events Dispatcher）</li>
 </ul>
-<p>收集所有事件产生者发出的事件放入事件队列(Events Queue)，<br>
-并根据事件的类型将事件分发给已经注册的事件处理器。事件分发器通常由GUI框架实现。</p>
+<p>收集所有事件产生者发出的事件放入事件队列(Events Queue)，<br>并根据事件的类型将事件分发给已经注册的事件处理器。事件分发器通常由GUI框架实现。</p>
 <ul>
 <li>事件处理器（Events Handler)</li>
 </ul>
 <p>根据接收到的事件进行处理，需要GUI框架的使用者自行编写。</p>
 <p>事件驱动编程的核心价值在于：程序的执行流程不是预先定义好的，而是由程序的使用者决定的。这将极大增强程序的交互性。</p>
 <p>就好像DVD与RPG游戏的区别：前者的剧情是设定好的，你只能进行开始、暂停、快进、回退等有限的交互；后者可以决定主角的行为从而影响故事的结局。</p>
-<h1 id="事件驱动业务event-driven-business"><a class="markdownIt-Anchor" href="#事件驱动业务event-driven-business"></a> 事件驱动业务（Event-driven Business)</h1>
-<p>代码的世界不可能是现实世界的完整镜像，但一定是对现实世界的某种抽象，这种抽象能够简化代码世界中对问题的分析和处理。<br>
-同时，这种抽象还可以反向映射到现实世界，为我们解决现实问题提供思路。</p>
+<h1 id="事件驱动业务（Event-driven-Business"><a href="#事件驱动业务（Event-driven-Business" class="headerlink" title="事件驱动业务（Event-driven Business)"></a>事件驱动业务（Event-driven Business)</h1><p>代码的世界不可能是现实世界的完整镜像，但一定是对现实世界的某种抽象，这种抽象能够简化代码世界中对问题的分析和处理。<br>同时，这种抽象还可以反向映射到现实世界，为我们解决现实问题提供思路。</p>
 <p>现代企业生存的外部环境处于剧烈的变化之中，“敏捷企业”已经成为生存之道，而事件驱动业务是敏捷企业的一个基本要求。</p>
-<p>事件驱动业务（Event-driven Business)，是在 连续<br>
-的业务过程中进行决策的一种业务管理方式，即根据不同时点上出现的一系列事件触发相关的任务，并调度可用的资源执行任务。<br>
-如果说事件驱动编程能够为软件带来更灵活的交互性和强大的功能，那么企业中的事件驱动业务能够大幅度提高业务的效率和灵活性。</p>
+<p>事件驱动业务（Event-driven Business)，是在 连续<br>的业务过程中进行决策的一种业务管理方式，即根据不同时点上出现的一系列事件触发相关的任务，并调度可用的资源执行任务。<br>如果说事件驱动编程能够为软件带来更灵活的交互性和强大的功能，那么企业中的事件驱动业务能够大幅度提高业务的效率和灵活性。</p>
 <p>事件驱动业务依托于比较成熟的信息化建设。各个业务应用系统在产生连续不断的数据流的同时，根据定义好的条件产生一些“业务事件”，按照策略对这些业务事件进行分析处理，触发新的业务事件或者业务流程，即实现了业务的事件驱动。</p>
-<p>从上面的描述可以看出，事件驱动业务要求能够快速（毫秒级）、不间断的处理连续、海量的数据，具备灵活的规则或策略设置，从而具备迅速识别、捕获、响应实时业务数据的能力。<br>
-而传统的企业IT架构通常采用：</p>
+<p>从上面的描述可以看出，事件驱动业务要求能够快速（毫秒级）、不间断的处理连续、海量的数据，具备灵活的规则或策略设置，从而具备迅速识别、捕获、响应实时业务数据的能力。<br>而传统的企业IT架构通常采用：</p>
 <ul>
 <li>在业务应用系统中处理业务操作</li>
-<li>遵循固定的业务流程（Business<br>
-Process）处理跨系统事务，并且这些流程很少变化</li>
+<li>遵循固定的业务流程（Business<br>Process）处理跨系统事务，并且这些流程很少变化</li>
 <li>基于数据仓库进行海量数据的存储及事后分析</li>
 </ul>
 <p>这种IT架构远远达不到事件驱动业务的要求。</p>
 <p>事件驱动业务能够应用的业务领域很多，凡是需要快速处理连续性数据、需要能够灵活制定策略的业务，都可以采用事件驱动的业务模式。如证券行业常见的风险分析预警（事前及事中风控）、投资决策（程序化交易）、经纪人绩效计算等。</p>
-<h1 id="业务事件处理的几个层次"><a class="markdownIt-Anchor" href="#业务事件处理的几个层次"></a> 业务事件处理的几个层次</h1>
-<p>其实在传统的IT架构中，我们已经实现了业务事件的处理。比如在传统的业务应用系统中，我们通常将业务数据存储在数据库中，通过应用系统的操作界面由人工发现和处理业务事件。</p>
+<h1 id="业务事件处理的几个层次"><a href="#业务事件处理的几个层次" class="headerlink" title="业务事件处理的几个层次"></a>业务事件处理的几个层次</h1><p>其实在传统的IT架构中，我们已经实现了业务事件的处理。比如在传统的业务应用系统中，我们通常将业务数据存储在数据库中，通过应用系统的操作界面由人工发现和处理业务事件。</p>
 <p>这样的处理方式存在两个不足，一是速度慢，二是对于复杂的情况只靠人脑难以处理。于是有了两个技术方向：</p>
 <ul>
-<li>消息队列（MQ）<br>
-对于速度慢的解决办法是用机器代替人工，为了在多个系统之间传递消息，发展出了消息队列（MQ）的技术</li>
-<li>商业智能（BI）<br>
-为了应对复杂性，通过数据仓库将数据整合到一起，并用专门的工具在数据模型的基础上进行分析</li>
+<li>消息队列（MQ）<br>对于速度慢的解决办法是用机器代替人工，为了在多个系统之间传递消息，发展出了消息队列（MQ）的技术</li>
+<li>商业智能（BI）<br>为了应对复杂性，通过数据仓库将数据整合到一起，并用专门的工具在数据模型的基础上进行分析</li>
 </ul>
 <p>但是上述两个方向是正交的：MQ不适合处理复杂性，而BI主要适应于对结构化的历史数据的分析，无法处理“现在”的情况。</p>
-<h1 id="cep鱼与熊掌可以兼得"><a class="markdownIt-Anchor" href="#cep鱼与熊掌可以兼得"></a> CEP：鱼与熊掌可以兼得</h1>
-<p>CEP（Complex Event<br>
-Processing）的出现解决了上述两个方面的问题，在实时性和复杂性方面都得到了很好的解决。</p>
-<h2 id="处理数据流"><a class="markdownIt-Anchor" href="#处理数据流"></a> 处理数据流</h2>
-<p>不管是单独的应用系统，还是数据仓库，都是先将数据存储到数据库/数据仓库，然后再处理或查询。<br>
-而CEP与MQ类似的将数据看作是 数据流<br>
-。在连续数据的快速移动过程中进行分析处理。<br>
-这样的方式不需要很大的数据加载，完全可以在内存中进行，从而能够快速产生结果。</p>
-<img src="/2012/11/06/cep_about/cep.png" title="数据流">
-<h2 id="处理复杂性"><a class="markdownIt-Anchor" href="#处理复杂性"></a> 处理复杂性</h2>
-<p>业务事件可能很复杂，在各种不同的数据流中源源不断产生各种类型的事件。需要对这些业务事件进行复杂的计算，如过滤、关联、聚合等，同时还需要考虑这些也是事件出现的时间序列。<br>
-最终才能产生有意义的事件，或触发业务流程。同时，这些计算的规则可能还会经常变化。</p>
+<h1 id="CEP：鱼与熊掌可以兼得"><a href="#CEP：鱼与熊掌可以兼得" class="headerlink" title="CEP：鱼与熊掌可以兼得"></a>CEP：鱼与熊掌可以兼得</h1><p>CEP（Complex Event<br>Processing）的出现解决了上述两个方面的问题，在实时性和复杂性方面都得到了很好的解决。</p>
+<h2 id="处理数据流"><a href="#处理数据流" class="headerlink" title="处理数据流"></a>处理数据流</h2><p>不管是单独的应用系统，还是数据仓库，都是先将数据存储到数据库/数据仓库，然后再处理或查询。<br>而CEP与MQ类似的将数据看作是 数据流<br>。在连续数据的快速移动过程中进行分析处理。<br>这样的方式不需要很大的数据加载，完全可以在内存中进行，从而能够快速产生结果。</p>
+<img src="/2012/11/06/cep_about/cep.png" class="" title="数据流">
+
+<h2 id="处理复杂性"><a href="#处理复杂性" class="headerlink" title="处理复杂性"></a>处理复杂性</h2><p>业务事件可能很复杂，在各种不同的数据流中源源不断产生各种类型的事件。需要对这些业务事件进行复杂的计算，如过滤、关联、聚合等，同时还需要考虑这些也是事件出现的时间序列。<br>最终才能产生有意义的事件，或触发业务流程。同时，这些计算的规则可能还会经常变化。</p>
 <p>这一类的问题通常通过基于规则的推理机（即规则引擎）来实现。</p>
-<img src="/2012/11/06/cep_about/complex.png" title="复杂性">
-<h2 id="cep的架构"><a class="markdownIt-Anchor" href="#cep的架构"></a> CEP的架构</h2>
-<img src="/2012/11/06/cep_about/cep_architecture.png" title="CEP的架构">
+<img src="/2012/11/06/cep_about/complex.png" class="" title="复杂性">
+
+<h2 id="CEP的架构"><a href="#CEP的架构" class="headerlink" title="CEP的架构"></a>CEP的架构</h2><img src="/2012/11/06/cep_about/cep_architecture.png" class="" title="CEP的架构">
+
 <p>综上所述，CEP在逻辑上应该包括：</p>
 <ul>
-<li>
-<p>事件发生器<br>
-通过应用系统、文件系统、数据库、互联网、人工、以及传感器产生事件</p>
+<li><p>事件发生器<br>通过应用系统、文件系统、数据库、互联网、人工、以及传感器产生事件</p>
 </li>
-<li>
-<p>事件处理器 模式的匹配、验证和改进，路由，转换以及编排</p>
+<li><p>事件处理器 模式的匹配、验证和改进，路由，转换以及编排</p>
 </li>
-<li>
-<p>事件消费者<br>
-与事件发生器类似，也可以是应用系统、文件系统、数据库、互联网、人工界面等</p>
+<li><p>事件消费者<br>与事件发生器类似，也可以是应用系统、文件系统、数据库、互联网、人工界面等</p>
 </li>
-<li>
-<p>小结</p>
+<li><p>小结</p>
 </li>
 </ul>
-<p>CEP是一种比较新的企业架构(EA,Enterprise<br>
-Architure)组件。CEP将数据看做一种数据流，基于规则引擎对业务过程中持续产生的各种事件进行复杂的处理，能够实现对连续数据的快速分析处理。可以应用在多种业务场景，如风险分析、程序化交易等。</p>
-<p>如果说BI实现了商业智能，那么CEP则实现了“持续智能（Continuous<br>
-Intelligence）“。</p>
+<p>CEP是一种比较新的企业架构(EA,Enterprise<br>Architure)组件。CEP将数据看做一种数据流，基于规则引擎对业务过程中持续产生的各种事件进行复杂的处理，能够实现对连续数据的快速分析处理。可以应用在多种业务场景，如风险分析、程序化交易等。</p>
+<p>如果说BI实现了商业智能，那么CEP则实现了“持续智能（Continuous<br>Intelligence）“。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/CEP/" rel="tag"># CEP</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2012/11/06/nosql_list.html" rel="next" title="NoSQL数据库选型指引">
-                <i class="fa fa-chevron-left"></i> NoSQL数据库选型指引
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CEP/" rel="tag"># CEP</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2012/12/05/python_env.html" rel="prev" title="python的环境管理">
-                python的环境管理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2012/11/06/nosql_list.html" rel="prev" title="NoSQL数据库选型指引">
+      <i class="fa fa-chevron-left"></i> NoSQL数据库选型指引
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2012/12/05/algorithm_of_pattern_match.html" rel="next" title="规则引擎中常用的模式匹配算法">
+      规则引擎中常用的模式匹配算法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从事件驱动编程event-driven-programming开始"><span class="nav-number">1.</span> <span class="nav-text"> 从事件驱动编程（Event-driven Programming)开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件驱动业务event-driven-business"><span class="nav-number">2.</span> <span class="nav-text"> 事件驱动业务（Event-driven Business)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#业务事件处理的几个层次"><span class="nav-number">3.</span> <span class="nav-text"> 业务事件处理的几个层次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cep鱼与熊掌可以兼得"><span class="nav-number">4.</span> <span class="nav-text"> CEP：鱼与熊掌可以兼得</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#处理数据流"><span class="nav-number">4.1.</span> <span class="nav-text"> 处理数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理复杂性"><span class="nav-number">4.2.</span> <span class="nav-text"> 处理复杂性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cep的架构"><span class="nav-number">4.3.</span> <span class="nav-text"> CEP的架构</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2012/11/06/cep_about.html';
-          this.page.identifier = '2012/11/06/cep_about.html';
-          this.page.title = 'CEP：鱼与熊掌可以兼得';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -874,24 +507,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'fbd69082ee8d0cde3f4f3459f5d21515',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

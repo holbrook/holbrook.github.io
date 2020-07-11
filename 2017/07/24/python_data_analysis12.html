@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="python," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="《利用Python进行数据分析》读书笔记。 第 12 章：NumPy高级应用">
-<meta name="keywords" content="python">
+  <meta name="description" content="《利用Python进行数据分析》读书笔记。第 12 章：NumPy高级应用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Python进行数据分析(12)：NumPy高级应用">
 <meta property="og:url" content="http://holbrook.github.io/2017/07/24/python_data_analysis12.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="《利用Python进行数据分析》读书笔记。 第 12 章：NumPy高级应用">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="og:description" content="《利用Python进行数据分析》读书笔记。第 12 章：NumPy高级应用">
+<meta property="article:published_time" content="2017-07-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Python进行数据分析(12)：NumPy高级应用">
-<meta name="twitter:description" content="《利用Python进行数据分析》读书笔记。 第 12 章：NumPy高级应用">
+
+<link rel="canonical" href="http://holbrook.github.io/2017/07/24/python_data_analysis12.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/07/24/python_data_analysis12.html"/>
-
-
-
-
 
   <title>利用Python进行数据分析(12)：NumPy高级应用 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ndarray对象的内部机理"><span class="nav-number">1.</span> <span class="nav-text">ndarray对象的内部机理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Advanced-NumPy"><span class="nav-number">2.</span> <span class="nav-text">Advanced NumPy&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ndarray-object-internals"><span class="nav-number">2.1.</span> <span class="nav-text">ndarray object internals&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NumPy-dtype-hierarchy"><span class="nav-number">2.1.1.</span> <span class="nav-text">NumPy dtype hierarchy&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-array-manipulation"><span class="nav-number">2.2.</span> <span class="nav-text">Advanced array manipulation&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reshaping-arrays"><span class="nav-number">2.2.1.</span> <span class="nav-text">Reshaping arrays&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-vs.-Fortran-order"><span class="nav-number">2.2.2.</span> <span class="nav-text">C vs. Fortran order&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concatenating-and-splitting-arrays"><span class="nav-number">2.2.3.</span> <span class="nav-text">Concatenating and splitting arrays&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stacking-helpers:"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">Stacking helpers:&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeating-elements:-tile-and-repeat"><span class="nav-number">2.2.4.</span> <span class="nav-text">Repeating elements: tile and repeat&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fancy-indexing-equivalents:-take-and-put"><span class="nav-number">2.2.5.</span> <span class="nav-text">Fancy indexing equivalents: take and put&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Broadcasting"><span class="nav-number">2.3.</span> <span class="nav-text">Broadcasting&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Broadcasting-over-other-axes"><span class="nav-number">2.3.1.</span> <span class="nav-text">Broadcasting over other axes&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-array-values-by-broadcasting"><span class="nav-number">2.3.2.</span> <span class="nav-text">Setting array values by broadcasting&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-ufunc-usage"><span class="nav-number">2.4.</span> <span class="nav-text">Advanced ufunc usage&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ufunc-instance-methods"><span class="nav-number">2.4.1.</span> <span class="nav-text">Ufunc instance methods&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom-ufuncs"><span class="nav-number">2.4.2.</span> <span class="nav-text">Custom ufuncs&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Structured-and-record-arrays"><span class="nav-number">2.5.</span> <span class="nav-text">Structured and record arrays&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nested-dtypes-and-multidimensional-fields"><span class="nav-number">2.5.1.</span> <span class="nav-text">Nested dtypes and multidimensional fields&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-use-structured-arrays?"><span class="nav-number">2.5.2.</span> <span class="nav-text">Why use structured arrays?&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Structured-array-manipulations:-numpy.lib.recfunctions"><span class="nav-number">2.5.3.</span> <span class="nav-text">Structured array manipulations: numpy.lib.recfunctions&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#More-about-sorting"><span class="nav-number">2.6.</span> <span class="nav-text">More about sorting&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Indirect-sorts:-argsort-and-lexsort"><span class="nav-number">2.6.1.</span> <span class="nav-text">Indirect sorts: argsort and lexsort&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alternate-sort-algorithms"><span class="nav-number">2.6.2.</span> <span class="nav-text">Alternate sort algorithms&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy.searchsorted:-Finding-elements-in-a-sorted-array"><span class="nav-number">2.6.3.</span> <span class="nav-text">numpy.searchsorted: Finding elements in a sorted array&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NumPy-matrix-class"><span class="nav-number">2.7.</span> <span class="nav-text">NumPy matrix class&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-array-input-and-output"><span class="nav-number">2.8.</span> <span class="nav-text">Advanced array input and output&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-mapped-files"><span class="nav-number">2.8.1.</span> <span class="nav-text">Memory-mapped files&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDF5-and-other-array-storage-options"><span class="nav-number">2.8.2.</span> <span class="nav-text">HDF5 and other array storage options&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-tips"><span class="nav-number">2.9.</span> <span class="nav-text">Performance tips&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-importance-of-contiguous-memory"><span class="nav-number">2.9.1.</span> <span class="nav-text">The importance of contiguous memory&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Other-speed-options:-Cython,-f2py,-C"><span class="nav-number">2.10.</span> <span class="nav-text">Other speed options: Cython, f2py, C&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级数组操作"><span class="nav-number">3.</span> <span class="nav-text">高级数组操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#广播"><span class="nav-number">4.</span> <span class="nav-text">广播</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ufunc高级应用"><span class="nav-number">5.</span> <span class="nav-text">ufunc高级应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构化和记录式数组"><span class="nav-number">6.</span> <span class="nav-text">结构化和记录式数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多关于排序的话题"><span class="nav-number">7.</span> <span class="nav-text">更多关于排序的话题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#numpy的matrix类"><span class="nav-number">8.</span> <span class="nav-text">numpy的matrix类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级数组输入输出"><span class="nav-number">9.</span> <span class="nav-text">高级数组输入输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能建议"><span class="nav-number">10.</span> <span class="nav-text">性能建议</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/07/24/python_data_analysis12.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">利用Python进行数据分析(12)：NumPy高级应用</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          利用Python进行数据分析(12)：NumPy高级应用
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T00:00:00+08:00">
-                2017-07-24
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-07-24 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-24T00:00:00+08:00">2017-07-24</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/07/24/python_data_analysis12.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/24/python_data_analysis12.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,20 +313,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>
-第 12 章：NumPy高级应用</p>
+        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>第 12 章：NumPy高级应用</p>
 <a id="more"></a>
-<h1 id="ndarray对象的内部机理"><a class="markdownIt-Anchor" href="#ndarray对象的内部机理"></a> ndarray对象的内部机理</h1>
 
-<div class="notebook-border">
+<h1 id="ndarray对象的内部机理"><a href="#ndarray对象的内部机理" class="headerlink" title="ndarray对象的内部机理"></a>ndarray对象的内部机理</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Advanced-NumPy">Advanced NumPy<a class="anchor-link" href="#Advanced-NumPy">&#182;</a></h1>
@@ -388,7 +336,7 @@
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 </pre></div>
@@ -399,7 +347,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="ndarray-object-internals">ndarray object internals<a class="anchor-link" href="#ndarray-object-internals">&#182;</a></h2>
@@ -407,7 +355,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="NumPy-dtype-hierarchy">NumPy dtype hierarchy<a class="anchor-link" href="#NumPy-dtype-hierarchy">&#182;</a></h3>
@@ -444,7 +392,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Advanced-array-manipulation">Advanced array manipulation<a class="anchor-link" href="#Advanced-array-manipulation">&#182;</a></h2>
@@ -452,7 +400,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Reshaping-arrays">Reshaping arrays<a class="anchor-link" href="#Reshaping-arrays">&#182;</a></h3>
@@ -545,7 +493,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="C-vs.-Fortran-order">C vs. Fortran order<a class="anchor-link" href="#C-vs.-Fortran-order">&#182;</a></h3>
@@ -569,7 +517,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Concatenating-and-splitting-arrays">Concatenating and splitting arrays<a class="anchor-link" href="#Concatenating-and-splitting-arrays">&#182;</a></h3>
@@ -626,7 +574,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Stacking-helpers:">Stacking helpers:<a class="anchor-link" href="#Stacking-helpers:">&#182;</a></h4>
@@ -664,7 +612,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Repeating-elements:-tile-and-repeat">Repeating elements: tile and repeat<a class="anchor-link" href="#Repeating-elements:-tile-and-repeat">&#182;</a></h3>
@@ -757,7 +705,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Fancy-indexing-equivalents:-take-and-put">Fancy indexing equivalents: take and put<a class="anchor-link" href="#Fancy-indexing-equivalents:-take-and-put">&#182;</a></h3>
@@ -813,7 +761,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Broadcasting">Broadcasting<a class="anchor-link" href="#Broadcasting">&#182;</a></h2>
@@ -870,7 +818,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Broadcasting-over-other-axes">Broadcasting over other axes<a class="anchor-link" href="#Broadcasting-over-other-axes">&#182;</a></h3>
@@ -959,7 +907,7 @@
     <span class="n">means</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
 
     <span class="c1"># This generalized things like [:, :, np.newaxis] to N dimensions</span>
-    <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="bp">None</span><span class="p">)]</span> <span class="o">*</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span>
+    <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span>
     <span class="n">indexer</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span>
     <span class="k">return</span> <span class="n">arr</span> <span class="o">-</span> <span class="n">means</span><span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
 </pre></div>
@@ -970,7 +918,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Setting-array-values-by-broadcasting">Setting array values by broadcasting<a class="anchor-link" href="#Setting-array-values-by-broadcasting">&#182;</a></h3>
@@ -1010,7 +958,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Advanced-ufunc-usage">Advanced ufunc usage<a class="anchor-link" href="#Advanced-ufunc-usage">&#182;</a></h2>
@@ -1018,7 +966,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Ufunc-instance-methods">Ufunc instance methods<a class="anchor-link" href="#Ufunc-instance-methods">&#182;</a></h3>
@@ -1142,7 +1090,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Custom-ufuncs">Custom ufuncs<a class="anchor-link" href="#Custom-ufuncs">&#182;</a></h3>
@@ -1195,7 +1143,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Structured-and-record-arrays">Structured and record arrays<a class="anchor-link" href="#Structured-and-record-arrays">&#182;</a></h2>
@@ -1245,7 +1193,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Nested-dtypes-and-multidimensional-fields">Nested dtypes and multidimensional fields<a class="anchor-link" href="#Nested-dtypes-and-multidimensional-fields">&#182;</a></h3>
@@ -1311,7 +1259,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Why-use-structured-arrays?">Why use structured arrays?<a class="anchor-link" href="#Why-use-structured-arrays?">&#182;</a></h3>
@@ -1319,7 +1267,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Structured-array-manipulations:-numpy.lib.recfunctions">Structured array manipulations: numpy.lib.recfunctions<a class="anchor-link" href="#Structured-array-manipulations:-numpy.lib.recfunctions">&#182;</a></h3>
@@ -1327,7 +1275,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="More-about-sorting">More about sorting<a class="anchor-link" href="#More-about-sorting">&#182;</a></h2>
@@ -1411,7 +1359,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Indirect-sorts:-argsort-and-lexsort">Indirect sorts: argsort and lexsort<a class="anchor-link" href="#Indirect-sorts:-argsort-and-lexsort">&#182;</a></h3>
@@ -1467,7 +1415,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Alternate-sort-algorithms">Alternate sort algorithms<a class="anchor-link" href="#Alternate-sort-algorithms">&#182;</a></h3>
@@ -1492,7 +1440,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="numpy.searchsorted:-Finding-elements-in-a-sorted-array">numpy.searchsorted: Finding elements in a sorted array<a class="anchor-link" href="#numpy.searchsorted:-Finding-elements-in-a-sorted-array">&#182;</a></h3>
@@ -1597,7 +1545,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="NumPy-matrix-class">NumPy matrix class<a class="anchor-link" href="#NumPy-matrix-class">&#182;</a></h2>
@@ -1668,7 +1616,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Advanced-array-input-and-output">Advanced array input and output<a class="anchor-link" href="#Advanced-array-input-and-output">&#182;</a></h2>
@@ -1676,7 +1624,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Memory-mapped-files">Memory-mapped files<a class="anchor-link" href="#Memory-mapped-files">&#182;</a></h3>
@@ -1755,7 +1703,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="HDF5-and-other-array-storage-options">HDF5 and other array storage options<a class="anchor-link" href="#HDF5-and-other-array-storage-options">&#182;</a></h3>
@@ -1763,7 +1711,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Performance-tips">Performance tips<a class="anchor-link" href="#Performance-tips">&#182;</a></h2>
@@ -1771,7 +1719,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="The-importance-of-contiguous-memory">The importance of contiguous memory<a class="anchor-link" href="#The-importance-of-contiguous-memory">&#182;</a></h3>
@@ -1852,7 +1800,7 @@
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Other-speed-options:-Cython,-f2py,-C">Other speed options: Cython, f2py, C<a class="anchor-link" href="#Other-speed-options:-Cython,-f2py,-C">&#182;</a></h2>
@@ -1860,7 +1808,7 @@
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="highlight"><pre><span></span><span class="k">from</span> <span class="nn">numpy</span> <span class="k">cimport</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">float64_t</span>
@@ -1882,423 +1830,124 @@
   </div>
 </div>
 
-<h1 id="高级数组操作"><a class="markdownIt-Anchor" href="#高级数组操作"></a> 高级数组操作</h1>
-<h1 id="广播"><a class="markdownIt-Anchor" href="#广播"></a> 广播</h1>
-<h1 id="ufunc高级应用"><a class="markdownIt-Anchor" href="#ufunc高级应用"></a> ufunc高级应用</h1>
-<h1 id="结构化和记录式数组"><a class="markdownIt-Anchor" href="#结构化和记录式数组"></a> 结构化和记录式数组</h1>
-<h1 id="更多关于排序的话题"><a class="markdownIt-Anchor" href="#更多关于排序的话题"></a> 更多关于排序的话题</h1>
-<h1 id="numpy的matrix类"><a class="markdownIt-Anchor" href="#numpy的matrix类"></a> numpy的matrix类</h1>
-<h1 id="高级数组输入输出"><a class="markdownIt-Anchor" href="#高级数组输入输出"></a> 高级数组输入输出</h1>
-<h1 id="性能建议"><a class="markdownIt-Anchor" href="#性能建议"></a> 性能建议</h1>
 
-      
+<h1 id="高级数组操作"><a href="#高级数组操作" class="headerlink" title="高级数组操作"></a>高级数组操作</h1><h1 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h1><h1 id="ufunc高级应用"><a href="#ufunc高级应用" class="headerlink" title="ufunc高级应用"></a>ufunc高级应用</h1><h1 id="结构化和记录式数组"><a href="#结构化和记录式数组" class="headerlink" title="结构化和记录式数组"></a>结构化和记录式数组</h1><h1 id="更多关于排序的话题"><a href="#更多关于排序的话题" class="headerlink" title="更多关于排序的话题"></a>更多关于排序的话题</h1><h1 id="numpy的matrix类"><a href="#numpy的matrix类" class="headerlink" title="numpy的matrix类"></a>numpy的matrix类</h1><h1 id="高级数组输入输出"><a href="#高级数组输入输出" class="headerlink" title="高级数组输入输出"></a>高级数组输入输出</h1><h1 id="性能建议"><a href="#性能建议" class="headerlink" title="性能建议"></a>性能建议</h1>
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/07/24/python_data_analysis11.html" rel="next" title="利用Python进行数据分析(11)：金融和经济数据应用">
-                <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(11)：金融和经济数据应用
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/29/quantitative_investment1.html" rel="prev" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第1章：绪论">
-                《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第1章：绪论 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/07/20/python_data_analysis10.html" rel="prev" title="利用Python进行数据分析(10)：时间序列">
+      <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(10)：时间序列
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/24/python_data_analysis11.html" rel="next" title="利用Python进行数据分析(11)：金融和经济数据应用">
+      利用Python进行数据分析(11)：金融和经济数据应用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ndarray对象的内部机理"><span class="nav-number">1.</span> <span class="nav-text"> ndarray对象的内部机理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Advanced-NumPy"><span class="nav-number">2.</span> <span class="nav-text">Advanced NumPy¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ndarray-object-internals"><span class="nav-number">2.1.</span> <span class="nav-text">ndarray object internals¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NumPy-dtype-hierarchy"><span class="nav-number">2.1.1.</span> <span class="nav-text">NumPy dtype hierarchy¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-array-manipulation"><span class="nav-number">2.2.</span> <span class="nav-text">Advanced array manipulation¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reshaping-arrays"><span class="nav-number">2.2.1.</span> <span class="nav-text">Reshaping arrays¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-vs.-Fortran-order"><span class="nav-number">2.2.2.</span> <span class="nav-text">C vs. Fortran order¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concatenating-and-splitting-arrays"><span class="nav-number">2.2.3.</span> <span class="nav-text">Concatenating and splitting arrays¶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stacking-helpers:"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">Stacking helpers:¶</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeating-elements:-tile-and-repeat"><span class="nav-number">2.2.4.</span> <span class="nav-text">Repeating elements: tile and repeat¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fancy-indexing-equivalents:-take-and-put"><span class="nav-number">2.2.5.</span> <span class="nav-text">Fancy indexing equivalents: take and put¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Broadcasting"><span class="nav-number">2.3.</span> <span class="nav-text">Broadcasting¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Broadcasting-over-other-axes"><span class="nav-number">2.3.1.</span> <span class="nav-text">Broadcasting over other axes¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-array-values-by-broadcasting"><span class="nav-number">2.3.2.</span> <span class="nav-text">Setting array values by broadcasting¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-ufunc-usage"><span class="nav-number">2.4.</span> <span class="nav-text">Advanced ufunc usage¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ufunc-instance-methods"><span class="nav-number">2.4.1.</span> <span class="nav-text">Ufunc instance methods¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom-ufuncs"><span class="nav-number">2.4.2.</span> <span class="nav-text">Custom ufuncs¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Structured-and-record-arrays"><span class="nav-number">2.5.</span> <span class="nav-text">Structured and record arrays¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nested-dtypes-and-multidimensional-fields"><span class="nav-number">2.5.1.</span> <span class="nav-text">Nested dtypes and multidimensional fields¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-use-structured-arrays?"><span class="nav-number">2.5.2.</span> <span class="nav-text">Why use structured arrays?¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Structured-array-manipulations:-numpy.lib.recfunctions"><span class="nav-number">2.5.3.</span> <span class="nav-text">Structured array manipulations: numpy.lib.recfunctions¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#More-about-sorting"><span class="nav-number">2.6.</span> <span class="nav-text">More about sorting¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Indirect-sorts:-argsort-and-lexsort"><span class="nav-number">2.6.1.</span> <span class="nav-text">Indirect sorts: argsort and lexsort¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alternate-sort-algorithms"><span class="nav-number">2.6.2.</span> <span class="nav-text">Alternate sort algorithms¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy.searchsorted:-Finding-elements-in-a-sorted-array"><span class="nav-number">2.6.3.</span> <span class="nav-text">numpy.searchsorted: Finding elements in a sorted array¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NumPy-matrix-class"><span class="nav-number">2.7.</span> <span class="nav-text">NumPy matrix class¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-array-input-and-output"><span class="nav-number">2.8.</span> <span class="nav-text">Advanced array input and output¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-mapped-files"><span class="nav-number">2.8.1.</span> <span class="nav-text">Memory-mapped files¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDF5-and-other-array-storage-options"><span class="nav-number">2.8.2.</span> <span class="nav-text">HDF5 and other array storage options¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-tips"><span class="nav-number">2.9.</span> <span class="nav-text">Performance tips¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-importance-of-contiguous-memory"><span class="nav-number">2.9.1.</span> <span class="nav-text">The importance of contiguous memory¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Other-speed-options:-Cython,-f2py,-C"><span class="nav-number">2.10.</span> <span class="nav-text">Other speed options: Cython, f2py, C¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级数组操作"><span class="nav-number">3.</span> <span class="nav-text"> 高级数组操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#广播"><span class="nav-number">4.</span> <span class="nav-text"> 广播</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ufunc高级应用"><span class="nav-number">5.</span> <span class="nav-text"> ufunc高级应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构化和记录式数组"><span class="nav-number">6.</span> <span class="nav-text"> 结构化和记录式数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多关于排序的话题"><span class="nav-number">7.</span> <span class="nav-text"> 更多关于排序的话题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#numpy的matrix类"><span class="nav-number">8.</span> <span class="nav-text"> numpy的matrix类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级数组输入输出"><span class="nav-number">9.</span> <span class="nav-text"> 高级数组输入输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能建议"><span class="nav-number">10.</span> <span class="nav-text"> 性能建议</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/07/24/python_data_analysis12.html';
-          this.page.identifier = '2017/07/24/python_data_analysis12.html';
-          this.page.title = '利用Python进行数据分析(12)：NumPy高级应用';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -2313,24 +1962,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '9352f160ce4702f8316975925266b676',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

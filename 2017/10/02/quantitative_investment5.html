@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="量化分析," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="关联规则的挖掘，是发现数据项集之间的关联关系或相关关系。最常用的算法是 Aprior 算法和 FP-Groth 算法。">
-<meta name="keywords" content="量化分析">
+  <meta name="description" content="关联规则的挖掘，是发现数据项集之间的关联关系或相关关系。最常用的算法是 Aprior 算法和 FP-Groth 算法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第5章：关联规则方法">
 <meta property="og:url" content="http://holbrook.github.io/2017/10/02/quantitative_investment5.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="关联规则的挖掘，是发现数据项集之间的关联关系或相关关系。最常用的算法是 Aprior 算法和 FP-Groth 算法。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta property="article:published_time" content="2017-10-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-11T02:55:45.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="量化交易">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第5章：关联规则方法">
-<meta name="twitter:description" content="关联规则的挖掘，是发现数据项集之间的关联关系或相关关系。最常用的算法是 Aprior 算法和 FP-Groth 算法。">
+
+<link rel="canonical" href="http://holbrook.github.io/2017/10/02/quantitative_investment5.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/10/02/quantitative_investment5.html"/>
-
-
-
-
 
   <title>《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第5章：关联规则方法 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关联相关的概念"><span class="nav-number">1.</span> <span class="nav-text">关联相关的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关联规则的分类"><span class="nav-number">2.</span> <span class="nav-text">关联规则的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关联规则常用算法"><span class="nav-number">3.</span> <span class="nav-text">关联规则常用算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例：行业关联选股法"><span class="nav-number">4.</span> <span class="nav-text">实例：行业关联选股法</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/10/02/quantitative_investment5.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第5章：关联规则方法</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第5章：关联规则方法
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T00:00:00+08:00">
-                2017-10-02
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/量化交易/" itemprop="url" rel="index">
-                    <span itemprop="name">量化交易</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-10-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-02T00:00:00+08:00">2017-10-02</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/10/02/quantitative_investment5.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/02/quantitative_investment5.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-11 10:55:45" itemprop="dateModified" datetime="2020-07-11T10:55:45+08:00">2020-07-11</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" itemprop="url" rel="index"><span itemprop="name">量化交易</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,100 +313,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>关联规则的挖掘，是发现数据项集之间的关联关系或相关关系。最常用的算法是 Aprior 算法和 FP-Groth 算法。</p>
+        <p> 关联规则的挖掘，是发现数据项集之间的关联关系或相关关系。最常用的算法是 Aprior 算法和 FP-Groth 算法。</p>
 <a id="more"></a>
-<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
-<p>作为数据挖掘中最重要和研究最多的技术之一，关联规则挖掘在1993年由Agrawal首先提出（Agrawal，1993），<br>
-被用来识别数据库中项目之间的关系。</p>
-<p>关联规则的目标是提取数据集项之间的相关关系、频率形式、关联或随机结构。<br>
-这些关系不是基于数据的自身属性（例如函数依赖），而是基于数据集项的同时发生。</p>
-<h1 id="关联相关的概念"><a class="markdownIt-Anchor" href="#关联相关的概念"></a> 关联相关的概念</h1>
-<ol>
-<li>
-<p>项和项集</p>
-<p>数据中不可分割的最小单位称为项目(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>)，项目的集合称为项集<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span></span>。</p>
-<p>对于项集<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mo>=</mo><mo>{</mo><msub><mrow><mi>i</mi></mrow><mrow><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mrow><mi>i</mi></mrow><mrow><mn>2</mn></mrow></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mrow><mi>i</mi></mrow><mrow><mi>k</mi></mrow></msub><mo>}</mo></mrow><annotation encoding="application/x-tex">I = \{ {i}_{1}, {i}_{2},...,{i}_{k} \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mrel">=</span><span class="mopen">{</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">i</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">i</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">i</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">}</span></span></span></span>， 称 I 为 k-项集。</p>
+
+<p><a href="{filename}quantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+<p>作为数据挖掘中最重要和研究最多的技术之一，关联规则挖掘在1993年由Agrawal首先提出（Agrawal，1993），<br>被用来识别数据库中项目之间的关系。</p>
+<p>关联规则的目标是提取数据集项之间的相关关系、频率形式、关联或随机结构。<br>这些关系不是基于数据的自身属性（例如函数依赖），而是基于数据集项的同时发生。</p>
+<h1 id="关联相关的概念"><a href="#关联相关的概念" class="headerlink" title="关联相关的概念"></a>关联相关的概念</h1><ol>
+<li><p>项和项集</p>
+<p>数据中不可分割的最小单位称为项目($i$)，项目的集合称为项集$I$。</p>
+<p>对于项集$I = { {i}<em>{1}, {i}</em>{2},…,{i}_{k} }$， 称 I 为 k-项集。</p>
 </li>
-<li>
-<p>事务</p>
-<p>设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mo>=</mo><mo>{</mo><msub><mrow><mi>i</mi></mrow><mrow><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mrow><mi>i</mi></mrow><mrow><mn>2</mn></mrow></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mrow><mi>i</mi></mrow><mrow><mi>k</mi></mrow></msub><mo>}</mo></mrow><annotation encoding="application/x-tex">I = \{ {i}_{1}, {i}_{2},...,{i}_{k} \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mrel">=</span><span class="mopen">{</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">i</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">i</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">i</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">}</span></span></span></span>是所有项目构成的项集，<br>
-则一次处理所含项目的集合<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>=</mo><mo>{</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>2</mn></mrow></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo>}</mo></mrow><annotation encoding="application/x-tex">T = \{ {t}_{1}, {t}_{2},...,{t}_{n} \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mrel">=</span><span class="mopen">{</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">t</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">t</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">t</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">}</span></span></span></span>,<br>
-其中每一个$${t}_{i}$$包含的项集都是 I 的子集。</p>
+<li><p>事务</p>
+<p>设$I = { {i}<em>{1}, {i}</em>{2},…,{i}<em>{k} }$是所有项目构成的项集，<br>则一次处理所含项目的集合$T = { {t}</em>{1}, {t}<em>{2},…,{t}</em>{n} }$,<br>其中每一个$${t}_{i}$$包含的项集都是 I 的子集。</p>
 </li>
-<li>
-<p>项集的频度(支持度,Support)</p>
+<li><p>项集的频度(支持度,Support)</p>
 <p>包含某一个项集的事务的个数，称为该项集的频度。</p>
 </li>
-<li>
-<p>关联规则</p>
-<p>如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mo>⇒</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">X \Rightarrow Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mrel">⇒</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span></span></span></span>，其中 X、Y 分别是 I 的子集，并且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mo>⋂</mo><mi>Y</mi><mo>=</mo><mi>φ</mi></mrow><annotation encoding="application/x-tex">X \bigcap Y = \varphi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">⋂</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mrel">=</span><span class="mord mathit">φ</span></span></span></span>。</p>
+<li><p>关联规则</p>
+<p>如果$X \Rightarrow Y$，其中 X、Y 分别是 I 的子集，并且$X \bigcap Y = \varphi$。</p>
 <p>X 称为 规则的前提， Y 称为规则的结果。表示如果出现 X 中的项目，则 Y 中的项目也会出现。</p>
 </li>
-<li>
-<p>关联规则的支持度(Support)</p>
+<li><p>关联规则的支持度(Support)</p>
 <p>交易集合中，同时包含 X、Y 的交易数与所有交易数之比。即：</p>
+<p>$Support\left(X\Rightarrow Y \right) = Support X \bigcap Y = P(XY)$</p>
 </li>
-</ol>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mrow><mo fence="true">(</mo><mi>X</mi><mo>⇒</mo><mi>Y</mi><mo fence="true">)</mo></mrow><mo>=</mo><mi>S</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>X</mi><mo>⋂</mo><mi>Y</mi><mo>=</mo><mi>P</mi><mo>(</mo><mi>X</mi><mi>Y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">Support\left(X\Rightarrow Y \right) = Support X \bigcap Y = P(XY)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mrel">⇒</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">)</span></span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">⋂</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span></p>
-<ol start="6">
-<li>
-<p>关联规则的置信度（Confidence/Strength）</p>
+<li><p>关联规则的置信度（Confidence/Strength）</p>
 <p>交易集中，同时包含 X、Y 的交易数与包含 X 的交易数之比。即：</p>
+<p>$Confidence(X\Rightarrow Y) = \frac{support(X\bigcup Y}{support(X)}=P(Y\mid X)$</p>
 </li>
-</ol>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mi>o</mi><mi>n</mi><mi>f</mi><mi>i</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>(</mo><mi>X</mi><mo>⇒</mo><mi>Y</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>s</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mo>(</mo><mi>X</mi><mo>⋃</mo><mi>Y</mi></mrow><mrow><mi>s</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mo>(</mo><mi>X</mi><mo>)</mo></mrow></mfrac><mo>=</mo><mi>P</mi><mo>(</mo><mi>Y</mi><mo>∣</mo><mi>X</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">Confidence(X\Rightarrow Y) = \frac{support(X\bigcup Y}{support(X)}=P(Y\mid X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.0100069999999999em;"></span><span class="strut bottom" style="height:1.530007em;vertical-align:-0.52em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">i</span><span class="mord mathit">d</span><span class="mord mathit">e</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit">e</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mrel">⇒</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.34500000000000003em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.48500699999999997em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="op-symbol small-op mop" style="top:0.074995em;">⋃</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mrel">∣</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span></p>
-<ol start="7">
-<li>
-<p>最小支持度与最小置信度</p>
-<p>为了达到一定的要求，需要指定规则必须满足的支持度和置信度阈值。分别称为最小支持度阈值(min_sup)和<br>
-最小置信度阈值(min_conf)。</p>
-<p>当支持度和置信度都超高阈值时，称为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mo>⇒</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">X\Rightarrow Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mrel">⇒</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span></span></span></span>是有趣的。</p>
+<li><p>最小支持度与最小置信度</p>
+<p>为了达到一定的要求，需要指定规则必须满足的支持度和置信度阈值。分别称为最小支持度阈值(min_sup)和<br>最小置信度阈值(min_conf)。</p>
+<p>当支持度和置信度都超高阈值时，称为$X\Rightarrow Y$是有趣的。</p>
 </li>
-<li>
-<p>关联规则的性质</p>
+<li><p>关联规则的性质</p>
 <p>根据支持度和置信度的阈值，可以对关联规则进行分类：</p>
-<p>+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mrow><mo fence="true">(</mo><mi>U</mi><mo fence="true">)</mo></mrow><mo>≥</mo><mi>m</mi><mi>i</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>s</mi><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">Support\left(U \right) \geq min\_sup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.06em;vertical-align:-0.31em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">(</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">)</span></span><span class="mrel">≥</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathrm" style="margin-right:0.02778em;">_</span><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord mathit">p</span></span></span></span>: 频繁项集</p>
+<p>+$Support\left(U \right) \geq min_sup$: 频繁项集</p>
 <ul>
-<li>同时满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mrow><mo fence="true">(</mo><mi>U</mi><mo fence="true">)</mo></mrow><mo>≥</mo><mi>m</mi><mi>i</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>s</mi><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">Support\left(U \right) \geq min\_sup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.06em;vertical-align:-0.31em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">(</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">)</span></span><span class="mrel">≥</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathrm" style="margin-right:0.02778em;">_</span><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord mathit">p</span></span></span></span>: 强关联规则，有趣的</li>
-<li>同时满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mrow><mo fence="true">(</mo><mi>U</mi><mo fence="true">)</mo></mrow><mo>≤</mo><mi>m</mi><mi>i</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>s</mi><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">Support\left(U \right) \leq min\_sup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.06em;vertical-align:-0.31em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">(</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">)</span></span><span class="mrel">≤</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathrm" style="margin-right:0.02778em;">_</span><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord mathit">p</span></span></span></span>: 弱关联规则<br>
-+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>u</mi><mi>p</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mrow><mo fence="true">(</mo><mi>U</mi><mo fence="true">)</mo></mrow><mo>≤</mo><mi>m</mi><mi>i</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>s</mi><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">Support\left(U \right) \leq min\_sup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.06em;vertical-align:-0.31em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">(</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;">)</span></span><span class="mrel">≤</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathrm" style="margin-right:0.02778em;">_</span><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord mathit">p</span></span></span></span>: 非频繁项集</li>
+<li>同时满足$Support\left(U \right) \geq min_sup$: 强关联规则，有趣的</li>
+<li>同时满足$Support\left(U \right) \leq min_sup$: 弱关联规则<br>+$Support\left(U \right) \leq min_sup$: 非频繁项集</li>
 </ul>
 </li>
 </ol>
-<h1 id="关联规则的分类"><a class="markdownIt-Anchor" href="#关联规则的分类"></a> 关联规则的分类</h1>
-<p>按照不同情况，关联规则可以进行如下分类：</p>
+<h1 id="关联规则的分类"><a href="#关联规则的分类" class="headerlink" title="关联规则的分类"></a>关联规则的分类</h1><p>按照不同情况，关联规则可以进行如下分类：</p>
 <ul>
-<li>
-<p>基于规则中处理的变量数值类型，可以分为布尔型和数值型</p>
+<li><p>基于规则中处理的变量数值类型，可以分为布尔型和数值型</p>
 <p>布尔型关联规则处理的变量都是离散型的、种类化的，它显示了这些变量之间的关系。</p>
-<p>数值型关联规则可以和多维关联或多层关联规则结合起来，对数值型字段进行处理，将其进行动态分割，<br>
-或直接对原始的数据进行处理，当然数值型关联规则中也可以包含种类变量。例如：</p>
+<p>数值型关联规则可以和多维关联或多层关联规则结合起来，对数值型字段进行处理，将其进行动态分割，<br>或直接对原始的数据进行处理，当然数值型关联规则中也可以包含种类变量。例如：</p>
 <p>类别=“大蓝筹”涨幅=“弱于大势”，是布尔型关联规则。</p>
 <p>类别=“大蓝筹”avg（阿尔法）=-10%，涉及的输入是数值型，是一个数值型关联规则。</p>
 </li>
-<li>
-<p>基于规则中数据的抽象层次，可以分为单层关联规则和多层关联规则</p>
+<li><p>基于规则中数据的抽象层次，可以分为单层关联规则和多层关联规则</p>
 <p>在单层关联规则中，所有的变量都没有考虑到现实的数据是具有多个不同层次的。</p>
-<p>而在多层的关联规则中，对数据的多层性已经进行了充分的考虑。<br>
-例如，台式机=&gt; Sony打印机，是一个较高层次和细节层次之间的多层关联规则。</p>
+<p>而在多层的关联规则中，对数据的多层性已经进行了充分的考虑。<br>例如，台式机=&gt; Sony打印机，是一个较高层次和细节层次之间的多层关联规则。</p>
 </li>
-<li>
-<p>基于规则中所涉及的数据的维数，可以分为单维的和多维的</p>
-<p>在单维的关联规则中，我们只涉及数据的一个维，如投资者购买的股票。<br>
-而在多维的关联规则中，要处理的数据将会涉及到多个维度。</p>
+<li><p>基于规则中所涉及的数据的维数，可以分为单维的和多维的</p>
+<p>在单维的关联规则中，我们只涉及数据的一个维，如投资者购买的股票。<br>而在多维的关联规则中，要处理的数据将会涉及到多个维度。</p>
 <p>换句话说，单位关联规则是处理单个属性中的一些关系；多维关联规则是处理各个属性之间的某些关系。</p>
-<p>例如，大蓝筹涨=&gt;小盘股跌，这条规则只涉及股票类型；类别=“大蓝筹”=&gt;涨幅=“弱于大势”，<br>
-这条规则就涉及两个字段的信息，是两个维度上的一条关联规则。</p>
+<p>例如，大蓝筹涨=&gt;小盘股跌，这条规则只涉及股票类型；类别=“大蓝筹”=&gt;涨幅=“弱于大势”，<br>这条规则就涉及两个字段的信息，是两个维度上的一条关联规则。</p>
 </li>
 </ul>
-<h1 id="关联规则常用算法"><a class="markdownIt-Anchor" href="#关联规则常用算法"></a> 关联规则常用算法</h1>
-<p>关联规则最常用的算法是Apriori算法和 FP-tree算法。</p>
+<h1 id="关联规则常用算法"><a href="#关联规则常用算法" class="headerlink" title="关联规则常用算法"></a>关联规则常用算法</h1><p>关联规则最常用的算法是Apriori算法和 FP-tree算法。</p>
 <ul>
-<li>
-<p>Apriori算法</p>
+<li><p>Apriori算法</p>
 <ul>
 <li>算法的基本思想</li>
 <li>算法的步骤</li>
@@ -462,8 +384,7 @@
 <li>算法的优缺点</li>
 </ul>
 </li>
-<li>
-<p>FP-Growth算法</p>
+<li><p>FP-Growth算法</p>
 <ul>
 <li>算法步骤</li>
 <li>算法实例</li>
@@ -471,18 +392,15 @@
 </ul>
 </li>
 </ul>
-<h1 id="实例行业关联选股法"><a class="markdownIt-Anchor" href="#实例行业关联选股法"></a> 实例：行业关联选股法</h1>
-<ul>
-<li>
-<p>思路</p>
+<h1 id="实例：行业关联选股法"><a href="#实例：行业关联选股法" class="headerlink" title="实例：行业关联选股法"></a>实例：行业关联选股法</h1><ul>
+<li><p>思路</p>
 <ul>
 <li>选个股难，选对行业相对容易</li>
 <li>有些行业具有联动效应</li>
 <li>找到具有联动关联的行业，当某个行业出现涨势、但其相关行业没有开始上涨时，在相关行业中选择典型股票买入</li>
 </ul>
 </li>
-<li>
-<p>过程</p>
+<li><p>过程</p>
 <ol>
 <li>定义10个交易日内，涨幅超过大盘涨幅5%的行业为出现涨势</li>
 <li>对数据进行预处理，标记出行业关联事务数据</li>
@@ -491,421 +409,128 @@
 <li>计算出现联动的概率，根据概率制定操作策略</li>
 </ol>
 </li>
-<li>
-<p>策略</p>
+<li><p>策略</p>
 <p>略。</p>
 </li>
 </ul>
-<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+<p><a href="{filename}quantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/量化分析/" rel="tag"># 量化分析</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/10/02/quantitative_investment4.html" rel="next" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第4章：数据的探索">
-                <i class="fa fa-chevron-left"></i> 《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第4章：数据的探索
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" rel="tag"># 量化交易</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/08/quantitative_investment6.html" rel="prev" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第6章：数据回归方法">
-                《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第6章：数据回归方法 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/02/quantitative_investment4.html" rel="prev" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第4章：数据的探索">
+      <i class="fa fa-chevron-left"></i> 《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第4章：数据的探索
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/08/quantitative_investment6.html" rel="next" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第6章：数据回归方法">
+      《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第6章：数据回归方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关联相关的概念"><span class="nav-number">1.</span> <span class="nav-text"> 关联相关的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关联规则的分类"><span class="nav-number">2.</span> <span class="nav-text"> 关联规则的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关联规则常用算法"><span class="nav-number">3.</span> <span class="nav-text"> 关联规则常用算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例行业关联选股法"><span class="nav-number">4.</span> <span class="nav-text"> 实例：行业关联选股法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/10/02/quantitative_investment5.html';
-          this.page.identifier = '2017/10/02/quantitative_investment5.html';
-          this.page.title = '《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第5章：关联规则方法';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -920,24 +545,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '5e517e62504b1c2b39ec63a84d325933',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

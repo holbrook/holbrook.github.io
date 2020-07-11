@@ -1,146 +1,66 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="devops,cluster," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。与Cacti、Nagios、Zabbix等工具相比，Ganglia更关注整个集群的性能和可用性。可以用于集群的性能监控、分析和优化。">
-<meta name="keywords" content="devops,cluster">
+  <meta name="description" content="对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。与Cacti、Nagios、Zabbix等工具相比，Ganglia更关注整个集群的性能和可用性。可以用于集群的性能监控、分析和优化。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用Ganglia监控集群的性能">
 <meta property="og:url" content="http://holbrook.github.io/2013/07/30/ganglia.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。与Cacti、Nagios、Zabbix等工具相比，Ganglia更关注整个集群的性能和可用性。可以用于集群的性能监控、分析和优化。">
-<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://holbrook.github.io/2013/07/30/ganglia/ganglia_architecture.gif">
 <meta property="og:image" content="http://holbrook.github.io/2013/07/30/ganglia/ganglia_nginx.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2013-07-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="cluster">
+<meta property="article:tag" content="devops">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用Ganglia监控集群的性能">
-<meta name="twitter:description" content="对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。与Cacti、Nagios、Zabbix等工具相比，Ganglia更关注整个集群的性能和可用性。可以用于集群的性能监控、分析和优化。">
 <meta name="twitter:image" content="http://holbrook.github.io/2013/07/30/ganglia/ganglia_architecture.gif">
 
+<link rel="canonical" href="http://holbrook.github.io/2013/07/30/ganglia.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2013/07/30/ganglia.html"/>
-
-
-
-
 
   <title>用Ganglia监控集群的性能 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -149,213 +69,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ganglia简介"><span class="nav-number">1.</span> <span class="nav-text">Ganglia简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ganglia架构"><span class="nav-number">2.</span> <span class="nav-text">Ganglia架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ganglia规划"><span class="nav-number">3.</span> <span class="nav-text">Ganglia规划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和配置"><span class="nav-number">4.</span> <span class="nav-text">安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">4.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置防火墙规则"><span class="nav-number">4.2.</span> <span class="nav-text">配置防火墙规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置被监控节点-etc-ganglia-gmond-conf"><span class="nav-number">4.3.</span> <span class="nav-text">配置被监控节点(&#x2F;etc&#x2F;ganglia&#x2F;gmond.conf)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置中心节点-etc-ganglia-gmetad-conf"><span class="nav-number">4.4.</span> <span class="nav-text">配置中心节点(&#x2F;etc&#x2F;ganglia&#x2F;gmetad.conf)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置web"><span class="nav-number">4.5.</span> <span class="nav-text">配置web</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展监控功能"><span class="nav-number">5.</span> <span class="nav-text">扩展监控功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件机制"><span class="nav-number">5.1.</span> <span class="nav-text">插件机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署NginX插件"><span class="nav-number">5.2.</span> <span class="nav-text">部署NginX插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO：与Nagios结合使用"><span class="nav-number">6.</span> <span class="nav-text">TODO：与Nagios结合使用</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/07/30/ganglia.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">用Ganglia监控集群的性能</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          用Ganglia监控集群的性能
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-07-30T00:00:00+08:00">
-                2013-07-30
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
-                    <span itemprop="name">软件基础设施</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2013-07-30 00:00:00" itemprop="dateCreated datePublished" datetime="2013-07-30T00:00:00+08:00">2013-07-30</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2013/07/30/ganglia.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/07/30/ganglia.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">软件基础设施</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -363,53 +317,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。与Cacti、Nagios、Zabbix等工具相比，Ganglia更关注整个集群的性能和可用性。可以用于集群的性能监控、分析和优化。</p>
+        <p> 对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。与Cacti、Nagios、Zabbix等工具相比，Ganglia更关注整个集群的性能和可用性。可以用于集群的性能监控、分析和优化。</p>
 <a id="more"></a>
-<h1 id="ganglia简介"><a class="markdownIt-Anchor" href="#ganglia简介"></a> Ganglia简介</h1>
-<p>对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。</p>
-<p>有很多开源的强大工具可以用于监控，比如<br>
-<a href="http://www.cacti.net/" target="_blank" rel="noopener">Cacti</a>，<br>
-<a href="http://www.nagios.org" target="_blank" rel="noopener">Nagios</a><br>
-以及比较新的<br>
-<a href="http://www.shinken-monitoring.org/" target="_blank" rel="noopener">Shinken</a>和<br>
-<a href="http://www.zabbix.com" target="_blank" rel="noopener">Zabbix</a>。<br>
-这些工具的主要功能是状态监控和报警——就像一个合格的监工，随时掌握基础设施是否在干活，发现谁没干活马上报告。</p>
+
+
+<h1 id="Ganglia简介"><a href="#Ganglia简介" class="headerlink" title="Ganglia简介"></a>Ganglia简介</h1><p>对基础设施的监控主要包括三个方面：状态，性能和可用性。通俗的讲就是：是否在干活，干了多少活，还能干多少。</p>
+<p>有很多开源的强大工具可以用于监控，比如<br><a href="http://www.cacti.net/" target="_blank" rel="noopener">Cacti</a>，<br><a href="http://www.nagios.org" target="_blank" rel="noopener">Nagios</a><br>以及比较新的<br><a href="http://www.shinken-monitoring.org/" target="_blank" rel="noopener">Shinken</a>和<br><a href="http://www.zabbix.com" target="_blank" rel="noopener">Zabbix</a>。<br>这些工具的主要功能是状态监控和报警——就像一个合格的监工，随时掌握基础设施是否在干活，发现谁没干活马上报告。</p>
 <p>如果是传统的运维工作，有这些工具就足够强大了。但是对于分布式系统的开发+运维人员（DevOps?），更关心的是掌握分布式系统的性能和可用性，根据数据做出性能调整、升级、扩容等的决策，从而保证基础设施服务能够满足不断增长的业务需求。</p>
-<p><a href="http://ganglia.sourceforge.net/" target="_blank" rel="noopener">Ganglia</a>就是这样一种工具。Ganglia 是 UC Berkeley 发起的一个开源监视项目，设计用于测量数以千计的节点。Ganglia主要监控集群的性能指标，如cpu 、mem、硬盘利用率， I/O负载、网络流量情况等，<br>
-也可以监控自定义的性能指标。通过Ganglia绘制的曲线很容易见到每个节点的工作状态，对合理调整、分配系统资源，提高系统整体性能起到重要作用。</p>
+<p><a href="http://ganglia.sourceforge.net/" target="_blank" rel="noopener">Ganglia</a>就是这样一种工具。Ganglia 是 UC Berkeley 发起的一个开源监视项目，设计用于测量数以千计的节点。Ganglia主要监控集群的性能指标，如cpu 、mem、硬盘利用率， I/O负载、网络流量情况等，<br>也可以监控自定义的性能指标。通过Ganglia绘制的曲线很容易见到每个节点的工作状态，对合理调整、分配系统资源，提高系统整体性能起到重要作用。</p>
 <p>gmond 带来的系统负载非常少，这使得它成为在集群中各台计算机上运行的一段代码，而不会影响用户性能。</p>
-<h1 id="ganglia架构"><a class="markdownIt-Anchor" href="#ganglia架构"></a> Ganglia架构</h1>
-<p>Ganglia的整体架构如下图所示：</p>
-<img src="/2013/07/30/ganglia/ganglia_architecture.gif" title="Ganglia-architecture">
+<h1 id="Ganglia架构"><a href="#Ganglia架构" class="headerlink" title="Ganglia架构"></a>Ganglia架构</h1><p>Ganglia的整体架构如下图所示：</p>
+<img src="/2013/07/30/ganglia/ganglia_architecture.gif" class="" title="Ganglia-architecture">
+
 <ol>
 <li>每个被检测的节点或集群运行一个gmond进程，进行监控数据的收集、汇总和发送。gmond即可以作为发送者（收集本机数据），也可以作为接收者（汇总多个节点的数据）。</li>
 <li>通常在整个监控体系中只有一个gmetad进程。该进程定期检查所有的gmonds，主动收集数据，并存储在RRD存储引擎中。</li>
 <li>ganglia-web是使用php编写的web界面，以图表的方式展现存储在RRD中的数据。通常与gmetad进程运行在一起。</li>
 </ol>
-<p>其中，<a href="http://oss.oetiker.ch/rrdtool/" target="_blank" rel="noopener">RRDtool</a>(Round Robin Database tool,环状数据库工具)是一组操作RRD数据的API，支持数据图形化。RRD是一种环状数据库技术，只存储固定数量的数据，新的数据会覆盖最旧的数据。<br>
-更多信息可以参考<a href="http://bbs.chinaunix.net/forum.php?mod=viewthread&amp;tid=864861&amp;page=1" target="_blank" rel="noopener">RRDtool简体中文教程 v1.01</a>。</p>
-<h1 id="ganglia规划"><a class="markdownIt-Anchor" href="#ganglia规划"></a> Ganglia规划</h1>
-<p>在动手部署Ganglia之前，首先要对监控体系进行初步的规划。主要考虑两方面的问题：</p>
+<p>其中，<a href="http://oss.oetiker.ch/rrdtool/" target="_blank" rel="noopener">RRDtool</a>(Round Robin Database tool,环状数据库工具)是一组操作RRD数据的API，支持数据图形化。RRD是一种环状数据库技术，只存储固定数量的数据，新的数据会覆盖最旧的数据。<br>更多信息可以参考<a href="http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=864861&page=1" target="_blank" rel="noopener">RRDtool简体中文教程 v1.01</a>。</p>
+<h1 id="Ganglia规划"><a href="#Ganglia规划" class="headerlink" title="Ganglia规划"></a>Ganglia规划</h1><p>在动手部署Ganglia之前，首先要对监控体系进行初步的规划。主要考虑两方面的问题：</p>
 <ol>
-<li>
-<p>单集群 or 多集群</p>
-<p>如果节点较少，使用单集群配置起来更容易；<br>
-如果节点很多，使用多集群可以避免广播风暴。但是需要为每个集群配置不同的组播通道（通过端口区分），同时要配置gmetad同时监听这多个通道。</p>
+<li><p>单集群 or 多集群</p>
+<p>如果节点较少，使用单集群配置起来更容易；<br>如果节点很多，使用多集群可以避免广播风暴。但是需要为每个集群配置不同的组播通道（通过端口区分），同时要配置gmetad同时监听这多个通道。</p>
 </li>
-<li>
-<p>组播模式 or 单播模式</p>
-<p>组播模式是ganglia的默认模式，同一集群的多个gmond之间互相交换数据，gmetad中可以指定集群中的任意一个或多个节点作为&quot;data_source&quot;；</p>
-<p>组播模式可能会带来网络的 “抖动（Jitter）”。据说设置节点的时钟同步可以避免抖动的问题； 但如果网络环境不支持组播（比如Amazon’s AWS EC2），就需要使用单播模式。单播模式时，将大部分节点的gmond.conf中,global的deaf设置改为&quot;yes&quot;，则这些节点只发生数据，不接收其他节点的数据，同样也不能作为gmetad中的&quot;data_source&quot;。</p>
+<li><p>组播模式 or 单播模式</p>
+<p>组播模式是ganglia的默认模式，同一集群的多个gmond之间互相交换数据，gmetad中可以指定集群中的任意一个或多个节点作为”data_source”；</p>
+<p>组播模式可能会带来网络的 “抖动（Jitter）”。据说设置节点的时钟同步可以避免抖动的问题； 但如果网络环境不支持组播（比如Amazon’s AWS EC2），就需要使用单播模式。单播模式时，将大部分节点的gmond.conf中,global的deaf设置改为”yes”，则这些节点只发生数据，不接收其他节点的数据，同样也不能作为gmetad中的”data_source”。</p>
 <p>单播模式中还需要设置“send_metadata_interval”，比如30秒。以强制发送元数据。</p>
 </li>
 </ol>
 <p>ganglia将一个gmetad覆盖的所有集群/节点称为一个grid。可以在/etc/ganglia/gmetad.conf中通过<code>gridname</code>指定其名称。多个grid的数据也可以聚合到一个上级gmetad中。</p>
-<h1 id="安装和配置"><a class="markdownIt-Anchor" href="#安装和配置"></a> 安装和配置</h1>
-<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
-<p>在RHEL/CentOS上如果配置了EPEL源，则安装变得非常简单。用yum可以查到如下软件包：</p>
+<h1 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在RHEL/CentOS上如果配置了EPEL源，则安装变得非常简单。用yum可以查到如下软件包：</p>
 <ul>
 <li>ganglia.i686 : Ganglia Distributed Monitoring System</li>
 <li>ganglia.x86_64 : Ganglia Distributed Monitoring System</li>
@@ -421,43 +359,31 @@
 <li>ganglia-web.x86_64 : Ganglia Web Frontend</li>
 </ul>
 <p>在不同的节点选择对应的软件包安装即可。</p>
-<h2 id="配置防火墙规则"><a class="markdownIt-Anchor" href="#配置防火墙规则"></a> 配置防火墙规则</h2>
-<p>gmond和gmetad之间默认使用UDP的8649端口进行通信，如果配置多个集群，还会有其他端口。要保证这些端口畅通。</p>
-<h2 id="配置被监控节点etcgangliagmondconf"><a class="markdownIt-Anchor" href="#配置被监控节点etcgangliagmondconf"></a> 配置被监控节点(/etc/ganglia/gmond.conf)</h2>
-<p>最重要的配置是集群名称(<a href="http://cluster.name" target="_blank" rel="noopener">cluster.name</a>)。</p>
+<h2 id="配置防火墙规则"><a href="#配置防火墙规则" class="headerlink" title="配置防火墙规则"></a>配置防火墙规则</h2><p>gmond和gmetad之间默认使用UDP的8649端口进行通信，如果配置多个集群，还会有其他端口。要保证这些端口畅通。</p>
+<h2 id="配置被监控节点-etc-ganglia-gmond-conf"><a href="#配置被监控节点-etc-ganglia-gmond-conf" class="headerlink" title="配置被监控节点(/etc/ganglia/gmond.conf)"></a>配置被监控节点(/etc/ganglia/gmond.conf)</h2><p>最重要的配置是集群名称(cluster.name)。</p>
 <p>如果要配置多个集群，每个集群要使用不同的端口。共三个地方：</p>
 <ul>
 <li>udp_send_channel.port</li>
 <li>udp_recv_channel.port</li>
 <li>tcp_accept_channel.port</li>
 </ul>
-<h2 id="配置中心节点etcgangliagmetadconf"><a class="markdownIt-Anchor" href="#配置中心节点etcgangliagmetadconf"></a> 配置中心节点(/etc/ganglia/gmetad.conf)</h2>
-<p>最重要的是配置数据源。比如：</p>
+<h2 id="配置中心节点-etc-ganglia-gmetad-conf"><a href="#配置中心节点-etc-ganglia-gmetad-conf" class="headerlink" title="配置中心节点(/etc/ganglia/gmetad.conf)"></a>配置中心节点(/etc/ganglia/gmetad.conf)</h2><p>最重要的是配置数据源。比如：</p>
 <pre><code>data_source &quot;NginX&quot; a.a.a.101:8661 a.a.a.102:8661
-data_source &quot;LVS&quot;   b.b.b.101 b.b.b.102
-</code></pre>
-<h2 id="配置web"><a class="markdownIt-Anchor" href="#配置web"></a> 配置web</h2>
-<p>默认启动httpd服务后，就可以通过<code>http://IP/ganglia</code>访问。如果提示权限问题，需要检查：</p>
+data_source &quot;LVS&quot;   b.b.b.101 b.b.b.102</code></pre><h2 id="配置web"><a href="#配置web" class="headerlink" title="配置web"></a>配置web</h2><p>默认启动httpd服务后，就可以通过<code>http://IP/ganglia</code>访问。如果提示权限问题，需要检查：</p>
 <ol>
 <li>selinux设置</li>
 <li>防火墙设置</li>
 <li>/etc/httpd/conf.d/ganglia.conf中的<code>Deny from all</code>限制</li>
 </ol>
-<h1 id="扩展监控功能"><a class="markdownIt-Anchor" href="#扩展监控功能"></a> 扩展监控功能</h1>
-<p>Ganglia默认只监控一些通用的性能指标，如果要监控自定义的指标，就需要对Ganglia进行扩展。</p>
-<h2 id="插件机制"><a class="markdownIt-Anchor" href="#插件机制"></a> 插件机制</h2>
-<p>从Ganglia 3.1开始，可以使用python开发的插件对Ganglia进行扩展。</p>
+<h1 id="扩展监控功能"><a href="#扩展监控功能" class="headerlink" title="扩展监控功能"></a>扩展监控功能</h1><p>Ganglia默认只监控一些通用的性能指标，如果要监控自定义的指标，就需要对Ganglia进行扩展。</p>
+<h2 id="插件机制"><a href="#插件机制" class="headerlink" title="插件机制"></a>插件机制</h2><p>从Ganglia 3.1开始，可以使用python开发的插件对Ganglia进行扩展。</p>
 <p><code>/etc/ganglia/gmond.conf</code>配置中通常会包含：</p>
-<pre><code>include ('/etc/ganglia/conf.d/*.conf')
-</code></pre>
-<p>如果安装了<code>ganglia-gmond-python</code>软件包，会创建一个<code>/etc/ganglia/conf.d/modpython.conf</code>文件：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">modules &#123;</span><br><span class="line">  <span class="class"><span class="keyword">module</span> &#123;</span></span><br><span class="line">    name = <span class="string">"python_module"</span></span><br><span class="line">    path = <span class="string">"modpython.so"</span></span><br><span class="line">    params = <span class="string">"/usr/lib64/ganglia/python_modules"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span> (<span class="string">'/etc/ganglia/conf.d/*.pyconf'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>include (&apos;/etc/ganglia/conf.d/*.conf&apos;)</code></pre><p>如果安装了<code>ganglia-gmond-python</code>软件包，会创建一个<code>/etc/ganglia/conf.d/modpython.conf</code>文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">modules &#123;</span><br><span class="line">  module &#123;</span><br><span class="line">    name &#x3D; &quot;python_module&quot;</span><br><span class="line">    path &#x3D; &quot;modpython.so&quot;</span><br><span class="line">    params &#x3D; &quot;&#x2F;usr&#x2F;lib64&#x2F;ganglia&#x2F;python_modules&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include (&#39;&#x2F;etc&#x2F;ganglia&#x2F;conf.d&#x2F;*.pyconf&#39;)</span><br></pre></td></tr></table></figure>
+
 <p>这样，就可以用python编写自定义的插件。</p>
 <p>Ganglia 在 GitHub 上已经收集了一些<a href="https://github.com/ganglia/gmond_python_modules" target="_blank" rel="noopener">常用的python插件</a>。</p>
-<h2 id="部署nginx插件"><a class="markdownIt-Anchor" href="#部署nginx插件"></a> 部署NginX插件</h2>
-<p>在<a href="https://github.com/ganglia/gmond_python_modules" target="_blank" rel="noopener">常用的python插件</a>中包含了<br>
-<a href="https://github.com/ganglia/gmond_python_modules/tree/master/nginx_status" target="_blank" rel="noopener">nginx_status插件</a>，<br>
-该插件利用<a href="/nginx_keepalived.html#menuIndex9">NginX的状态监控功能</a>获取数据。</p>
+<h2 id="部署NginX插件"><a href="#部署NginX插件" class="headerlink" title="部署NginX插件"></a>部署NginX插件</h2><p>在<a href="https://github.com/ganglia/gmond_python_modules" target="_blank" rel="noopener">常用的python插件</a>中包含了<br><a href="https://github.com/ganglia/gmond_python_modules/tree/master/nginx_status" target="_blank" rel="noopener">nginx_status插件</a>，<br>该插件利用<a href="/nginx_keepalived.html#menuIndex9">NginX的状态监控功能</a>获取数据。</p>
 <p>在确保nginx_status可以访问的前提下，只需要做如下配置：</p>
 <ol>
 <li>将python_modules/目录下的文件复制到gmond节点的<code>/usr/lib64/ganglia/python_modules</code>目录。这是执行数据采集的脚本</li>
@@ -466,421 +392,128 @@ data_source &quot;LVS&quot;   b.b.b.101 b.b.b.102
 <li>将graph.d/目录下的文件复制到gmetad节点的<code>/usr/share/ganglia/graph.d</code>目录。这些文件定义了如何绘制metric的图形</li>
 <li>重启gmetad，在对应的nginx节点详细信息中可以看到nginx metric对应的7个图表。</li>
 </ol>
-<img src="/2013/07/30/ganglia/ganglia_nginx.png" title="Ganglia-nginx">
+<img src="/2013/07/30/ganglia/ganglia_nginx.png" class="" title="Ganglia-nginx">
+
 <p>理解了NginX插件，基本上能够自己开发Ganglia插件了。</p>
-<h1 id="todo与nagios结合使用"><a class="markdownIt-Anchor" href="#todo与nagios结合使用"></a> TODO：与Nagios结合使用</h1>
-<p>Nagios提供了很好的报警机制，将Ganglia与Nagios结合使用是常见的方式。</p>
+<h1 id="TODO：与Nagios结合使用"><a href="#TODO：与Nagios结合使用" class="headerlink" title="TODO：与Nagios结合使用"></a>TODO：与Nagios结合使用</h1><p>Nagios提供了很好的报警机制，将Ganglia与Nagios结合使用是常见的方式。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/devops/" rel="tag"># devops</a>
-          
-            <a href="/tags/cluster/" rel="tag"># cluster</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/07/17/ha_drbd.html" rel="next" title="DRBD:基于软件的存储解决方案">
-                <i class="fa fa-chevron-left"></i> DRBD:基于软件的存储解决方案
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cluster/" rel="tag"># cluster</a>
+              <a href="/tags/devops/" rel="tag"># devops</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/08/02/moosefs.html" rel="prev" title="MooseFS：屌丝的存储">
-                MooseFS：屌丝的存储 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2013/07/17/ha_drbd.html" rel="prev" title="DRBD:基于软件的存储解决方案">
+      <i class="fa fa-chevron-left"></i> DRBD:基于软件的存储解决方案
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2013/08/02/statistics_intro_6.html" rel="next" title="《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验)">
+      《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ganglia简介"><span class="nav-number">1.</span> <span class="nav-text"> Ganglia简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ganglia架构"><span class="nav-number">2.</span> <span class="nav-text"> Ganglia架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ganglia规划"><span class="nav-number">3.</span> <span class="nav-text"> Ganglia规划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和配置"><span class="nav-number">4.</span> <span class="nav-text"> 安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">4.1.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置防火墙规则"><span class="nav-number">4.2.</span> <span class="nav-text"> 配置防火墙规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置被监控节点etcgangliagmondconf"><span class="nav-number">4.3.</span> <span class="nav-text"> 配置被监控节点(/etc/ganglia/gmond.conf)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置中心节点etcgangliagmetadconf"><span class="nav-number">4.4.</span> <span class="nav-text"> 配置中心节点(/etc/ganglia/gmetad.conf)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置web"><span class="nav-number">4.5.</span> <span class="nav-text"> 配置web</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展监控功能"><span class="nav-number">5.</span> <span class="nav-text"> 扩展监控功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件机制"><span class="nav-number">5.1.</span> <span class="nav-text"> 插件机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署nginx插件"><span class="nav-number">5.2.</span> <span class="nav-text"> 部署NginX插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#todo与nagios结合使用"><span class="nav-number">6.</span> <span class="nav-text"> TODO：与Nagios结合使用</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2013/07/30/ganglia.html';
-          this.page.identifier = '2013/07/30/ganglia.html';
-          this.page.title = '用Ganglia监控集群的性能';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -895,24 +528,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'c7ed095eb44e931db71de1ee3edc46d7',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

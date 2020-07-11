@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="量化分析," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="分类算法通过对已知类别训练集的分析，从中发现分类规则，以此预测新数据的类别。">
-<meta name="keywords" content="量化分析">
+  <meta name="description" content="分类算法通过对已知类别训练集的分析，从中发现分类规则，以此预测新数据的类别。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第7章：分类方法">
 <meta property="og:url" content="http://holbrook.github.io/2017/10/12/quantitative_investment7.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="分类算法通过对已知类别训练集的分析，从中发现分类规则，以此预测新数据的类别。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta property="article:published_time" content="2017-10-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-11T02:55:45.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="量化交易">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第7章：分类方法">
-<meta name="twitter:description" content="分类算法通过对已知类别训练集的分析，从中发现分类规则，以此预测新数据的类别。">
+
+<link rel="canonical" href="http://holbrook.github.io/2017/10/12/quantitative_investment7.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/10/12/quantitative_investment7.html"/>
-
-
-
-
 
   <title>《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第7章：分类方法 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#K-近邻（K-Nearest-Neighbors-KNN）"><span class="nav-number">1.</span> <span class="nav-text">K-近邻（K-Nearest Neighbors, KNN）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贝叶斯分类"><span class="nav-number">2.</span> <span class="nav-text">贝叶斯分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络"><span class="nav-number">3.</span> <span class="nav-text">神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑斯蒂（Logistic）"><span class="nav-number">4.</span> <span class="nav-text">逻辑斯蒂（Logistic）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判别分析"><span class="nav-number">5.</span> <span class="nav-text">判别分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量机（SVM）"><span class="nav-number">6.</span> <span class="nav-text">支持向量机（SVM）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树"><span class="nav-number">7.</span> <span class="nav-text">决策树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类的评判"><span class="nav-number">8.</span> <span class="nav-text">分类的评判</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用实例：分类选股法"><span class="nav-number">9.</span> <span class="nav-text">应用实例：分类选股法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#延伸阅读：其他分类方法"><span class="nav-number">10.</span> <span class="nav-text">延伸阅读：其他分类方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">11.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/10/12/quantitative_investment7.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第7章：分类方法</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第7章：分类方法
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">
-                2017-10-12
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/量化交易/" itemprop="url" rel="index">
-                    <span itemprop="name">量化交易</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">2017-10-12</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/10/12/quantitative_investment7.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/12/quantitative_investment7.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-11 10:55:45" itemprop="dateModified" datetime="2020-07-11T10:55:45+08:00">2020-07-11</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" itemprop="url" rel="index"><span itemprop="name">量化交易</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,15 +313,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>分类算法通过对已知类别训练集的分析，从中发现分类规则，以此预测新数据的类别。</p>
+        <p> 分类算法通过对已知类别训练集的分析，从中发现分类规则，以此预测新数据的类别。</p>
 <a id="more"></a>
-<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+
+<p><a href="{filename}quantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
 <p>分类算法通过对已知类别训练集的分析，从中发现分类规则，以此预测新数据的类别。</p>
-<p>首先选择一个分类算法，然后用训练集(Training Set)进行训练，归纳出学习模型。<br>
-将新模型用测试集进行验证，验证通过的模型就可以用于预测了。</p>
+<p>首先选择一个分类算法，然后用训练集(Training Set)进行训练，归纳出学习模型。<br>将新模型用测试集进行验证，验证通过的模型就可以用于预测了。</p>
 <p>分类算法有很多，常用的有以下几种：</p>
 <ul>
 <li>K-近邻（KNN）</li>
@@ -379,20 +329,14 @@
 <li>支持向量机（SVM）</li>
 <li>决策树</li>
 </ul>
-<h1 id="k-近邻k-nearest-neighbors-knn"><a class="markdownIt-Anchor" href="#k-近邻k-nearest-neighbors-knn"></a> K-近邻（K-Nearest Neighbors, KNN）</h1>
-<p>K-近邻算法，把每个样例看做d维空间上的一个点, d是属性的个数。</p>
-<p>对于给定的样例，取d维空间中预期距离最近的K个训练样例，取这K个训练样例所标记的类别中的多数者，<br>
-作为该给定样例的类别。</p>
-<p>KNN算法的有效性依赖于K的选取。K太小，预测不稳定；K太大，容易误判。<br>
-从原理上来说，数据的有效参数个数约等于 n/K, 其中 n 是训练集中的样本个数。<br>
-实际操作中，需要通过反复实验来确定分类误差率最小的K值。</p>
+<h1 id="K-近邻（K-Nearest-Neighbors-KNN）"><a href="#K-近邻（K-Nearest-Neighbors-KNN）" class="headerlink" title="K-近邻（K-Nearest Neighbors, KNN）"></a>K-近邻（K-Nearest Neighbors, KNN）</h1><p>K-近邻算法，把每个样例看做d维空间上的一个点, d是属性的个数。</p>
+<p>对于给定的样例，取d维空间中预期距离最近的K个训练样例，取这K个训练样例所标记的类别中的多数者，<br>作为该给定样例的类别。</p>
+<p>KNN算法的有效性依赖于K的选取。K太小，预测不稳定；K太大，容易误判。<br>从原理上来说，数据的有效参数个数约等于 n/K, 其中 n 是训练集中的样本个数。<br>实际操作中，需要通过反复实验来确定分类误差率最小的K值。</p>
 <p>KNN算法的优点是可以较好的避免样本不平衡问题；对于分类交叉/重叠较多的情况也更适用。</p>
 <p>缺点是计算量大，解决办法是剔除作用不大的训练样本，或者对样本进行分层分类。</p>
-<h1 id="贝叶斯分类"><a class="markdownIt-Anchor" href="#贝叶斯分类"></a> 贝叶斯分类</h1>
-<p>贝叶斯(Bayes)分类是一类以贝叶斯定理为基础的基于概率统计知识的分类算法的总称。</p>
-<p>贝叶斯定理：事件A在事件B(发生)的条件下的概率，与事件B在事件A的条件下的概率不一样，<br>
-但是二者有确定的关系：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mi>X</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo>(</mo><mi>X</mi><mi mathvariant="normal">∣</mi><mi>Y</mi><mo>)</mo><mi>P</mi><mo>(</mo><mi>Y</mi><mo>)</mo></mrow><mrow><mi>P</mi><mo>(</mo><mi>X</mi><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(Y|X)=\frac{P(X|Y) P(Y)}{P(X)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.01em;"></span><span class="strut bottom" style="height:1.53em;vertical-align:-0.52em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.34500000000000003em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></p>
+<h1 id="贝叶斯分类"><a href="#贝叶斯分类" class="headerlink" title="贝叶斯分类"></a>贝叶斯分类</h1><p>贝叶斯(Bayes)分类是一类以贝叶斯定理为基础的基于概率统计知识的分类算法的总称。</p>
+<p>贝叶斯定理：事件A在事件B(发生)的条件下的概率，与事件B在事件A的条件下的概率不一样，<br>但是二者有确定的关系：</p>
+<p>$P(Y|X)=\frac{P(X|Y) P(Y)}{P(X)}$</p>
 <p>其中：</p>
 <ul>
 <li>P(Y=y|X=x) 后验概率， 是在 X=x 的条件下， Y=y 发生的概率</li>
@@ -401,44 +345,33 @@
 <li>P(X): 证据</li>
 </ul>
 <p>贝叶斯定理可以用 先验概率、条件概率和证据，计算出后验概率。</p>
-<p>贝叶斯分类中最简单的是朴素贝叶斯分类。其思想是：对于给出的待分类项，求解在此项出现的条件下，<br>
-各个类别出现的概率。概率最大的概率作为待分类项的类别。</p>
+<p>贝叶斯分类中最简单的是朴素贝叶斯分类。其思想是：对于给出的待分类项，求解在此项出现的条件下，<br>各个类别出现的概率。概率最大的概率作为待分类项的类别。</p>
 <p>朴素贝叶斯(NB)分类是最优秀的分类器之一，基于类条件独立假设(朴素假设)：</p>
-<p>给定类节点(变量)后，各属性节点(变量)之间互相独立。</p>
+<p>   给定类节点(变量)后，各属性节点(变量)之间互相独立。</p>
 <p>根据朴素假设，则有：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>X</mi><mi mathvariant="normal">∣</mi><msub><mrow><mi>C</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo><mo>=</mo><msubsup><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>m</mi></mrow></msubsup><mi>P</mi><mo>(</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>k</mi></mrow></msub><mi mathvariant="normal">∣</mi><msub><mrow><mi>C</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(X|{C}_{i})= \prod_{k=1}^{m}P({X}_{k}|{C}_{i})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.0500099999999999em;vertical-align:-0.30001em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathrm">∣</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∏</span><span class="vlist"><span style="top:0.30001em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.364em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">X</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">∣</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></p>
-<p>其中，条件概率<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>X</mi><mn>1</mn><mi mathvariant="normal">∣</mi><msub><mrow><mi>C</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo><mo separator="true">,</mo><mi>P</mi><mo>(</mo><mi>X</mi><mn>2</mn><mi mathvariant="normal">∣</mi><msub><mrow><mi>C</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>P</mi><mo>(</mo><mi>X</mi><mi>n</mi><mi mathvariant="normal">∣</mi><msub><mrow><mi>C</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(X1|{C}_{i}) , P(X2|{C}_{i}) ... P(Xn|{C}_{i})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathrm">1</span><span class="mord mathrm">∣</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathrm">2</span><span class="mord mathrm">∣</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathit">n</span><span class="mord mathrm">∣</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span><br>
-可以从训练集数据中求得。于是可以计算出X属于每一个类别 Ci 的概率<br>
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>X</mi><mi mathvariant="normal">∣</mi><msub><mrow><mi>C</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo><mi>P</mi><mo>(</mo><msub><mrow><mi>C</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(X|{C}_{i}) P({C}_{i})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathrm">∣</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>$P(X|{C}<em>{i})= \prod</em>{k=1}^{m}P({X}<em>{k}|{C}</em>{i})$</p>
+<p>其中，条件概率$P(X1|{C}<em>{i}) , P(X2|{C}</em>{i}) … P(Xn|{C}<em>{i})$<br>可以从训练集数据中求得。于是可以计算出X属于每一个类别 Ci 的概率<br>$P(X|{C}</em>{i}) P({C}_{i})$</p>
 <p>从上述原理可以看出，朴素贝叶斯分类的三个步骤：</p>
 <ol>
-<li>
-<p>准备工作</p>
+<li><p>准备工作</p>
 <p>根据具体情况确定特征属性，并对每个特征属性进行划分，人工分类，形成训练样本集合。</p>
 <p>分类器的质量，很大程度由特征属性、特征属性划分、训练样本质量绝对。</p>
 </li>
-<li>
-<p>分类器训练</p>
+<li><p>分类器训练</p>
 <p>计算每个类别在训练样本中出现的频度， 以及每个特征属性划分对每个类别的条件概率估计，并记录结果。</p>
 </li>
-<li>
-<p>应用</p>
+<li><p>应用</p>
 <p>输入待分类项，输出待分类项与类别的映射关系。</p>
 </li>
 </ol>
 <p>朴素贝叶斯算法成立的前提是各属性相互独立。其方法简单，准确率高，速度快，可以与决策树和神经网络媲美。</p>
 <p>朴素贝叶斯分类能够适应孤立的噪声点，也可以处理属性值遗漏的问题。</p>
-<p>实际情况中，往往独立性假设不成立，其准确性会下降。此时可以使用一些改进算法，比如<br>
-TAN(Tree Augmented Bayes Network)算法， 贝叶斯网络分类器(Bayesian Network Classifier, BNC)等。</p>
-<h1 id="神经网络"><a class="markdownIt-Anchor" href="#神经网络"></a> 神经网络</h1>
-<p>人工神经网络(Artificial Neural Networks, ANN)是一种应用类似于大脑神经突触联接的结构进行<br>
-信息处理的属性模型。通过模拟脑细胞在同一个脉冲反复刺激下能够改变神经元之间的神经键连接强度的特性<br>
-进行学习。</p>
-<p>ANN由一组相互连接的节点和有向链构成。其结构单元是感知器(perceptron)。每个感知器有多个输入节点<br>
-和一个输出节点。感知器对输入节点进行加权，计算输出信号。这个权重就是用来模拟神经元之间的连接强度。</p>
+<p>实际情况中，往往独立性假设不成立，其准确性会下降。此时可以使用一些改进算法，比如<br>TAN(Tree Augmented Bayes Network)算法， 贝叶斯网络分类器(Bayesian Network Classifier, BNC)等。</p>
+<h1 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h1><p>人工神经网络(Artificial Neural Networks, ANN)是一种应用类似于大脑神经突触联接的结构进行<br>信息处理的属性模型。通过模拟脑细胞在同一个脉冲反复刺激下能够改变神经元之间的神经键连接强度的特性<br>进行学习。</p>
+<p>ANN由一组相互连接的节点和有向链构成。其结构单元是感知器(perceptron)。每个感知器有多个输入节点<br>和一个输出节点。感知器对输入节点进行加权，计算输出信号。这个权重就是用来模拟神经元之间的连接强度。</p>
 <p>对感知器的训练，就是通过输入数据不断调整链的权重，直到能拟合训练数据。</p>
 <p>用公式表示感知器的模型如下：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>y</mi></mrow><mo>^</mo></mover><mo>=</mo><mi>s</mi><mi>i</mi><mi>g</mi><mi>n</mi><mo>(</mo><mi>w</mi><mi>x</mi><mo>−</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\hat{y}=sign(wx-t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord textstyle cramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span><span style="top:0em;margin-left:0.11112em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit">x</span><span class="mbin">−</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></p>
+<p>$\hat{y}=sign(wx-t)$</p>
 <p>其中， w是权值向量， x是输入向量， t是偏置因子。</p>
 <p>用于分类的神经网络模型常见的有：</p>
 <ul>
@@ -449,11 +382,8 @@ TAN(Tree Augmented Bayes Network)算法， 贝叶斯网络分类器(Bayesian Net
 <li>学习矢量化神经网络</li>
 </ul>
 <p>目前应用较多的时BP神经网络。神经网络的主要缺点是收敛速度慢，计算量大，训练时间长，结果不可解释。</p>
-<h1 id="逻辑斯蒂logistic"><a class="markdownIt-Anchor" href="#逻辑斯蒂logistic"></a> 逻辑斯蒂（Logistic）</h1>
-<p>逻辑斯蒂分类，其实就是前面的<a href="%7Bfilename%7Dquantitative_investment6.md#logistichui-gui">逻辑斯蒂回归</a></p>
-<h1 id="判别分析"><a class="markdownIt-Anchor" href="#判别分析"></a> 判别分析</h1>
-<p>判别分析(Discriminant Analysis, DA), 根据案例的分组变量和特征变量，确定分组变量和特征变量之间的<br>
-数量关系，以此建立判别函数(Discriminant Function)。然后利用判别函数对新案例进行分类。</p>
+<h1 id="逻辑斯蒂（Logistic）"><a href="#逻辑斯蒂（Logistic）" class="headerlink" title="逻辑斯蒂（Logistic）"></a>逻辑斯蒂（Logistic）</h1><p>逻辑斯蒂分类，其实就是前面的<a href="{filename}quantitative_investment6.md#logistichui-gui">逻辑斯蒂回归</a></p>
+<h1 id="判别分析"><a href="#判别分析" class="headerlink" title="判别分析"></a>判别分析</h1><p>判别分析(Discriminant Analysis, DA), 根据案例的分组变量和特征变量，确定分组变量和特征变量之间的<br>数量关系，以此建立判别函数(Discriminant Function)。然后利用判别函数对新案例进行分类。</p>
 <p>判别分析的假设条件：</p>
 <ul>
 <li>每个判别变量不能是其他判别变量的线性组合</li>
@@ -461,456 +391,147 @@ TAN(Tree Augmented Bayes Network)算法， 贝叶斯网络分类器(Bayesian Net
 <li>各判别变量之间具有多元正态分布，即每个变量对于其他所有变量的固定值具有正态分布</li>
 </ul>
 <p>判别函数为以下线性函数关系：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><msub><mrow><mi>b</mi></mrow><mrow><mn>0</mn></mrow></msub><mo>+</mo><msub><mrow><mi>b</mi></mrow><mrow><mn>1</mn></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><msub><mrow><mi>b</mi></mrow><mrow><mi>k</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">y={b}_{0} + {b}_{1} {x}_{1} + ... + {b}_{k} {x}_{k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">b</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">b</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">x</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mbin">+</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">b</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">x</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
+<p>$y={b}<em>{0} + {b}</em>{1} {x}<em>{1} + … + {b}</em>{k} {x}_{k}$</p>
 <p>其中：</p>
 <ul>
-<li>y 是判别值(Discriminant Score)<br>
--<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">{x}_{i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">x</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>为各个判别变量<br>
--<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mrow><mi>b</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">{b}_{i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">b</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>为判别系数(Discriminant Coefficient or Weight)</li>
+<li>y 是判别值(Discriminant Score)</li>
+<li>${x}_{i}$为各个判别变量</li>
+<li>${b}_{i}$为判别系数(Discriminant Coefficient or Weight)</li>
 </ul>
-<p>判别模型的各个判别变量可以看做 k 维空间，每个案例是空间中的一点。相同分类的点聚集成一组，<br>
-该组的中心点用该组中各个案例的平均值代表。</p>
-<h1 id="支持向量机svm"><a class="markdownIt-Anchor" href="#支持向量机svm"></a> 支持向量机（SVM）</h1>
-<p>支持向量机(Support Vector Machine, SVM)，是建立在统计学习理论基础上的机器学习方法，<br>
-属于有监督学习。</p>
-<p>SVM 在多维空间中构建一个超平面，使得这个超平面能够划分训练数据中的两类节点，并且每一个点<br>
-到这个超平面的距离足够大，则这个超平面可以作为分类依据。</p>
+<p>判别模型的各个判别变量可以看做 k 维空间，每个案例是空间中的一点。相同分类的点聚集成一组，<br>该组的中心点用该组中各个案例的平均值代表。</p>
+<h1 id="支持向量机（SVM）"><a href="#支持向量机（SVM）" class="headerlink" title="支持向量机（SVM）"></a>支持向量机（SVM）</h1><p>支持向量机(Support Vector Machine, SVM)，是建立在统计学习理论基础上的机器学习方法，<br>属于有监督学习。</p>
+<p>SVM 在多维空间中构建一个超平面，使得这个超平面能够划分训练数据中的两类节点，并且每一个点<br>到这个超平面的距离足够大，则这个超平面可以作为分类依据。</p>
 <p>这个超平面叫做决策边界，每个数据点垂直指向这个平面的向量叫做支持向量。</p>
 <p>对于多类划分，需要构建多个超平面。</p>
-<p>对于线性SVM，假设训练样本集<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><mo>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo separator="true">,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>)</mo><mo separator="true">,</mo><mi>i</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>n</mi><mo>}</mo></mrow><annotation encoding="application/x-tex">\{({x}_{i},{y}_{i}), i=1,2,...,n \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">{</span><span class="mopen">(</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">x</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">2</span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord mathit">n</span><span class="mclose">}</span></span></span></span>有两个类别:<br>
-y=1 和 y=-1 。</p>
+<p>对于线性SVM，假设训练样本集${({x}<em>{i},{y}</em>{i}), i=1,2,…,n }$有两个类别:<br>y=1 和 y=-1 。</p>
 <p>如果存在分类超平面:</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mrow><mi>w</mi></mrow><mrow><mi>T</mi></mrow></msup><mi>x</mi><mo>+</mo><mi>b</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">{w}^{T} x + b = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.924661em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">x</span><span class="mbin">+</span><span class="mord mathit">b</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span></p>
+<p>${w}^{T} x + b = 0$</p>
 <p>能够将样本正确分为两类(相同类别的样本都落在分类超平面的同一侧)，则称该样本集是线性可分的，即满足：</p>
-<p>\begin{cases}
- & \text{ if {w}^{T} {x}_{i} + b \geq 1 } {y}_{i} = 1  \\
- & \text{ if {w}^{T} {x}_{i} + b \leq -1 } {y}_{i} = -1
-\end{cases}</p>
-<p>此时<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mrow><mi>w</mi></mrow><mrow><mi>T</mi></mrow></msup><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>+</mo><mi>b</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">{w}^{T} {x}_{i} + b =1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.991331em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">x</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">b</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mrow><mi>w</mi></mrow><mrow><mi>T</mi></mrow></msup><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo>+</mo><mi>b</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">{w}^{T} {x}_{i} + b =-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.991331em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord textstyle uncramped"><span class="mord mathit">x</span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">b</span><span class="mrel">=</span><span class="mord">−</span><span class="mord mathrm">1</span></span></span></span><br>
-这两个平行的平面称为该分类问题的边界超平面。</p>
+<p>$\begin{cases}<br> &amp; \text{ if {w}^{T} {x}<em>{i} + b \geq 1 } {y}</em>{i} = 1  \<br> &amp; \text{ if {w}^{T} {x}<em>{i} + b \leq -1 } {y}</em>{i} = -1<br>\end{cases}$</p>
+<p>此时${w}^{T} {x}<em>{i} + b =1$和${w}^{T} {x}</em>{i} + b =-1$<br>这两个平行的平面称为该分类问题的边界超平面。</p>
 <p>SVM要求解距离最大 (距离的倒数最小) 的两个边界平面，即最佳超平面。即：</p>
-<p>
-min: \frac{1}{2} \begin{Vmatrix} w \end{Vmatrix} = \frac{1}{2} \sqrt{ {w}^{T} w } \\
-s.t. {y}_{i} ({w}^{T} {x}_{i} + b )  \geq 1 , i=1,2,...,n
-</p>
+<p>$<br>min: \frac{1}{2} \begin{Vmatrix} w \end{Vmatrix} = \frac{1}{2} \sqrt{ {w}^{T} w } \<br>s.t. {y}<em>{i} ({w}^{T} {x}</em>{i} + b )  \geq 1 , i=1,2,…,n<br>$</p>
 <p>这是一个二次优化问题 —— 目标函数是二次的，约束条件是线性的。可以用拉格朗日变换求解。</p>
 <p>（过程：略）</p>
 <p>对于线性不可分隔的情况，可以使用核函数，将其映射到线性可分的空间再进行求解。</p>
-<h1 id="决策树"><a class="markdownIt-Anchor" href="#决策树"></a> 决策树</h1>
-<h1 id="分类的评判"><a class="markdownIt-Anchor" href="#分类的评判"></a> 分类的评判</h1>
-<h1 id="应用实例分类选股法"><a class="markdownIt-Anchor" href="#应用实例分类选股法"></a> 应用实例：分类选股法</h1>
-<h1 id="延伸阅读其他分类方法"><a class="markdownIt-Anchor" href="#延伸阅读其他分类方法"></a> 延伸阅读：其他分类方法</h1>
-<h1 id="本章小结"><a class="markdownIt-Anchor" href="#本章小结"></a> 本章小结</h1>
-<p><a href="%7Bfilename%7Dquantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
+<h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h1><h1 id="分类的评判"><a href="#分类的评判" class="headerlink" title="分类的评判"></a>分类的评判</h1><h1 id="应用实例：分类选股法"><a href="#应用实例：分类选股法" class="headerlink" title="应用实例：分类选股法"></a>应用实例：分类选股法</h1><h1 id="延伸阅读：其他分类方法"><a href="#延伸阅读：其他分类方法" class="headerlink" title="延伸阅读：其他分类方法"></a>延伸阅读：其他分类方法</h1><h1 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h1><p><a href="{filename}quantitative_investment_index.md">《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记目录</a></p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/量化分析/" rel="tag"># 量化分析</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/10/12/quantitative_investment_index.html" rel="next" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记 目录">
-                <i class="fa fa-chevron-left"></i> 《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记 目录
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" rel="tag"># 量化交易</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/13/ML_index.html" rel="prev" title="机器学习总结">
-                机器学习总结 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/08/quantitative_investment6.html" rel="prev" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第6章：数据回归方法">
+      <i class="fa fa-chevron-left"></i> 《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第6章：数据回归方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/12/quantitative_investment_index.html" rel="next" title="《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记 目录">
+      《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记 目录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#k-近邻k-nearest-neighbors-knn"><span class="nav-number">1.</span> <span class="nav-text"> K-近邻（K-Nearest Neighbors, KNN）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贝叶斯分类"><span class="nav-number">2.</span> <span class="nav-text"> 贝叶斯分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络"><span class="nav-number">3.</span> <span class="nav-text"> 神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑斯蒂logistic"><span class="nav-number">4.</span> <span class="nav-text"> 逻辑斯蒂（Logistic）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判别分析"><span class="nav-number">5.</span> <span class="nav-text"> 判别分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量机svm"><span class="nav-number">6.</span> <span class="nav-text"> 支持向量机（SVM）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树"><span class="nav-number">7.</span> <span class="nav-text"> 决策树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类的评判"><span class="nav-number">8.</span> <span class="nav-text"> 分类的评判</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用实例分类选股法"><span class="nav-number">9.</span> <span class="nav-text"> 应用实例：分类选股法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#延伸阅读其他分类方法"><span class="nav-number">10.</span> <span class="nav-text"> 延伸阅读：其他分类方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">11.</span> <span class="nav-text"> 本章小结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/10/12/quantitative_investment7.html';
-          this.page.identifier = '2017/10/12/quantitative_investment7.html';
-          this.page.title = '《量化投资：数据挖掘技术与实践(MatLab版)》读书笔记第7章：分类方法';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -925,24 +546,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '12f87066c98951ffa5d39e5bbc71c6ca',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

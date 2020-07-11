@@ -1,147 +1,66 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="交易系统," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="证券价格的随机性 很多人都从股票投机中赚过钱，但是绝少人能够长期赚钱。甚至这些长期赚钱的人中，绝大部分人的成功次数少于50%。这意味着，证券价格的波动具有随机性。 投资理论界认为，价格的波动具备高度随机性；而投资实务界认为只是部分随机性。 如果价格的波动具备完全随机性，则意味着数据没有任何记忆性，完全无法通过过去的数据预测未来。就好像抛硬币，即使之前抛出了一千次正面，第一千零一次抛出正、反面的概">
-<meta name="keywords" content="交易系统">
+  <meta name="description" content="证券价格的随机性很多人都从股票投机中赚过钱，但是绝少人能够长期赚钱。甚至这些长期赚钱的人中，绝大部分人的成功次数少于50%。这意味着，证券价格的波动具有随机性。 投资理论界认为，价格的波动具备高度随机性；而投资实务界认为只是部分随机性。 如果价格的波动具备完全随机性，则意味着数据没有任何记忆性，完全无法通过过去的数据预测未来。就好像抛硬币，即使之前抛出了一千次正面，第一千零一次抛出正、反面的概率依">
 <meta property="og:type" content="article">
 <meta property="og:title" content="系统交易和交易系统">
 <meta property="og:url" content="http://holbrook.github.io/2013/12/16/trade_system.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="证券价格的随机性 很多人都从股票投机中赚过钱，但是绝少人能够长期赚钱。甚至这些长期赚钱的人中，绝大部分人的成功次数少于50%。这意味着，证券价格的波动具有随机性。 投资理论界认为，价格的波动具备高度随机性；而投资实务界认为只是部分随机性。 如果价格的波动具备完全随机性，则意味着数据没有任何记忆性，完全无法通过过去的数据预测未来。就好像抛硬币，即使之前抛出了一千次正面，第一千零一次抛出正、反面的概">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="证券价格的随机性很多人都从股票投机中赚过钱，但是绝少人能够长期赚钱。甚至这些长期赚钱的人中，绝大部分人的成功次数少于50%。这意味着，证券价格的波动具有随机性。 投资理论界认为，价格的波动具备高度随机性；而投资实务界认为只是部分随机性。 如果价格的波动具备完全随机性，则意味着数据没有任何记忆性，完全无法通过过去的数据预测未来。就好像抛硬币，即使之前抛出了一千次正面，第一千零一次抛出正、反面的概率依">
 <meta property="og:image" content="http://holbrook.github.io/2013/12/16/trade_system/trade.png">
 <meta property="og:image" content="http://holbrook.github.io/2013/12/16/trade_system/goal.png">
 <meta property="og:image" content="http://holbrook.github.io/2013/12/16/trade_system/lifecycle.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:22.000Z">
+<meta property="article:published_time" content="2013-12-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:22.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="交易系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="系统交易和交易系统">
-<meta name="twitter:description" content="证券价格的随机性 很多人都从股票投机中赚过钱，但是绝少人能够长期赚钱。甚至这些长期赚钱的人中，绝大部分人的成功次数少于50%。这意味着，证券价格的波动具有随机性。 投资理论界认为，价格的波动具备高度随机性；而投资实务界认为只是部分随机性。 如果价格的波动具备完全随机性，则意味着数据没有任何记忆性，完全无法通过过去的数据预测未来。就好像抛硬币，即使之前抛出了一千次正面，第一千零一次抛出正、反面的概">
 <meta name="twitter:image" content="http://holbrook.github.io/2013/12/16/trade_system/trade.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2013/12/16/trade_system.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2013/12/16/trade_system.html"/>
-
-
-
-
 
   <title>系统交易和交易系统 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -150,213 +69,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#证券价格的随机性"><span class="nav-number">1.</span> <span class="nav-text">证券价格的随机性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#赌博还是投资？"><span class="nav-number">2.</span> <span class="nav-text">赌博还是投资？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统化交易"><span class="nav-number">3.</span> <span class="nav-text">系统化交易</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#心理因素"><span class="nav-number">4.</span> <span class="nav-text">心理因素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交易系统的作用"><span class="nav-number">5.</span> <span class="nav-text">交易系统的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交易系统的主要功能"><span class="nav-number">6.</span> <span class="nav-text">交易系统的主要功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#交易策略的生命周期管理"><span class="nav-number">6.1.</span> <span class="nav-text">交易策略的生命周期管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#辅助决策"><span class="nav-number">6.2.</span> <span class="nav-text">辅助决策</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持功能"><span class="nav-number">6.3.</span> <span class="nav-text">支持功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交易策略与交易者"><span class="nav-number">7.</span> <span class="nav-text">交易策略与交易者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的迷思"><span class="nav-number">8.</span> <span class="nav-text">最后的迷思</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/12/16/trade_system.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">系统交易和交易系统</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          系统交易和交易系统
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-16T00:00:00+08:00">
-                2013-12-16
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/量化交易/" itemprop="url" rel="index">
-                    <span itemprop="name">量化交易</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2013-12-16 00:00:00" itemprop="dateCreated datePublished" datetime="2013-12-16T00:00:00+08:00">2013-12-16</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2013/12/16/trade_system.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/12/16/trade_system.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:22" itemprop="dateModified" datetime="2018-04-16T11:04:22+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" itemprop="url" rel="index"><span itemprop="name">量化交易</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -364,38 +317,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h1 id="证券价格的随机性"><a class="markdownIt-Anchor" href="#证券价格的随机性"></a> 证券价格的随机性</h1>
-<p>很多人都从股票投机中赚过钱，但是绝少人能够长期赚钱。甚至这些长期赚钱的人中，绝大部分人的成功次数少于50%。这意味着，证券价格的波动具有随机性。</p>
+        <h1 id="证券价格的随机性"><a href="#证券价格的随机性" class="headerlink" title="证券价格的随机性"></a>证券价格的随机性</h1><p>很多人都从股票投机中赚过钱，但是绝少人能够长期赚钱。甚至这些长期赚钱的人中，绝大部分人的成功次数少于50%。这意味着，证券价格的波动具有随机性。</p>
 <p>投资理论界认为，价格的波动具备高度随机性；而投资实务界认为只是部分随机性。</p>
 <p>如果价格的波动具备完全随机性，则意味着数据没有任何记忆性，完全无法通过过去的数据预测未来。就好像抛硬币，即使之前抛出了一千次正面，第一千零一次抛出正、反面的概率依然是各占50%。</p>
 <p>不可否认，证券价格的变化比抛硬币游戏要复杂得多，目前无法证明其具备完全随机性，但是也无法准确发现其变化规律。</p>
 <p>从实践来看，总有人能够从证券投资中稳定获利。尤其近几年一些量化投资方法的成功，又让人看到了通过数学模型获取稳定收益的希望。</p>
-<h1 id="赌博还是投资"><a class="markdownIt-Anchor" href="#赌博还是投资"></a> 赌博还是投资？</h1>
-<p>尽管人的天性中都厌恶风险（不确定性），但是又都或多或少喜欢赌博。</p>
+<h1 id="赌博还是投资？"><a href="#赌博还是投资？" class="headerlink" title="赌博还是投资？"></a>赌博还是投资？</h1><p>尽管人的天性中都厌恶风险（不确定性），但是又都或多或少喜欢赌博。</p>
 <p>对于证券投机，可以说本质上也是一种赌博。区别在于大多数人仅仅是赌博，而少数人以数学家的方式参与赌博。</p>
 <p>赌博之所以吸引人，在于其概率性。数学家经过思考和技术能够赢得赌博游戏，是因为其对概率和统计学的把握。</p>
 <p>要进行科学的投资/投机，而不是以赌博的心态去进行交易，一定要明确以下几点：</p>
 <ol>
-<li>
-<p>投资的目标是持续稳定获利</p>
+<li><p>投资的目标是持续稳定获利</p>
 </li>
-<li>
-<p>不要期望每次交易都是正确的，甚至不要期望成功交易的次数要大于失败的次数。据说，华尔街的顶尖交易员在十年中的平均正确率仅仅是35%左右</p>
+<li><p>不要期望每次交易都是正确的，甚至不要期望成功交易的次数要大于失败的次数。据说，华尔街的顶尖交易员在十年中的平均正确率仅仅是35%左右</p>
 </li>
-<li>
-<p>成功的交易，其收益率不一定高，不要追求单次交易的高回报率——这种事情发生的概率太小</p>
+<li><p>成功的交易，其收益率不一定高，不要追求单次交易的高回报率——这种事情发生的概率太小</p>
 </li>
-<li>
-<p>失败的交易，一定要将其损失控制在合理的范围。失败是常态，但是一定不要把一次失败演变成灾难</p>
+<li><p>失败的交易，一定要将其损失控制在合理的范围。失败是常态，但是一定不要把一次失败演变成灾难</p>
 </li>
 </ol>
 <p>符合上述行为的投资，就可以称为科学投资，而不是赌博。</p>
 <p>科学投资的精髓就是捕捉高度随机变化中的非随机性。</p>
-<h1 id="系统化交易"><a class="markdownIt-Anchor" href="#系统化交易"></a> 系统化交易</h1>
-<p>要实现科学投资，需要将一段时间内的所有交易看做一系列整体性、系统化的行为，而不是一次次的“率性而为”。这就要求：</p>
+<h1 id="系统化交易"><a href="#系统化交易" class="headerlink" title="系统化交易"></a>系统化交易</h1><p>要实现科学投资，需要将一段时间内的所有交易看做一系列整体性、系统化的行为，而不是一次次的“率性而为”。这就要求：</p>
 <ol>
 <li>首先要有一个交易策略，这个交易策略经过一系列的统计验证，期望值为正。并且明确知道其成功率、最高收益率、最大损失率等一系列关键性的指标</li>
 <li>根据该交易策略的关键指标，结合自身资金情况，制定一个资金管理策略。资金管理策略保证你有足够的筹码将这个游戏玩下去，而不是中途出局</li>
@@ -403,7 +346,8 @@
 <li>对于每一笔交易，分析其成功或失败的原因是由于概率、心理因素还是模型的缺陷。在一定的时间后根据最新的统计结果修正模型参数。</li>
 </ol>
 <p>能够做到这些，就可以称之为“系统化交易”。</p>
-<img src="/2013/12/16/trade_system/trade.png">
+<img src="/2013/12/16/trade_system/trade.png" class="">
+
 <ul>
 <li>选股：筛选交易对象</li>
 <li>择时：对行情进行判断，选择合适的操作时机</li>
@@ -411,73 +355,60 @@
 <li>执行：记录交易结果</li>
 <li>反馈：核算、评估</li>
 </ul>
-<h1 id="心理因素"><a class="markdownIt-Anchor" href="#心理因素"></a> 心理因素</h1>
-<p>系统化交易中，最难克服的是心理障碍。请将手放在心口，听我说：</p>
+<h1 id="心理因素"><a href="#心理因素" class="headerlink" title="心理因素"></a>心理因素</h1><p>系统化交易中，最难克服的是心理障碍。请将手放在心口，听我说：</p>
 <p>你能否承认交易策略和资金管理策略是指引你交易行为的唯一准则，爱他、安慰他、尊重他、保护他，像你爱自己一样，无论每次交易是成功、是失败，也无论你听到了市场上多么动听的传言，亦或你的交易遭到了何种的嘲讽？</p>
 <p>先不要急着回答。人性是如此脆弱，以至于你很快就会释放心中的魔鬼，从而将上面的誓言抛之脑后。请问：</p>
 <ol>
-<li>
-<p>两个选择：1）有75%的机会得到1000美元，但有25%的机会什么都得不到。2）确定可以得到700美元。 你会如何选择？</p>
+<li><p>两个选择：1）有75%的机会得到1000美元，但有25%的机会什么都得不到。2）确定可以得到700美元。 你会如何选择？</p>
 </li>
-<li>
-<p>还是两个选择：1）75%的机会付出1000美元，但有25%的机会什么也不用付出。2）确定付出700美元。 你会如何选择？</p>
+<li><p>还是两个选择：1）75%的机会付出1000美元，但有25%的机会什么也不用付出。2）确定付出700美元。 你会如何选择？</p>
 </li>
 </ol>
 <p>可能多数人会在第1个问题中选择2），第二个问题中选择1）。实际上，如果计算了期望值，这两个选择都是错的。这就是你心中的魔鬼。</p>
 <p>传言巴菲特有一次打高尔夫的时候球友们跟他打赌：在三天内如果巴菲特打出一次一杆进洞，就给他20000美元，否则巴菲特要付出10美元。但是巴菲特拒绝了。</p>
 <p>关住内心的魔鬼，从概率的角度进行思考，绝不要心存侥幸。这才是科学交易的精神。</p>
 <p>无论成败，恪守交易策略，才能从大量单个交易的偶然中获取总体期望值的必然；无原则，或者有原则而不遵守，就只能停留在一个个的偶然，并且总体结果也是偶然。</p>
-<h1 id="交易系统的作用"><a class="markdownIt-Anchor" href="#交易系统的作用"></a> 交易系统的作用</h1>
-<p>除了心理控制的难关，系统化交易过程中需要进行信息收集、信息处理、交易决策、交易计划、交易执行等大量琐碎耗时的事情，这些事情很可能影响你的心态，甚至由于信息的干扰影响决策的正确性。</p>
+<h1 id="交易系统的作用"><a href="#交易系统的作用" class="headerlink" title="交易系统的作用"></a>交易系统的作用</h1><p>除了心理控制的难关，系统化交易过程中需要进行信息收集、信息处理、交易决策、交易计划、交易执行等大量琐碎耗时的事情，这些事情很可能影响你的心态，甚至由于信息的干扰影响决策的正确性。</p>
 <p>此外，系统化交易需要不断对交易策略和资金管理策略不断进行统计分析、优化和参数调整，对于大多数人来说这也是一个难以胜任的工作。</p>
 <p>上述种种，需要某种工具来辅助，姑且称之为“交易系统”。</p>
-<img src="/2013/12/16/trade_system/goal.png">
+<img src="/2013/12/16/trade_system/goal.png" class="">
+
 <p>如上图，交易的“铁三角”是交易者、交易资本和交易对象，而交易系统的主要作用是：</p>
 <ol>
 <li>管理交易策略的生命周期，按照交易策略实施交易</li>
 <li>根据风险控制策略进行资金管理</li>
 <li>辅助交易者进行心理控制</li>
 </ol>
-<h1 id="交易系统的主要功能"><a class="markdownIt-Anchor" href="#交易系统的主要功能"></a> 交易系统的主要功能</h1>
-<h2 id="交易策略的生命周期管理"><a class="markdownIt-Anchor" href="#交易策略的生命周期管理"></a> 交易策略的生命周期管理</h2>
-<p>交易系统最重要的功能应该是对交易策略的整个生命周期进行管理。</p>
+<h1 id="交易系统的主要功能"><a href="#交易系统的主要功能" class="headerlink" title="交易系统的主要功能"></a>交易系统的主要功能</h1><h2 id="交易策略的生命周期管理"><a href="#交易策略的生命周期管理" class="headerlink" title="交易策略的生命周期管理"></a>交易策略的生命周期管理</h2><p>交易系统最重要的功能应该是对交易策略的整个生命周期进行管理。</p>
 <p>一个交易策略提出后，要经过一系列的阶段，直到最终被废弃。交易策略的生命周期如下图所示：</p>
-<img src="/2013/12/16/trade_system/lifecycle.png">
+<img src="/2013/12/16/trade_system/lifecycle.png" class="">
+
 <ol>
-<li>
-<p>公式化</p>
+<li><p>公式化</p>
 <p>交易策略中的所有规则，既包括买卖点的生成规则，也包括交易对象筛选的规则等，必须能够用公式/程序语言客观、准确的表示。</p>
 <p>并提取出所有的变量/事件和参数。变量/事件用于客观事实的输入，参数用于优化。</p>
 <p>当然，对于一些共性的规则，如检查交易对象的流动性和价格波动程度等规则，可以提取出公共的规则，在交易策略中进行引用。</p>
 </li>
-<li>
-<p>统计检验</p>
+<li><p>统计检验</p>
 <p>使用历史数据对交易策略进行检验，得出交易策略的统计学参数和关键指标</p>
 </li>
-<li>
-<p>外推检验</p>
+<li><p>外推检验</p>
 <p>使用真实的外部数据，进行模拟盘的操作，检验效果，验证参数和指标的变化</p>
 </li>
-<li>
-<p>实战检验</p>
+<li><p>实战检验</p>
 <p>使用真实的外部数据，进行实盘操作，检验效果，验证交易策略与交易者之间是否契合</p>
 </li>
-<li>
-<p>监控与维护</p>
+<li><p>监控与维护</p>
 <p>经过上述步骤的交易策略，可以用于实战。在实战过程中要不断监控策略的统计学参数和指标是否已经偏离</p>
 </li>
-<li>
-<p>优化</p>
+<li><p>优化</p>
 <p>在任一环节，如果发现交易策略不能满足要求，可以对参数进行优化</p>
 </li>
 </ol>
-<h2 id="辅助决策"><a class="markdownIt-Anchor" href="#辅助决策"></a> 辅助决策</h2>
-<p>经过验证的交易策略只是给出合适的交易信号：买入信号或卖出信号。根据交易信号、资金状况、策略的统计指标等因素来决定是否要交易、交易量是多少等等这些交易要素，是一个决策的过程。</p>
+<h2 id="辅助决策"><a href="#辅助决策" class="headerlink" title="辅助决策"></a>辅助决策</h2><p>经过验证的交易策略只是给出合适的交易信号：买入信号或卖出信号。根据交易信号、资金状况、策略的统计指标等因素来决定是否要交易、交易量是多少等等这些交易要素，是一个决策的过程。</p>
 <p>交易系统应该能够为交易决策提供辅助。</p>
-<h2 id="支持功能"><a class="markdownIt-Anchor" href="#支持功能"></a> 支持功能</h2>
-<p>前面提到的交易过程中的其他环节，如信息收集、信息处理、交易日志、结果分析、指标计算等，也需要交易系统进行支持。</p>
-<h1 id="交易策略与交易者"><a class="markdownIt-Anchor" href="#交易策略与交易者"></a> 交易策略与交易者</h1>
-<p>同一套交易策略，在不同的交易员手中，效果截然不同。这里面没有对错，而是一个是否适合的问题。</p>
+<h2 id="支持功能"><a href="#支持功能" class="headerlink" title="支持功能"></a>支持功能</h2><p>前面提到的交易过程中的其他环节，如信息收集、信息处理、交易日志、结果分析、指标计算等，也需要交易系统进行支持。</p>
+<h1 id="交易策略与交易者"><a href="#交易策略与交易者" class="headerlink" title="交易策略与交易者"></a>交易策略与交易者</h1><p>同一套交易策略，在不同的交易员手中，效果截然不同。这里面没有对错，而是一个是否适合的问题。</p>
 <p>交易策略仅仅规定了交易信号产生的规则，但是不同的交易员具有不同的交易周期长短、风险承受水平、投资理念等偏好，所以会适合不同的交易策略。</p>
 <p>所谓最适合的就是最好的，对交易员来说，最重要的时期不是妄图找到“最好”的交易策略，而是应该找到最适合自己投资理念的交易策略。</p>
 <p>在符合自己投资理念的前提下，交易过程中要尽量排除不必要的主观性。对于每对交易，不要关注是成功还是失败，而要关注是对的还是错的：</p>
@@ -485,420 +416,127 @@
 <li>符合策略的成功交易是对的；更重要的是符合策略的失败交易也是对的</li>
 <li>偏离策略的失败交易是错的；更重要的是偏离策略的成功交易也是错的</li>
 </ul>
-<h1 id="最后的迷思"><a class="markdownIt-Anchor" href="#最后的迷思"></a> 最后的迷思</h1>
-<p>尽管我们希望在有限的条件下建立一个科学的模型，从而获得一个正的“预期收益率”（该死的银行理财产品？），但是，我们还是将命运交给了未知：那冥冥中的概率。</p>
+<h1 id="最后的迷思"><a href="#最后的迷思" class="headerlink" title="最后的迷思"></a>最后的迷思</h1><p>尽管我们希望在有限的条件下建立一个科学的模型，从而获得一个正的“预期收益率”（该死的银行理财产品？），但是，我们还是将命运交给了未知：那冥冥中的概率。</p>
 <p>尽管根据<a href="http://wiki.mbalib.com/wiki/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B" target="_blank" rel="noopener">大数定律</a>，随着交易次数的增多，总体结果会越来越接近事先计算出的期望值，但是<a href="http://wiki.mbalib.com/wiki/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">中心极限定理</a>指出，大量独立随机变量的平均数近似正态分布。</p>
 <p>就我们有限而短暂的生命来说，我们不可能让交易次数达到无穷，去逼近那个理论中的“期望值“，而只能进行有限次数的交易。如果说一套交易策略，由不同的交易者去实践，则每个交易者的最终结果可以看做中心极限定理中的一个样本。</p>
 <p>很遗憾，中心极限定理告诉我们，最终结果是近似正态分布的，也就是说：有限次的策略交易，最终的统计结果仍然是一个概率分布——正所谓谋事在人，成事在天。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/交易系统/" rel="tag"># 交易系统</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/12/11/statistics_intro_9.html" rel="next" title="《统计学》读书笔记(9/17:方差分析)">
-                <i class="fa fa-chevron-left"></i> 《统计学》读书笔记(9/17:方差分析)
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F/" rel="tag"># 交易系统</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/12/18/quotation_model.html" rel="prev" title="证券行情数据模型">
-                证券行情数据模型 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2013/12/11/statistics_intro_9.html" rel="prev" title="《统计学》读书笔记(9/17:方差分析)">
+      <i class="fa fa-chevron-left"></i> 《统计学》读书笔记(9/17:方差分析)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2013/12/18/quotation_model.html" rel="next" title="证券行情数据模型">
+      证券行情数据模型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#证券价格的随机性"><span class="nav-number">1.</span> <span class="nav-text"> 证券价格的随机性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#赌博还是投资"><span class="nav-number">2.</span> <span class="nav-text"> 赌博还是投资？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统化交易"><span class="nav-number">3.</span> <span class="nav-text"> 系统化交易</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#心理因素"><span class="nav-number">4.</span> <span class="nav-text"> 心理因素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交易系统的作用"><span class="nav-number">5.</span> <span class="nav-text"> 交易系统的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交易系统的主要功能"><span class="nav-number">6.</span> <span class="nav-text"> 交易系统的主要功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#交易策略的生命周期管理"><span class="nav-number">6.1.</span> <span class="nav-text"> 交易策略的生命周期管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#辅助决策"><span class="nav-number">6.2.</span> <span class="nav-text"> 辅助决策</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持功能"><span class="nav-number">6.3.</span> <span class="nav-text"> 支持功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交易策略与交易者"><span class="nav-number">7.</span> <span class="nav-text"> 交易策略与交易者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的迷思"><span class="nav-number">8.</span> <span class="nav-text"> 最后的迷思</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2013/12/16/trade_system.html';
-          this.page.identifier = '2013/12/16/trade_system.html';
-          this.page.title = '系统交易和交易系统';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -913,24 +551,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '487acd409d2ab9295db279374124a8bb',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

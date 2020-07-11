@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="版本管理," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="尽管svn已经被历史所抛弃，但同样由于历史原因，还要整理一下svn的配置文档。">
-<meta name="keywords" content="版本管理">
+  <meta name="description" content="尽管svn已经被历史所抛弃，但同样由于历史原因，还要整理一下svn的配置文档。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="subversion安装、配置和管理">
 <meta property="og:url" content="http://holbrook.github.io/2014/01/29/svn_install_config_and_mgnt.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="尽管svn已经被历史所抛弃，但同样由于历史原因，还要整理一下svn的配置文档。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2014-01-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="版本管理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="subversion安装、配置和管理">
-<meta name="twitter:description" content="尽管svn已经被历史所抛弃，但同样由于历史原因，还要整理一下svn的配置文档。">
+
+<link rel="canonical" href="http://holbrook.github.io/2014/01/29/svn_install_config_and_mgnt.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2014/01/29/svn_install_config_and_mgnt.html"/>
-
-
-
-
 
   <title>subversion安装、配置和管理 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理"><span class="nav-number">2.</span> <span class="nav-text">管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建版本库"><span class="nav-number">2.1.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改配置"><span class="nav-number">2.2.</span> <span class="nav-text">更改配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">2.3.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">2.4.</span> <span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过Apache提供http访问"><span class="nav-number">3.</span> <span class="nav-text">通过Apache提供http访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#https支持"><span class="nav-number">4.</span> <span class="nav-text">https支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web管理工具"><span class="nav-number">5.</span> <span class="nav-text">Web管理工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份和恢复"><span class="nav-number">6.</span> <span class="nav-text">备份和恢复</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/29/svn_install_config_and_mgnt.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">subversion安装、配置和管理</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          subversion安装、配置和管理
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-29T00:00:00+08:00">
-                2014-01-29
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件工程/" itemprop="url" rel="index">
-                    <span itemprop="name">软件工程</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2014-01-29 00:00:00" itemprop="dateCreated datePublished" datetime="2014-01-29T00:00:00+08:00">2014-01-29</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2014/01/29/svn_install_config_and_mgnt.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/29/svn_install_config_and_mgnt.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,88 +313,82 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>尽管svn已经被历史所抛弃，但同样由于历史原因，还要整理一下svn的配置文档。</p>
 <a id="more"></a>
-<h1 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h1>
-<p>这个没什么可写的：</p>
+
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>这个没什么可写的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install subversion</span><br></pre></td></tr></table></figure>
-<h1 id="管理"><a class="markdownIt-Anchor" href="#管理"></a> 管理</h1>
-<p>通过<code>svnadmin</code>可以实现大多数的管理操作</p>
-<h2 id="创建版本库"><a class="markdownIt-Anchor" href="#创建版本库"></a> 创建版本库</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir<span class="variable">$SVN_REPOSITORIES_ROOT</span></span><br><span class="line"><span class="built_in">cd</span><span class="variable">$SVN_REPOSITORIES_ROOT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建dev库</span></span><br><span class="line">svnadmin create dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建文档库</span></span><br><span class="line">svnadmin create doc</span><br><span class="line"></span><br><span class="line">……</span><br></pre></td></tr></table></figure>
-<h2 id="更改配置"><a class="markdownIt-Anchor" href="#更改配置"></a> 更改配置</h2>
-<p>每个svn库有单独的配置，在每个生成的仓库目录的<code>conf/svnserve.conf</code>文件中可以进行更改。</p>
+
+
+
+<h1 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h1><p>通过<code>svnadmin</code>可以实现大多数的管理操作</p>
+<h2 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir<span class="variable">$SVN_REPOSITORIES_ROOT</span></span><br><span class="line"><span class="built_in">cd</span><span class="variable">$SVN_REPOSITORIES_ROOT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建dev库</span></span><br><span class="line">svnadmin create dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建文档库</span></span><br><span class="line">svnadmin create doc</span><br><span class="line"></span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<h2 id="更改配置"><a href="#更改配置" class="headerlink" title="更改配置"></a>更改配置</h2><p>每个svn库有单独的配置，在每个生成的仓库目录的<code>conf/svnserve.conf</code>文件中可以进行更改。</p>
 <p>比如，指定用户和权限的配置内容：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">password-db</span> = passwd</span><br><span class="line"><span class="attr">authz-db</span> = authz</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password-db &#x3D; passwd</span><br><span class="line">authz-db &#x3D; authz</span><br></pre></td></tr></table></figure>
 <p>意思是使用<code>conf/passwd</code>文件保存用户密码；</p>
 <p>使用<code>conf/authz-db</code>文件保存用户组和权限设置。</p>
-<h2 id="用户管理"><a class="markdownIt-Anchor" href="#用户管理"></a> 用户管理</h2>
-<p>通常，将所有库的密码和用户组、权限进行统一管理是比较好的方式。可以将每个svn库的配置文件中的<code>password-db</code>、<code>authz-db</code>都指到相同的文件。</p>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p>通常，将所有库的密码和用户组、权限进行统一管理是比较好的方式。可以将每个svn库的配置文件中的<code>password-db</code>、<code>authz-db</code>都指到相同的文件。</p>
 <p>密码文件的格式为：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[users]</span></span><br><span class="line"><span class="attr">user1</span> = pwd1</span><br><span class="line"><span class="attr">user2</span> = pwd2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[users]</span><br><span class="line">user1 &#x3D; pwd1</span><br><span class="line">user2 &#x3D; pwd2</span><br></pre></td></tr></table></figure>
+
 <p>用户组和权限文件的格式为：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line"><span class="meta"># <span class="meta-string">&lt;用户组名&gt;</span> = <span class="meta-string">&lt;用户1&gt;</span>,<span class="meta-string">&lt;用户2&gt;</span></span></span><br><span class="line">harry_and_sally = harry,sally</span><br><span class="line">harry_sally_and_joe = harry,sally,&amp;joe</span><br><span class="line"></span><br><span class="line"><span class="meta"># [<span class="meta-string">&lt;版本库&gt;</span>:/项目/目录]</span></span><br><span class="line"><span class="meta"># @<span class="meta-string">&lt;用户组名&gt;</span> = <span class="meta-string">&lt;权限&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="meta-string">&lt;用户名&gt;</span> = <span class="meta-string">&lt;权限&gt;</span></span></span><br><span class="line"></span><br><span class="line">[/foo/bar]</span><br><span class="line">harry = rw</span><br><span class="line">* = r</span><br><span class="line"></span><br><span class="line">[repository:/baz/fuz]</span><br><span class="line">@harry_and_sally = rw</span><br><span class="line">* = r</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line"># &lt;用户组名&gt; &#x3D; &lt;用户1&gt;,&lt;用户2&gt;</span><br><span class="line">harry_and_sally &#x3D; harry,sally</span><br><span class="line">harry_sally_and_joe &#x3D; harry,sally,&amp;joe</span><br><span class="line"></span><br><span class="line"># [&lt;版本库&gt;:&#x2F;项目&#x2F;目录]</span><br><span class="line"># @&lt;用户组名&gt; &#x3D; &lt;权限&gt;</span><br><span class="line"># &lt;用户名&gt; &#x3D; &lt;权限&gt;</span><br><span class="line"></span><br><span class="line">[&#x2F;foo&#x2F;bar]</span><br><span class="line">harry &#x3D; rw</span><br><span class="line">* &#x3D; r</span><br><span class="line"></span><br><span class="line">[repository:&#x2F;baz&#x2F;fuz]</span><br><span class="line">@harry_and_sally &#x3D; rw</span><br><span class="line">* &#x3D; r</span><br></pre></td></tr></table></figure>
+
 <p>用户组和权限配置文件需要手工编辑，而密码文件通过<a href="http://httpd.apache.org/docs/2.2/programs/htpasswd.html" target="_blank" rel="noopener">Apache的<code>htpasswd</code>命令</a>进行操作。比如:</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">htpasswd</span> -mb passwd USER_NAME PASSWORD</span><br></pre></td></tr></table></figure>
-<h2 id="启动服务"><a class="markdownIt-Anchor" href="#启动服务"></a> 启动服务</h2>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d --<span class="section">listen</span>-port <span class="number">9999</span> -r$SVN_REPOSITORIES_ROOT</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htpasswd -mb passwd USER_NAME PASSWORD</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d --listen-port 9999 -r$SVN_REPOSITORIES_ROOT</span><br></pre></td></tr></table></figure>
+
 <p>即可通过<code>svn://$SVN_SERVER:9999/dev</code>访问svn服务。</p>
-<h1 id="通过apache提供http访问"><a class="markdownIt-Anchor" href="#通过apache提供http访问"></a> 通过Apache提供http访问</h1>
-<p>svn可以通过WebDAV的方式与Apache集成。配置步骤如下：</p>
+<h1 id="通过Apache提供http访问"><a href="#通过Apache提供http访问" class="headerlink" title="通过Apache提供http访问"></a>通过Apache提供http访问</h1><p>svn可以通过WebDAV的方式与Apache集成。配置步骤如下：</p>
 <ol>
-<li>
-<p>安装svn的apache模块：</p>
+<li><p>安装svn的apache模块：</p>
 <p><code>yum install mod_dav_svn</code></p>
-<p>该操作会在<code>/etc/httpd/conf/httpd.conf</code>中增加模块配置：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute"><span class="nomarkup">LoadModule</span></span> dav_svn_module     modules/mod_dav_svn.so</span><br><span class="line"><span class="attribute"><span class="nomarkup">LoadModule</span></span> authz_svn_module   modules/mod_authz_svn.so</span><br></pre></td></tr></table></figure>
+<p> 该操作会在<code>/etc/httpd/conf/httpd.conf</code>中增加模块配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LoadModule dav_svn_module     modules&#x2F;mod_dav_svn.so</span><br><span class="line">LoadModule authz_svn_module   modules&#x2F;mod_authz_svn.so</span><br></pre></td></tr></table></figure>
+
 <p>并将相应的模块文件安装到Apache的模块目录(<code>/etc/httpd/modules/</code>)。</p>
 </li>
-<li>
-<p>在Apache中增加svn的虚拟目录配置，比如：</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">    DAV svn</span><br><span class="line">    SVNParentPath$SVN_REPOSITORIES_ROOT</span><br><span class="line"></span><br><span class="line">    AuthType Basic</span><br><span class="line">    AuthName <span class="string">"Subversion repository"</span></span><br><span class="line"></span><br><span class="line">    AuthUserFile$SVN_CONF_PATH/htpasswd</span><br><span class="line">    AuthzSVNAccessFile$SVN_CONF_PATH/authz</span><br><span class="line"></span><br><span class="line">    Satisfy Any</span><br><span class="line">    <span class="keyword">Require</span> valid<span class="params">-user</span></span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
-<p>此时，启动Apache后就可以通过<code>http://$SVN_SERVER:$APACHE_PORT/svn/dev</code>访问svn服务，<br>
-并且使用svn中账号配置。</p>
+</ol>
+<ol start="2">
+<li><p>在Apache中增加svn的虚拟目录配置，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;Location &#x2F;svn&gt;</span><br><span class="line">    DAV svn</span><br><span class="line">    SVNParentPath$SVN_REPOSITORIES_ROOT</span><br><span class="line"></span><br><span class="line">    AuthType Basic</span><br><span class="line">    AuthName &quot;Subversion repository&quot;</span><br><span class="line"></span><br><span class="line">    AuthUserFile$SVN_CONF_PATH&#x2F;htpasswd</span><br><span class="line">    AuthzSVNAccessFile$SVN_CONF_PATH&#x2F;authz</span><br><span class="line"></span><br><span class="line">    Satisfy Any</span><br><span class="line">    Require valid-user</span><br><span class="line">&lt;&#x2F;Location&gt;</span><br></pre></td></tr></table></figure>
+
+<p>此时，启动Apache后就可以通过<code>http://$SVN_SERVER:$APACHE_PORT/svn/dev</code>访问svn服务，<br>并且使用svn中账号配置。</p>
 </li>
 </ol>
-<h1 id="https支持"><a class="markdownIt-Anchor" href="#https支持"></a> https支持</h1>
-<p>因为已经集中使用nginx实现https支持，这部分内容略。</p>
-<h1 id="web管理工具"><a class="markdownIt-Anchor" href="#web管理工具"></a> Web管理工具</h1>
-<p>登录到svn服务器用<code>svnadmin</code>、<code>htpasswd</code>等命令进行svn的管理让人非常乏味，且容易出错。</p>
-<p>这里选择使用python开发的[Submin](<a href="http://supermind.nl/submin/%E4%BD%9C%E4%B8%BAWeb%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E3%80%82" target="_blank" rel="noopener">http://supermind.nl/submin/作为Web管理工具。</a><br>
-Submin不仅可以提供svn的Web管理界面，还可以简化svn的安装部署工作；<br>
-此外，还提供了与<a href="http://git-scm.com/" target="_blank" rel="noopener">git</a>, <a href="http://trac.edgewall.org/" target="_blank" rel="noopener">Trac</a>等集成的功能。</p>
+<h1 id="https支持"><a href="#https支持" class="headerlink" title="https支持"></a>https支持</h1><p>因为已经集中使用nginx实现https支持，这部分内容略。</p>
+<h1 id="Web管理工具"><a href="#Web管理工具" class="headerlink" title="Web管理工具"></a>Web管理工具</h1><p>登录到svn服务器用<code>svnadmin</code>、<code>htpasswd</code>等命令进行svn的管理让人非常乏味，且容易出错。</p>
+<p>这里选择使用python开发的[Submin](<a href="http://supermind.nl/submin/作为Web管理工具。" target="_blank" rel="noopener">http://supermind.nl/submin/作为Web管理工具。</a><br>Submin不仅可以提供svn的Web管理界面，还可以简化svn的安装部署工作；<br>此外，还提供了与<a href="http://git-scm.com/" target="_blank" rel="noopener">git</a>, <a href="http://trac.edgewall.org/" target="_blank" rel="noopener">Trac</a>等集成的功能。</p>
 <p><a href="http://supermind.nl/submin/download.html" target="_blank" rel="noopener">下载Submin</a>并安装。</p>
 <ol>
 <li>创建submin运行环境</li>
 </ol>
 <p>执行命令：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">submin2-admin </span>./<span class="keyword">submin_root </span>initenv your<span class="comment">@email.address</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">submin2-admin .&#x2F;submin_root initenv your@email.address</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>配置</li>
 </ol>
 <p>使用submin，可以省略手工配置svn的apache支持的步骤：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s<span class="variable">$PATH_TO_SBMIN_ROOT</span><span class="regexp">/conf/</span>apache-webui-cgi.conf <span class="regexp">/etc/</span>httpd<span class="regexp">/conf.d/</span></span><br><span class="line">ln -s<span class="variable">$PATH_TO_SBMIN_ROOT</span><span class="regexp">/conf/</span>apache-svn.conf <span class="regexp">/etc/</span>httpd<span class="regexp">/conf.d/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s$PATH_TO_SBMIN_ROOT&#x2F;conf&#x2F;apache-webui-cgi.conf &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;</span><br><span class="line">ln -s$PATH_TO_SBMIN_ROOT&#x2F;conf&#x2F;apache-svn.conf &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;</span><br></pre></td></tr></table></figure>
+
 <ol start="3">
 <li>新的认证机制</li>
 </ol>
 <p>Submin2开始，使用Apache的mod_dbd模块，从数据库中读取认证信息。</p>
-<h1 id="备份和恢复"><a class="markdownIt-Anchor" href="#备份和恢复"></a> 备份和恢复</h1>
-<p>根据网上的内容，svn在不停止服务的情况下，不能基于文件复制(copy, rsync等）进行备份（没有测试过）。</p>
+<h1 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h1><p>根据网上的内容，svn在不停止服务的情况下，不能基于文件复制(copy, rsync等）进行备份（没有测试过）。</p>
 <p>svn备份一般采用三种方式：</p>
 <ol>
-<li>
-<p>svnadmin dump</p>
+<li><p>svnadmin dump</p>
 <p>支持全量和增量备份；备份和恢复的速度较慢。</p>
 </li>
-<li>
-<p>svnadmin hotcopy</p>
+<li><p>svnadmin hotcopy</p>
 <p>只能用于全量复制，速度非常快，但消耗较大的存储空间。</p>
 </li>
-<li>
-<p>svnsync</p>
+<li><p>svnsync</p>
 <p>只用于双机热备的场景。</p>
 </li>
 </ol>
@@ -454,441 +401,143 @@ Submin不仅可以提供svn的Web管理界面，还可以简化svn的安装部�
 </ol>
 <p>关键命令（以<code>dev</code>库为例）：</p>
 <ul>
-<li>
-<p>读取当前revision</p>
-<p><code>cat$SVN_REPOSITORIES_ROOT/dev/db/current |awk '{print$1}'</code></p>
+<li><p>读取当前revision</p>
+<p><code>cat$SVN_REPOSITORIES_ROOT/dev/db/current |awk &#39;{print$1}&#39;</code></p>
 </li>
-<li>
-<p>全备份</p>
-<p><code>svnadmin dump --deltas$SVN_REPOSITORIES_ROOT/dev |bzip2 |tee dev_full.bz2 | md5sum &gt;dev_full.md5</code></p>
+<li><p>全备份</p>
+<p><code>svnadmin dump --deltas$SVN_REPOSITORIES_ROOT/dev |bzip2 |tee dev_full.bz2  | md5sum &gt;dev_full.md5</code></p>
 </li>
-<li>
-<p>备份单个revision(比如，revision 10)</p>
-<p><code>svnadmin dump --deltas$SVN_REPOSITORIES_ROOT/dev -r10 |bzip2 |tee dev_10.bz2 | md5sum &gt;dev_10.md5</code></p>
+<li><p>备份单个revision(比如，revision 10)</p>
+<p><code>svnadmin dump --deltas$SVN_REPOSITORIES_ROOT/dev -r10 |bzip2 |tee dev_10.bz2  | md5sum &gt;dev_10.md5</code></p>
 </li>
-<li>
-<p>备份revision区段(比如，revision [10,15])</p>
-<p><code>svnadmin dump --deltas$SVN_REPOSITORIES_ROOT/dev -r10:15 –-incremental |bzip2 |tee dev_10-15.bz2 | md5sum &gt;dev_10-15.md5</code></p>
+<li><p>备份revision区段(比如，revision [10,15])</p>
+<p><code>svnadmin dump --deltas$SVN_REPOSITORIES_ROOT/dev -r10:15 –-incremental |bzip2 |tee dev_10-15.bz2  | md5sum &gt;dev_10-15.md5</code></p>
 </li>
-<li>
-<p>md5校验</p>
+<li><p>md5校验</p>
 <p><code>md5sum -c dev_full.md5 &lt; dev_full.bz2</code></p>
 </li>
-<li>
-<p>恢复</p>
+<li><p>恢复</p>
 <p><code>bzcat dev_full.bz2 | svnadmin load dev</code></p>
 <p>注意按顺序恢复；如果是恢复全库备份，最好删除原有的库。</p>
 </li>
 </ul>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/版本管理/" rel="tag"># 版本管理</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2014/01/23/develop_a_fuse_webservice.html" rel="next" title="JBoss Fuse：开发和部署Web Service">
-                <i class="fa fa-chevron-left"></i> JBoss Fuse：开发和部署Web Service
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" rel="tag"># 版本管理</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/01/30/cli_design.html" rel="prev" title="命令行界面设计">
-                命令行界面设计 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2014/01/23/develop_a_fuse_webservice.html" rel="prev" title="JBoss Fuse：开发和部署Web Service">
+      <i class="fa fa-chevron-left"></i> JBoss Fuse：开发和部署Web Service
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2014/01/30/cli_design.html" rel="next" title="命令行界面设计">
+      命令行界面设计 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理"><span class="nav-number">2.</span> <span class="nav-text"> 管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建版本库"><span class="nav-number">2.1.</span> <span class="nav-text"> 创建版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改配置"><span class="nav-number">2.2.</span> <span class="nav-text"> 更改配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">2.3.</span> <span class="nav-text"> 用户管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">2.4.</span> <span class="nav-text"> 启动服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过apache提供http访问"><span class="nav-number">3.</span> <span class="nav-text"> 通过Apache提供http访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#https支持"><span class="nav-number">4.</span> <span class="nav-text"> https支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web管理工具"><span class="nav-number">5.</span> <span class="nav-text"> Web管理工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份和恢复"><span class="nav-number">6.</span> <span class="nav-text"> 备份和恢复</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2014/01/29/svn_install_config_and_mgnt.html';
-          this.page.identifier = '2014/01/29/svn_install_config_and_mgnt.html';
-          this.page.title = 'subversion安装、配置和管理';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -903,24 +552,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '89dd82982a7b3041c72284c4f77be021',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

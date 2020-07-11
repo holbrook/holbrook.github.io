@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="python," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="《利用Python进行数据分析》读书笔记。 第 9 章：数据聚合和分组运算。 准备好数据集后，通常的任务是进行分组统计，或生成透视表。 pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。">
-<meta name="keywords" content="python">
+  <meta name="description" content="《利用Python进行数据分析》读书笔记。第 9 章：数据聚合和分组运算。 准备好数据集后，通常的任务是进行分组统计，或生成透视表。pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Python进行数据分析(9)：数据聚合和分组运算">
 <meta property="og:url" content="http://holbrook.github.io/2017/07/19/python_data_analysis9.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="《利用Python进行数据分析》读书笔记。 第 9 章：数据聚合和分组运算。 准备好数据集后，通常的任务是进行分组统计，或生成透视表。 pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="《利用Python进行数据分析》读书笔记。第 9 章：数据聚合和分组运算。 准备好数据集后，通常的任务是进行分组统计，或生成透视表。pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。">
 <meta property="og:image" content="http://holbrook.github.io/2017/07/19/group_sample.png">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAAEJCAYAAAAQFbf7AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3Xm8XdPdx/HPN6EkYiihhiBpqoYMkoiZ1lCNtmpoqcQ8
@@ -549,58 +491,35 @@ exNYCRQDf3b3ch8nqG6i/P0/CPzNzD4mNPvzbnevEW8VMbMXgT5ASzPLAe4D6kLV/d3TyjwiIiIR
 6NKriIhIBEqUIiIiEShRioiIRKBEKSIiEoESpYiISARKlCIiIhEoUYqIiESgRCkiIhLB/we+C93j
 Q1nBiAAAAABJRU5ErkJggg==
 ">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2017-07-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Python进行数据分析(9)：数据聚合和分组运算">
-<meta name="twitter:description" content="《利用Python进行数据分析》读书笔记。 第 9 章：数据聚合和分组运算。 准备好数据集后，通常的任务是进行分组统计，或生成透视表。 pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。">
 <meta name="twitter:image" content="http://holbrook.github.io/2017/07/19/group_sample.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2017/07/19/python_data_analysis9.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/07/19/python_data_analysis9.html"/>
-
-
-
-
 
   <title>利用Python进行数据分析(9)：数据聚合和分组运算 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -609,213 +528,247 @@ Q1nBiAAAAABJRU5ErkJggg==
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#groupby"><span class="nav-number">1.</span> <span class="nav-text">groupby</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#23545;&#20998;&#32452;&#36827;&#34892;&#36845;&#20195;"><span class="nav-number">1.1.</span> <span class="nav-text">&amp;#23545;&amp;#20998;&amp;#32452;&amp;#36827;&amp;#34892;&amp;#36845;&amp;#20195;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#36873;&#21462;&#19968;&#20010;&#25110;&#19968;&#32452;&#21015;"><span class="nav-number">1.2.</span> <span class="nav-text">&amp;#36873;&amp;#21462;&amp;#19968;&amp;#20010;&amp;#25110;&amp;#19968;&amp;#32452;&amp;#21015;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#36890;&#36807;&#23383;&#20856;&#25110;Series&#36827;&#34892;&#20998;&#32452;"><span class="nav-number">1.3.</span> <span class="nav-text">&amp;#36890;&amp;#36807;&amp;#23383;&amp;#20856;&amp;#25110;Series&amp;#36827;&amp;#34892;&amp;#20998;&amp;#32452;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#36890;&#36807;&#20989;&#25968;&#36827;&#34892;&#20998;&#32452;"><span class="nav-number">1.4.</span> <span class="nav-text">&amp;#36890;&amp;#36807;&amp;#20989;&amp;#25968;&amp;#36827;&amp;#34892;&amp;#20998;&amp;#32452;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#26681;&#25454;&#32034;&#24341;&#32423;&#21035;&#20998;&#32452;"><span class="nav-number">1.5.</span> <span class="nav-text">&amp;#26681;&amp;#25454;&amp;#32034;&amp;#24341;&amp;#32423;&amp;#21035;&amp;#20998;&amp;#32452;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据聚合"><span class="nav-number">2.</span> <span class="nav-text">数据聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#38754;&#21521;&#21015;&#30340;&#22810;&#20989;&#25968;&#24212;&#29992;"><span class="nav-number">2.1.</span> <span class="nav-text">&amp;#38754;&amp;#21521;&amp;#21015;&amp;#30340;&amp;#22810;&amp;#20989;&amp;#25968;&amp;#24212;&amp;#29992;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20197;&#8220;&#26080;&#32034;&#24341;&#8221;&#30340;&#24418;&#24335;&#36820;&#22238;&#32858;&#21512;&#25968;&#25454;"><span class="nav-number">2.2.</span> <span class="nav-text">&amp;#20197;&amp;#8220;&amp;#26080;&amp;#32034;&amp;#24341;&amp;#8221;&amp;#30340;&amp;#24418;&amp;#24335;&amp;#36820;&amp;#22238;&amp;#32858;&amp;#21512;&amp;#25968;&amp;#25454;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分组运算和转换"><span class="nav-number">3.</span> <span class="nav-text">分组运算和转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#apply:-&#19968;&#33324;&#24615;&#30340;&#8220;&#25286;&#20998;-&#24212;&#29992;-&#21512;&#24182;&#8221;"><span class="nav-number">3.1.</span> <span class="nav-text">apply: &amp;#19968;&amp;#33324;&amp;#24615;&amp;#30340;&amp;#8220;&amp;#25286;&amp;#20998;-&amp;#24212;&amp;#29992;-&amp;#21512;&amp;#24182;&amp;#8221;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20998;&#20301;&#25968;&#21644;&#26742;&#20998;&#26512;"><span class="nav-number">3.2.</span> <span class="nav-text">&amp;#20998;&amp;#20301;&amp;#25968;&amp;#21644;&amp;#26742;&amp;#20998;&amp;#26512;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#31034;&#20363;&#65306;&#29992;&#29305;&#23450;&#20110;&#20998;&#32452;&#30340;&#20540;&#22635;&#20805;&#32570;&#22833;&#20540;"><span class="nav-number">3.3.</span> <span class="nav-text">&amp;#31034;&amp;#20363;&amp;#65306;&amp;#29992;&amp;#29305;&amp;#23450;&amp;#20110;&amp;#20998;&amp;#32452;&amp;#30340;&amp;#20540;&amp;#22635;&amp;#20805;&amp;#32570;&amp;#22833;&amp;#20540;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#31034;&#20363;&#65306;&#38543;&#26426;&#37319;&#26679;&#21644;&#25490;&#21015;"><span class="nav-number">3.4.</span> <span class="nav-text">&amp;#31034;&amp;#20363;&amp;#65306;&amp;#38543;&amp;#26426;&amp;#37319;&amp;#26679;&amp;#21644;&amp;#25490;&amp;#21015;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#23454;&#20363;&#65306;&#20998;&#32452;&#21152;&#26435;&#24179;&#22343;&#25968;&#21644;&#30456;&#20851;&#31995;&#25968;"><span class="nav-number">3.5.</span> <span class="nav-text">&amp;#23454;&amp;#20363;&amp;#65306;&amp;#20998;&amp;#32452;&amp;#21152;&amp;#26435;&amp;#24179;&amp;#22343;&amp;#25968;&amp;#21644;&amp;#30456;&amp;#20851;&amp;#31995;&amp;#25968;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#31034;&#20363;&#65306;&#38754;&#21521;&#20998;&#32452;&#30340;&#32447;&#24615;&#22238;&#24402;"><span class="nav-number">3.6.</span> <span class="nav-text">&amp;#31034;&amp;#20363;&amp;#65306;&amp;#38754;&amp;#21521;&amp;#20998;&amp;#32452;&amp;#30340;&amp;#32447;&amp;#24615;&amp;#22238;&amp;#24402;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#透视表和交叉表"><span class="nav-number">4.</span> <span class="nav-text">透视表和交叉表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20132;&#21449;&#34920;-crosstab"><span class="nav-number">4.1.</span> <span class="nav-text">&amp;#20132;&amp;#21449;&amp;#34920; crosstab&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例：2012联邦选举委员会数据库"><span class="nav-number">5.</span> <span class="nav-text">示例：2012联邦选举委员会数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#26681;&#25454;&#32844;&#19994;&#21644;&#38599;&#20027;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;"><span class="nav-number">5.1.</span> <span class="nav-text">&amp;#26681;&amp;#25454;&amp;#32844;&amp;#19994;&amp;#21644;&amp;#38599;&amp;#20027;&amp;#32479;&amp;#35745;&amp;#36190;&amp;#21161;&amp;#20449;&amp;#24687;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#23545;&#20986;&#36164;&#39069;&#20998;&#32452;"><span class="nav-number">5.2.</span> <span class="nav-text">&amp;#23545;&amp;#20986;&amp;#36164;&amp;#39069;&amp;#20998;&amp;#32452;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#26681;&#25454;&#24030;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;"><span class="nav-number">5.3.</span> <span class="nav-text">&amp;#26681;&amp;#25454;&amp;#24030;&amp;#32479;&amp;#35745;&amp;#36190;&amp;#21161;&amp;#20449;&amp;#24687;&amp;#182;</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/07/19/python_data_analysis9.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">利用Python进行数据分析(9)：数据聚合和分组运算</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          利用Python进行数据分析(9)：数据聚合和分组运算
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T00:00:00+08:00">
-                2017-07-19
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-19T00:00:00+08:00">2017-07-19</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/07/19/python_data_analysis9.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/19/python_data_analysis9.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -823,22 +776,16 @@ Q1nBiAAAAABJRU5ErkJggg==
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>
-第 9 章：数据聚合和分组运算。</p>
-<p>准备好数据集后，通常的任务是进行分组统计，或生成透视表。<br>
-pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。</p>
+        <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。<br>第 9 章：数据聚合和分组运算。</p>
+<p>准备好数据集后，通常的任务是进行分组统计，或生成透视表。<br>pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。</p>
 <a id="more"></a>
-<h1 id="groupby"><a class="markdownIt-Anchor" href="#groupby"></a> groupby</h1>
 
-<div class="notebook-border">
+<h1 id="groupby"><a href="#groupby" class="headerlink" title="groupby"></a>groupby</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -855,7 +802,7 @@ pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -877,7 +824,7 @@ pandas提供了 groupby 和 pivot， 可以方便的进行这些操作。</p>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>分组运算的典型过程为：split-apply-combine （拆分-应用-合并），如下图：</p>
@@ -1295,7 +1242,7 @@ dtype: int64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#23545;&#20998;&#32452;&#36827;&#34892;&#36845;&#20195;">&#23545;&#20998;&#32452;&#36827;&#34892;&#36845;&#20195;<a class="anchor-link" href="#&#23545;&#20998;&#32452;&#36827;&#34892;&#36845;&#20195;">&#182;</a></h2>
@@ -1562,7 +1509,7 @@ dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#36873;&#21462;&#19968;&#20010;&#25110;&#19968;&#32452;&#21015;">&#36873;&#21462;&#19968;&#20010;&#25110;&#19968;&#32452;&#21015;<a class="anchor-link" href="#&#36873;&#21462;&#19968;&#20010;&#25110;&#19968;&#32452;&#21015;">&#182;</a></h2><p>对groupby产生的 GroupBy 进行索引，能实现选取部分列进行聚合的目的。索引可以是一个或一组字符串。</p>
@@ -1719,7 +1666,7 @@ Name: data2, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#36890;&#36807;&#23383;&#20856;&#25110;Series&#36827;&#34892;&#20998;&#32452;">&#36890;&#36807;&#23383;&#20856;&#25110;Series&#36827;&#34892;&#20998;&#32452;<a class="anchor-link" href="#&#36890;&#36807;&#23383;&#20856;&#25110;Series&#36827;&#34892;&#20998;&#32452;">&#182;</a></h2>
@@ -1993,7 +1940,7 @@ dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#36890;&#36807;&#20989;&#25968;&#36827;&#34892;&#20998;&#32452;">&#36890;&#36807;&#20989;&#25968;&#36827;&#34892;&#20998;&#32452;<a class="anchor-link" href="#&#36890;&#36807;&#20989;&#25968;&#36827;&#34892;&#20998;&#32452;">&#182;</a></h2><p>函数作为分组键时，会在各个索引值上被调用一次，起返回值作为分组名称。</p>
@@ -2148,7 +2095,7 @@ dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#26681;&#25454;&#32034;&#24341;&#32423;&#21035;&#20998;&#32452;">&#26681;&#25454;&#32034;&#24341;&#32423;&#21035;&#20998;&#32452;<a class="anchor-link" href="#&#26681;&#25454;&#32034;&#24341;&#32423;&#21035;&#20998;&#32452;">&#182;</a></h2><p>层次化的索引，可以根据索引级别进行聚合。通过level关键字传入级别编号或名称即可。</p>
@@ -2378,14 +2325,13 @@ dtype: object</pre>
   </div>
 </div>
 
-<h1 id="数据聚合"><a class="markdownIt-Anchor" href="#数据聚合"></a> 数据聚合</h1>
 
-<div class="notebook-border">
+<h1 id="数据聚合"><a href="#数据聚合" class="headerlink" title="数据聚合"></a>数据聚合</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -2402,7 +2348,7 @@ dtype: object</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -2424,7 +2370,7 @@ dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>GroupBy对象上面优化了一些方法，可以快速进行统计计算，比如：</p>
@@ -2559,7 +2505,7 @@ Name: data1, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>如果需要自定义聚合函数，将其传入 aggregate 或 agg 方法即可：</p>
@@ -2729,7 +2675,7 @@ Name: data1, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#38754;&#21521;&#21015;&#30340;&#22810;&#20989;&#25968;&#24212;&#29992;">&#38754;&#21521;&#21015;&#30340;&#22810;&#20989;&#25968;&#24212;&#29992;<a class="anchor-link" href="#&#38754;&#21521;&#21015;&#30340;&#22810;&#20989;&#25968;&#24212;&#29992;">&#182;</a></h2><p>对Series或DataFrame列的聚合运算，其实就是使用aggregate或调用mean, std等方法。</p>
@@ -3293,7 +3239,7 @@ Name: data1, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#20197;&#8220;&#26080;&#32034;&#24341;&#8221;&#30340;&#24418;&#24335;&#36820;&#22238;&#32858;&#21512;&#25968;&#25454;">&#20197;&#8220;&#26080;&#32034;&#24341;&#8221;&#30340;&#24418;&#24335;&#36820;&#22238;&#32858;&#21512;&#25968;&#25454;<a class="anchor-link" href="#&#20197;&#8220;&#26080;&#32034;&#24341;&#8221;&#30340;&#24418;&#24335;&#36820;&#22238;&#32858;&#21512;&#25968;&#25454;">&#182;</a></h2><p>参数： as_index=False</p>
@@ -3478,14 +3424,13 @@ Name: data1, dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="分组运算和转换"><a class="markdownIt-Anchor" href="#分组运算和转换"></a> 分组运算和转换</h1>
 
-<div class="notebook-border">
+<h1 id="分组运算和转换"><a href="#分组运算和转换" class="headerlink" title="分组运算和转换"></a>分组运算和转换</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -3502,7 +3447,7 @@ Name: data1, dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -3524,7 +3469,7 @@ Name: data1, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>聚合，只是分组运算中的一种，是数据转换的一种方法：将一维数组简化为标量值。</p>
@@ -3825,7 +3770,7 @@ Name: data1, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>transform会将一个函数应用到各个分组，然后将结果放置到适当的位置。</p>
@@ -3937,7 +3882,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="apply:-&#19968;&#33324;&#24615;&#30340;&#8220;&#25286;&#20998;-&#24212;&#29992;-&#21512;&#24182;&#8221;">apply: &#19968;&#33324;&#24615;&#30340;&#8220;&#25286;&#20998;-&#24212;&#29992;-&#21512;&#24182;&#8221;<a class="anchor-link" href="#apply:-&#19968;&#33324;&#24615;&#30340;&#8220;&#25286;&#20998;-&#24212;&#29992;-&#21512;&#24182;&#8221;">&#182;</a></h2><p>transform与aggregate一样，对函数有严格条件：其结果要么产生一个可以广播的标量值，如np.mean, 要么产生一个相同大小的结果数组。</p>
@@ -4635,7 +4580,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#20998;&#20301;&#25968;&#21644;&#26742;&#20998;&#26512;">&#20998;&#20301;&#25968;&#21644;&#26742;&#20998;&#26512;<a class="anchor-link" href="#&#20998;&#20301;&#25968;&#21644;&#26742;&#20998;&#26512;">&#182;</a></h2><p>将分块工具(比如cut，qcut)与groupby结合起来，能非常轻松实现分位数(quantile)或桶(bucket)分析。</p>
@@ -4906,7 +4851,7 @@ Categories (4, object): [(-3.221, -1.465] &lt; (-1.465, 0.285] &lt; (0.285, 2.03
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#31034;&#20363;&#65306;&#29992;&#29305;&#23450;&#20110;&#20998;&#32452;&#30340;&#20540;&#22635;&#20805;&#32570;&#22833;&#20540;">&#31034;&#20363;&#65306;&#29992;&#29305;&#23450;&#20110;&#20998;&#32452;&#30340;&#20540;&#22635;&#20805;&#32570;&#22833;&#20540;<a class="anchor-link" href="#&#31034;&#20363;&#65306;&#29992;&#29305;&#23450;&#20110;&#20998;&#32452;&#30340;&#20540;&#22635;&#20805;&#32570;&#22833;&#20540;">&#182;</a></h2>
@@ -5133,7 +5078,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#31034;&#20363;&#65306;&#38543;&#26426;&#37319;&#26679;&#21644;&#25490;&#21015;">&#31034;&#20363;&#65306;&#38543;&#26426;&#37319;&#26679;&#21644;&#25490;&#21015;<a class="anchor-link" href="#&#31034;&#20363;&#65306;&#38543;&#26426;&#37319;&#26679;&#21644;&#25490;&#21015;">&#182;</a></h2><p>一个随机采样的方法：选取np.random.permutation(N)的前K个元素。其中，N为总体个数，K为期望的样本大小。
@@ -5303,7 +5248,7 @@ dtype: int64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#23454;&#20363;&#65306;&#20998;&#32452;&#21152;&#26435;&#24179;&#22343;&#25968;&#21644;&#30456;&#20851;&#31995;&#25968;">&#23454;&#20363;&#65306;&#20998;&#32452;&#21152;&#26435;&#24179;&#22343;&#25968;&#21644;&#30456;&#20851;&#31995;&#25968;<a class="anchor-link" href="#&#23454;&#20363;&#65306;&#20998;&#32452;&#21152;&#26435;&#24179;&#22343;&#25968;&#21644;&#30456;&#20851;&#31995;&#25968;">&#182;</a></h2>
@@ -5619,7 +5564,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#31034;&#20363;&#65306;&#38754;&#21521;&#20998;&#32452;&#30340;&#32447;&#24615;&#22238;&#24402;">&#31034;&#20363;&#65306;&#38754;&#21521;&#20998;&#32452;&#30340;&#32447;&#24615;&#22238;&#24402;<a class="anchor-link" href="#&#31034;&#20363;&#65306;&#38754;&#21521;&#20998;&#32452;&#30340;&#32447;&#24615;&#22238;&#24402;">&#182;</a></h2>
@@ -5734,14 +5679,13 @@ dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="透视表和交叉表"><a class="markdownIt-Anchor" href="#透视表和交叉表"></a> 透视表和交叉表</h1>
 
-<div class="notebook-border">
+<h1 id="透视表和交叉表"><a href="#透视表和交叉表" class="headerlink" title="透视表和交叉表"></a>透视表和交叉表</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -5758,7 +5702,7 @@ dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -5780,7 +5724,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>透视表(pivot table), 一种常见的数据汇总工具。根据一个或多个键对数据进行聚合，并根据行和列上的分组键将数据分配到各个矩形区域中。</p>
@@ -6461,7 +6405,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#20132;&#21449;&#34920;-crosstab">&#20132;&#21449;&#34920; crosstab<a class="anchor-link" href="#&#20132;&#21449;&#34920;-crosstab">&#182;</a></h2><p>交叉表，是用于计算分组频率的特殊透视表。</p>
@@ -6759,14 +6703,13 @@ dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="示例2012联邦选举委员会数据库"><a class="markdownIt-Anchor" href="#示例2012联邦选举委员会数据库"></a> 示例：2012联邦选举委员会数据库</h1>
 
-<div class="notebook-border">
+<h1 id="示例：2012联邦选举委员会数据库"><a href="#示例：2012联邦选举委员会数据库" class="headerlink" title="示例：2012联邦选举委员会数据库"></a>示例：2012联邦选举委员会数据库</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -6783,7 +6726,7 @@ dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -7234,7 +7177,7 @@ Name: party, dtype: int64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#26681;&#25454;&#32844;&#19994;&#21644;&#38599;&#20027;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;">&#26681;&#25454;&#32844;&#19994;&#21644;&#38599;&#20027;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;<a class="anchor-link" href="#&#26681;&#25454;&#32844;&#19994;&#21644;&#38599;&#20027;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;">&#182;</a></h2>
@@ -7761,7 +7704,8 @@ ktYFugGPVrpjd5BmZtYqpXDzrYA/pxQ6gGWKqg0E7oiIeZXu3x2kmZm1Vu2ADyOiTz11BgJHN3bn
 ZmZmrU6aEus1SXtBFnouaePC+nQ/8uvAmMbs3x2kmZm1CinIfgywvqTpkg4F9gUOlfQMMBnYLbfJ
 QOC2xoaa+zUPMzOzEnwFaWZmVoI7SDMzsxLcQZqZmZXgDtLMzKwEd5BmZmYluIM0MzMrwR2kmZlZ
 Ce4gzczMSvh/pN/1YIm2SP8AAAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -7886,7 +7830,7 @@ Name: contb_receipt_amt, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#23545;&#20986;&#36164;&#39069;&#20998;&#32452;">&#23545;&#20986;&#36164;&#39069;&#20998;&#32452;<a class="anchor-link" href="#&#23545;&#20986;&#36164;&#39069;&#20998;&#32452;">&#182;</a></h2>
@@ -8461,7 +8405,8 @@ ZjcDbxGaBTfZ3Veb2Y3B/qcIzXa8AFgH5BP6X2aNEGX/7wUygD8FI6tCrwELRkfZ9xormv67+xoz
 exNYCRQDf3b3ch8nqG6i/P0/CPzNzD4mNPvzbnevEW8VMbMXgT5ASzPLAe4D6kLV/d3TyjwiIiIR
 6NKriIhIBEqUIiIiEShRioiIRKBEKSIiEoESpYiISARKlCIiIhEoUYqIiESgRCkiIhLB/we+C93j
 Q1nBiAAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -8471,7 +8416,7 @@ Q1nBiAAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#26681;&#25454;&#24030;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;">&#26681;&#25454;&#24030;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;<a class="anchor-link" href="#&#26681;&#25454;&#24030;&#32479;&#35745;&#36190;&#21161;&#20449;&#24687;">&#182;</a></h2>
@@ -8677,7 +8622,7 @@ Q1nBiAAAAABJRU5ErkJggg==
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 绘制地图</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.basemap</span> <span class="k">import</span> <span class="n">Basemap</span><span class="p">,</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.basemap</span> <span class="kn">import</span> <span class="n">Basemap</span><span class="p">,</span> <span class="n">cm</span>
 
 <span class="c1"># 略</span>
 </pre></div>
@@ -8692,414 +8637,122 @@ Q1nBiAAAAABJRU5ErkJggg==
 </div>
 
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/03/15/python_data_analysis8.html" rel="next" title="利用Python进行数据分析(8)：绘图和可视化">
-                <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(8)：绘图和可视化
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/20/python_data_analysis10.html" rel="prev" title="利用Python进行数据分析(10)：时间序列">
-                利用Python进行数据分析(10)：时间序列 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/15/python_data_analysis8.html" rel="prev" title="利用Python进行数据分析(8)：绘图和可视化">
+      <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(8)：绘图和可视化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/20/python_data_analysis10.html" rel="next" title="利用Python进行数据分析(10)：时间序列">
+      利用Python进行数据分析(10)：时间序列 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#groupby"><span class="nav-number">1.</span> <span class="nav-text"> groupby</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对分组进行迭代"><span class="nav-number">1.1.</span> <span class="nav-text">对分组进行迭代¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选取一个或一组列"><span class="nav-number">1.2.</span> <span class="nav-text">选取一个或一组列¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过字典或Series进行分组"><span class="nav-number">1.3.</span> <span class="nav-text">通过字典或Series进行分组¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过函数进行分组"><span class="nav-number">1.4.</span> <span class="nav-text">通过函数进行分组¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据索引级别分组"><span class="nav-number">1.5.</span> <span class="nav-text">根据索引级别分组¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据聚合"><span class="nav-number">2.</span> <span class="nav-text"> 数据聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向列的多函数应用"><span class="nav-number">2.1.</span> <span class="nav-text">面向列的多函数应用¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以“无索引”的形式返回聚合数据"><span class="nav-number">2.2.</span> <span class="nav-text">以“无索引”的形式返回聚合数据¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分组运算和转换"><span class="nav-number">3.</span> <span class="nav-text"> 分组运算和转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#apply:-一般性的“拆分-应用-合并”"><span class="nav-number">3.1.</span> <span class="nav-text">apply: 一般性的“拆分-应用-合并”¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分位数和桶分析"><span class="nav-number">3.2.</span> <span class="nav-text">分位数和桶分析¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：用特定于分组的值填充缺失值"><span class="nav-number">3.3.</span> <span class="nav-text">示例：用特定于分组的值填充缺失值¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：随机采样和排列"><span class="nav-number">3.4.</span> <span class="nav-text">示例：随机采样和排列¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例：分组加权平均数和相关系数"><span class="nav-number">3.5.</span> <span class="nav-text">实例：分组加权平均数和相关系数¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：面向分组的线性回归"><span class="nav-number">3.6.</span> <span class="nav-text">示例：面向分组的线性回归¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#透视表和交叉表"><span class="nav-number">4.</span> <span class="nav-text"> 透视表和交叉表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉表-crosstab"><span class="nav-number">4.1.</span> <span class="nav-text">交叉表 crosstab¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例2012联邦选举委员会数据库"><span class="nav-number">5.</span> <span class="nav-text"> 示例：2012联邦选举委员会数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#根据职业和雇主统计赞助信息"><span class="nav-number">5.1.</span> <span class="nav-text">根据职业和雇主统计赞助信息¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对出资额分组"><span class="nav-number">5.2.</span> <span class="nav-text">对出资额分组¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据州统计赞助信息"><span class="nav-number">5.3.</span> <span class="nav-text">根据州统计赞助信息¶</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/07/19/python_data_analysis9.html';
-          this.page.identifier = '2017/07/19/python_data_analysis9.html';
-          this.page.title = '利用Python进行数据分析(9)：数据聚合和分组运算';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -9114,24 +8767,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : 'ac3e2bdaeb23c50209099079fd883a63',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

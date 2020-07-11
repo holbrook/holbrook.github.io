@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="数据可视化,seaborn,matplotlib," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="数据演变信息(evolution)的可视化，是为了观察同一特征变量在不同时间的值。">
-<meta name="keywords" content="数据可视化,seaborn,matplotlib">
+  <meta name="description" content="数据演变信息(evolution)的可视化，是为了观察同一特征变量在不同时间的值。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据演变信息的可视化">
 <meta property="og:url" content="http://holbrook.github.io/2018/04/13/visualization_of_evolution.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="数据演变信息(evolution)的可视化，是为了观察同一特征变量在不同时间的值。">
-<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6gAAAFkCAYAAAAt9BbOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xd4ZAd5Nvz7nGmaqt7LrrS92tsX7F3jwmLjUB0W1g4E
 Lt5AeBOSEOBzXJKXfEDekHy2YwecEEwgOAGzGDBgm2LAbe3dtXe9vaqttOptNL2f8/1ximakkTRa
@@ -5548,10 +5490,13 @@ SUVORK5CYII=
 <meta property="og:image" content="http://holbrook.github.io/2018/04/13/radar1.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/04/13/radar2.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/04/13/radar3.jpg">
-<meta property="og:updated_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:published_time" content="2018-04-12T16:00:00.000Z">
+<meta property="article:modified_time" content="1970-01-01T00:00:00.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="数据可视化">
+<meta property="article:tag" content="seaborn">
+<meta property="article:tag" content="matplotlib">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据演变信息的可视化">
-<meta name="twitter:description" content="数据演变信息(evolution)的可视化，是为了观察同一特征变量在不同时间的值。">
 <meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6gAAAFkCAYAAAAt9BbOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xd4ZAd5Nvz7nGmaqt7LrrS92tsX7F3jwmLjUB0W1g4E
 Lt5AeBOSEOBzXJKXfEDekHy2YwecEEwgOAGzGDBgm2LAbe3dtXe9vaqttOptNL2f8/1ximakkTRa
@@ -6322,52 +6267,28 @@ AAAAAICiQEAFAAAAABQFAioAAAAAoCgQUAEAAAAARYGACgAAAAAoCv8PX7iMUyh2aZsAAAAASUVO
 RK5CYII=
 ">
 
+<link rel="canonical" href="http://holbrook.github.io/2018/04/13/visualization_of_evolution.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2018/04/13/visualization_of_evolution.html"/>
-
-
-
-
 
   <title>数据演变信息的可视化 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -6376,199 +6297,243 @@ RK5CYII=
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#&#26102;&#28857;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;"><span class="nav-number">1.</span> <span class="nav-text">&amp;#26102;&amp;#28857;&amp;#25968;&amp;#25454;&amp;#30340;&amp;#21487;&amp;#35270;&amp;#21270;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#25240;&#32447;&#22270;(Line-Chart)"><span class="nav-number">1.1.</span> <span class="nav-text">&amp;#25240;&amp;#32447;&amp;#22270;(Line Chart)&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#38378;&#30005;&#22270;(Tick-Chart)"><span class="nav-number">1.2.</span> <span class="nav-text">&amp;#38378;&amp;#30005;&amp;#22270;(Tick Chart)&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#38754;&#31215;&#22270;/&#22320;&#24179;&#32447;&#22270;"><span class="nav-number">1.3.</span> <span class="nav-text">&amp;#38754;&amp;#31215;&amp;#22270;&#x2F;&amp;#22320;&amp;#24179;&amp;#32447;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#22810;&#20010;&#29305;&#24449;&#21464;&#37327;&#30340;&#25240;&#32447;&#22270;"><span class="nav-number">1.4.</span> <span class="nav-text">&amp;#22810;&amp;#20010;&amp;#29305;&amp;#24449;&amp;#21464;&amp;#37327;&amp;#30340;&amp;#25240;&amp;#32447;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#22810;&#29305;&#21464;&#37327;&#30340;&#38754;&#31215;&#22270;"><span class="nav-number">1.5.</span> <span class="nav-text">&amp;#22810;&amp;#29305;&amp;#21464;&amp;#37327;&amp;#30340;&amp;#38754;&amp;#31215;&amp;#22270;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#26102;&#27573;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;"><span class="nav-number">2.</span> <span class="nav-text">&amp;#26102;&amp;#27573;&amp;#25968;&amp;#25454;&amp;#30340;&amp;#21487;&amp;#35270;&amp;#21270;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#19968;&#20010;&#29305;&#24449;&#21464;&#37327;+&#19968;&#20010;&#20998;&#31867;&#21464;&#37327;&#30340;&#26609;&#29366;&#22270;"><span class="nav-number">2.1.</span> <span class="nav-text">&amp;#19968;&amp;#20010;&amp;#29305;&amp;#24449;&amp;#21464;&amp;#37327;+&amp;#19968;&amp;#20010;&amp;#20998;&amp;#31867;&amp;#21464;&amp;#37327;&amp;#30340;&amp;#26609;&amp;#29366;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#22534;&#21472;&#26609;&#29366;&#22270;"><span class="nav-number">2.2.</span> <span class="nav-text">&amp;#22534;&amp;#21472;&amp;#26609;&amp;#29366;&amp;#22270;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K&#32447;&#22270;&#21487;&#20197;&#30475;&#20316;&#26609;&#29366;&#22270;&#30340;&#21464;&#20307;"><span class="nav-number">2.3.</span> <span class="nav-text">K&amp;#32447;&amp;#22270;&amp;#21487;&amp;#20197;&amp;#30475;&amp;#20316;&amp;#26609;&amp;#29366;&amp;#22270;&amp;#30340;&amp;#21464;&amp;#20307;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#36830;&#25509;&#25955;&#28857;&#22270;(connected-scatterplot)"><span class="nav-number">3.</span> <span class="nav-text">&amp;#36830;&amp;#25509;&amp;#25955;&amp;#28857;&amp;#22270;(connected scatterplot)&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#24490;&#29615;&#26102;&#38388;&#21608;&#26399;&#19982;&#38647;&#36798;&#22270;(Radar-Chart-)"><span class="nav-number">4.</span> <span class="nav-text">&amp;#24490;&amp;#29615;&amp;#26102;&amp;#38388;&amp;#21608;&amp;#26399;&amp;#19982;&amp;#38647;&amp;#36798;&amp;#22270;(Radar Chart )&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2018/04/13/visualization_of_evolution.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">数据演变信息的可视化</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          数据演变信息的可视化
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-13T00:00:00+08:00">
-                2018-04-13
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <time title="Created: 2018-04-13 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-13T00:00:00+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2018/04/13/visualization_of_evolution.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/13/visualization_of_evolution.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 1970-01-01 08:00:00" itemprop="dateModified" datetime="1970-01-01T08:00:00+08:00">1970-01-01</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <p>数据演变信息(evolution)的可视化，是为了观察同一特征变量在不同时间的值。</p>
@@ -6603,7 +6568,7 @@ RK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#26102;&#28857;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;">&#26102;&#28857;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;<a class="anchor-link" href="#&#26102;&#28857;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;">&#182;</a></h1><h2 id="&#25240;&#32447;&#22270;(Line-Chart)">&#25240;&#32447;&#22270;(Line Chart)<a class="anchor-link" href="#&#25240;&#32447;&#22270;(Line-Chart)">&#182;</a></h2><p>如果特征数据与一系列时点相关，很自然的表达方式就是折线图。比如每日收盘价的折线图：</p>
@@ -7409,7 +7374,8 @@ k+LxuO644w7NmjWL/7dgQGvWrNFDDz0kh8PBWkG/otGo7r//fp08eVKGYejee+9VZWUl6wV5Pfro
 o3r55ZdlWZY2bdqkqVOnjvn1UjQBFQAAAAAwthVNiy8AAAAAYGwjoAIAAAAAigIBFQAAAABQFAio
 AAAAAICiQEAFAAAAABQFAioAAAAAoCgQUAEAAAAARYGACgAAAAAoCv8PX7iMUyh2aZsAAAAASUVO
 RK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -7419,7 +7385,7 @@ RK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#38378;&#30005;&#22270;(Tick-Chart)">&#38378;&#30005;&#22270;(Tick Chart)<a class="anchor-link" href="#&#38378;&#30005;&#22270;(Tick-Chart)">&#182;</a></h2><p>一种特殊的折线图是 Tick图(闪电图)，一般用于显示股票tick数据。其要求数据随时间轴均匀分布：</p>
@@ -8054,7 +8020,8 @@ AwCcfPLJuP7663HBBRfgoosugtfrxQUXXICjjz7a4aMlK1bvmeFwmK+/DrJ7927zRBEAHHXUUXz9
 dThB13Xd6YMgIiIiIiIiKuXKZcBEREREREQ0vzGsEhERERERkeswrBIREREREZHrMKwSERERERGR
 6zCsEhERERERkeswrBIREREREZHrMKwSERERERGR6zCsEhERERERkev8f4qH/kIrzzEgAAAAAElF
 TkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -8064,7 +8031,7 @@ TkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#38754;&#31215;&#22270;/&#22320;&#24179;&#32447;&#22270;">&#38754;&#31215;&#22270;/&#22320;&#24179;&#32447;&#22270;<a class="anchor-link" href="#&#38754;&#31215;&#22270;/&#22320;&#24179;&#32447;&#22270;">&#182;</a></h2><p>当数据值为大于零，且有限值，并且变化比较大时（通常为某种占比），可以绘制面积图(Area Plot)。面积图也叫地平线图( Horizon Chart)：</p>
@@ -8564,7 +8531,8 @@ O3dOL7zwwjuOPWDyXbx4Ud/85jf16KOPHn7tT//0T3Xx4kXm6pQ66po+88wzeumll5irU6zf7+sL
 X/iCNjc3lee5fvu3f1sXLlzgc3XKHXVdH3zwQT5bT6jSoBMAAAAAMN9oFAQAAAAAqAxBJwAAAACg
 MgSdAAAAAIDKEHQCAAAAACpD0AkAAAAAqAxBJwAAAACgMgSdAAAAAIDKEHQCAAAAACrz/wGFZrer
 Ksd+NgAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -8574,7 +8542,7 @@ Ksd+NgAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#22810;&#20010;&#29305;&#24449;&#21464;&#37327;&#30340;&#25240;&#32447;&#22270;">&#22810;&#20010;&#29305;&#24449;&#21464;&#37327;&#30340;&#25240;&#32447;&#22270;<a class="anchor-link" href="#&#22810;&#20010;&#29305;&#24449;&#21464;&#37327;&#30340;&#25240;&#32447;&#22270;">&#182;</a></h2><p>如果有多个特征数据，可以放到一张折线图上：</p>
@@ -9776,7 +9744,8 @@ unQpatSoceWx8ePHY9KkSbxWA9SN+nTkyJF4++23ea0GsOzsbIwdOxaZmZlwOBx4/PHHUbNmTX6u
 BrAb9WnFihX5ueoGXYJRIiIiIiIiKt54oBERERERERH5HINRIiIiIiIi8jkGo0RERERERORzDEaJ
 iIiIiIjI5xiMEhERERERkc8xGCUiIiIiIiKfYzBKREREREREPsdglIiIiIiIiHzu/wEJmN9PO3E1
 bwAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -9786,7 +9755,7 @@ bwAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#22810;&#29305;&#21464;&#37327;&#30340;&#38754;&#31215;&#22270;">&#22810;&#29305;&#21464;&#37327;&#30340;&#38754;&#31215;&#22270;<a class="anchor-link" href="#&#22810;&#29305;&#21464;&#37327;&#30340;&#38754;&#31215;&#22270;">&#182;</a></h2><p>多个数据的面积图，体现出“叠加”效果：</p>
@@ -10727,7 +10696,8 @@ e3bTsQc5+M6dO8ef/vQnzpw5s/7Y97//fc6dO6e1OqG2mtN7772Xxx57TGt1gg0GA+6//34uXbpE
 URR86Utf4qabbtLr6oTbal5Pnjyp19ZtGmvQKSIiIiIiIkebGgWJiIiIiIjI2CjoFBERERERkbFR
 0CkiIiIiIiJjo6BTRERERERExkZBp4iIiIiIiIyNgk4REREREREZGwWdIiIiIiIiMjYKOkVERERE
 RGRs/h9rhdc3c7814QAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -10737,7 +10707,7 @@ RGRs/h9rhdc3c7814QAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#26102;&#27573;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;">&#26102;&#27573;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;<a class="anchor-link" href="#&#26102;&#27573;&#25968;&#25454;&#30340;&#21487;&#35270;&#21270;">&#182;</a></h1><p>对于时段的累计数据，用柱状图/条形图(Column Chart/ Bar Chart)比折线图更直观。 其中，数据较少时用柱状图，数据较多时用条形图。</p>
@@ -10934,7 +10904,8 @@ z3/+8zjvvPNSfikA0CJcKQWAEhowYEA899xz8Y1vfCO6d+8eO+20U6xatSpeeumlGDRoULRr1y52
 2WWXmD9/fkRE9O/fP04++eSYPHlyXHvttTF27NhYvXp1dO7cOcaPH5/4qwGA/Hn3XQAAAJLx8l0A
 AACSEaUAAAAkI0oBAABIRpQCAACQjCgFAAAgGVEKAABAMqIUAACAZEQpAAAAyfw/4PFTpZBx8P8A
 AAAASUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -11586,7 +11557,8 @@ REabwfZ/n9MSERGR25rNZmPt2rUUFRV9IdckP/XUUyQmJnLPPfc4uhQREbmNaWZaREREBjAYDDzz
 zDPs27fP0aVc469//SuzZs1SIy0iIg6nmWkRERERERGREdLMtIiIiIiIiMgIqZkWERERERERGSE1
 0yIiIiIiIiIjpGZaREREREREZITUTIuIiIiIiIiMkJppERERERERkRH6X5VsAVKaoHGDAAAAAElF
 TkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -11596,7 +11568,7 @@ TkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#19968;&#20010;&#29305;&#24449;&#21464;&#37327;+&#19968;&#20010;&#20998;&#31867;&#21464;&#37327;&#30340;&#26609;&#29366;&#22270;">&#19968;&#20010;&#29305;&#24449;&#21464;&#37327;+&#19968;&#20010;&#20998;&#31867;&#21464;&#37327;&#30340;&#26609;&#29366;&#22270;<a class="anchor-link" href="#&#19968;&#20010;&#29305;&#24449;&#21464;&#37327;+&#19968;&#20010;&#20998;&#31867;&#21464;&#37327;&#30340;&#26609;&#29366;&#22270;">&#182;</a></h2><p>用颜色区分</p>
@@ -11836,7 +11808,8 @@ pLa2Ns3NzRk4cGAWLFiQ+++/P0nygx/8IMcff3yZpwIAq4SVUgBoRyNHjsyjjz6aT33qU1lnnXWy
 ySabZOnSpXnyySczatSo1NfXZ7PNNssLL7yQJBkxYkQOPfTQXHrppTnvvPMyZcqULFu2LI2NjZk6
 dWrJZwMA1efuuwAAAJTG5bsAAACURikFAACgNEopAAAApVFKAQAAKI1SCgAAQGmUUgAAAEqjlAIA
 AFAapRQAAIDS/H/WTjnG6pWqRAAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -12003,7 +11976,8 @@ kr6Jqqpy991357HHHktXV1fa29uz//7758gjj/S3i/3s5ptvzm677ZYjjzyy0aMMSRs2bMjixYvz
 HHBApk6d2uixhozbb789H//4xxs9xpC3YcOG3HvvvRk7dmza2tryT//0T3nnO9+ZU045Ja2trY0e
 b0jo7e3NggUL8txzz2WfffbJn/7pn2b58uXZbbfdMnr06EaPV2ybiksAAADqsU29WywAAAD1EJcA
 AAAUE5cAAAAUE5cAAAAUE5cAAAAU+/+XtBRD8YmmcAAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -12013,7 +11987,7 @@ AAAUE5cAAAAUE5cAAAAUE5cAAAAU+/+XtBRD8YmmcAAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#22534;&#21472;&#26609;&#29366;&#22270;">&#22534;&#21472;&#26609;&#29366;&#22270;<a class="anchor-link" href="#&#22534;&#21472;&#26609;&#29366;&#22270;">&#182;</a></h2><p>如果多个特征变量是某一个总量的组成部分，可以绘制堆叠柱状图</p>
@@ -12266,7 +12240,8 @@ W6tZs2a2Z3bHbHecmWzPyh47dqwVHh5+yZk08+bNs4YOHUq2k7PdcWay8+Y9YcKECfarKwBPcu21
 1+rs2bPKysrS7bffrgoVKuT8Kq7Z7jgz2WQ7okWLFjp+/LhuvvnmnPdktW7dWqdOnbL9GaDumO2O
 M5PtednShauBX5SUlKSBAwfavoIt2UWTS3bRZ3tZlpM/NwMAAAAAgP/i6rUAAAAAAGMonQAAAAAA
 YyidAAAAAABjKJ0AAAAAAGP+H+iFYx5Jk6lKAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -12276,7 +12251,7 @@ YyidAAAAAABjKJ0AAAAAAGP+H+iFYx5Jk6lKAAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="K&#32447;&#22270;&#21487;&#20197;&#30475;&#20316;&#26609;&#29366;&#22270;&#30340;&#21464;&#20307;">K&#32447;&#22270;&#21487;&#20197;&#30475;&#20316;&#26609;&#29366;&#22270;&#30340;&#21464;&#20307;<a class="anchor-link" href="#K&#32447;&#22270;&#21487;&#20197;&#30475;&#20316;&#26609;&#29366;&#22270;&#30340;&#21464;&#20307;">&#182;</a></h2>
@@ -12309,7 +12284,7 @@ YyidAAAAAABjKJ0AAAAAAGP+H+iFYx5Jk6lKAAAAAElFTkSuQmCC
 <span class="c1"># 所以要将格式转换为mpf.candlestick_ohlc()能够处理的浮点数格式</span>
 
 <span class="c1"># 导入两个涉及的库</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pylab</span> <span class="k">import</span> <span class="n">date2num</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pylab</span> <span class="kn">import</span> <span class="n">date2num</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="c1"># 对tushare获取到的数据转换成candlestick_ohlc()方法可读取的格式</span>
@@ -12619,7 +12594,8 @@ oAYnTpzQqFGjJJ1N+Hr06KHFixcrNzdXDz74oDZs2KCIiAj16dNH2dnZkqRhw4Zp1KhRevfddzV/
 /nxNmTJFVqtVycnJeuqpp4z8OACAJshkqzoGBQAAAAAQFBjSCQAAAABBioQPAAAAAIIUCR8AAAAA
 BCkSPgAAAAAIUiR8AAAAABCkSPgAAAAAIEiR8AEAAABAkCLhAwAAAIAg9f8BEnvm9nm804AAAAAA
 SUVORK5CYII=
-">
+"
+>
 </div>
 
 </div>
@@ -12629,7 +12605,7 @@ SUVORK5CYII=
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#36830;&#25509;&#25955;&#28857;&#22270;(connected-scatterplot)">&#36830;&#25509;&#25955;&#28857;&#22270;(connected scatterplot)<a class="anchor-link" href="#&#36830;&#25509;&#25955;&#28857;&#22270;(connected-scatterplot)">&#182;</a></h1><p>对于两个不相关的特征变量随时间的变化，一种有意思的做法是用这两个特征变量构建平面，每个点表示某个时点这两个变量的值。
@@ -12643,7 +12619,7 @@ SUVORK5CYII=
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#24490;&#29615;&#26102;&#38388;&#21608;&#26399;&#19982;&#38647;&#36798;&#22270;(Radar-Chart-)">&#24490;&#29615;&#26102;&#38388;&#21608;&#26399;&#19982;&#38647;&#36798;&#22270;(Radar Chart )<a class="anchor-link" href="#&#24490;&#29615;&#26102;&#38388;&#21608;&#26399;&#19982;&#38647;&#36798;&#22270;(Radar-Chart-)">&#182;</a></h1><p>如果要研究特征变量的周期性变化，还可以使用雷达图。</p>
@@ -12672,424 +12648,130 @@ SUVORK5CYII=
   </div>
 </div>
 
-<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
-<ul>
-<li>
-<p><a href="https://blog.csdn.net/u014281392/article/details/73611624" target="_blank" rel="noopener">使用matplotlib绘制K线图以及和成交量的组合图</a></p>
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><p><a href="https://blog.csdn.net/u014281392/article/details/73611624" target="_blank" rel="noopener">使用matplotlib绘制K线图以及和成交量的组合图</a></p>
 </li>
-<li>
-<p><a href="https://mp.weixin.qq.com/s/PKiDnOqdTZ0TQ3d2hiDpdQ" target="_blank" rel="noopener">成长回归——A股市场风格轮动周报20170320</a></p>
+<li><p><a href="https://mp.weixin.qq.com/s/PKiDnOqdTZ0TQ3d2hiDpdQ" target="_blank" rel="noopener">成长回归——A股市场风格轮动周报20170320</a></p>
 </li>
 </ul>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
-          
-            <a href="/tags/seaborn/" rel="tag"># seaborn</a>
-          
-            <a href="/tags/matplotlib/" rel="tag"># matplotlib</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/03/20/SVM_classify.html" rel="next" title="用SVM(支持向量机)处理分类问题">
-                <i class="fa fa-chevron-left"></i> 用SVM(支持向量机)处理分类问题
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" rel="tag"># 数据可视化</a>
+              <a href="/tags/seaborn/" rel="tag"># seaborn</a>
+              <a href="/tags/matplotlib/" rel="tag"># matplotlib</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/20/SVM_classify.html" rel="prev" title="用SVM(支持向量机)处理分类问题">
+      <i class="fa fa-chevron-left"></i> 用SVM(支持向量机)处理分类问题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#时点数据的可视化"><span class="nav-number">1.</span> <span class="nav-text">时点数据的可视化¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#折线图(Line-Chart)"><span class="nav-number">1.1.</span> <span class="nav-text">折线图(Line Chart)¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闪电图(Tick-Chart)"><span class="nav-number">1.2.</span> <span class="nav-text">闪电图(Tick Chart)¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面积图/地平线图"><span class="nav-number">1.3.</span> <span class="nav-text">面积图/地平线图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个特征变量的折线图"><span class="nav-number">1.4.</span> <span class="nav-text">多个特征变量的折线图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多特变量的面积图"><span class="nav-number">1.5.</span> <span class="nav-text">多特变量的面积图¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时段数据的可视化"><span class="nav-number">2.</span> <span class="nav-text">时段数据的可视化¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个特征变量+一个分类变量的柱状图"><span class="nav-number">2.1.</span> <span class="nav-text">一个特征变量+一个分类变量的柱状图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆叠柱状图"><span class="nav-number">2.2.</span> <span class="nav-text">堆叠柱状图¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K线图可以看作柱状图的变体"><span class="nav-number">2.3.</span> <span class="nav-text">K线图可以看作柱状图的变体¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#连接散点图(connected-scatterplot)"><span class="nav-number">3.</span> <span class="nav-text">连接散点图(connected scatterplot)¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环时间周期与雷达图(Radar-Chart-)"><span class="nav-number">4.</span> <span class="nav-text">循环时间周期与雷达图(Radar Chart )¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2018/04/13/visualization_of_evolution.html';
-          this.page.identifier = '2018/04/13/visualization_of_evolution.html';
-          this.page.title = '数据演变信息的可视化';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -13104,24 +12786,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '15e6541527294153654c6b832f209372',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

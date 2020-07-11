@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="python," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="NumPy(Numerical Python)，python 数值计算包。是所有 python 数据分析包的基础。NumPy提供了大量的数值编程工具，可以方便地处理向量、矩阵等运算，极大地便利了人们在科学计算方面的工作。">
-<meta name="keywords" content="python">
+  <meta name="description" content="NumPy(Numerical Python)，python 数值计算包。是所有 python 数据分析包的基础。NumPy提供了大量的数值编程工具，可以方便地处理向量、矩阵等运算，极大地便利了人们在科学计算方面的工作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Python进行数据分析(4)：NumPy">
 <meta property="og:url" content="http://holbrook.github.io/2017/02/17/python_data_analysis4.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="NumPy(Numerical Python)，python 数值计算包。是所有 python 数据分析包的基础。NumPy提供了大量的数值编程工具，可以方便地处理向量、矩阵等运算，极大地便利了人们在科学计算方面的工作。">
-<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATEAAAEPCAYAAAAqFfO1AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJztvXv0LVdx3/mte3kLLMAyipBkS5lgPBIe81AwCR5CkB3L
 GFsej4eIhBgceTRZwQY/ZkAy44FkRWtkx8MYj8dObng7gJB5BIUF5s1inAUC8QggBEYggSQE4sbm
@@ -795,10 +737,11 @@ uPMF8DDUfoo+qG9yV/bnPAHM1K7VVgB/gDZoNtc/GmlLEARRITjBpUMQBEFkAQk+QRBEhUCCTxAE
 USGQ4BMEQVQIJPgEQRAVAgk+QRBEhUCCTxAEUSGQ4BMEQVQI/x8bhWHFvtcqZAAAAABJRU5ErkJg
 gg==
 ">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2017-02-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Python进行数据分析(4)：NumPy">
-<meta name="twitter:description" content="NumPy(Numerical Python)，python 数值计算包。是所有 python 数据分析包的基础。NumPy提供了大量的数值编程工具，可以方便地处理向量、矩阵等运算，极大地便利了人们在科学计算方面的工作。">
 <meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATEAAAEPCAYAAAAqFfO1AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJztvXv0LVdx3/mte3kLLMAyipBkS5lgPBIe81AwCR5CkB3L
 GFsej4eIhBgceTRZwQY/ZkAy44FkRWtkx8MYj8dObng7gJB5BIUF5s1inAUC8QggBEYggSQE4sbm
@@ -1217,52 +1160,28 @@ xk9j+HFUOV7Psfe3fu1olVVW2WvZ1eXkKqusskpKVoitssoqey0rxFZZZZW9lhViq6yyyl7LCrFV
 Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 ">
 
+<link rel="canonical" href="http://holbrook.github.io/2017/02/17/python_data_analysis4.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/02/17/python_data_analysis4.html"/>
-
-
-
-
 
   <title>利用Python进行数据分析(4)：NumPy | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -1271,221 +1190,252 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20934;&#22791;&#24037;&#20316;"><span class="nav-number">1.</span> <span class="nav-text">&amp;#20934;&amp;#22791;&amp;#24037;&amp;#20316;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ndarray:--&#22810;&#32500;&#25968;&#32452;&#23545;&#35937;"><span class="nav-number">2.</span> <span class="nav-text">ndarray:  &amp;#22810;&amp;#32500;&amp;#25968;&amp;#32452;&amp;#23545;&amp;#35937;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#&#21019;&#24314;&#25968;&#32452;"><span class="nav-number">2.1.</span> <span class="nav-text">&amp;#21019;&amp;#24314;&amp;#25968;&amp;#32452;&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#25968;&#32452;&#31867;&#22411;-dtype"><span class="nav-number">2.2.</span> <span class="nav-text">&amp;#25968;&amp;#32452;&amp;#31867;&amp;#22411; dtype&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#25968;&#32452;&#36816;&#31639;"><span class="nav-number">2.3.</span> <span class="nav-text">&amp;#25968;&amp;#32452;&amp;#36816;&amp;#31639;&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#32034;&#24341;(indexing)-&#21644;-&#20999;&#29255;(slicing)"><span class="nav-number">2.4.</span> <span class="nav-text">&amp;#32034;&amp;#24341;(indexing) &amp;#21644; &amp;#20999;&amp;#29255;(slicing)&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#20999;&#29255;&#32034;&#24341;(Indexing-with-slices)"><span class="nav-number">2.5.</span> <span class="nav-text">&amp;#20999;&amp;#29255;&amp;#32034;&amp;#24341;(Indexing with slices)&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#24067;&#23572;&#32034;&#24341;"><span class="nav-number">2.6.</span> <span class="nav-text">&amp;#24067;&amp;#23572;&amp;#32034;&amp;#24341;&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#33457;&#24335;&#32034;&#24341;(Fancy-indexing)"><span class="nav-number">2.7.</span> <span class="nav-text">&amp;#33457;&amp;#24335;&amp;#32034;&amp;#24341;(Fancy indexing)&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#25968;&#32452;&#36716;&#32622;&#21644;&#36724;&#23545;&#25442;"><span class="nav-number">3.</span> <span class="nav-text">&amp;#25968;&amp;#32452;&amp;#36716;&amp;#32622;&amp;#21644;&amp;#36724;&amp;#23545;&amp;#25442;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#36890;&#29992;&#20989;&#25968;&#65306;&#24555;&#36895;&#30340;&#20803;&#32032;&#32423;&#25968;&#32452;&#20989;&#25968;"><span class="nav-number">4.</span> <span class="nav-text">&amp;#36890;&amp;#29992;&amp;#20989;&amp;#25968;&amp;#65306;&amp;#24555;&amp;#36895;&amp;#30340;&amp;#20803;&amp;#32032;&amp;#32423;&amp;#25968;&amp;#32452;&amp;#20989;&amp;#25968;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#21033;&#29992;&#25968;&#32452;&#36827;&#34892;&#25968;&#25454;&#22788;&#29702;"><span class="nav-number">5.</span> <span class="nav-text">&amp;#21033;&amp;#29992;&amp;#25968;&amp;#32452;&amp;#36827;&amp;#34892;&amp;#25968;&amp;#25454;&amp;#22788;&amp;#29702;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#&#23558;&#26465;&#20214;&#36923;&#36753;&#34920;&#36848;&#20026;&#25968;&#32452;&#36816;&#31639;"><span class="nav-number">5.1.</span> <span class="nav-text">&amp;#23558;&amp;#26465;&amp;#20214;&amp;#36923;&amp;#36753;&amp;#34920;&amp;#36848;&amp;#20026;&amp;#25968;&amp;#32452;&amp;#36816;&amp;#31639;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#25968;&#23398;&#21644;&#32479;&#35745;&#26041;&#27861;"><span class="nav-number">6.</span> <span class="nav-text">&amp;#25968;&amp;#23398;&amp;#21644;&amp;#32479;&amp;#35745;&amp;#26041;&amp;#27861;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Methods-for-boolean-arrays"><span class="nav-number">6.1.</span> <span class="nav-text">Methods for boolean arrays&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sorting"><span class="nav-number">6.2.</span> <span class="nav-text">Sorting&amp;#182;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unique-and-other-set-logic"><span class="nav-number">6.3.</span> <span class="nav-text">Unique and other set logic&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20445;&#23384;&#21644;&#35835;&#21462;&#25968;&#32452;&#25991;&#20214;&#65288;&#20108;&#36827;&#21046;&#65289;"><span class="nav-number">7.</span> <span class="nav-text">&amp;#20445;&amp;#23384;&amp;#21644;&amp;#35835;&amp;#21462;&amp;#25968;&amp;#32452;&amp;#25991;&amp;#20214;&amp;#65288;&amp;#20108;&amp;#36827;&amp;#21046;&amp;#65289;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#&#20445;&#23384;&#21644;&#35835;&#21462;&#25991;&#26412;&#25991;&#20214;"><span class="nav-number">7.1.</span> <span class="nav-text">&amp;#20445;&amp;#23384;&amp;#21644;&amp;#35835;&amp;#21462;&amp;#25991;&amp;#26412;&amp;#25991;&amp;#20214;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#32447;&#24615;&#20195;&#25968;-(Linear-algebra)"><span class="nav-number">8.</span> <span class="nav-text">&amp;#32447;&amp;#24615;&amp;#20195;&amp;#25968; (Linear algebra)&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#29983;&#25104;&#38543;&#26426;&#25968;"><span class="nav-number">9.</span> <span class="nav-text">&amp;#29983;&amp;#25104;&amp;#38543;&amp;#26426;&amp;#25968;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#31034;&#20363;&#65306;&#38543;&#26426;&#28459;&#27493;"><span class="nav-number">10.</span> <span class="nav-text">&amp;#31034;&amp;#20363;&amp;#65306;&amp;#38543;&amp;#26426;&amp;#28459;&amp;#27493;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#&#19968;&#27425;&#27169;&#25311;&#22810;&#20010;&#38543;&#26426;&#28459;&#27493;"><span class="nav-number">10.1.</span> <span class="nav-text">&amp;#19968;&amp;#27425;&amp;#27169;&amp;#25311;&amp;#22810;&amp;#20010;&amp;#38543;&amp;#26426;&amp;#28459;&amp;#27493;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#21442;&#32771;&#36164;&#26009;"><span class="nav-number">11.</span> <span class="nav-text">&amp;#21442;&amp;#32771;&amp;#36164;&amp;#26009;&amp;#182;</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/02/17/python_data_analysis4.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">利用Python进行数据分析(4)：NumPy</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          利用Python进行数据分析(4)：NumPy
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-17T00:00:00+08:00">
-                2017-02-17
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-02-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-17T00:00:00+08:00">2017-02-17</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/02/17/python_data_analysis4.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/02/17/python_data_analysis4.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <p>NumPy(Numerical Python)，python 数值计算包。是所有 python 数据分析包的基础。NumPy提供了大量的数值编程工具，可以方便地处理向量、矩阵等运算，极大地便利了人们在科学计算方面的工作。</p>
@@ -1496,7 +1446,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>NumPy(Numerical Python)，python 数值计算包。是所有 python 数据分析包的基础。
@@ -1554,7 +1504,7 @@ NumPy提供了大量的数值编程工具，可以方便地处理向量、矩阵
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="ndarray:--&#22810;&#32500;&#25968;&#32452;&#23545;&#35937;">ndarray:  &#22810;&#32500;&#25968;&#32452;&#23545;&#35937;<a class="anchor-link" href="#ndarray:--&#22810;&#32500;&#25968;&#32452;&#23545;&#35937;">&#182;</a></h2><p>ndarray 要求其中所有元素的类型必须相同。</p>
@@ -1636,7 +1586,7 @@ NumPy提供了大量的数值编程工具，可以方便地处理向量、矩阵
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#21019;&#24314;&#25968;&#32452;">&#21019;&#24314;&#25968;&#32452;<a class="anchor-link" href="#&#21019;&#24314;&#25968;&#32452;">&#182;</a></h3><ul>
@@ -1815,7 +1765,7 @@ int64
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#25968;&#32452;&#31867;&#22411;-dtype">&#25968;&#32452;&#31867;&#22411; <code>dtype</code><a class="anchor-link" href="#&#25968;&#32452;&#31867;&#22411;-dtype">&#182;</a></h3>
@@ -1884,7 +1834,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#25968;&#32452;&#36816;&#31639;">&#25968;&#32452;&#36816;&#31639;<a class="anchor-link" href="#&#25968;&#32452;&#36816;&#31639;">&#182;</a></h3>
@@ -2038,7 +1988,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#32034;&#24341;(indexing)-&#21644;-&#20999;&#29255;(slicing)">&#32034;&#24341;(indexing) &#21644; &#20999;&#29255;(slicing)<a class="anchor-link" href="#&#32034;&#24341;(indexing)-&#21644;-&#20999;&#29255;(slicing)">&#182;</a></h3><p>索引即通过一个无符号整数值获取数组里的值。</p>
@@ -2301,7 +2251,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#20999;&#29255;&#32034;&#24341;(Indexing-with-slices)">&#20999;&#29255;&#32034;&#24341;(Indexing with slices)<a class="anchor-link" href="#&#20999;&#29255;&#32034;&#24341;(Indexing-with-slices)">&#182;</a></h3>
@@ -2468,7 +2418,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#24067;&#23572;&#32034;&#24341;">&#24067;&#23572;&#32034;&#24341;<a class="anchor-link" href="#&#24067;&#23572;&#32034;&#24341;">&#182;</a></h3>
@@ -2735,7 +2685,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#33457;&#24335;&#32034;&#24341;(Fancy-indexing)">&#33457;&#24335;&#32034;&#24341;(Fancy indexing)<a class="anchor-link" href="#&#33457;&#24335;&#32034;&#24341;(Fancy-indexing)">&#182;</a></h3><p>花式索引是指利用整数数组进行索引。</p>
@@ -2937,7 +2887,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#25968;&#32452;&#36716;&#32622;&#21644;&#36724;&#23545;&#25442;">&#25968;&#32452;&#36716;&#32622;&#21644;&#36724;&#23545;&#25442;<a class="anchor-link" href="#&#25968;&#32452;&#36716;&#32622;&#21644;&#36724;&#23545;&#25442;">&#182;</a></h2><p>转置(transpose)，是一种对源数据的视图，不会进行复制。</p>
@@ -2983,7 +2933,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><code>np.dot()</code>: 矩阵乘积</p>
@@ -3072,7 +3022,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>交换坐标轴</p>
@@ -3123,7 +3073,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#36890;&#29992;&#20989;&#25968;&#65306;&#24555;&#36895;&#30340;&#20803;&#32032;&#32423;&#25968;&#32452;&#20989;&#25968;">&#36890;&#29992;&#20989;&#25968;&#65306;&#24555;&#36895;&#30340;&#20803;&#32032;&#32423;&#25968;&#32452;&#20989;&#25968;<a class="anchor-link" href="#&#36890;&#29992;&#20989;&#25968;&#65306;&#24555;&#36895;&#30340;&#20803;&#32032;&#32423;&#25968;&#32452;&#20989;&#25968;">&#182;</a></h2><p>NumPy 中的通用函数(ufunc), 可以对ndarray中的数据逐个执行运算。</p>
@@ -3256,7 +3206,7 @@ int32
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#21033;&#29992;&#25968;&#32452;&#36827;&#34892;&#25968;&#25454;&#22788;&#29702;">&#21033;&#29992;&#25968;&#32452;&#36827;&#34892;&#25968;&#25454;&#22788;&#29702;<a class="anchor-link" href="#&#21033;&#29992;&#25968;&#32452;&#36827;&#34892;&#25968;&#25454;&#22788;&#29702;">&#182;</a></h2><p>矢量化数组运算比纯pyhton方式快1-2个数量级（or more）, 因为broadcasting作用很强大。</p>
@@ -3305,7 +3255,7 @@ int32
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">title</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">title</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xs</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">ys</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">z</span>
@@ -3749,7 +3699,8 @@ vj2/Lni83yx4fwAej+EN4KcBPHsH+vMjGNzvjwD48Pj3eADfDeDtAD4F4G0A7q/KPHvs/ydxHN/q
 YPjaWH07uZP9BfBQAFeP4/sfANxvV/s6tv8vAHwCwMcA/BGGN3s7018Ar8QQr6s/g3XhlP4BOGe8
 xk9j+HFUOV7Psfe3fu1olVVW2WvZ1eXkKqusskpKVoitssoqey0rxFZZZZW9lhViq6yyyl7LCrFV
 Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -3759,7 +3710,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#23558;&#26465;&#20214;&#36923;&#36753;&#34920;&#36848;&#20026;&#25968;&#32452;&#36816;&#31639;">&#23558;&#26465;&#20214;&#36923;&#36753;&#34920;&#36848;&#20026;&#25968;&#32452;&#36816;&#31639;<a class="anchor-link" href="#&#23558;&#26465;&#20214;&#36923;&#36753;&#34920;&#36848;&#20026;&#25968;&#32452;&#36816;&#31639;">&#182;</a></h3><p><code>np.where()</code>: x if condition else y 的矢量版</p>
@@ -3894,7 +3845,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#25968;&#23398;&#21644;&#32479;&#35745;&#26041;&#27861;">&#25968;&#23398;&#21644;&#32479;&#35745;&#26041;&#27861;<a class="anchor-link" href="#&#25968;&#23398;&#21644;&#32479;&#35745;&#26041;&#27861;">&#182;</a></h2><ul>
@@ -4026,7 +3977,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Methods-for-boolean-arrays">Methods for boolean arrays<a class="anchor-link" href="#Methods-for-boolean-arrays">&#182;</a></h3>
@@ -4093,7 +4044,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Sorting">Sorting<a class="anchor-link" href="#Sorting">&#182;</a></h3>
@@ -4198,7 +4149,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Unique-and-other-set-logic">Unique and other set logic<a class="anchor-link" href="#Unique-and-other-set-logic">&#182;</a></h3>
@@ -4293,7 +4244,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#20445;&#23384;&#21644;&#35835;&#21462;&#25968;&#32452;&#25991;&#20214;&#65288;&#20108;&#36827;&#21046;&#65289;">&#20445;&#23384;&#21644;&#35835;&#21462;&#25968;&#32452;&#25991;&#20214;&#65288;&#20108;&#36827;&#21046;&#65289;<a class="anchor-link" href="#&#20445;&#23384;&#21644;&#35835;&#21462;&#25968;&#32452;&#25991;&#20214;&#65288;&#20108;&#36827;&#21046;&#65289;">&#182;</a></h2>
@@ -4399,7 +4350,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#20445;&#23384;&#21644;&#35835;&#21462;&#25991;&#26412;&#25991;&#20214;">&#20445;&#23384;&#21644;&#35835;&#21462;&#25991;&#26412;&#25991;&#20214;<a class="anchor-link" href="#&#20445;&#23384;&#21644;&#35835;&#21462;&#25991;&#26412;&#25991;&#20214;">&#182;</a></h3>
@@ -4422,7 +4373,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#32447;&#24615;&#20195;&#25968;-(Linear-algebra)">&#32447;&#24615;&#20195;&#25968; (Linear algebra)<a class="anchor-link" href="#&#32447;&#24615;&#20195;&#25968;-(Linear-algebra)">&#182;</a></h2><p>NumPy 的linalg中有很多关于矩阵的函数，与MATLAB、R使用的是相同的行业标准级Fortran库。</p>
@@ -4523,7 +4474,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="k">import</span> <span class="n">inv</span><span class="p">,</span> <span class="n">qr</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">inv</span><span class="p">,</span> <span class="n">qr</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">mat</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">inv</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
@@ -4557,7 +4508,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#29983;&#25104;&#38543;&#26426;&#25968;">&#29983;&#25104;&#38543;&#26426;&#25968;<a class="anchor-link" href="#&#29983;&#25104;&#38543;&#26426;&#25968;">&#182;</a></h2><p>NumPy.random模块对Python内置的random进行了补充，增加了一些用于高效生成多种概率分布的样本值的函数。</p>
@@ -4617,7 +4568,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">np.random</span> <span class="k">import</span> <span class="n">normalvariate</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">np.random</span> <span class="kn">import</span> <span class="n">normalvariate</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">1000000</span>
 <span class="o">%</span><span class="k">timeit</span> samples = [normalvariate(0, 1) for _ in xrange(N)]
 <span class="o">%</span><span class="k">timeit</span> np.random.normal(size=N)
@@ -4650,7 +4601,7 @@ Vlllr2WF2CqrrLLXskJslVVW2Wv5/wE6NJx+ueOcDQAAAABJRU5ErkJggg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#31034;&#20363;&#65306;&#38543;&#26426;&#28459;&#27493;">&#31034;&#20363;&#65306;&#38543;&#26426;&#28459;&#27493;<a class="anchor-link" href="#&#31034;&#20363;&#65306;&#38543;&#26426;&#28459;&#27493;">&#182;</a></h2>
@@ -4979,7 +4930,8 @@ EAAvA9gMYCmAwdJnbtKuwyb0sye/FP4AfBqJKJ1KON/pAFZq3/W/ADQ6+bwB3AJgI4C1AB6AGpni
 uPMF8DDUfoo+qG9yV/bnPAHM1K7VVgB/gDZoNtc/GmlLEARRITjBpUMQBEFkAQk+QRBEhUCCTxAE
 USGQ4BMEQVQIJPgEQRAVAgk+QRBEhUCCTxAEUSGQ4BMEQVQI/x8bhWHFvtcqZAAAAABJRU5ErkJg
 gg==
-">
+"
+>
 </div>
 
 </div>
@@ -5019,7 +4971,7 @@ gg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#19968;&#27425;&#27169;&#25311;&#22810;&#20010;&#38543;&#26426;&#28459;&#27493;">&#19968;&#27425;&#27169;&#25311;&#22810;&#20010;&#38543;&#26426;&#28459;&#27493;<a class="anchor-link" href="#&#19968;&#27425;&#27169;&#25311;&#22810;&#20010;&#38543;&#26426;&#28459;&#27493;">&#182;</a></h3>
@@ -5192,7 +5144,7 @@ gg==
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#21442;&#32771;&#36164;&#26009;">&#21442;&#32771;&#36164;&#26009;<a class="anchor-link" href="#&#21442;&#32771;&#36164;&#26009;">&#182;</a></h2><ul>
@@ -5208,414 +5160,125 @@ gg==
 </div>
 
 
-      
+
+
+
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/02/16/python_data_analysis3.html" rel="next" title="利用Python进行数据分析(3)：IPython">
-                <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(3)：IPython
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/21/strategy_based_on_decision_table.html" rel="prev" title="基于决策表实现交易策略">
-                基于决策表实现交易策略 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/02/16/python_data_analysis3.html" rel="prev" title="利用Python进行数据分析(3)：IPython">
+      <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(3)：IPython
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/02/21/strategy_based_on_decision_table.html" rel="next" title="基于决策表实现交易策略">
+      基于决策表实现交易策略 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ndarray:--多维数组对象"><span class="nav-number">2.</span> <span class="nav-text">ndarray:  多维数组对象¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数组"><span class="nav-number">2.1.</span> <span class="nav-text">创建数组¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组类型-dtype"><span class="nav-number">2.2.</span> <span class="nav-text">数组类型 dtype¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组运算"><span class="nav-number">2.3.</span> <span class="nav-text">数组运算¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引(indexing)-和-切片(slicing)"><span class="nav-number">2.4.</span> <span class="nav-text">索引(indexing) 和 切片(slicing)¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切片索引(Indexing-with-slices)"><span class="nav-number">2.5.</span> <span class="nav-text">切片索引(Indexing with slices)¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔索引"><span class="nav-number">2.6.</span> <span class="nav-text">布尔索引¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#花式索引(Fancy-indexing)"><span class="nav-number">2.7.</span> <span class="nav-text">花式索引(Fancy indexing)¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组转置和轴对换"><span class="nav-number">3.</span> <span class="nav-text">数组转置和轴对换¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用函数：快速的元素级数组函数"><span class="nav-number">4.</span> <span class="nav-text">通用函数：快速的元素级数组函数¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用数组进行数据处理"><span class="nav-number">5.</span> <span class="nav-text">利用数组进行数据处理¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将条件逻辑表述为数组运算"><span class="nav-number">5.1.</span> <span class="nav-text">将条件逻辑表述为数组运算¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学和统计方法"><span class="nav-number">6.</span> <span class="nav-text">数学和统计方法¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Methods-for-boolean-arrays"><span class="nav-number">6.1.</span> <span class="nav-text">Methods for boolean arrays¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sorting"><span class="nav-number">6.2.</span> <span class="nav-text">Sorting¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unique-and-other-set-logic"><span class="nav-number">6.3.</span> <span class="nav-text">Unique and other set logic¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存和读取数组文件（二进制）"><span class="nav-number">7.</span> <span class="nav-text">保存和读取数组文件（二进制）¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#保存和读取文本文件"><span class="nav-number">7.1.</span> <span class="nav-text">保存和读取文本文件¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性代数-(Linear-algebra)"><span class="nav-number">8.</span> <span class="nav-text">线性代数 (Linear algebra)¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成随机数"><span class="nav-number">9.</span> <span class="nav-text">生成随机数¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：随机漫步"><span class="nav-number">10.</span> <span class="nav-text">示例：随机漫步¶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一次模拟多个随机漫步"><span class="nav-number">10.1.</span> <span class="nav-text">一次模拟多个随机漫步¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">11.</span> <span class="nav-text">参考资料¶</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/02/17/python_data_analysis4.html';
-          this.page.identifier = '2017/02/17/python_data_analysis4.html';
-          this.page.title = '利用Python进行数据分析(4)：NumPy';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -5630,24 +5293,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '1c303bd5c22477602f0e32d35974d9a4',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

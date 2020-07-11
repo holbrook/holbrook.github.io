@@ -1,146 +1,65 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="云计算," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="本文源自一次内部科普，目标是让非IT人员能够对云计算有一个大致的了解。 我比较倾向于基于云计算的内涵，狭义的去定义云计算，因此可能与网上别人的观点不完全一致。">
-<meta name="keywords" content="云计算">
+  <meta name="description" content="本文源自一次内部科普，目标是让非IT人员能够对云计算有一个大致的了解。我比较倾向于基于云计算的内涵，狭义的去定义云计算，因此可能与网上别人的观点不完全一致。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="云计算简介">
 <meta property="og:url" content="http://holbrook.github.io/2017/10/25/cloud_computing.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="本文源自一次内部科普，目标是让非IT人员能够对云计算有一个大致的了解。 我比较倾向于基于云计算的内涵，狭义的去定义云计算，因此可能与网上别人的观点不完全一致。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="本文源自一次内部科普，目标是让非IT人员能够对云计算有一个大致的了解。我比较倾向于基于云计算的内涵，狭义的去定义云计算，因此可能与网上别人的观点不完全一致。">
 <meta property="og:image" content="http://holbrook.github.io/2017/10/25/cloud_computing/openstack_overview.svg">
 <meta property="og:image" content="http://holbrook.github.io/2017/10/25/cloud_computing/openstack_architecture.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2017-10-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="云计算">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="云计算简介">
-<meta name="twitter:description" content="本文源自一次内部科普，目标是让非IT人员能够对云计算有一个大致的了解。 我比较倾向于基于云计算的内涵，狭义的去定义云计算，因此可能与网上别人的观点不完全一致。">
 <meta name="twitter:image" content="http://holbrook.github.io/2017/10/25/cloud_computing/openstack_overview.svg">
 
+<link rel="canonical" href="http://holbrook.github.io/2017/10/25/cloud_computing.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/10/25/cloud_computing.html"/>
-
-
-
-
 
   <title>云计算简介 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -149,213 +68,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念篇"><span class="nav-number">1.</span> <span class="nav-text">概念篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#云计算是什么"><span class="nav-number">1.1.</span> <span class="nav-text">云计算是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云计算的特征"><span class="nav-number">1.2.</span> <span class="nav-text">云计算的特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见-误区-误导"><span class="nav-number">1.3.</span> <span class="nav-text">常见 误区 误导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么不是云计算"><span class="nav-number">1.4.</span> <span class="nav-text">什么不是云计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理篇"><span class="nav-number">2.</span> <span class="nav-text">原理篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分层体系架构"><span class="nav-number">2.1.</span> <span class="nav-text">分层体系架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件不足与集群"><span class="nav-number">2.2.</span> <span class="nav-text">硬件不足与集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件过剩与云计算"><span class="nav-number">2.3.</span> <span class="nav-text">硬件过剩与云计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.3.1.</span> <span class="nav-text">虚拟化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟化-集群"><span class="nav-number">2.3.2.</span> <span class="nav-text">虚拟化+集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#云存储"><span class="nav-number">2.3.3.</span> <span class="nav-text">云存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理和调度"><span class="nav-number">2.3.4.</span> <span class="nav-text">管理和调度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XaaS"><span class="nav-number">2.4.</span> <span class="nav-text">XaaS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenStack一出，谁与争锋？"><span class="nav-number">2.5.</span> <span class="nav-text">OpenStack一出，谁与争锋？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#行业篇"><span class="nav-number">3.</span> <span class="nav-text">行业篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#云计算简史"><span class="nav-number">3.1.</span> <span class="nav-text">云计算简史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#价值"><span class="nav-number">3.2.</span> <span class="nav-text">价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参与者类型"><span class="nav-number">3.3.</span> <span class="nav-text">参与者类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关企业"><span class="nav-number">3.4.</span> <span class="nav-text">相关企业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可能的新模式"><span class="nav-number">3.5.</span> <span class="nav-text">可能的新模式</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/10/25/cloud_computing.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">云计算简介</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          云计算简介
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T00:00:00+08:00">
-                2017-10-25
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件基础设施/" itemprop="url" rel="index">
-                    <span itemprop="name">软件基础设施</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-10-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-25T00:00:00+08:00">2017-10-25</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/10/25/cloud_computing.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/25/cloud_computing.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" itemprop="url" rel="index"><span itemprop="name">软件基础设施</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -363,84 +316,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>本文源自一次内部科普，目标是让非IT人员能够对云计算有一个大致的了解。<br>
-我比较倾向于基于云计算的内涵，狭义的去定义云计算，因此可能与网上别人的观点不完全一致。</p>
+        <p>本文源自一次内部科普，目标是让非IT人员能够对云计算有一个大致的了解。<br>我比较倾向于基于云计算的内涵，狭义的去定义云计算，因此可能与网上别人的观点不完全一致。</p>
 <a id="more"></a>
-<h1 id="概念篇"><a class="markdownIt-Anchor" href="#概念篇"></a> 概念篇</h1>
-<h2 id="云计算是什么"><a class="markdownIt-Anchor" href="#云计算是什么"></a> 云计算是什么</h2>
-<p>出于 <s>不同理解</s> 商业目的，云计算的定义不下20种，解释不下100种。</p>
+
+<h1 id="概念篇"><a href="#概念篇" class="headerlink" title="概念篇"></a>概念篇</h1><h2 id="云计算是什么"><a href="#云计算是什么" class="headerlink" title="云计算是什么"></a>云计算是什么</h2><p>出于 <del>不同理解</del> 商业目的，云计算的定义不下20种，解释不下100种。</p>
 <p>我的理解：</p>
 <ul>
-<li>
-<p>云(Cloud)<br>
-在IT领域，云通常指资源的集合。其特点是规模庞大，细节不重要，可动态伸缩。</p>
+<li><p>云(Cloud)<br>在IT领域，云通常指资源的集合。其特点是规模庞大，细节不重要，可动态伸缩。</p>
 </li>
-<li>
-<p>计算(Computing)<br>
-这里应该指计算能力。计算能力取决于可用于计算的资源，包括软件运行需要的各种平台软件、操作系统、CPU能力、内存大小、存储空间、网络带宽等。</p>
+<li><p>计算(Computing)<br>这里应该指计算能力。计算能力取决于可用于计算的资源，包括软件运行需要的各种平台软件、操作系统、CPU能力、内存大小、存储空间、网络带宽等。</p>
 </li>
-<li>
-<p>云计算(Cloud Computing)<br>
-通过分布在 <strong>大量</strong> 计算机上的资源构成资源池，为 <strong>大量</strong> 应用系统提供所需的<br>
-计算力、存储空间、网络带宽和其他服务。应用系统不需要知道支持其运行的各种资源的底层细节情况。</p>
+<li><p>云计算(Cloud Computing)<br>通过分布在 <strong>大量</strong> 计算机上的资源构成资源池，为 <strong>大量</strong> 应用系统提供所需的<br>计算力、存储空间、网络带宽和其他服务。应用系统不需要知道支持其运行的各种资源的底层细节情况。</p>
 </li>
 </ul>
-<h2 id="云计算的特征"><a class="markdownIt-Anchor" href="#云计算的特征"></a> 云计算的特征</h2>
-<p>基于上述定义，可以得出云计算在 <strong>提供资源方面</strong> 的特征：</p>
+<h2 id="云计算的特征"><a href="#云计算的特征" class="headerlink" title="云计算的特征"></a>云计算的特征</h2><p>基于上述定义，可以得出云计算在 <strong>提供资源方面</strong> 的特征：</p>
 <ul>
-<li>
-<p>多对多<br>
-用大量的计算机，为大量的应用提供所需的资源。</p>
+<li><p>多对多<br>用大量的计算机，为大量的应用提供所需的资源。</p>
 </li>
-<li>
-<p>可动态伸缩<br>
-云的规模可以根据需要随时扩大或减小，而不影响上面运行的应用系统。</p>
+<li><p>可动态伸缩<br>云的规模可以根据需要随时扩大或减小，而不影响上面运行的应用系统。</p>
 </li>
-<li>
-<p>成本更低<br>
-通过动态的分配和调度，提高资源使用效率，使得单个应用系统运行所需的成本更低。</p>
+<li><p>成本更低<br>通过动态的分配和调度，提高资源使用效率，使得单个应用系统运行所需的成本更低。</p>
 </li>
-<li>
-<p>灵活使用<br>
-应用系统可以根据需要，随时获取、按需使用资源，而且可以做到按使用计费。<br>
-现在有的云计算平台甚至可以做到按分钟、按每M流量计费。</p>
+<li><p>灵活使用<br>应用系统可以根据需要，随时获取、按需使用资源，而且可以做到按使用计费。<br>现在有的云计算平台甚至可以做到按分钟、按每M流量计费。</p>
 </li>
 </ul>
-<h2 id="常见-误区-误导"><a class="markdownIt-Anchor" href="#常见-误区-误导"></a> 常见 <s>误区</s> 误导</h2>
+<h2 id="常见-误区-误导"><a href="#常见-误区-误导" class="headerlink" title="常见 误区 误导"></a>常见 <del>误区</del> 误导</h2><ul>
+<li><p>云计算不一定依赖互联网<br>不依赖互联网的不一定不是云，比如私有云。<br>依赖互联网的不一定是云，很可能是伪云。</p>
+</li>
+<li><p>云计算是服务于开发/运维人员<br>对于应用系统的用户来说，其实并不关心其是否运行在“云”上。</p>
+</li>
+</ul>
+<h2 id="什么不是云计算"><a href="#什么不是云计算" class="headerlink" title="什么不是云计算"></a>什么不是云计算</h2><ul>
+<li><p>云应用：基于云计算的应用<br>如前所述，用户只关心应用的功能和性能，不关心应用如何实现，如何部署。<br>通常，大部分应用不在云平台上也能运行。</p>
+</li>
+<li><p>伪云： 把简单的互联网应用套在云计算上</p>
 <ul>
-<li>
-<p>云计算不一定依赖互联网<br>
-不依赖互联网的不一定不是云，比如私有云。<br>
-依赖互联网的不一定是云，很可能是伪云。</p>
-</li>
-<li>
-<p>云计算是服务于开发/运维人员<br>
-对于应用系统的用户来说，其实并不关心其是否运行在“云”上。</p>
-</li>
-</ul>
-<h2 id="什么不是云计算"><a class="markdownIt-Anchor" href="#什么不是云计算"></a> 什么不是云计算</h2>
-<ul>
-<li>
-<p>云应用：基于云计算的应用<br>
-如前所述，用户只关心应用的功能和性能，不关心应用如何实现，如何部署。<br>
-通常，大部分应用不在云平台上也能运行。</p>
-</li>
-<li>
-<p>伪云： 把简单的互联网应用套在云计算上</p>
-<ul>
-<li>搜狗云输入法 --&gt; 网络输入法（词库放在服务器上）</li>
-<li>有道云笔记 --&gt; 网络笔记（笔记内容放在服务器上）</li>
-<li>网易云音乐 --&gt; 网络音乐（音频文件放在服务器上）</li>
-<li>百度云网盘 --&gt; 网盘（各种文件放在服务器上）</li>
+<li>搜狗云输入法 –&gt; 网络输入法（词库放在服务器上）</li>
+<li>有道云笔记 –&gt; 网络笔记（笔记内容放在服务器上）</li>
+<li>网易云音乐 –&gt; 网络音乐（音频文件放在服务器上）</li>
+<li>百度云网盘 –&gt; 网盘（各种文件放在服务器上）</li>
 </ul>
 </li>
 </ul>
-<h1 id="原理篇"><a class="markdownIt-Anchor" href="#原理篇"></a> 原理篇</h1>
-<h2 id="分层体系架构"><a class="markdownIt-Anchor" href="#分层体系架构"></a> 分层体系架构</h2>
-<p>分层体系架构( Layered Architecture),是IT领域的重要思想。</p>
+<h1 id="原理篇"><a href="#原理篇" class="headerlink" title="原理篇"></a>原理篇</h1><h2 id="分层体系架构"><a href="#分层体系架构" class="headerlink" title="分层体系架构"></a>分层体系架构</h2><p>分层体系架构( Layered Architecture),是IT领域的重要思想。</p>
 <p>分层体系架构将系统的组件分隔到不同的层中，每一层中的组件保持内聚性，并且大致在同一抽象级别( <strong>高内聚</strong> )；每一层都通过接口访问下一层，不关心其具体实现。下层不会调用上层( <strong>低耦合</strong> )。这样把问题划分开来各个解决，易于控制，易于延展，易于分配资源( <strong>分而治之</strong> )。</p>
 <p>分层架构可以带来很多好处：</p>
 <ul>
@@ -459,7 +377,8 @@
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="74pt" height="83pt" viewbox="0.00 0.00 74.16 83.40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="74pt" height="83pt"
+ viewBox="0.00 0.00 74.16 83.40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 79.4)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-79.4 70.1592,-79.4 70.1592,4 -4,4"/>
@@ -476,6 +395,8 @@
 </g>
 </svg>
 </div>
+
+
 <ul>
 <li>运维角度的分层架构</li>
 </ul>
@@ -485,7 +406,8 @@
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="98pt" height="108pt" viewbox="0.00 0.00 98.39 108.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="98pt" height="108pt"
+ viewBox="0.00 0.00 98.39 108.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 104.2)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-104.2 94.3904,-104.2 94.3904,4 -4,4"/>
@@ -504,17 +426,12 @@
 </g>
 </svg>
 </div>
-<h2 id="硬件不足与集群"><a class="markdownIt-Anchor" href="#硬件不足与集群"></a> 硬件不足与集群</h2>
-<p>之前很长一段时间，计算机硬件的能力不足以满足软件的运行。<br>
-主要的解决手段是集群和负载均衡技术。与升级硬件相比，这种扩充能力的方式成为“水平扩展”。</p>
+
+<h2 id="硬件不足与集群"><a href="#硬件不足与集群" class="headerlink" title="硬件不足与集群"></a>硬件不足与集群</h2><p>之前很长一段时间，计算机硬件的能力不足以满足软件的运行。<br>主要的解决手段是集群和负载均衡技术。与升级硬件相比，这种扩充能力的方式成为“水平扩展”。</p>
 <ul>
-<li>
-<p>集群(Cluster)<br>
-将多个计算机连接到一起，像一台机器那样工作。这样可以增加处理能力，或者提高稳定性。</p>
+<li><p>集群(Cluster)<br>将多个计算机连接到一起，像一台机器那样工作。这样可以增加处理能力，或者提高稳定性。</p>
 </li>
-<li>
-<p>负载均衡(Load Balancing)<br>
-按照一定的规则，将负载分配到集群中的各个计算机上进行处理。</p>
+<li><p>负载均衡(Load Balancing)<br>按照一定的规则，将负载分配到集群中的各个计算机上进行处理。</p>
 </li>
 </ul>
 <p>集群和负载均衡技术，可以应用在不同的层级上面。其上的各层，都运行在集群环境。</p>
@@ -527,7 +444,8 @@
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="385pt" height="133pt" viewbox="0.00 0.00 385.24 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="385pt" height="133pt"
+ viewBox="0.00 0.00 385.24 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 129)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-129 381.238,-129 381.238,4 -4,4"/>
@@ -567,6 +485,8 @@
 </g>
 </svg>
 </div>
+
+
 <ul>
 <li>应用服务器集群</li>
 </ul>
@@ -576,7 +496,8 @@
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="386pt" height="133pt" viewbox="0.00 0.00 385.99 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="386pt" height="133pt"
+ viewBox="0.00 0.00 385.99 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 129)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-129 381.9884,-129 381.9884,4 -4,4"/>
@@ -616,6 +537,7 @@
 </g>
 </svg>
 </div>
+
 <ul>
 <li>数据库集群</li>
 </ul>
@@ -625,7 +547,8 @@
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="336pt" height="133pt" viewbox="0.00 0.00 336.23 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="336pt" height="133pt"
+ viewBox="0.00 0.00 336.23 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 129)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-129 332.2324,-129 332.2324,4 -4,4"/>
@@ -665,18 +588,18 @@
 </g>
 </svg>
 </div>
-<h2 id="硬件过剩与云计算"><a class="markdownIt-Anchor" href="#硬件过剩与云计算"></a> 硬件过剩与云计算</h2>
-<p>随着硬件技术的飞速发展，现在计算机的性能远远高于软件的需要。也就是说，硬件资源过剩了。为了提高使用效率，产生了一些新的技术。</p>
-<h3 id="虚拟化"><a class="markdownIt-Anchor" href="#虚拟化"></a> 虚拟化</h3>
-<p>一台计算机只运行一个操作系统，资源可能闲置。通过虚拟化，可以在一台计算机上运行多个操作系统，这些操作系统共享硬件资源。<br>
-这里面的关键是资源调度程序，或者叫“虚拟化操作系统”。</p>
+
+
+<h2 id="硬件过剩与云计算"><a href="#硬件过剩与云计算" class="headerlink" title="硬件过剩与云计算"></a>硬件过剩与云计算</h2><p>随着硬件技术的飞速发展，现在计算机的性能远远高于软件的需要。也就是说，硬件资源过剩了。为了提高使用效率，产生了一些新的技术。</p>
+<h3 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h3><p>  一台计算机只运行一个操作系统，资源可能闲置。通过虚拟化，可以在一台计算机上运行多个操作系统，这些操作系统共享硬件资源。<br>  这里面的关键是资源调度程序，或者叫“虚拟化操作系统”。</p>
 <div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="266pt" height="108pt" viewbox="0.00 0.00 266.00 108.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="266pt" height="108pt"
+ viewBox="0.00 0.00 266.00 108.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 104.2)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-104.2 262,-104.2 262,4 -4,4"/>
@@ -703,6 +626,8 @@
 </g>
 </svg>
 </div>
+
+
 <p>可能有人运行过单机的“虚拟机软件”，比如vmware。虚拟机和虚拟化的本质不同在于：资源调度程序运行在不同的层上。</p>
 <div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
@@ -710,7 +635,8 @@
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="266pt" height="133pt" viewbox="0.00 0.00 266.00 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="266pt" height="133pt"
+ viewBox="0.00 0.00 266.00 133.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 129)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-129 262,-129 262,4 -4,4"/>
@@ -739,15 +665,16 @@
 </g>
 </svg>
 </div>
-<h3 id="虚拟化集群"><a class="markdownIt-Anchor" href="#虚拟化集群"></a> 虚拟化+集群</h3>
-<p>单个的计算机上面能够运行的虚拟机个数还是有限的。要想进一步增加容量，很容易想到可以把前面提到的集群技术用到虚拟化的资源调度程序上：</p>
+
+<h3 id="虚拟化-集群"><a href="#虚拟化-集群" class="headerlink" title="虚拟化+集群"></a>虚拟化+集群</h3><p>单个的计算机上面能够运行的虚拟机个数还是有限的。要想进一步增加容量，很容易想到可以把前面提到的集群技术用到虚拟化的资源调度程序上：</p>
 <div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="668pt" height="108pt" viewbox="0.00 0.00 668.00 108.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="668pt" height="108pt"
+ viewBox="0.00 0.00 668.00 108.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 104.2)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-104.2 664,-104.2 664,4 -4,4"/>
@@ -812,11 +739,9 @@
 </g>
 </svg>
 </div>
+
 <p>这样就构建了一个大的资源池。</p>
-<h3 id="云存储"><a class="markdownIt-Anchor" href="#云存储"></a> 云存储</h3>
-<p>上面的架构中，虚拟机还不能无缝从一个主机迁移到另一个主机运行。关键问题在于：虚拟机是存储在硬盘上的，一个主机无法访问另一个主机的硬盘。<br>
-最简单的办法当然是所有的虚拟机都存储在一个存储设备(比如EMC存储)上，所有的主机都能访问这个存储设备。但这显然是多对一的关系，而且不可动态伸缩。<br>
-我们需要一种符合云计算特征的存储功能，不妨称作云存储(Cloud Storage)。</p>
+<h3 id="云存储"><a href="#云存储" class="headerlink" title="云存储"></a>云存储</h3><p>上面的架构中，虚拟机还不能无缝从一个主机迁移到另一个主机运行。关键问题在于：虚拟机是存储在硬盘上的，一个主机无法访问另一个主机的硬盘。<br>最简单的办法当然是所有的虚拟机都存储在一个存储设备(比如EMC存储)上，所有的主机都能访问这个存储设备。但这显然是多对一的关系，而且不可动态伸缩。<br>我们需要一种符合云计算特征的存储功能，不妨称作云存储(Cloud Storage)。</p>
 <p>如果把“文件存储”看做一种特殊的应用，这个问题可以很容易的用前面的模式解决：</p>
 <div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
@@ -824,7 +749,8 @@
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="420pt" height="214pt" viewbox="0.00 0.00 420.00 214.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="420pt" height="214pt"
+ viewBox="0.00 0.00 420.00 214.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 210)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-210 416,-210 416,4 -4,4"/>
@@ -897,72 +823,58 @@
 </g>
 </svg>
 </div>
-<p>其中SAN(Storage Area Network，存储区域网络)，是一种服务器连接外部存储设备的架构技术。从操作系统的角度，访问外部的存储设备与访问本机的硬盘没有任何区别。<br>
-该技术可以采用光纤等设备，使得访问外部存储的速度达到甚至超过本机硬盘。</p>
-<h3 id="管理和调度"><a class="markdownIt-Anchor" href="#管理和调度"></a> 管理和调度</h3>
-<p>现在，已经有了足够的灵活性：可以创建虚拟机，可以为虚拟机分配和调整资源，可以指定虚拟机运行在哪一个主机上。但是还可以更加智能一些。</p>
+
+
+<p>其中SAN(Storage Area Network，存储区域网络)，是一种服务器连接外部存储设备的架构技术。从操作系统的角度，访问外部的存储设备与访问本机的硬盘没有任何区别。<br>该技术可以采用光纤等设备，使得访问外部存储的速度达到甚至超过本机硬盘。</p>
+<h3 id="管理和调度"><a href="#管理和调度" class="headerlink" title="管理和调度"></a>管理和调度</h3><p>现在，已经有了足够的灵活性：可以创建虚拟机，可以为虚拟机分配和调整资源，可以指定虚拟机运行在哪一个主机上。但是还可以更加智能一些。</p>
 <ul>
-<li>
-<p>自动分配<br>
-创建新虚拟机时，根据需要的资源和各主机的情况，自动分配主机</p>
+<li><p>自动分配<br>创建新虚拟机时，根据需要的资源和各主机的情况，自动分配主机</p>
 </li>
-<li>
-<p>自动平衡<br>
-监控各个主机的运行状况，当主机资源紧张时自动将虚拟机迁移到空闲的主机上运行，在此过程中对虚拟机访问不受任何影响。</p>
+<li><p>自动平衡<br>监控各个主机的运行状况，当主机资源紧张时自动将虚拟机迁移到空闲的主机上运行，在此过程中对虚拟机访问不受任何影响。</p>
 </li>
-<li>
-<p>自助服务<br>
-用户可以自助创建虚拟机，决定使用多少资源。并按照实际使用情况实时计费。</p>
+<li><p>自助服务<br>用户可以自助创建虚拟机，决定使用多少资源。并按照实际使用情况实时计费。</p>
 </li>
-<li>
-<p>区域自治<br>
-对于某些用户，可以为其分配一个大的资源池（比如，5000GHz CPU、3TB 内存、3PB 存储空间、1TB网络带宽），这个资源池的管理员可以创建子用户，子用户使用池中的资源再创建自己的虚拟机。</p>
+<li><p>区域自治<br>对于某些用户，可以为其分配一个大的资源池（比如，5000GHz CPU、3TB 内存、3PB 存储空间、1TB网络带宽），这个资源池的管理员可以创建子用户，子用户使用池中的资源再创建自己的虚拟机。</p>
 </li>
-<li>
-<p>更多功能<br>
-没有做不到，只有想不到！</p>
+<li><p>更多功能<br>没有做不到，只有想不到！</p>
 </li>
 </ul>
-<h2 id="xaas"><a class="markdownIt-Anchor" href="#xaas"></a> XaaS</h2>
-<p>尽管业内搞死了SOA，但是服务(Service)这个词已经到处在使用，什么东西都可以是服务。<br>
-在云计算领域，根据提供资源的层次不同，可以分为 IaaS, PaaS, SaaS。</p>
+<h2 id="XaaS"><a href="#XaaS" class="headerlink" title="XaaS"></a>XaaS</h2><p>尽管业内搞死了SOA，但是服务(Service)这个词已经到处在使用，什么东西都可以是服务。<br>在云计算领域，根据提供资源的层次不同，可以分为 IaaS, PaaS, SaaS。</p>
 <ul>
 <li>IaaS (基础设施即服务)</li>
 </ul>
-<p>前面的例子中，都是把CPU、内存、存储空间、网络带宽以及管理这些硬件的操作系统作为资源。<br>
-这些资源提供出去，就叫做基础设施即服务（IaaS, Infrastructure-as-a- Service）。</p>
+<p>前面的例子中，都是把CPU、内存、存储空间、网络带宽以及管理这些硬件的操作系统作为资源。<br>这些资源提供出去，就叫做基础设施即服务（IaaS, Infrastructure-as-a- Service）。</p>
 <ul>
 <li>PaaS（平台即服务）</li>
 </ul>
-<p>PaaS把平台(Platform)作为资源。什么是平台，还要从分层架构说起。<br>
-开发一个应用系统，总有很多共同的功能，比如http服务，session管理，数据库连接池等等。如果每一个应用系统的开发都重新实现这些功能，效率太低。于是有一些组织，将这些公共的功能提取出来，发布成一个软件，就叫做平台软件。<br>
-平台软件也叫做容器，可以支持很多应用系统的运行。平台软件在架构的层次中，介于应用系统和操作系统之间。</p>
+<p>PaaS把平台(Platform)作为资源。什么是平台，还要从分层架构说起。<br>开发一个应用系统，总有很多共同的功能，比如http服务，session管理，数据库连接池等等。如果每一个应用系统的开发都重新实现这些功能，效率太低。于是有一些组织，将这些公共的功能提取出来，发布成一个软件，就叫做平台软件。<br>平台软件也叫做容器，可以支持很多应用系统的运行。平台软件在架构的层次中，介于应用系统和操作系统之间。</p>
 <div style="margin: 0.5em 0px; display: block!important; text-align: center"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.40.1 (20161225.0304)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="8pt" height="8pt" viewbox="0.00 0.00 8.00 8.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="8pt" height="8pt"
+ viewBox="0.00 0.00 8.00 8.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 4)">
 <title>G</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-4 4,-4 4,4 -4,4"/>
 </g>
 </svg>
 </div>
+
 <ul>
 <li>SaaS(软件即服务)</li>
 </ul>
-<p>平台软件是通用的，业务无关的。但对于某些特定类型的应用，有一些共同的功能和逻辑。比如CDN、视频直播等、用户认证等。<br>
-把这些功能提取出来，作为一种资源在多个应用系统中复用，就可以称之为 SaaS。<br>
-这些服务的对象，仍然是开发人员。对于最终用户来说，这些服务并不能直接使用。</p>
-<h2 id="openstack一出谁与争锋"><a class="markdownIt-Anchor" href="#openstack一出谁与争锋"></a> OpenStack一出，谁与争锋？</h2>
-<p>早期搭建云计算平台时，需要整合各个厂商的技术和软件，甚至在此基础上自习开发一些工具。所以搭建一个云平台的难度很大。</p>
+<p>平台软件是通用的，业务无关的。但对于某些特定类型的应用，有一些共同的功能和逻辑。比如CDN、视频直播等、用户认证等。<br>把这些功能提取出来，作为一种资源在多个应用系统中复用，就可以称之为 SaaS。<br>这些服务的对象，仍然是开发人员。对于最终用户来说，这些服务并不能直接使用。</p>
+<h2 id="OpenStack一出，谁与争锋？"><a href="#OpenStack一出，谁与争锋？" class="headerlink" title="OpenStack一出，谁与争锋？"></a>OpenStack一出，谁与争锋？</h2><p>早期搭建云计算平台时，需要整合各个厂商的技术和软件，甚至在此基础上自习开发一些工具。所以搭建一个云平台的难度很大。</p>
 <p>2010年7月，NASA伙同AMD、Intel、Dell等厂商，共同宣布“OpenStack”开放源代码计划，后来微软，思科等厂商也陆续加入。</p>
 <p>OpenStack宣称自己是一个“云操作系统”，可以将大量的计算、存储和网络资源整合为一个数据中心，并提供统一的管理控制。而用户可以通过web界面定制自己需要的资源。</p>
-<img src="/2017/10/25/cloud_computing/openstack_overview.svg" title="OpenStack概念图">
+<img src="/2017/10/25/cloud_computing/openstack_overview.svg" class="" title="OpenStack概念图">
+
 <p>OpenStack通过一系列的开源软件组成”战斗群“，实现了搭建一个云平台的所有功能：</p>
-<img src="/2017/10/25/cloud_computing/openstack_architecture.png" title="OpenStack架构">
+<img src="/2017/10/25/cloud_computing/openstack_architecture.png" class="" title="OpenStack架构">
+
 <p>其中：</p>
 <ul>
 <li>VM: 虚拟机，所有的功能都围绕虚拟机展开。OpenStack可以管理常见的各类虚拟机，如开源的Xen、KVM，和商业的Hyper-V、VMware等</li>
@@ -986,86 +898,65 @@
 <li>公有云</li>
 <li>数据库云(DBaaS)</li>
 </ul>
-<h1 id="行业篇"><a class="markdownIt-Anchor" href="#行业篇"></a> 行业篇</h1>
-<h2 id="云计算简史"><a class="markdownIt-Anchor" href="#云计算简史"></a> 云计算简史</h2>
-<p>云计算从概念，到技术研究，到现在的广泛使用，大概经历了以下几个阶段：</p>
+<h1 id="行业篇"><a href="#行业篇" class="headerlink" title="行业篇"></a>行业篇</h1><h2 id="云计算简史"><a href="#云计算简史" class="headerlink" title="云计算简史"></a>云计算简史</h2><p>云计算从概念，到技术研究，到现在的广泛使用，大概经历了以下几个阶段：</p>
 <ul>
-<li>
-<p>概念的建立</p>
+<li><p>概念的建立</p>
 <ul>
 <li>1983年，Sun 提出 The Network is the  Computer</li>
 <li>2006年3月，Amazon 推出弹性计算云（Elastic Compute Cloud；EC2）服务</li>
 <li>2006年8月，Google 首次提出“云计算”（Cloud Computing）的概念</li>
 </ul>
 </li>
-<li>
-<p>试验田</p>
+<li><p>试验田</p>
 <ul>
-<li>2007年10月，Google 和 IBM 开始在美国大学校园推广云计算的计划<br>
-目标：降低分布式计算技术在学术研究方面的成本<br>
-通过数百台服务器提供服务，学生可以通过网络开展以大规模计算为基础的研究</li>
+<li>2007年10月，Google 和 IBM 开始在美国大学校园推广云计算的计划<br>目标：降低分布式计算技术在学术研究方面的成本<br>通过数百台服务器提供服务，学生可以通过网络开展以大规模计算为基础的研究</li>
 <li>2008年1月，Google 宣布在台湾启动“云计算学术计划”</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>
-<p>吃螃蟹<br>
-这个阶段，主要提供面向个人开发者和小企业的PaaS服务。</p>
+<li><p>吃螃蟹<br>这个阶段，主要提供面向个人开发者和小企业的PaaS服务。</p>
 <ul>
 <li>2007年6月, Heroku 对外提供服务</li>
 <li>2008年4月，google发布GAE(Google App Engine)</li>
 <li>2009年8月，新浪开始开发SAE(Sina App Engine),11月正式推出第一个Alpha版本</li>
 </ul>
 </li>
-<li>
-<p>抢市场</p>
+</ul>
 <ul>
+<li>抢市场<ul>
 <li>2008年2月，IBM 宣布在无锡科教产业园为中国的软件公司建立全球第一个云计算中心</li>
 <li>2008年7月，雅虎、惠普和英特尔宣布推出云计算联合研究计划，在全球建立6个云计算的数据中心</li>
 <li>2008年8月，戴尔申请“云计算”（Cloud Computing）商标</li>
-<li>2009年8月，李彦宏提出&quot;框计算&quot;</li>
+<li>2009年8月，李彦宏提出”框计算”</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>
-<p>抢占制高点</p>
+<li><p>抢占制高点</p>
 <ul>
-<li>2010年3月，Novell与云安全联盟（CSA）共同宣布一项 <sub>供应商中立计划</sub> ，名为“可信任云计算计划（Trusted Cloud Initiative）”。</li>
+<li>2010年3月，Novell与云安全联盟（CSA）共同宣布一项 <del>供应商中立计划</del> ，名为“可信任云计算计划（Trusted Cloud Initiative）”。</li>
 <li>2010年7月，美国国家航空航天局和包括Rackspace、AMD、Intel、Dell等支持厂商共同宣布“OpenStack”开放源代码计划</li>
 <li>2010年10月, 微软表示支持OpenStack与Windows Server 2008 R2的集成</li>
 <li>2011年2月，思科系统正式加入OpenStack，重点研制OpenStack的网络服务</li>
 </ul>
 </li>
-<li>
-<p>商业化服务<br>
-目前比较适合商业化的，还是面向企业级客户的IaaS服务。</p>
+<li><p>商业化服务<br>目前比较适合商业化的，还是面向企业级客户的IaaS服务。</p>
 <ul>
 <li>2011年7月，阿里云上线，开始大规模对外提供云计算服务(2009年创立公司)</li>
 <li>2013年7月，青云上线</li>
 </ul>
 </li>
 </ul>
-<h2 id="价值"><a class="markdownIt-Anchor" href="#价值"></a> 价值</h2>
-<p>云计算，能够极大降低IT开发、运行的成本。目前主要是通过IaaS、PaaS降低运行成本。随着SaaS的积累，开发成本也会降低。<br>
-比如，有了公有云，就不需要自建机房，操心供电、空调、消防等一系列问题，也不需要购买服务器、网络设备和这些设备的维护和折旧。<br>
-只需要支付资金就可以获得所需的一切，甚至比自建的成本还要低。<br>
-即使出于种种原因不能使用公有云，搭建私有云也能带来很多好处。比如，传统的一个应用系统上线，需要采购服务器、服务器上架、安装操作系统、安装平台软件，然后才能部署应用系统，这个过程少则一周，多则有可能一个月。而采用私有云技术，只需10分钟，部署应用系统的基础环境就可以准备好。</p>
+<h2 id="价值"><a href="#价值" class="headerlink" title="价值"></a>价值</h2><p>云计算，能够极大降低IT开发、运行的成本。目前主要是通过IaaS、PaaS降低运行成本。随着SaaS的积累，开发成本也会降低。<br>比如，有了公有云，就不需要自建机房，操心供电、空调、消防等一系列问题，也不需要购买服务器、网络设备和这些设备的维护和折旧。<br>只需要支付资金就可以获得所需的一切，甚至比自建的成本还要低。<br>即使出于种种原因不能使用公有云，搭建私有云也能带来很多好处。比如，传统的一个应用系统上线，需要采购服务器、服务器上架、安装操作系统、安装平台软件，然后才能部署应用系统，这个过程少则一周，多则有可能一个月。而采用私有云技术，只需10分钟，部署应用系统的基础环境就可以准备好。</p>
 <p>云计算另一个巨大的潜力是，由于云的伸缩能力，可以为应用系统提供近乎无限的资源，可以用廉价的方式达到以前中型机甚至大型机的能力，这就使得原来很昂贵的某些应用，现在可以从实验室走出来，变成商业应用。典型的就是大数据类型的应用。</p>
-<h2 id="参与者类型"><a class="markdownIt-Anchor" href="#参与者类型"></a> 参与者类型</h2>
-<p>云计算在技术上已经比较成熟了，在整个产业链中，有多类参与者：</p>
+<h2 id="参与者类型"><a href="#参与者类型" class="headerlink" title="参与者类型"></a>参与者类型</h2><p>云计算在技术上已经比较成熟了，在整个产业链中，有多类参与者：</p>
 <ul>
-<li>
-<p>云技术<br>
-搭建、管理私有云/公有云所需要的产品和技术。</p>
-<p>一个重要的趋势是，软件开源、免费。厂商支持开源软件的开发，通过这种方式推广自己的“标准”。<br>
-厂商通过解释自己的标准(以解决方案、技术支持的形式)赚钱，不再赚实施的辛苦钱。</p>
+<li><p>云技术<br>搭建、管理私有云/公有云所需要的产品和技术。</p>
+<p>一个重要的趋势是，软件开源、免费。厂商支持开源软件的开发，通过这种方式推广自己的“标准”。<br>厂商通过解释自己的标准(以解决方案、技术支持的形式)赚钱，不再赚实施的辛苦钱。</p>
 <p>如果硬件厂商针对云计算推出了新的硬件设备，也可以归为此类。</p>
 </li>
-<li>
-<p>云服务<br>
-这里主要指提供公有云服务，供使用者租用。竞争的方式主要是通过规模效应拼成本。当然也要看个性化的服务功能。</p>
+<li><p>云服务<br>这里主要指提供公有云服务，供使用者租用。竞争的方式主要是通过规模效应拼成本。当然也要看个性化的服务功能。</p>
 <p>从云服务的提供者和使用者的关系上，可以分为：</p>
 <ul>
 <li>私有云</li>
@@ -1074,22 +965,14 @@
 <li>共享云</li>
 </ul>
 </li>
-<li>
-<p>云应用<br>
-与“伪云”不同，有些应用必须在云计算的环境下运行，比如基于大数据的应用。<br>
-这些应用能够带来与传统应用不同的新的价值。</p>
+<li><p>云应用<br>与“伪云”不同，有些应用必须在云计算的环境下运行，比如基于大数据的应用。<br>这些应用能够带来与传统应用不同的新的价值。</p>
 </li>
 </ul>
-<h2 id="相关企业"><a class="markdownIt-Anchor" href="#相关企业"></a> 相关企业</h2>
-<ul>
-<li>
-<p>技术提供商<br>
-虚拟化技术主要有VMWare, Citrix的Xen, Redhat的KVM，微软的hyper-v等。<br>
-实现云平台的技术有很多可以选择，但只有OpenStack是全面解决方案。</p>
+<h2 id="相关企业"><a href="#相关企业" class="headerlink" title="相关企业"></a>相关企业</h2><ul>
+<li><p>技术提供商<br>虚拟化技术主要有VMWare, Citrix的Xen, Redhat的KVM，微软的hyper-v等。<br>实现云平台的技术有很多可以选择，但只有OpenStack是全面解决方案。</p>
 <p>国内在底层技术上能提供的很少，阿里有一些项目可以开源使用。</p>
 </li>
-<li>
-<p>服务提供商</p>
+<li><p>服务提供商</p>
 <ul>
 <li>Amazon是最早的公有云提供商</li>
 <li>heroku依然把重点放在PaaS领域</li>
@@ -1101,432 +984,134 @@
 </ul>
 </li>
 </ul>
-<h2 id="可能的新模式"><a class="markdownIt-Anchor" href="#可能的新模式"></a> 可能的新模式</h2>
-<p>目前，主要的业务模式是公有云通过规模效应建立成本优势，个人认为会越来越向大公司集中。</p>
+<h2 id="可能的新模式"><a href="#可能的新模式" class="headerlink" title="可能的新模式"></a>可能的新模式</h2><p>目前，主要的业务模式是公有云通过规模效应建立成本优势，个人认为会越来越向大公司集中。</p>
 <p>未来可能出现新的模式：</p>
 <ul>
-<li>
-<p>效用计算<br>
-1961年，人工智能之父麦肯锡在一次会议上提出了“效用计算”这个概念。目标是整合分散在各地的服务器、存储系统以及应用程序来共享给多个用户，根据用户的使用量来付费。<br>
-未来云计算也可能会出现真正意义上的共享云，但还有很多技术问题未解决。</p>
+<li><p>效用计算<br>1961年，人工智能之父麦肯锡在一次会议上提出了“效用计算”这个概念。目标是整合分散在各地的服务器、存储系统以及应用程序来共享给多个用户，根据用户的使用量来付费。<br>未来云计算也可能会出现真正意义上的共享云，但还有很多技术问题未解决。</p>
 <p>已经出现过类似的模式是 P2P下载。</p>
 </li>
-<li>
-<p>网格计算模式<br>
-网格计算研究如何把一个需要非常巨大的计算能力才能解决的问题分成许多小的部分，然后把这些部分分配给许多低性能的计算机来处理，最后把这些计算结果综合起来攻克大问题。重点放在解决“计算力”上面。</p>
+<li><p>网格计算模式<br>网格计算研究如何把一个需要非常巨大的计算能力才能解决的问题分成许多小的部分，然后把这些部分分配给许多低性能的计算机来处理，最后把这些计算结果综合起来攻克大问题。重点放在解决“计算力”上面。</p>
 <p>从技术上，不是所有的计算问题都能分解，或者很难分解。从业务上，需要如此强大计算力的应用目前看来还很少。</p>
 <p>已经出现过类似的模式是“在家寻找外星人”项目。</p>
 </li>
 </ul>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/云计算/" rel="tag"># 云计算</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/10/13/ML_index.html" rel="next" title="机器学习总结">
-                <i class="fa fa-chevron-left"></i> 机器学习总结
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag"># 云计算</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/10/ebook_with_gitbook.html" rel="prev" title="用gitbook制作电子书">
-                用gitbook制作电子书 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/13/ML_index.html" rel="prev" title="机器学习总结">
+      <i class="fa fa-chevron-left"></i> 机器学习总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/11/10/ebook_with_sphinx.html" rel="next" title="用Sphinx制作电子书">
+      用Sphinx制作电子书 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念篇"><span class="nav-number">1.</span> <span class="nav-text"> 概念篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#云计算是什么"><span class="nav-number">1.1.</span> <span class="nav-text"> 云计算是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云计算的特征"><span class="nav-number">1.2.</span> <span class="nav-text"> 云计算的特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见-误区-误导"><span class="nav-number">1.3.</span> <span class="nav-text"> 常见 误区 误导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么不是云计算"><span class="nav-number">1.4.</span> <span class="nav-text"> 什么不是云计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理篇"><span class="nav-number">2.</span> <span class="nav-text"> 原理篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分层体系架构"><span class="nav-number">2.1.</span> <span class="nav-text"> 分层体系架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件不足与集群"><span class="nav-number">2.2.</span> <span class="nav-text"> 硬件不足与集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件过剩与云计算"><span class="nav-number">2.3.</span> <span class="nav-text"> 硬件过剩与云计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 虚拟化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟化集群"><span class="nav-number">2.3.2.</span> <span class="nav-text"> 虚拟化+集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#云存储"><span class="nav-number">2.3.3.</span> <span class="nav-text"> 云存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理和调度"><span class="nav-number">2.3.4.</span> <span class="nav-text"> 管理和调度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xaas"><span class="nav-number">2.4.</span> <span class="nav-text"> XaaS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#openstack一出谁与争锋"><span class="nav-number">2.5.</span> <span class="nav-text"> OpenStack一出，谁与争锋？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#行业篇"><span class="nav-number">3.</span> <span class="nav-text"> 行业篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#云计算简史"><span class="nav-number">3.1.</span> <span class="nav-text"> 云计算简史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#价值"><span class="nav-number">3.2.</span> <span class="nav-text"> 价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参与者类型"><span class="nav-number">3.3.</span> <span class="nav-text"> 参与者类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关企业"><span class="nav-number">3.4.</span> <span class="nav-text"> 相关企业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可能的新模式"><span class="nav-number">3.5.</span> <span class="nav-text"> 可能的新模式</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/10/25/cloud_computing.html';
-          this.page.identifier = '2017/10/25/cloud_computing.html';
-          this.page.title = '云计算简介';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -1541,24 +1126,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '4d3760c272fdb0d3c2f60578bde8c45b',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

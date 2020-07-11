@@ -1,147 +1,67 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="规则引擎,Java," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Java World似乎总会出现一些接口规范，这样做的好处是可以面向接口编程，可以在实现了该接口的产品/组件之间自由切换，避免被厂商绑架。 本文要介绍的JSR94:Java Rule Engine API，Java规则引擎API规范。">
-<meta name="keywords" content="规则引擎,Java">
+  <meta name="description" content="Java World似乎总会出现一些接口规范，这样做的好处是可以面向接口编程，可以在实现了该接口的产品&#x2F;组件之间自由切换，避免被厂商绑架。 本文要介绍的JSR94:Java Rule Engine API，Java规则引擎API规范。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java规则引擎规范：JSR94">
 <meta property="og:url" content="http://holbrook.github.io/2012/12/07/jsr94.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="Java World似乎总会出现一些接口规范，这样做的好处是可以面向接口编程，可以在实现了该接口的产品/组件之间自由切换，避免被厂商绑架。 本文要介绍的JSR94:Java Rule Engine API，Java规则引擎API规范。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="Java World似乎总会出现一些接口规范，这样做的好处是可以面向接口编程，可以在实现了该接口的产品&#x2F;组件之间自由切换，避免被厂商绑架。 本文要介绍的JSR94:Java Rule Engine API，Java规则引擎API规范。">
 <meta property="og:image" content="http://holbrook.github.io/2012/12/07/jsr94/javax.rules.admin.png">
 <meta property="og:image" content="http://holbrook.github.io/2012/12/07/jsr94/javax.rules.png">
 <meta property="og:image" content="http://holbrook.github.io/2012/12/07/jsr94/javax.rules.exceptions.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2012-12-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="规则引擎">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java规则引擎规范：JSR94">
-<meta name="twitter:description" content="Java World似乎总会出现一些接口规范，这样做的好处是可以面向接口编程，可以在实现了该接口的产品/组件之间自由切换，避免被厂商绑架。 本文要介绍的JSR94:Java Rule Engine API，Java规则引擎API规范。">
 <meta name="twitter:image" content="http://holbrook.github.io/2012/12/07/jsr94/javax.rules.admin.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2012/12/07/jsr94.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2012/12/07/jsr94.html"/>
-
-
-
-
 
   <title>Java规则引擎规范：JSR94 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -150,213 +70,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#规则管理API"><span class="nav-number">2.</span> <span class="nav-text">规则管理API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行时API"><span class="nav-number">3.</span> <span class="nav-text">运行时API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常定义"><span class="nav-number">4.</span> <span class="nav-text">异常定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码示例"><span class="nav-number">5.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现JSR94的产品"><span class="nav-number">6.</span> <span class="nav-text">实现JSR94的产品</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2012/12/07/jsr94.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Java规则引擎规范：JSR94</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Java规则引擎规范：JSR94
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-12-07T00:00:00+08:00">
-                2012-12-07
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2012-12-07 00:00:00" itemprop="dateCreated datePublished" datetime="2012-12-07T00:00:00+08:00">2012-12-07</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2012/12/07/jsr94.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2012/12/07/jsr94.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -364,16 +318,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>Java World似乎总会出现一些接口规范，这样做的好处是可以面向接口编程，可以在实现了该接口的产品/组件之间自由切换，避免被厂商绑架。 本文要介绍的<a href="http://jcp.org/aboutJava/communityprocess/final/jsr094/index.html" target="_blank" rel="noopener">JSR94:Java Rule Engine API</a>，Java规则引擎API规范。</p>
 <a id="more"></a>
-<h1 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h1>
-<p>JSR-94是JCP(Java Community Process)制定的关于Java规则引擎API的规范，包括接口定义和示例代码。于2004年8月发布。 JSR-94定义了javax.rules和javax.rules.admin,前者包含了Java规则引擎运行时（Rumtime)API及异常（Exception）定义，后者包含了规则管理相关的API和异常定义。</p>
-<h1 id="规则管理api"><a class="markdownIt-Anchor" href="#规则管理api"></a> 规则管理API</h1>
-<p>规则管理API在javax.rules.admin中定义,主要包括以下类/接口：</p>
-<img src="/2012/12/07/jsr94/javax.rules.admin.png" title="javax.rules.admin">
+
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>JSR-94是JCP(Java Community Process)制定的关于Java规则引擎API的规范，包括接口定义和示例代码。于2004年8月发布。 JSR-94定义了javax.rules和javax.rules.admin,前者包含了Java规则引擎运行时（Rumtime)API及异常（Exception）定义，后者包含了规则管理相关的API和异常定义。</p>
+<h1 id="规则管理API"><a href="#规则管理API" class="headerlink" title="规则管理API"></a>规则管理API</h1><p>规则管理API在javax.rules.admin中定义,主要包括以下类/接口：</p>
+<img src="/2012/12/07/jsr94/javax.rules.admin.png" class="" title="javax.rules.admin">
+
+
 <ul>
 <li>Rule：规则实体</li>
 <li>RuleExecutionSet：执行集，某个规则对应的动作</li>
@@ -386,9 +338,9 @@
 <li>装载规则（Rule）和执行集（RuleExecutionSet)</li>
 <li>执行集的注册/注销,只有注册的执行集对应的规则才能被客户访问</li>
 </ol>
-<h1 id="运行时api"><a class="markdownIt-Anchor" href="#运行时api"></a> 运行时API</h1>
-<p>运行时API在javax.rules中定义，主要包括以下类/接口：</p>
-<img src="/2012/12/07/jsr94/javax.rules.png" title="javax.rules">
+<h1 id="运行时API"><a href="#运行时API" class="headerlink" title="运行时API"></a>运行时API</h1><p>运行时API在javax.rules中定义，主要包括以下类/接口：</p>
+<img src="/2012/12/07/jsr94/javax.rules.png" class="" title="javax.rules">
+
 <ul>
 <li>RuleServiceProviderManager: 通过URL注册/注销RuleServiceProvider</li>
 <li>RuleServiceProvider: 提供对RuleRuntime和RuleAdministrator的访问</li>
@@ -406,438 +358,144 @@
 <li>从Runtime创建会话，包括有状态和无状态两种会话</li>
 <li>通过会话执行规则</li>
 </ol>
-<h1 id="异常定义"><a class="markdownIt-Anchor" href="#异常定义"></a> 异常定义</h1>
-<p>除了前面提到的主要类/接口外，JSR94还规定了规则引擎运行时及管理的一些异常，如下：</p>
-<img src="/2012/12/07/jsr94/javax.rules.exceptions.png" title="javax.rules.exceptions">
-<h1 id="代码示例"><a class="markdownIt-Anchor" href="#代码示例"></a> 代码示例</h1>
-<p>下面是使用Drools作为规则引擎实例的一个例子，规则文件使用了Drools的drl格式：</p>
+<h1 id="异常定义"><a href="#异常定义" class="headerlink" title="异常定义"></a>异常定义</h1><p>除了前面提到的主要类/接口外，JSR94还规定了规则引擎运行时及管理的一些异常，如下：</p>
+<img src="/2012/12/07/jsr94/javax.rules.exceptions.png" class="" title="javax.rules.exceptions">
+
+
+<h1 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h1><p>下面是使用Drools作为规则引擎实例的一个例子，规则文件使用了Drools的drl格式：</p>
 <p>JSR94Sample.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.rules.ConfigurationException;</span><br><span class="line"><span class="keyword">import</span> javax.rules.RuleRuntime;</span><br><span class="line"><span class="keyword">import</span> javax.rules.RuleServiceProvider;</span><br><span class="line"><span class="keyword">import</span> javax.rules.RuleServiceProviderManager;</span><br><span class="line"><span class="keyword">import</span> javax.rules.StatelessRuleSession;</span><br><span class="line"><span class="keyword">import</span> javax.rules.admin.LocalRuleExecutionSetProvider;</span><br><span class="line"><span class="keyword">import</span> javax.rules.admin.RuleAdministrator;</span><br><span class="line"><span class="keyword">import</span> javax.rules.admin.RuleExecutionSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.drools.jsr94.rules.RuleServiceProviderImpl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JSR94Sample</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RuleServiceProvider ruleProvider;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initProvider</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String uri = RuleServiceProviderImpl.RULE_SERVICE_PROVIDER;</span><br><span class="line">        Class providerClass = RuleServiceProviderImpl.class;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//注册ruleProvider</span></span><br><span class="line">            RuleServiceProviderManager.registerRuleServiceProvider(uri, providerClass);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//从RuleServiceProviderManager获取ruleProvider</span></span><br><span class="line">            ruleProvider = RuleServiceProviderManager.getRuleServiceProvider(uri);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(ConfigurationException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">adminSample</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//获取RuleAdministrator实例</span></span><br><span class="line">            RuleAdministrator admin = ruleProvider.getRuleAdministrator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取RuleExectuionSetProvider</span></span><br><span class="line">            HashMap properties = <span class="keyword">new</span> HashMap();</span><br><span class="line">            properties.put(<span class="string">"name"</span>, <span class="string">"My Rules"</span>);</span><br><span class="line">            properties.put(<span class="string">"description"</span>, <span class="string">"A trivial rulebase"</span>);</span><br><span class="line"></span><br><span class="line">            LocalRuleExecutionSetProvider ruleExecutionSetProvider = admin.getLocalRuleExecutionSetProvider(properties);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建RuleExecutionSet</span></span><br><span class="line">            FileReader reader = <span class="keyword">new</span> FileReader(<span class="string">"bin/sample.drl"</span>);</span><br><span class="line">            RuleExecutionSet reSet = ruleExecutionSetProvider.createRuleExecutionSet(reader, properties);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//注册RuleExecutionSet</span></span><br><span class="line">            admin.registerRuleExecutionSet(<span class="string">"mysample"</span>,reSet,properties);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runtimeSampe</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//获取RuleRuntime, 创建会话</span></span><br><span class="line">            RuleRuntime runtime = ruleProvider.getRuleRuntime();</span><br><span class="line">            StatelessRuleSession ruleSession = (StatelessRuleSession)runtime.createRuleSession(<span class="string">"mysample"</span>,<span class="keyword">null</span>,RuleRuntime.STATELESS_SESSION_TYPE);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//初始化输入数据</span></span><br><span class="line">            Message message1 = <span class="keyword">new</span> Message();</span><br><span class="line">            message1.setMessage(<span class="string">"Hello World"</span>);</span><br><span class="line">            message1.setStatus(Message.HELLO);</span><br><span class="line"></span><br><span class="line">            Message message2 = <span class="keyword">new</span> Message();</span><br><span class="line">            message2.setMessage(<span class="string">"Goodbye World"</span>);</span><br><span class="line">            message2.setStatus(Message.GOODBYE);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            List inputs = <span class="keyword">new</span> ArrayList();</span><br><span class="line">            inputs.add(message1);</span><br><span class="line">            inputs.add(message2);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//执行规则</span></span><br><span class="line">            List&lt;Message&gt; results = ruleSession.executeRules(inputs);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;results.size();i++)&#123;</span><br><span class="line">                Message msg = results.get(i);</span><br><span class="line">                System.out.println(msg.message);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">//释放会话资源</span></span><br><span class="line">            ruleSession.release();</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        initProvider();</span><br><span class="line">        adminSample();</span><br><span class="line">        runtimeSampe();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HELLO = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GOODBYE = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> status;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.message;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.message = message;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.status;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.status = status;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.rules.ConfigurationException;</span><br><span class="line"><span class="keyword">import</span> javax.rules.RuleRuntime;</span><br><span class="line"><span class="keyword">import</span> javax.rules.RuleServiceProvider;</span><br><span class="line"><span class="keyword">import</span> javax.rules.RuleServiceProviderManager;</span><br><span class="line"><span class="keyword">import</span> javax.rules.StatelessRuleSession;</span><br><span class="line"><span class="keyword">import</span> javax.rules.admin.LocalRuleExecutionSetProvider;</span><br><span class="line"><span class="keyword">import</span> javax.rules.admin.RuleAdministrator;</span><br><span class="line"><span class="keyword">import</span> javax.rules.admin.RuleExecutionSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.drools.jsr94.rules.RuleServiceProviderImpl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JSR94Sample</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RuleServiceProvider ruleProvider;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initProvider</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String uri = RuleServiceProviderImpl.RULE_SERVICE_PROVIDER;</span><br><span class="line">        Class providerClass = RuleServiceProviderImpl<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//注册ruleProvider</span></span><br><span class="line">            RuleServiceProviderManager.registerRuleServiceProvider(uri, providerClass);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//从RuleServiceProviderManager获取ruleProvider</span></span><br><span class="line">            ruleProvider = RuleServiceProviderManager.getRuleServiceProvider(uri);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(ConfigurationException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">adminSample</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//获取RuleAdministrator实例</span></span><br><span class="line">            RuleAdministrator admin = ruleProvider.getRuleAdministrator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取RuleExectuionSetProvider</span></span><br><span class="line">            HashMap properties = <span class="keyword">new</span> HashMap();</span><br><span class="line">            properties.put(<span class="string">"name"</span>, <span class="string">"My Rules"</span>);</span><br><span class="line">            properties.put(<span class="string">"description"</span>, <span class="string">"A trivial rulebase"</span>);</span><br><span class="line"></span><br><span class="line">            LocalRuleExecutionSetProvider ruleExecutionSetProvider = admin.getLocalRuleExecutionSetProvider(properties);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建RuleExecutionSet</span></span><br><span class="line">            FileReader reader = <span class="keyword">new</span> FileReader(<span class="string">"bin/sample.drl"</span>);</span><br><span class="line">            RuleExecutionSet reSet = ruleExecutionSetProvider.createRuleExecutionSet(reader, properties);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//注册RuleExecutionSet</span></span><br><span class="line">            admin.registerRuleExecutionSet(<span class="string">"mysample"</span>,reSet,properties);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runtimeSampe</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//获取RuleRuntime, 创建会话</span></span><br><span class="line">            RuleRuntime runtime = ruleProvider.getRuleRuntime();</span><br><span class="line">            StatelessRuleSession ruleSession = (StatelessRuleSession)runtime.createRuleSession(<span class="string">"mysample"</span>,<span class="keyword">null</span>,RuleRuntime.STATELESS_SESSION_TYPE);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//初始化输入数据</span></span><br><span class="line">            Message message1 = <span class="keyword">new</span> Message();</span><br><span class="line">            message1.setMessage(<span class="string">"Hello World"</span>);</span><br><span class="line">            message1.setStatus(Message.HELLO);</span><br><span class="line"></span><br><span class="line">            Message message2 = <span class="keyword">new</span> Message();</span><br><span class="line">            message2.setMessage(<span class="string">"Goodbye World"</span>);</span><br><span class="line">            message2.setStatus(Message.GOODBYE);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            List inputs = <span class="keyword">new</span> ArrayList();</span><br><span class="line">            inputs.add(message1);</span><br><span class="line">            inputs.add(message2);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//执行规则</span></span><br><span class="line">            List&lt;Message&gt; results = ruleSession.executeRules(inputs);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;results.size();i++)&#123;</span><br><span class="line">                Message msg = results.get(i);</span><br><span class="line">                System.out.println(msg.message);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">//释放会话资源</span></span><br><span class="line">            ruleSession.release();</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        initProvider();</span><br><span class="line">        adminSample();</span><br><span class="line">        runtimeSampe();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HELLO = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GOODBYE = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> status;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.message;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.message = message;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.status;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.status = status;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>规则文件使用的就是<a href="/2012/12/06/rule_language.html">这里</a>的例子。</p>
-<h1 id="实现jsr94的产品"><a class="markdownIt-Anchor" href="#实现jsr94的产品"></a> 实现JSR94的产品</h1>
-<p>主要的一些实现了JSR94的规则引擎产品如下：</p>
+<h1 id="实现JSR94的产品"><a href="#实现JSR94的产品" class="headerlink" title="实现JSR94的产品"></a>实现JSR94的产品</h1><p>主要的一些实现了JSR94的规则引擎产品如下：</p>
 <ul>
-<li><a href="http://www.jboss.org/drools/" target="_blank" rel="noopener">Drools</a>: 	开源	DRL,xDRL,DSL,Decision Table	ReteOO	Eclipse,excel	文件系统	jar</li>
-<li><a href="http://mandarax.sourceforge.net/" target="_blank" rel="noopener">Mandarax</a>: 	开源	RuleML</li>
-<li><a href="http://openrules.com/" target="_blank" rel="noopener">OpenRules</a>: 	开源	Decision Table	Rete	excel	 	war</li>
-<li><a href="http://jlisa.sourceforge.net/" target="_blank" rel="noopener">JLisa</a>: 	开源</li>
-<li><a href="http://www.fico.com/en/Products/DMTools/Pages/FICO-Blaze-Advisor-System.aspx" target="_blank" rel="noopener">Blaze</a>: 	商业	SRL</li>
-<li><a href="http://www-01.ibm.com/software/integration/business-rule-management/jrules-family/" target="_blank" rel="noopener">WebSphere ILOG JRules</a>: 	商业</li>
-<li><a href="http://herzberg.ca.sandia.gov/" target="_blank" rel="noopener">JESS</a>: 	商业</li>
+<li><a href="http://www.jboss.org/drools/" target="_blank" rel="noopener">Drools</a>:     开源    DRL,xDRL,DSL,Decision Table    ReteOO    Eclipse,excel    文件系统    jar</li>
+<li><a href="http://mandarax.sourceforge.net/" target="_blank" rel="noopener">Mandarax</a>:     开源    RuleML</li>
+<li><a href="http://openrules.com/" target="_blank" rel="noopener">OpenRules</a>:     开源    Decision Table    Rete    excel         war</li>
+<li><a href="http://jlisa.sourceforge.net/" target="_blank" rel="noopener">JLisa</a>:     开源</li>
+<li><a href="http://www.fico.com/en/Products/DMTools/Pages/FICO-Blaze-Advisor-System.aspx" target="_blank" rel="noopener">Blaze</a>:     商业    SRL</li>
+<li><a href="http://www-01.ibm.com/software/integration/business-rule-management/jrules-family/" target="_blank" rel="noopener">WebSphere ILOG JRules</a>:     商业</li>
+<li><a href="http://herzberg.ca.sandia.gov/" target="_blank" rel="noopener">JESS</a>:     商业</li>
 </ul>
-<h1 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h1>
-<p>JSR94为规则引擎提供了公用标准API,为实现规则管理API和运行时API提供了指导规范, 目前已经获得很多开源/商业规则引擎产品的支持。 但是JSR94没有对<a href="/2012/12/06/rule_language.html">规则的描述语言</a>进行规范，导致各规则引擎产品大多采用自己私有的描述语言。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>JSR94为规则引擎提供了公用标准API,为实现规则管理API和运行时API提供了指导规范, 目前已经获得很多开源/商业规则引擎产品的支持。 但是JSR94没有对<a href="/2012/12/06/rule_language.html">规则的描述语言</a>进行规范，导致各规则引擎产品大多采用自己私有的描述语言。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/规则引擎/" rel="tag"># 规则引擎</a>
-          
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2012/12/06/rule_language.html" rel="next" title="Drools规则描述语言快速手册">
-                <i class="fa fa-chevron-left"></i> Drools规则描述语言快速手册
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/" rel="tag"># 规则引擎</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2012/12/30/JPA_intro.html" rel="prev" title="JPA概要">
-                JPA概要 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2012/12/06/rule_language.html" rel="prev" title="Drools规则描述语言快速手册">
+      <i class="fa fa-chevron-left"></i> Drools规则描述语言快速手册
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2012/12/30/JPA_intro.html" rel="next" title="JPA概要">
+      JPA概要 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text"> 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#规则管理api"><span class="nav-number">2.</span> <span class="nav-text"> 规则管理API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行时api"><span class="nav-number">3.</span> <span class="nav-text"> 运行时API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常定义"><span class="nav-number">4.</span> <span class="nav-text"> 异常定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码示例"><span class="nav-number">5.</span> <span class="nav-text"> 代码示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现jsr94的产品"><span class="nav-number">6.</span> <span class="nav-text"> 实现JSR94的产品</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text"> 小结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2012/12/07/jsr94.html';
-          this.page.identifier = '2012/12/07/jsr94.html';
-          this.page.title = 'Java规则引擎规范：JSR94';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -852,24 +510,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '304dfa835fad9e8b2816f4bc370957fc',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

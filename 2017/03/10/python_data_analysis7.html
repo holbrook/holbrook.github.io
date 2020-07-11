@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="python," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="数据分析和建模的大量编程工作都是在数据准备上的：加载、清理、转换以及重塑。 pandas和Python标准库提供了一组高级的、灵活的、高效的核心函数和算法， 能够轻松地将数据规整化为正确的形式。 尤其，Pandas 的许多功能都来自实际应用中的需求。 数据规整主要包括：合并数据集、重塑和轴向旋转、数据转换、字符串操作。">
-<meta name="keywords" content="python">
+  <meta name="description" content="数据分析和建模的大量编程工作都是在数据准备上的：加载、清理、转换以及重塑。 pandas和Python标准库提供了一组高级的、灵活的、高效的核心函数和算法，能够轻松地将数据规整化为正确的形式。尤其，Pandas 的许多功能都来自实际应用中的需求。 数据规整主要包括：合并数据集、重塑和轴向旋转、数据转换、字符串操作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑">
 <meta property="og:url" content="http://holbrook.github.io/2017/03/10/python_data_analysis7.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="数据分析和建模的大量编程工作都是在数据准备上的：加载、清理、转换以及重塑。 pandas和Python标准库提供了一组高级的、灵活的、高效的核心函数和算法， 能够轻松地将数据规整化为正确的形式。 尤其，Pandas 的许多功能都来自实际应用中的需求。 数据规整主要包括：合并数据集、重塑和轴向旋转、数据转换、字符串操作。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="数据分析和建模的大量编程工作都是在数据准备上的：加载、清理、转换以及重塑。 pandas和Python标准库提供了一组高级的、灵活的、高效的核心函数和算法，能够轻松地将数据规整化为正确的形式。尤其，Pandas 的许多功能都来自实际应用中的需求。 数据规整主要包括：合并数据集、重塑和轴向旋转、数据转换、字符串操作。">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAigAAAD8CAYAAABdPV+VAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzsnXm4nePV/z9fMYUYS/ui3qY1tqZUEqrGtFG01VIU1RYd
 VGusH6XlRVWLaqlZjTGEmocaowgRQwYRCaoD0SpKDKlUBMn398e6d/LkZO999jnJybg+13Wus/f9
@@ -541,10 +483,11 @@ PyN8EXhM0mRgLHCvmd3fzja1mDxmnCRJkiRJhyMjKEmSJEmSdDjSQUmSJEmSpMORDkqSJEmSJB2O
 dFCSJEmSJOlwpIOSJEmSJEmHIx2UJEmSJEk6HOmgJEmSJEnS4UgHJUmSJEmSDsf/B/H3kH4UoJHF
 AAAAAElFTkSuQmCC
 ">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2017-03-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑">
-<meta name="twitter:description" content="数据分析和建模的大量编程工作都是在数据准备上的：加载、清理、转换以及重塑。 pandas和Python标准库提供了一组高级的、灵活的、高效的核心函数和算法， 能够轻松地将数据规整化为正确的形式。 尤其，Pandas 的许多功能都来自实际应用中的需求。 数据规整主要包括：合并数据集、重塑和轴向旋转、数据转换、字符串操作。">
 <meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAigAAAD8CAYAAABdPV+VAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzsnXm4nePV/z9fMYUYS/ui3qY1tqZUEqrGtFG01VIU1RYd
 VGusH6XlRVWLaqlZjTGEmocaowgRQwYRCaoD0SpKDKlUBMn398e6d/LkZO999jnJybg+13Wus/f9
@@ -1000,52 +943,28 @@ dFCSJEmSJOlwpIOSJEmSJEmHIx2UJEmSJEk6HOmgJEmSJEnS4UgHJUmSJEmSDsf/B/H3kH4UoJHF
 AAAAAElFTkSuQmCC
 ">
 
+<link rel="canonical" href="http://holbrook.github.io/2017/03/10/python_data_analysis7.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2017/03/10/python_data_analysis7.html"/>
-
-
-
-
 
   <title>利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -1054,213 +973,247 @@ AAAAAElFTkSuQmCC
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#合并数据集"><span class="nav-number">1.</span> <span class="nav-text">合并数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#25968;&#25454;&#24211;&#39118;&#26684;&#30340;DataFrame&#21512;&#24182;"><span class="nav-number">2.</span> <span class="nav-text">&amp;#25968;&amp;#25454;&amp;#24211;&amp;#39118;&amp;#26684;&amp;#30340;DataFrame&amp;#21512;&amp;#24182;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#32034;&#24341;&#19978;&#30340;&#21512;&#24182;"><span class="nav-number">3.</span> <span class="nav-text">&amp;#32034;&amp;#24341;&amp;#19978;&amp;#30340;&amp;#21512;&amp;#24182;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#32570;&#22833;&#20540;&#30340;&#21512;&#24182;"><span class="nav-number">4.</span> <span class="nav-text">&amp;#32570;&amp;#22833;&amp;#20540;&amp;#30340;&amp;#21512;&amp;#24182;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重塑和轴向旋转"><span class="nav-number">5.</span> <span class="nav-text">重塑和轴向旋转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#37325;&#22609;&#23618;&#27425;&#21270;&#32034;&#24341;"><span class="nav-number">6.</span> <span class="nav-text">&amp;#37325;&amp;#22609;&amp;#23618;&amp;#27425;&amp;#21270;&amp;#32034;&amp;#24341;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pivot:-&#23558;&#8220;&#38271;&#26684;&#24335;&#8221;&#36716;&#25442;&#20026;&#8220;&#23485;&#26684;&#24335;&#8221;"><span class="nav-number">7.</span> <span class="nav-text">pivot: &amp;#23558;&amp;#8220;&amp;#38271;&amp;#26684;&amp;#24335;&amp;#8221;&amp;#36716;&amp;#25442;&amp;#20026;&amp;#8220;&amp;#23485;&amp;#26684;&amp;#24335;&amp;#8221;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据转换"><span class="nav-number">8.</span> <span class="nav-text">数据转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#21435;&#38500;&#37325;&#22797;&#25968;&#25454;"><span class="nav-number">9.</span> <span class="nav-text">&amp;#21435;&amp;#38500;&amp;#37325;&amp;#22797;&amp;#25968;&amp;#25454;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#29992;&#20989;&#25968;&#25110;&#32773;&#26144;&#23556;(mapping)&#36827;&#34892;&#25968;&#25454;&#36716;&#25442;"><span class="nav-number">10.</span> <span class="nav-text">&amp;#29992;&amp;#20989;&amp;#25968;&amp;#25110;&amp;#32773;&amp;#26144;&amp;#23556;(mapping)&amp;#36827;&amp;#34892;&amp;#25968;&amp;#25454;&amp;#36716;&amp;#25442;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#26367;&#25442;&#20540;"><span class="nav-number">11.</span> <span class="nav-text">&amp;#26367;&amp;#25442;&amp;#20540;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#37325;&#21629;&#21517;&#36724;&#32034;&#24341;"><span class="nav-number">12.</span> <span class="nav-text">&amp;#37325;&amp;#21629;&amp;#21517;&amp;#36724;&amp;#32034;&amp;#24341;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#31163;&#25955;&#21270;&#21644;&#38754;&#20803;&#21010;&#20998;"><span class="nav-number">13.</span> <span class="nav-text">&amp;#31163;&amp;#25955;&amp;#21270;&amp;#21644;&amp;#38754;&amp;#20803;&amp;#21010;&amp;#20998;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#26816;&#27979;&#21644;&#36807;&#28388;&#31163;&#32676;&#28857;"><span class="nav-number">14.</span> <span class="nav-text">&amp;#26816;&amp;#27979;&amp;#21644;&amp;#36807;&amp;#28388;&amp;#31163;&amp;#32676;&amp;#28857;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#25490;&#21015;&#21644;&#38543;&#26426;&#37319;&#26679;"><span class="nav-number">15.</span> <span class="nav-text">&amp;#25490;&amp;#21015;&amp;#21644;&amp;#38543;&amp;#26426;&amp;#37319;&amp;#26679;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#35745;&#31639;&#25351;&#26631;/&#21713;&#21464;&#37327;"><span class="nav-number">16.</span> <span class="nav-text">&amp;#35745;&amp;#31639;&amp;#25351;&amp;#26631;&#x2F;&amp;#21713;&amp;#21464;&amp;#37327;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串操作"><span class="nav-number">17.</span> <span class="nav-text">字符串操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#23383;&#31526;&#20018;&#23545;&#35937;&#26041;&#27861;"><span class="nav-number">18.</span> <span class="nav-text">&amp;#23383;&amp;#31526;&amp;#20018;&amp;#23545;&amp;#35937;&amp;#26041;&amp;#27861;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#27491;&#21017;&#34920;&#36798;&#24335;"><span class="nav-number">19.</span> <span class="nav-text">&amp;#27491;&amp;#21017;&amp;#34920;&amp;#36798;&amp;#24335;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pandas&#20013;&#30690;&#37327;&#21270;&#23383;&#31526;&#20018;&#20989;&#25968;"><span class="nav-number">20.</span> <span class="nav-text">pandas&amp;#20013;&amp;#30690;&amp;#37327;&amp;#21270;&amp;#23383;&amp;#31526;&amp;#20018;&amp;#20989;&amp;#25968;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例：usda食品数据库"><span class="nav-number">21.</span> <span class="nav-text">示例：usda食品数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#25968;&#25454;&#21152;&#36733;"><span class="nav-number">22.</span> <span class="nav-text">&amp;#25968;&amp;#25454;&amp;#21152;&amp;#36733;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#25968;&#25454;&#20934;&#22791;"><span class="nav-number">23.</span> <span class="nav-text">&amp;#25968;&amp;#25454;&amp;#20934;&amp;#22791;&amp;#182;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#&#23558;&#25152;&#26377;&#33829;&#20859;&#25104;&#20998;&#25972;&#21512;&#21040;&#19968;&#20010;&#22823;&#34920;&#20013;"><span class="nav-number">23.1.</span> <span class="nav-text">&amp;#23558;&amp;#25152;&amp;#26377;&amp;#33829;&amp;#20859;&amp;#25104;&amp;#20998;&amp;#25972;&amp;#21512;&amp;#21040;&amp;#19968;&amp;#20010;&amp;#22823;&amp;#34920;&amp;#20013;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#21435;&#37325;"><span class="nav-number">23.2.</span> <span class="nav-text">&amp;#21435;&amp;#37325;&amp;#182;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#&#20462;&#25972;"><span class="nav-number">23.3.</span> <span class="nav-text">&amp;#20462;&amp;#25972;&amp;#182;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#25968;&#25454;&#36716;&#25442;"><span class="nav-number">24.</span> <span class="nav-text">&amp;#25968;&amp;#25454;&amp;#36716;&amp;#25442;&amp;#182;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#&#24314;&#27169;&#21644;&#35745;&#31639;"><span class="nav-number">25.</span> <span class="nav-text">&amp;#24314;&amp;#27169;&amp;#21644;&amp;#35745;&amp;#31639;&amp;#182;</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2017/03/10/python_data_analysis7.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-10T00:00:00+08:00">
-                2017-03-10
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2017-03-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-10T00:00:00+08:00">2017-03-10</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2017/03/10/python_data_analysis7.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/03/10/python_data_analysis7.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1268,23 +1221,17 @@ AAAAAElFTkSuQmCC
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>数据分析和建模的大量编程工作都是在数据准备上的：加载、清理、转换以及重塑。</p>
-<p>pandas和Python标准库提供了一组高级的、灵活的、高效的核心函数和算法，<br>
-能够轻松地将数据规整化为正确的形式。<br>
-尤其，Pandas 的许多功能都来自实际应用中的需求。</p>
+<p>pandas和Python标准库提供了一组高级的、灵活的、高效的核心函数和算法，<br>能够轻松地将数据规整化为正确的形式。<br>尤其，Pandas 的许多功能都来自实际应用中的需求。</p>
 <p>数据规整主要包括：合并数据集、重塑和轴向旋转、数据转换、字符串操作。</p>
 <a id="more"></a>
-<h1 id="合并数据集"><a class="markdownIt-Anchor" href="#合并数据集"></a> 合并数据集</h1>
 
-<div class="notebook-border">
+<h1 id="合并数据集"><a href="#合并数据集" class="headerlink" title="合并数据集"></a>合并数据集</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -1301,7 +1248,7 @@ AAAAAElFTkSuQmCC
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 <span class="kn">import</span> <span class="nn">json</span>
 </pre></div>
 
@@ -1324,7 +1271,7 @@ AAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>pandas提供了一些内置的方式来处理数据的合并：</p>
@@ -2320,7 +2267,7 @@ AAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#32034;&#24341;&#19978;&#30340;&#21512;&#24182;">&#32034;&#24341;&#19978;&#30340;&#21512;&#24182;<a class="anchor-link" href="#&#32034;&#24341;&#19978;&#30340;&#21512;&#24182;">&#182;</a></h1><p>如果连接键在索引中，可以通过 left_index = True或者right_index = True 指定。</p>
@@ -3293,7 +3240,7 @@ AAAAAElFTkSuQmCC
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#32570;&#22833;&#20540;&#30340;&#21512;&#24182;">&#32570;&#22833;&#20540;&#30340;&#21512;&#24182;<a class="anchor-link" href="#&#32570;&#22833;&#20540;&#30340;&#21512;&#24182;">&#182;</a></h1>
@@ -3527,14 +3474,14 @@ dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="重塑和轴向旋转"><a class="markdownIt-Anchor" href="#重塑和轴向旋转"></a> 重塑和轴向旋转</h1>
 
-<div class="notebook-border">
+
+<h1 id="重塑和轴向旋转"><a href="#重塑和轴向旋转" class="headerlink" title="重塑和轴向旋转"></a>重塑和轴向旋转</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -3551,7 +3498,7 @@ dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 <span class="kn">import</span> <span class="nn">json</span>
 </pre></div>
 
@@ -3574,7 +3521,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>pandas 有很多 重排表格数据的运算，称为 reshape（重塑）和 pivot（轴向旋转）操作。</p>
@@ -4232,7 +4179,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="pivot:-&#23558;&#8220;&#38271;&#26684;&#24335;&#8221;&#36716;&#25442;&#20026;&#8220;&#23485;&#26684;&#24335;&#8221;">pivot: &#23558;&#8220;&#38271;&#26684;&#24335;&#8221;&#36716;&#25442;&#20026;&#8220;&#23485;&#26684;&#24335;&#8221;<a class="anchor-link" href="#pivot:-&#23558;&#8220;&#38271;&#26684;&#24335;&#8221;&#36716;&#25442;&#20026;&#8220;&#23485;&#26684;&#24335;&#8221;">&#182;</a></h1>
@@ -4854,14 +4801,14 @@ dtype: float64</pre>
   </div>
 </div>
 
-<h1 id="数据转换"><a class="markdownIt-Anchor" href="#数据转换"></a> 数据转换</h1>
 
-<div class="notebook-border">
+
+<h1 id="数据转换"><a href="#数据转换" class="headerlink" title="数据转换"></a>数据转换</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -4878,7 +4825,7 @@ dtype: float64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 <span class="kn">import</span> <span class="nn">json</span>
 </pre></div>
 
@@ -4901,7 +4848,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>重排之后，下面介绍数据的过滤、清理、以及其他转换工作。</p>
@@ -5223,7 +5170,7 @@ dtype: bool</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#29992;&#20989;&#25968;&#25110;&#32773;&#26144;&#23556;(mapping)&#36827;&#34892;&#25968;&#25454;&#36716;&#25442;">&#29992;&#20989;&#25968;&#25110;&#32773;&#26144;&#23556;(mapping)&#36827;&#34892;&#25968;&#25454;&#36716;&#25442;<a class="anchor-link" href="#&#29992;&#20989;&#25968;&#25110;&#32773;&#26144;&#23556;(mapping)&#36827;&#34892;&#25968;&#25454;&#36716;&#25442;">&#182;</a></h1><p>可以实现根据值进行转换。</p>
@@ -5476,7 +5423,7 @@ Name: food, dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#26367;&#25442;&#20540;">&#26367;&#25442;&#20540;<a class="anchor-link" href="#&#26367;&#25442;&#20540;">&#182;</a></h1><p>使用 <code>replace()</code>函数，可以更简单的实现值替换。</p>
@@ -5656,7 +5603,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#37325;&#21629;&#21517;&#36724;&#32034;&#24341;">&#37325;&#21629;&#21517;&#36724;&#32034;&#24341;<a class="anchor-link" href="#&#37325;&#21629;&#21517;&#36724;&#32034;&#24341;">&#182;</a></h1><p>与值一样，轴标签页可以用 <code>map()</code>函数进行映射。</p>
@@ -5961,7 +5908,7 @@ dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#31163;&#25955;&#21270;&#21644;&#38754;&#20803;&#21010;&#20998;">&#31163;&#25955;&#21270;&#21644;&#38754;&#20803;&#21010;&#20998;<a class="anchor-link" href="#&#31163;&#25955;&#21270;&#21644;&#38754;&#20803;&#21010;&#20998;">&#182;</a></h1><p>为了便于分析，连续数据常常被离散化或拆分为面元（bin），即分组。</p>
@@ -6297,7 +6244,7 @@ Categories (4, object): [[-3.378, -1.276] &lt; (-1.276, 0.0103] &lt; (0.0103, 1.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#26816;&#27979;&#21644;&#36807;&#28388;&#31163;&#32676;&#28857;">&#26816;&#27979;&#21644;&#36807;&#28388;&#31163;&#32676;&#28857;<a class="anchor-link" href="#&#26816;&#27979;&#21644;&#36807;&#28388;&#31163;&#32676;&#28857;">&#182;</a></h1><p>离群点（outlier）的过滤或变换运算在很大程度上其实就是数组运算。</p>
@@ -6656,7 +6603,7 @@ Name: 3, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#25490;&#21015;&#21644;&#38543;&#26426;&#37319;&#26679;">&#25490;&#21015;&#21644;&#38543;&#26426;&#37319;&#26679;<a class="anchor-link" href="#&#25490;&#21015;&#21644;&#38543;&#26426;&#37319;&#26679;">&#182;</a></h1>
@@ -6982,7 +6929,7 @@ Name: 3, dtype: float64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#35745;&#31639;&#25351;&#26631;/&#21713;&#21464;&#37327;">&#35745;&#31639;&#25351;&#26631;/&#21713;&#21464;&#37327;<a class="anchor-link" href="#&#35745;&#31639;&#25351;&#26631;/&#21713;&#21464;&#37327;">&#182;</a></h1><p>一种常用的用于统计建模或机器学习的转换方式是：将分类变量（categorical variable）转换为“哑变量矩阵”(dummy matrix)或“指标矩阵”（indicator matrix）。</p>
@@ -9313,14 +9260,14 @@ Name: 0, dtype: object</pre>
   </div>
 </div>
 
-<h1 id="字符串操作"><a class="markdownIt-Anchor" href="#字符串操作"></a> 字符串操作</h1>
 
-<div class="notebook-border">
+
+<h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -9337,7 +9284,7 @@ Name: 0, dtype: object</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 </pre></div>
 
 </div>
@@ -9359,7 +9306,7 @@ Name: 0, dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Python有简单易用的字符串和文本处理功能。大部分文本运算直接做成了字符串对象的内置方法。当然还能用正则表达式。pandas对此进行了加强，能够对数组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。</p>
@@ -9368,7 +9315,7 @@ Name: 0, dtype: object</pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#23383;&#31526;&#20018;&#23545;&#35937;&#26041;&#27861;">&#23383;&#31526;&#20018;&#23545;&#35937;&#26041;&#27861;<a class="anchor-link" href="#&#23383;&#31526;&#20018;&#23545;&#35937;&#26041;&#27861;">&#182;</a></h1><p>对于大部分的字符串而言，内置的方法已经能够满足要求了。</p>
@@ -9696,7 +9643,7 @@ Name: 0, dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#27491;&#21017;&#34920;&#36798;&#24335;">&#27491;&#21017;&#34920;&#36798;&#24335;<a class="anchor-link" href="#&#27491;&#21017;&#34920;&#36798;&#24335;">&#182;</a></h1><p>正则表达式（regex）提供了一种灵活的在文本中搜索、匹配字符串的模式。用的是re模块。</p>
@@ -10113,7 +10060,7 @@ Ryan Username: ryan, Domain: yahoo, Suffix: com
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="pandas&#20013;&#30690;&#37327;&#21270;&#23383;&#31526;&#20018;&#20989;&#25968;">pandas&#20013;&#30690;&#37327;&#21270;&#23383;&#31526;&#20018;&#20989;&#25968;<a class="anchor-link" href="#pandas&#20013;&#30690;&#37327;&#21270;&#23383;&#31526;&#20018;&#20989;&#25968;">&#182;</a></h1><p>将字符串方法或正则表达式应用到一系列数据。常用的方法包括：</p>
@@ -10468,14 +10415,13 @@ dtype: object</pre>
   </div>
 </div>
 
-<h1 id="示例usda食品数据库"><a class="markdownIt-Anchor" href="#示例usda食品数据库"></a> 示例：usda食品数据库</h1>
 
-<div class="notebook-border">
+<h1 id="示例：usda食品数据库"><a href="#示例：usda食品数据库" class="headerlink" title="示例：usda食品数据库"></a>示例：usda食品数据库</h1><div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
       
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>《<a href="https://book.douban.com/subject/25779298/" target="_blank" rel="noopener">利用Python进行数据分析</a>》读书笔记。</p>
@@ -10492,7 +10438,7 @@ dtype: object</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
 <span class="kn">import</span> <span class="nn">json</span>
 </pre></div>
 
@@ -10515,7 +10461,7 @@ dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#25968;&#25454;&#21152;&#36733;">&#25968;&#25454;&#21152;&#36733;<a class="anchor-link" href="#&#25968;&#25454;&#21152;&#36733;">&#182;</a></h1>
@@ -10640,7 +10586,7 @@ Wing, meat and skin with breading",
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#25968;&#25454;&#20934;&#22791;">&#25968;&#25454;&#20934;&#22791;<a class="anchor-link" href="#&#25968;&#25454;&#20934;&#22791;">&#182;</a></h1>
@@ -10945,7 +10891,7 @@ Name: group, dtype: int64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#23558;&#25152;&#26377;&#33829;&#20859;&#25104;&#20998;&#25972;&#21512;&#21040;&#19968;&#20010;&#22823;&#34920;&#20013;">&#23558;&#25152;&#26377;&#33829;&#20859;&#25104;&#20998;&#25972;&#21512;&#21040;&#19968;&#20010;&#22823;&#34920;&#20013;<a class="anchor-link" href="#&#23558;&#25152;&#26377;&#33829;&#20859;&#25104;&#20998;&#25972;&#21512;&#21040;&#19968;&#20010;&#22823;&#34920;&#20013;">&#182;</a></h2>
@@ -11057,7 +11003,7 @@ Name: group, dtype: int64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#21435;&#37325;">&#21435;&#37325;<a class="anchor-link" href="#&#21435;&#37325;">&#182;</a></h2>
@@ -11106,7 +11052,7 @@ Name: group, dtype: int64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#20462;&#25972;">&#20462;&#25972;<a class="anchor-link" href="#&#20462;&#25972;">&#182;</a></h2>
@@ -11279,7 +11225,7 @@ Name: group, dtype: int64</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#25968;&#25454;&#36716;&#25442;">&#25968;&#25454;&#36716;&#25442;<a class="anchor-link" href="#&#25968;&#25454;&#36716;&#25442;">&#182;</a></h1>
@@ -11424,7 +11370,7 @@ Name: 30000, dtype: object</pre>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered">
-
+<!--{ { self.empty_in_prompt() } } -->
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="&#24314;&#27169;&#21644;&#35745;&#31639;">&#24314;&#27169;&#21644;&#35745;&#31639;<a class="anchor-link" href="#&#24314;&#27169;&#21644;&#35745;&#31639;">&#182;</a></h1>
@@ -11914,7 +11860,8 @@ AsPxJMpbzeyp9rWqfkgaAowGNpD0iqRj2tumOrINcBj+C3tSPL7b3kbVie7ASElTcKf7QTPr1Mdv
 PyN8EXhM0mRgLHCvmd3fzja1mDxmnCRJkiRJhyMjKEmSJEmSdDjSQUmSJEmSpMORDkqSJEmSJB2O
 dFCSJEmSJOlwpIOSJEmSJEmHIx2UJEmSJEk6HOmgJEmSJEnS4UgHJUmSJEmSDsf/B/H3kH4UoJHF
 AAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -12011,414 +11958,124 @@ Name: food, dtype: object</pre>
 </div>
 
 
-      
+
+
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/03/09/python_data_analysis6.html" rel="next" title="利用Python进行数据分析(6)：数据加载、存储与文件格式">
-                <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(6)：数据加载、存储与文件格式
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/15/python_data_analysis8.html" rel="prev" title="利用Python进行数据分析(8)：绘图和可视化">
-                利用Python进行数据分析(8)：绘图和可视化 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/09/python_data_analysis6.html" rel="prev" title="利用Python进行数据分析(6)：数据加载、存储与文件格式">
+      <i class="fa fa-chevron-left"></i> 利用Python进行数据分析(6)：数据加载、存储与文件格式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/03/15/python_data_analysis8.html" rel="next" title="利用Python进行数据分析(8)：绘图和可视化">
+      利用Python进行数据分析(8)：绘图和可视化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#合并数据集"><span class="nav-number">1.</span> <span class="nav-text"> 合并数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库风格的DataFrame合并"><span class="nav-number">2.</span> <span class="nav-text">数据库风格的DataFrame合并¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引上的合并"><span class="nav-number">3.</span> <span class="nav-text">索引上的合并¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缺失值的合并"><span class="nav-number">4.</span> <span class="nav-text">缺失值的合并¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重塑和轴向旋转"><span class="nav-number">5.</span> <span class="nav-text"> 重塑和轴向旋转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重塑层次化索引"><span class="nav-number">6.</span> <span class="nav-text">重塑层次化索引¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pivot:-将“长格式”转换为“宽格式”"><span class="nav-number">7.</span> <span class="nav-text">pivot: 将“长格式”转换为“宽格式”¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据转换"><span class="nav-number">8.</span> <span class="nav-text"> 数据转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#去除重复数据"><span class="nav-number">9.</span> <span class="nav-text">去除重复数据¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用函数或者映射(mapping)进行数据转换"><span class="nav-number">10.</span> <span class="nav-text">用函数或者映射(mapping)进行数据转换¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换值"><span class="nav-number">11.</span> <span class="nav-text">替换值¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重命名轴索引"><span class="nav-number">12.</span> <span class="nav-text">重命名轴索引¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#离散化和面元划分"><span class="nav-number">13.</span> <span class="nav-text">离散化和面元划分¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测和过滤离群点"><span class="nav-number">14.</span> <span class="nav-text">检测和过滤离群点¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排列和随机采样"><span class="nav-number">15.</span> <span class="nav-text">排列和随机采样¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算指标/哑变量"><span class="nav-number">16.</span> <span class="nav-text">计算指标/哑变量¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串操作"><span class="nav-number">17.</span> <span class="nav-text"> 字符串操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串对象方法"><span class="nav-number">18.</span> <span class="nav-text">字符串对象方法¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式"><span class="nav-number">19.</span> <span class="nav-text">正则表达式¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pandas中矢量化字符串函数"><span class="nav-number">20.</span> <span class="nav-text">pandas中矢量化字符串函数¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例usda食品数据库"><span class="nav-number">21.</span> <span class="nav-text"> 示例：usda食品数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据加载"><span class="nav-number">22.</span> <span class="nav-text">数据加载¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据准备"><span class="nav-number">23.</span> <span class="nav-text">数据准备¶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将所有营养成分整合到一个大表中"><span class="nav-number">23.1.</span> <span class="nav-text">将所有营养成分整合到一个大表中¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去重"><span class="nav-number">23.2.</span> <span class="nav-text">去重¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修整"><span class="nav-number">23.3.</span> <span class="nav-text">修整¶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据转换"><span class="nav-number">24.</span> <span class="nav-text">数据转换¶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建模和计算"><span class="nav-number">25.</span> <span class="nav-text">建模和计算¶</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2017/03/10/python_data_analysis7.html';
-          this.page.identifier = '2017/03/10/python_data_analysis7.html';
-          this.page.title = '利用Python进行数据分析(7)：数据规整化：清理、转换、合并、重塑';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -12433,24 +12090,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '6af0248f0473cf00212d5c25867583aa',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

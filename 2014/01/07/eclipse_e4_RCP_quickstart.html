@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="java,GUI," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="尽管至今为止，仍然处于孵化器阶段(Incubation Phase)，但是e4代表了Eclipse的未来。e4提供的新特性包括： 基于EMF的应用模型(Application Model)；依赖注入；基于CSS定义外观">
-<meta name="keywords" content="java,GUI">
+  <meta name="description" content="尽管至今为止，仍然处于孵化器阶段(Incubation Phase)，但是e4代表了Eclipse的未来。e4提供的新特性包括：基于EMF的应用模型(Application Model)；依赖注入；基于CSS定义外观">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eclipse e4 概览">
 <meta property="og:url" content="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="尽管至今为止，仍然处于孵化器阶段(Incubation Phase)，但是e4代表了Eclipse的未来。e4提供的新特性包括： 基于EMF的应用模型(Application Model)；依赖注入；基于CSS定义外观">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="尽管至今为止，仍然处于孵化器阶段(Incubation Phase)，但是e4代表了Eclipse的未来。e4提供的新特性包括：基于EMF的应用模型(Application Model)；依赖注入；基于CSS定义外观">
 <meta property="og:image" content="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart/e4_project.png">
 <meta property="og:image" content="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart/e4_product.png">
 <meta property="og:image" content="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart/e4_application.png">
@@ -98,58 +40,36 @@
 <meta property="og:image" content="http://holbrook.github.io/2014/01/07/images/e4/elements/partsashcontainer.png">
 <meta property="og:image" content="http://holbrook.github.io/2014/01/07/images/e4/elements/containerdata.png">
 <meta property="og:image" content="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart/e4_app_model.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2014-01-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="GUI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Eclipse e4 概览">
-<meta name="twitter:description" content="尽管至今为止，仍然处于孵化器阶段(Incubation Phase)，但是e4代表了Eclipse的未来。e4提供的新特性包括： 基于EMF的应用模型(Application Model)；依赖注入；基于CSS定义外观">
 <meta name="twitter:image" content="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart/e4_project.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart.html"/>
-
-
-
-
 
   <title>Eclipse e4 概览 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -158,213 +78,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">1.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用模型"><span class="nav-number">2.</span> <span class="nav-text">应用模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象描述"><span class="nav-number">2.1.</span> <span class="nav-text">抽象描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的可视化组件"><span class="nav-number">2.2.</span> <span class="nav-text">常用的可视化组件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入"><span class="nav-number">3.</span> <span class="nav-text">依赖注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向模型注入资源"><span class="nav-number">4.</span> <span class="nav-text">向模型注入资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义行为"><span class="nav-number">5.</span> <span class="nav-text">定义行为</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS样式"><span class="nav-number">6.</span> <span class="nav-text">CSS样式</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Eclipse e4 概览</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Eclipse e4 概览
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-07T00:00:00+08:00">
-                2014-01-07
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2014-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2014-01-07T00:00:00+08:00">2014-01-07</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2014/01/07/eclipse_e4_RCP_quickstart.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/07/eclipse_e4_RCP_quickstart.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -372,39 +326,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>尽管至今为止，仍然处于孵化器阶段(Incubation Phase)，但是e4代表了Eclipse的未来。e4提供的新特性包括：<br>
-基于EMF的应用模型(Application Model)；依赖注入；基于CSS定义外观</p>
+        <p> 尽管至今为止，仍然处于孵化器阶段(Incubation Phase)，但是e4代表了Eclipse的未来。e4提供的新特性包括：<br>基于EMF的应用模型(Application Model)；依赖注入；基于CSS定义外观</p>
 <a id="more"></a>
-<p>e4是位于底层的Equinox、EMF、SWT/JFace和上层的Eclipse应用(Plugin、RCP、RAP等)之间的一个应用开发平台。<br>
-从RCP的角度来说，e4的一个主要目标就是更轻松地编写和重用组件。<br>
-为了实现这个目标，与之前的Eclipse平台相比，e4带来的新特性主要包括：</p>
+
+<p>e4是位于底层的Equinox、EMF、SWT/JFace和上层的Eclipse应用(Plugin、RCP、RAP等)之间的一个应用开发平台。<br>从RCP的角度来说，e4的一个主要目标就是更轻松地编写和重用组件。<br>为了实现这个目标，与之前的Eclipse平台相比，e4带来的新特性主要包括：</p>
 <ul>
 <li>基于EMF的应用模型(Application Model)</li>
 <li>依赖注入</li>
 <li>基于CSS定义外观</li>
 </ul>
-<h1 id="快速开始"><a class="markdownIt-Anchor" href="#快速开始"></a> 快速开始</h1>
-<p>需要的环境和工具包括：</p>
+<h1 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h1><p>需要的环境和工具包括：</p>
 <ul>
 <li>Java &gt;= 1.7</li>
 <li>Eclipse &gt;= 4.3</li>
 <li><a href="https://marketplace.eclipse.org/content/enide-eclipse-boostrap-e4" target="_blank" rel="noopener">Enide - Eclipse bootstrap e4</a></li>
 <li><a href="http://www.eclipse.org/windowbuilder/" target="_blank" rel="noopener">WindowBuilder</a></li>
 </ul>
-<p>安装了Eclipse bootstrap e4插件之后，可以创建Eclipse 4 --&gt; Eclipse 4 Application Project。</p>
+<p>安装了Eclipse bootstrap e4插件之后，可以创建Eclipse 4 –&gt; Eclipse 4 Application Project。</p>
 <p>生成的目录结构如下：</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_project.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_project.png" class="">
+
 <p>其中，<code>*.product</code>文件是Eclipse插件项目的产品配置文件，可以以“E4Application”的方式运行：</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_product.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_product.png" class="">
+
 <p>在<code>*.product</code>文件上右键–&gt;Run As–&gt;Eclipse Application，就可以启动一个e4应用：</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_application.png">
-<p>整个工程可以导出(Export)为&quot;Eclipse Product&quot;，称为一个可以脱离Eclipse独立运行的、跨平台的RCP应用。</p>
-<h1 id="应用模型"><a class="markdownIt-Anchor" href="#应用模型"></a> 应用模型</h1>
-<p>好吧，到目前为止，e4所表现出来的功能与Eclipse 3.x相比没什么区别。但是请关注一下上面生成的<code>Application.e4xmi</code>文件。<br>
-该文件是e4中的应用模型文件。</p>
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_application.png" class="">
+
+<p>整个工程可以导出(Export)为”Eclipse Product”，称为一个可以脱离Eclipse独立运行的、跨平台的RCP应用。</p>
+<h1 id="应用模型"><a href="#应用模型" class="headerlink" title="应用模型"></a>应用模型</h1><p>好吧，到目前为止，e4所表现出来的功能与Eclipse 3.x相比没什么区别。但是请关注一下上面生成的<code>Application.e4xmi</code>文件。<br>该文件是e4中的应用模型文件。</p>
 <p>在 Eclipse 平台 UI 的早期版本中，workbench 被显式地硬编码来布局 workbench 窗口、workbench 页面、编辑器区域或视图堆栈。e4 引入了额外的一层，可将UI元素提取和抽象成一个模型。应用程序可以重新配置或扩展这个模型来制作不同的外观。这个模型也可被动态操纵；模型的改变可以立即反映出 UI 的变化。</p>
 <p>e4的模型的特性为：</p>
 <ul>
@@ -412,39 +361,38 @@
 <li>可以在运行时(runtime)更改</li>
 <li>支持扩展</li>
 </ul>
-<h2 id="抽象描述"><a class="markdownIt-Anchor" href="#抽象描述"></a> 抽象描述</h2>
-<p>e4的应用模型基于抽象描述——应用模型只定义了需要哪些组件，而不关注这些组件是如何实现的。e4应用模型实现了应用模型和实际视图(Views)的分离。</p>
+<h2 id="抽象描述"><a href="#抽象描述" class="headerlink" title="抽象描述"></a>抽象描述</h2><p>e4的应用模型基于抽象描述——应用模型只定义了需要哪些组件，而不关注这些组件是如何实现的。e4应用模型实现了应用模型和实际视图(Views)的分离。</p>
 <p>由于应用模型没有绑定的具体实现，这意味着一种可能：同一个应用模型可以用各种界面技术（如SWT/JFace, Swing甚至web，Flash）来实现。</p>
 <p>模型中即描述了可视的组件，如 windows, parts (views 和 editors), menus, toolbars等，也可以描述非可视化组件如handlers, commands , key bindings等。所有能够在模型中描述的组件（包括可视化组件和非可视化组件），都实现了MApplicationElement接口，如下图：</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_MApplicationElement.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_MApplicationElement.png" class="">
+
 <p>用Eclipse 4 model editor打开<code>Application.e4xmi</code>，可以看到如下的视图：</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_app_model.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_app_model.png" class="">
+
 <p><code>Application.e4xmi</code>是基于EMF定义的。其定义文件(.ecore）位于 org.eclipse.e4.ui.model.workbench 插件的model文件夹中。</p>
-<h2 id="常用的可视化组件"><a class="markdownIt-Anchor" href="#常用的可视化组件"></a> 常用的可视化组件</h2>
-<p>e4中的可视化组件描述类都来自<code>MUIElement</code>，该接口当然也继承了<code>MApplicationElement</code>接口。<br>
-常用的可视化组件包括：</p>
+<h2 id="常用的可视化组件"><a href="#常用的可视化组件" class="headerlink" title="常用的可视化组件"></a>常用的可视化组件</h2><p>e4中的可视化组件描述类都来自<code>MUIElement</code>，该接口当然也继承了<code>MApplicationElement</code>接口。<br>常用的可视化组件包括：</p>
 <ul>
-<li>
-<p>Window</p>
+<li><p>Window</p>
 <p>窗口。一个Eclipse 应用可以包含一个或多个窗口。</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/window.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/window.png" class="">
 </li>
-<li>
-<p>Parts</p>
+<li><p>Parts</p>
 <p>e4中不区分Views和editors，而是统一定义为Parts。Part能够放置在用户界面的任何位置，每个Part可以有自己的菜单、工具条，可以出来自己的模型数据。</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/part.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/part.png" class="">
+
+
 </li>
-<li>
-<p>Perspective</p>
-<p>Perspective是Parts的容器，可以管理内部Part的布局。一个应用可以有多个不同的Perspective(不能同时出现)，以适应不同的应用场景。<br>
-比如，Eclipse IDE提供了Java、Java EE、Debug等Perspective。</p>
+</ul>
+<ul>
+<li><p>Perspective</p>
+<p>Perspective是Parts的容器，可以管理内部Part的布局。一个应用可以有多个不同的Perspective(不能同时出现)，以适应不同的应用场景。<br>比如，Eclipse IDE提供了Java、Java EE、Debug等Perspective。</p>
 <p>在应用模型中，为了管理方便，还可以将Perspective放置到Perspective Stack中。</p>
 </li>
-<li>
-<p>PartStack 和 PartSashContainer</p>
+<li><p>PartStack 和 PartSashContainer</p>
 <p>Part可以直接用于Window或Perspective中，也可以将其分组。使用PartStack 和 PartSashContainer可以实现Part的分组和布局管理。</p>
 <p>PartStack可以容纳多个Part，每次只能显示其中一个Part，以页签(tab)的形式进行切换，而PartSashContainer以水平或竖直布局的方式同时显示多个Part。如下图：</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/partstack.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/partstack.png" class="">
+
 <p>通过PartStack和PartSashContainer的组合，能够创建出非常复杂的布局：</p>
 <p><img src="images/e4/elements/partsashcontainer.png" alt="复杂布局"></p>
 <p>PartStack 和 PartSashContainer中的子组件，可以设置“容器数据(Container Data)”，作为决定自己在容器中布局的参数。</p>
@@ -452,37 +400,47 @@
 <p>需要注意的是，容器中的所有元素要么都设置容器数据，要么都不设置，否则会出现异常。</p>
 </li>
 </ul>
-<h1 id="依赖注入"><a class="markdownIt-Anchor" href="#依赖注入"></a> 依赖注入</h1>
-<p>基于上一节的内容，我们可以脱离UI组件的实现，直接定义出应用模型。</p>
+<h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><p>基于上一节的内容，我们可以脱离UI组件的实现，直接定义出应用模型。</p>
 <p>同样的，当我们实现一个UI组件的时候，也完全无需考虑应用模型的存在。在e4中，View甚至无需实现任何接口，而是通过依赖注入的方式获取UI组件的上下文环境。可以使用<a href="/2013/12/31/jsr330.html">JSR330</a>中定义的<code>@Inject</code>注解，也可以使用e4的<code>org.eclipse.e4.ui.di</code>包中定义的<code>@Focus</code>、<code>@Persist</code>等注解。比如：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SamplePart</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> Text txtInput;</span><br><span class="line">	<span class="keyword">private</span> TableViewer tableViewer;</span><br><span class="line"></span><br><span class="line">	@Inject</span><br><span class="line">	<span class="keyword">private</span> MDirtyable dirty;</span><br><span class="line"></span><br><span class="line">	@PostConstruct</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createComposite</span>(<span class="params">Composite parent</span>) </span>&#123;</span><br><span class="line">		parent.setLayout(<span class="keyword">new</span> GridLayout(<span class="number">1</span>, <span class="literal">false</span>));</span><br><span class="line"></span><br><span class="line">		txtInput = <span class="keyword">new</span> Text(parent, SWT.BORDER);</span><br><span class="line">		txtInput.setMessage(<span class="string">"Enter text to mark part as dirty"</span>);</span><br><span class="line">		txtInput.addModifyListener(<span class="keyword">new</span> ModifyListener() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">modifyText</span>(<span class="params">ModifyEvent e</span>) </span>&#123;</span><br><span class="line">				dirty.setDirty(<span class="literal">true</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		txtInput.setLayoutData(<span class="keyword">new</span> GridData(GridData.FILL_HORIZONTAL));</span><br><span class="line"></span><br><span class="line">		tableViewer = <span class="keyword">new</span> TableViewer(parent);</span><br><span class="line"></span><br><span class="line">		tableViewer.<span class="keyword">add</span>(<span class="string">"Sample item 1"</span>);</span><br><span class="line">		tableViewer.<span class="keyword">add</span>(<span class="string">"Sample item 2"</span>);</span><br><span class="line">		tableViewer.<span class="keyword">add</span>(<span class="string">"Sample item 3"</span>);</span><br><span class="line">		tableViewer.<span class="keyword">add</span>(<span class="string">"Sample item 4"</span>);</span><br><span class="line">		tableViewer.<span class="keyword">add</span>(<span class="string">"Sample item 5"</span>);</span><br><span class="line">		tableViewer.getTable().setLayoutData(<span class="keyword">new</span> GridData(GridData.FILL_BOTH));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Focus</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFocus</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		tableViewer.getTable().setFocus();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Persist</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		dirty.setDirty(<span class="literal">false</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public class SamplePart &#123;</span><br><span class="line">	private Text txtInput;</span><br><span class="line">	private TableViewer tableViewer;</span><br><span class="line"></span><br><span class="line">	@Inject</span><br><span class="line">	private MDirtyable dirty;</span><br><span class="line"></span><br><span class="line">	@PostConstruct</span><br><span class="line">	public void createComposite(Composite parent) &#123;</span><br><span class="line">		parent.setLayout(new GridLayout(1, false));</span><br><span class="line"></span><br><span class="line">		txtInput &#x3D; new Text(parent, SWT.BORDER);</span><br><span class="line">		txtInput.setMessage(&quot;Enter text to mark part as dirty&quot;);</span><br><span class="line">		txtInput.addModifyListener(new ModifyListener() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void modifyText(ModifyEvent e) &#123;</span><br><span class="line">				dirty.setDirty(true);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		txtInput.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));</span><br><span class="line"></span><br><span class="line">		tableViewer &#x3D; new TableViewer(parent);</span><br><span class="line"></span><br><span class="line">		tableViewer.add(&quot;Sample item 1&quot;);</span><br><span class="line">		tableViewer.add(&quot;Sample item 2&quot;);</span><br><span class="line">		tableViewer.add(&quot;Sample item 3&quot;);</span><br><span class="line">		tableViewer.add(&quot;Sample item 4&quot;);</span><br><span class="line">		tableViewer.add(&quot;Sample item 5&quot;);</span><br><span class="line">		tableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Focus</span><br><span class="line">	public void setFocus() &#123;</span><br><span class="line">		tableViewer.getTable().setFocus();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Persist</span><br><span class="line">	public void save() &#123;</span><br><span class="line">		dirty.setDirty(false);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>由于UI组件与应用模型完全解耦，可以对UI组件单独进行测试：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] <span class="keyword">args</span>) &#123;</span><br><span class="line">	<span class="keyword">Display</span> <span class="keyword">display</span> = new <span class="keyword">Display</span>();</span><br><span class="line">	  <span class="keyword">Shell</span> <span class="keyword">shell</span> = new <span class="keyword">Shell</span>(<span class="keyword">display</span>);</span><br><span class="line">	  <span class="keyword">shell</span>.setLayout(new FillLayout());</span><br><span class="line">	  SamplePart part = new SamplePart();</span><br><span class="line">	  part.createComposite(<span class="keyword">shell</span>);</span><br><span class="line">	  <span class="keyword">shell</span>.<span class="keyword">open</span>();</span><br><span class="line">	  <span class="keyword">while</span>( !<span class="keyword">shell</span>.isDisposed() ) &#123;</span><br><span class="line">	      <span class="keyword">if</span>( ! <span class="keyword">display</span>.readAndDispatch() ) &#123;</span><br><span class="line">	        <span class="keyword">display</span>.<span class="keyword">sleep</span>();</span><br><span class="line">	      &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="向模型注入资源"><a class="markdownIt-Anchor" href="#向模型注入资源"></a> 向模型注入资源</h1>
-<p>前面两节分别介绍了创建应用模型和UI组件，接下来就是将二者结合起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">	Display display &#x3D; new Display();</span><br><span class="line">	  Shell shell &#x3D; new Shell(display);</span><br><span class="line">	  shell.setLayout(new FillLayout());</span><br><span class="line">	  SamplePart part &#x3D; new SamplePart();</span><br><span class="line">	  part.createComposite(shell);</span><br><span class="line">	  shell.open();</span><br><span class="line">	  while( !shell.isDisposed() ) &#123;</span><br><span class="line">	      if( ! display.readAndDispatch() ) &#123;</span><br><span class="line">	        display.sleep();</span><br><span class="line">	      &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="向模型注入资源"><a href="#向模型注入资源" class="headerlink" title="向模型注入资源"></a>向模型注入资源</h1><p>前面两节分别介绍了创建应用模型和UI组件，接下来就是将二者结合起来。</p>
 <p>在应用模型中，使用URI注入外部资源。比如，一个Part的Icon、Class都是通过URI注入的。这些资源是延迟加载(lazy loaded)的——只有显示某个可视化组件时，才加载其需要的资源。</p>
 <p>模型使用的资源即可以在运行时注入或更改，也可以在Eclipse 4 model editor中指定初始的资源：</p>
-<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_app_model.png">
+<img src="/2014/01/07/eclipse_e4_RCP_quickstart/e4_app_model.png" class="">
+
 <p>任何形式的URI都可以作为资源使用。比如：<code>http://thinkinside.tk/assets/ico/favicon.png</code>。</p>
 <p>对于Eclipse的插件环境，可以使用应用模型所在的插件(bundle)或来自其他插件的资源，分别使用</p>
-<p><code>bundleclass://Bundle-SymbolicName/ package.classname</code> 和</p>
-<p><code>platform:/plugin/Bundle-SymbolicName/ path/filename.extension</code>的形式。</p>
+<p>  <code>bundleclass://Bundle-SymbolicName/ package.classname</code> 和</p>
+<p>  <code>platform:/plugin/Bundle-SymbolicName/ path/filename.extension</code>的形式。</p>
 <p>比如：</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">bundleclass:</span><span class="comment">//tangle-app/parts.SamplePart</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">platform:</span><span class="meta-keyword">/plugin/</span>test<span class="meta-keyword">/icons/</span>save_edit.gif</span><br></pre></td></tr></table></figure>
-<h1 id="定义行为"><a class="markdownIt-Anchor" href="#定义行为"></a> 定义行为</h1>
-<p>e4的应用模型中，通过<code>Handler</code>定义行为。可视化组件和<code>Handler</code>之间通过<code>Command</code>关联。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bundleclass:&#x2F;&#x2F;tangle-app&#x2F;parts.SamplePart</span><br><span class="line"></span><br><span class="line">platform:&#x2F;plugin&#x2F;test&#x2F;icons&#x2F;save_edit.gif</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+<h1 id="定义行为"><a href="#定义行为" class="headerlink" title="定义行为"></a>定义行为</h1><p>e4的应用模型中，通过<code>Handler</code>定义行为。可视化组件和<code>Handler</code>之间通过<code>Command</code>关联。</p>
 <p>与GUI组件一样，Handler的定义和实现也是分离的。在应用模型中定义的<code>Handler</code>通过Class URI关联到具体的实现类。我们可以单独编写一个<code>Handler</code>，无需实现任何接口：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Execute</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Shell shell)</span> </span>&#123;</span><br><span class="line">		MessageDialog.openInformation(shell, <span class="string">""</span>, <span class="string">"Hello World!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="meta">@CanExecute</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canExecute</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class MyHandler &#123;</span><br><span class="line">	@Execute</span><br><span class="line">	public void execute(Shell shell) &#123;</span><br><span class="line">		MessageDialog.openInformation(shell, &quot;&quot;, &quot;Hello World!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	@CanExecute</span><br><span class="line">	public boolean canExecute() &#123;</span><br><span class="line"></span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>其中，<code>canExecute()</code>方法是可选的。该方法定义了<code>execute()</code>方法是否可以被执行的一个开关。</p>
 <p>由于<code>Handler</code>与应用模型完全解耦，可以单独对<code>Handler</code>进行测试：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] <span class="keyword">args</span>) &#123;</span><br><span class="line">  <span class="keyword">Display</span> <span class="keyword">display</span> = new <span class="keyword">Display</span>();</span><br><span class="line">  <span class="keyword">Shell</span> <span class="keyword">shell</span> = new <span class="keyword">Shell</span>(<span class="keyword">display</span>);</span><br><span class="line">  <span class="keyword">shell</span>.<span class="keyword">open</span>();</span><br><span class="line">  MyHandler.execute(<span class="keyword">shell</span>);</span><br><span class="line">  <span class="keyword">while</span>( !<span class="keyword">shell</span>.isDisposed() ) &#123;</span><br><span class="line">      <span class="keyword">if</span>( ! <span class="keyword">display</span>.readAndDispatch() ) &#123;</span><br><span class="line">        <span class="keyword">display</span>.<span class="keyword">sleep</span>();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最简单的事件处理是菜单/工具条的处理。使用模型编辑器，可以在图形界面中很容易的将<code>Handler</code>和菜单项都关联到同一个<code>Commnad</code>，<br>
-即实现了行为的定义。这里不做截图，定义好的<code>Application.e4xmi</code>中相关内容可能是：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--定义一个Command--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">commands</span> <span class="attr">xmi:id</span>=<span class="string">"_4mWoMHcyEeOYmvSF-9z33Q"</span> <span class="attr">elementId</span>=<span class="string">"holbrook.tangle.demo.myCommand"</span> <span class="attr">commandName</span>=<span class="string">"测试Cmd"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--定义一个Handler，并关联到Command--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">handlers</span> <span class="attr">xmi:id</span>=<span class="string">"_J-fYsHczEeOYmvSF-9z33Q"</span> <span class="attr">elementId</span>=<span class="string">"holbrook.tangle.demo.myHandler"</span> <span class="attr">contributionURI</span>=<span class="string">"bundleclass://tangle-app/handlers.MyHandler"</span> <span class="attr">command</span>=<span class="string">"_4mWoMHcyEeOYmvSF-9z33Q"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--定义一个菜单项，也关联到Command--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mainMenu</span> <span class="attr">xmi:id</span>=<span class="string">"_FfY8UHbUEeOYmvSF-9z33Q"</span> <span class="attr">elementId</span>=<span class="string">"tangle-app.menu.0"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">children</span> <span class="attr">xsi:type</span>=<span class="string">"menu:Menu"</span> <span class="attr">xmi:id</span>=<span class="string">"_OwboQHc0EeOYmvSF-9z33Q"</span> <span class="attr">elementId</span>=<span class="string">"tangle-app.menu.1"</span> <span class="attr">label</span>=<span class="string">"测试菜单"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">children</span> <span class="attr">xsi:type</span>=<span class="string">"menu:HandledMenuItem"</span> <span class="attr">xmi:id</span>=<span class="string">"_TwOjEHc0EeOYmvSF-9z33Q"</span> <span class="attr">elementId</span>=<span class="string">"tangle-app.handledmenuitem.0"</span> <span class="attr">label</span>=<span class="string">"测试Cmd"</span> <span class="attr">command</span>=<span class="string">"_4mWoMHcyEeOYmvSF-9z33Q"</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">children</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mainMenu</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="css样式"><a class="markdownIt-Anchor" href="#css样式"></a> CSS样式</h1>
-<p>e4将桌面应用和Web应用的一些特性融合在了一起，比如，可以通过CSS定义桌面应用的外观。</p>
-<p>使用Eclipse bootstrap e4创建的Eclipse 4 Application Project，会包含一个<code>css/default.css</code>的空文件。<br>
-编辑这个文件就可以修改应用的外观。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">  Display display &#x3D; new Display();</span><br><span class="line">  Shell shell &#x3D; new Shell(display);</span><br><span class="line">  shell.open();</span><br><span class="line">  MyHandler.execute(shell);</span><br><span class="line">  while( !shell.isDisposed() ) &#123;</span><br><span class="line">      if( ! display.readAndDispatch() ) &#123;</span><br><span class="line">        display.sleep();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最简单的事件处理是菜单/工具条的处理。使用模型编辑器，可以在图形界面中很容易的将<code>Handler</code>和菜单项都关联到同一个<code>Commnad</code>，<br>即实现了行为的定义。这里不做截图，定义好的<code>Application.e4xmi</code>中相关内容可能是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--定义一个Command--&gt;</span><br><span class="line">&lt;commands xmi:id&#x3D;&quot;_4mWoMHcyEeOYmvSF-9z33Q&quot; elementId&#x3D;&quot;holbrook.tangle.demo.myCommand&quot; commandName&#x3D;&quot;测试Cmd&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--定义一个Handler，并关联到Command--&gt;</span><br><span class="line">&lt;handlers xmi:id&#x3D;&quot;_J-fYsHczEeOYmvSF-9z33Q&quot; elementId&#x3D;&quot;holbrook.tangle.demo.myHandler&quot; contributionURI&#x3D;&quot;bundleclass:&#x2F;&#x2F;tangle-app&#x2F;handlers.MyHandler&quot; command&#x3D;&quot;_4mWoMHcyEeOYmvSF-9z33Q&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--定义一个菜单项，也关联到Command--&gt;</span><br><span class="line">&lt;mainMenu xmi:id&#x3D;&quot;_FfY8UHbUEeOYmvSF-9z33Q&quot; elementId&#x3D;&quot;tangle-app.menu.0&quot;&gt;</span><br><span class="line">     &lt;children xsi:type&#x3D;&quot;menu:Menu&quot; xmi:id&#x3D;&quot;_OwboQHc0EeOYmvSF-9z33Q&quot; elementId&#x3D;&quot;tangle-app.menu.1&quot; label&#x3D;&quot;测试菜单&quot;&gt;</span><br><span class="line">       &lt;children xsi:type&#x3D;&quot;menu:HandledMenuItem&quot; xmi:id&#x3D;&quot;_TwOjEHc0EeOYmvSF-9z33Q&quot; elementId&#x3D;&quot;tangle-app.handledmenuitem.0&quot; label&#x3D;&quot;测试Cmd&quot; command&#x3D;&quot;_4mWoMHcyEeOYmvSF-9z33Q&quot;&#x2F;&gt;</span><br><span class="line">     &lt;&#x2F;children&gt;</span><br><span class="line">   &lt;&#x2F;mainMenu&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="CSS样式"><a href="#CSS样式" class="headerlink" title="CSS样式"></a>CSS样式</h1><p>e4将桌面应用和Web应用的一些特性融合在了一起，比如，可以通过CSS定义桌面应用的外观。</p>
+<p>使用Eclipse bootstrap e4创建的Eclipse 4 Application Project，会包含一个<code>css/default.css</code>的空文件。<br>编辑这个文件就可以修改应用的外观。</p>
 <p>在e4中，CSS选择器使用<code>type#id.class</code>的格式。其中：</p>
 <ul>
 <li>type：对应SWT组件类（如Button、Composite等）</li>
@@ -490,421 +448,130 @@
 </ul>
 <p>一些映射关系可以参考<a href="http://wiki.eclipse.org/E4/CSS/SWT_Mapping" target="_blank" rel="noopener">这里</a></p>
 <p>下面是一个CSS的例子：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Text</span> &#123;</span><br><span class="line">    <span class="attribute">font</span>: Verdana <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Text &#123;</span><br><span class="line">    font: Verdana 15px;</span><br><span class="line">    color: red;</span><br><span class="line">    background-color: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>默认情况下，该CSS就会生效。因为在<code>plugin.xml</code>中，已经指定了CSS的扩展点：</p>
+
 
 <p>更灵活的使用CSS是通过主题管理器。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-            <a href="/tags/GUI/" rel="tag"># GUI</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2014/01/06/integration_tests_within_spring.html" rel="next" title="Spring对集成测试的支持">
-                <i class="fa fa-chevron-left"></i> Spring对集成测试的支持
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/GUI/" rel="tag"># GUI</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html" rel="prev" title="Tycho：用Maven构建Eclipse Plugin项目">
-                Tycho：用Maven构建Eclipse Plugin项目 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2014/01/06/integration_tests_within_spring.html" rel="prev" title="Spring对集成测试的支持">
+      <i class="fa fa-chevron-left"></i> Spring对集成测试的支持
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2014/01/08/build_osgi_bundle_with_tycho_maven_plugin.html" rel="next" title="Tycho：用Maven构建Eclipse Plugin项目">
+      Tycho：用Maven构建Eclipse Plugin项目 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">1.</span> <span class="nav-text"> 快速开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用模型"><span class="nav-number">2.</span> <span class="nav-text"> 应用模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象描述"><span class="nav-number">2.1.</span> <span class="nav-text"> 抽象描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的可视化组件"><span class="nav-number">2.2.</span> <span class="nav-text"> 常用的可视化组件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入"><span class="nav-number">3.</span> <span class="nav-text"> 依赖注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向模型注入资源"><span class="nav-number">4.</span> <span class="nav-text"> 向模型注入资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义行为"><span class="nav-number">5.</span> <span class="nav-text"> 定义行为</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#css样式"><span class="nav-number">6.</span> <span class="nav-text"> CSS样式</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2014/01/07/eclipse_e4_RCP_quickstart.html';
-          this.page.identifier = '2014/01/07/eclipse_e4_RCP_quickstart.html';
-          this.page.title = 'Eclipse e4 概览';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -919,24 +586,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '48bcdef3f227e7d6d3a9c9d5d3f2689b',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

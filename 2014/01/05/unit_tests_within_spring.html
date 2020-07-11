@@ -1,143 +1,63 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="spring,测试," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="功能测试的目的首先是为了保证软件功能的正确性，其次是为了保证软件的质量。Spring提供了专门的测试模块用于简化单元测试和集成测试。">
-<meta name="keywords" content="spring,测试">
+  <meta name="description" content="功能测试的目的首先是为了保证软件功能的正确性，其次是为了保证软件的质量。Spring提供了专门的测试模块用于简化单元测试和集成测试。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring对单元测试的支持">
 <meta property="og:url" content="http://holbrook.github.io/2014/01/05/unit_tests_within_spring.html">
 <meta property="og:site_name" content="心内求法">
 <meta property="og:description" content="功能测试的目的首先是为了保证软件功能的正确性，其次是为了保证软件的质量。Spring提供了专门的测试模块用于简化单元测试和集成测试。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2014-01-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring对单元测试的支持">
-<meta name="twitter:description" content="功能测试的目的首先是为了保证软件功能的正确性，其次是为了保证软件的质量。Spring提供了专门的测试模块用于简化单元测试和集成测试。">
+
+<link rel="canonical" href="http://holbrook.github.io/2014/01/05/unit_tests_within_spring.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2014/01/05/unit_tests_within_spring.html"/>
-
-
-
-
 
   <title>Spring对单元测试的支持 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +66,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单元测试和集成测试"><span class="nav-number">1.</span> <span class="nav-text">单元测试和集成测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring对单元测试的支持"><span class="nav-number">2.</span> <span class="nav-text">Spring对单元测试的支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring单元测试实例"><span class="nav-number">3.</span> <span class="nav-text">Spring单元测试实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖库"><span class="nav-number">3.1.</span> <span class="nav-text">依赖库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久层单元测试"><span class="nav-number">3.2.</span> <span class="nav-text">持久层单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务层单元测试"><span class="nav-number">3.3.</span> <span class="nav-text">业务层单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#展现层单元测试"><span class="nav-number">3.4.</span> <span class="nav-text">展现层单元测试</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2014/01/05/unit_tests_within_spring.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Spring对单元测试的支持</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Spring对单元测试的支持
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-05T00:00:00+08:00">
-                2014-01-05
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件工程/" itemprop="url" rel="index">
-                    <span itemprop="name">软件工程</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2014-01-05 00:00:00" itemprop="dateCreated datePublished" datetime="2014-01-05T00:00:00+08:00">2014-01-05</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2014/01/05/unit_tests_within_spring.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/05/unit_tests_within_spring.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,471 +314,168 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>功能测试的目的首先是为了保证软件功能的正确性，其次是为了保证软件的质量。Spring提供了专门的测试模块用于简化单元测试和集成测试。</p>
 <a id="more"></a>
+
 <p>功能测试的目的首先是为了保证软件功能的正确性，其次是为了保证软件的质量。测试相当重要，甚至有人提出了“测试驱动开发”。“测试驱动开发”通常会与“面向接口编程”相结合。</p>
 <p>Spring提供了专门的测试模块用于简化单元测试和集成测试。</p>
-<h1 id="单元测试和集成测试"><a class="markdownIt-Anchor" href="#单元测试和集成测试"></a> 单元测试和集成测试</h1>
-<p>单元测试是最细粒度的测试，即具有原子性，通常测试的是某个功能（如测试类中的某个方法的功能）。在单元测试中，对于所依赖的对象，<br>
-会构建对应的Mock对象。一般来说，只有复杂的功能需要进行单元测试，而一些简单的功能（如数据访问层的CRUD）没有必要花费时间进行单元测试。</p>
+<h1 id="单元测试和集成测试"><a href="#单元测试和集成测试" class="headerlink" title="单元测试和集成测试"></a>单元测试和集成测试</h1><p>单元测试是最细粒度的测试，即具有原子性，通常测试的是某个功能（如测试类中的某个方法的功能）。在单元测试中，对于所依赖的对象，<br>会构建对应的Mock对象。一般来说，只有复杂的功能需要进行单元测试，而一些简单的功能（如数据访问层的CRUD）没有必要花费时间进行单元测试。</p>
 <p>集成测试是在单元测试之上，通常是将一个或多个已进行过单元测试的组件组合起来完成的。集成测试中一般不会出现Mock对象，而是使用真实的接口实现。</p>
-<h1 id="spring对单元测试的支持"><a class="markdownIt-Anchor" href="#spring对单元测试的支持"></a> Spring对单元测试的支持</h1>
-<p>Spring IoC容器对对象没有入侵性，所以单元测试无需依赖Spring容器，只要简单的实例化对象、注入依赖的Mock对象，然后测试相应方法即可。</p>
+<h1 id="Spring对单元测试的支持"><a href="#Spring对单元测试的支持" class="headerlink" title="Spring对单元测试的支持"></a>Spring对单元测试的支持</h1><p>Spring IoC容器对对象没有入侵性，所以单元测试无需依赖Spring容器，只要简单的实例化对象、注入依赖的Mock对象，然后测试相应方法即可。</p>
 <p>Spring对单元测试提供如下支持：</p>
 <ul>
-<li>
-<p>Mock对象</p>
+<li><p>Mock对象</p>
 <p>在<code>org.springframework.mock</code>包下面，提供了<code>env</code>、<code>jndi</code>、<code>web</code>、<code>web.portlet</code>等子包，可以用于简化Mock对象的创建。使得无需依赖特定的容器即可完成测试。</p>
 </li>
-<li>
-<p>工具类</p>
+<li><p>工具类</p>
 <p>在<code>org.springframework.test.util</code>包下面，有一些工具类可以简化测试代码的编写；<code>SimpleJdbcTestUtils</code>能读取一个sql脚本文件并执行来简化SQL的执行，还提供了如清空表、统计表中行数的简便方法来简化测试代码的编写。</p>
 </li>
 </ul>
-<h1 id="spring单元测试实例"><a class="markdownIt-Anchor" href="#spring单元测试实例"></a> Spring单元测试实例</h1>
-<h2 id="依赖库"><a class="markdownIt-Anchor" href="#依赖库"></a> 依赖库</h2>
-<p>用Spring进行测试，需要依赖spring-test、junit, jmock等库。Maven配置如下：</p>
-<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>4.8.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jmock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmock-script<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;jmock.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jmock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmock-legacy<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;jmock.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jmock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmock-junit4<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;jmock.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jmock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmock<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;jmock.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;spring.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="持久层单元测试"><a class="markdownIt-Anchor" href="#持久层单元测试"></a> 持久层单元测试</h2>
-<p>持久层的单元测试，是测试DAO对象的行为：</p>
+<h1 id="Spring单元测试实例"><a href="#Spring单元测试实例" class="headerlink" title="Spring单元测试实例"></a>Spring单元测试实例</h1><h2 id="依赖库"><a href="#依赖库" class="headerlink" title="依赖库"></a>依赖库</h2><p>用Spring进行测试，需要依赖spring-test、junit, jmock等库。Maven配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> &lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;4.8.2&lt;&#x2F;version&gt;</span><br><span class="line">&lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line"> &lt;&#x2F;dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.jmock&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jmock-script&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jmock.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">&lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line"> &lt;&#x2F;dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.jmock&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jmock-legacy&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jmock.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">&lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line"> &lt;&#x2F;dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.jmock&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jmock-junit4&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jmock.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">&lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line"> &lt;&#x2F;dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.jmock&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jmock&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jmock.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">&lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line"> &lt;&#x2F;dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;spring-test&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;spring.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">&lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line"> &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="持久层单元测试"><a href="#持久层单元测试" class="headerlink" title="持久层单元测试"></a>持久层单元测试</h2><p>持久层的单元测试，是测试DAO对象的行为：</p>
 <ul>
 <li>是否正确与数据库交互</li>
 <li>是否发送并执行了正确的SQL</li>
 <li>SQL执行成功后是否正确的组装了业务逻辑层需要的数据</li>
 </ul>
 <p>一般来说，DAO中简单的CRUD功能无需单元测试，只有相当复杂的方法才有必要写单元测试。</p>
-<p>而且，由于通过Mock对象模拟对数据库的访问，没有真正与数据库交互，持久层的单元测试其实没有意义。<br>
-下面的例子只是为了演示，实际项目中通常通过继承测试来测试持久层。</p>
+<p>而且，由于通过Mock对象模拟对数据库的访问，没有真正与数据库交互，持久层的单元测试其实没有意义。<br>下面的例子只是为了演示，实际项目中通常通过继承测试来测试持久层。</p>
 <p>例子：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoodsHibernateDaoUnitTest</span> &#123;</span></span><br><span class="line">    <span class="comment">//1、Mock对象上下文，用于创建Mock对象</span></span><br><span class="line">    <span class="comment">// Mockery是JMock的核心类，其mock()方法可以创建接口或类的Mock对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Mockery context = <span class="keyword">new</span> Mockery() &#123; &#123;</span><br><span class="line">        <span class="comment">//1.1、表示可以支持Mock非接口类，默认只支持Mock接口</span></span><br><span class="line">        setImposteriser(ClassImposteriser.INSTANCE);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">    <span class="comment">//2、Mock HibernateTemplate类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HibernateTemplate mockHibernateTemplate = context.mock(HibernateTemplate.<span class="keyword">class</span>);</span><br><span class="line">    <span class="keyword">private</span> IGoodsDao goodsDao = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setUp() &#123;</span><br><span class="line">        <span class="comment">//3、创建IGoodsDao实现</span></span><br><span class="line">        GoodsHibernateDao goodsDaoTemp = <span class="keyword">new</span> GoodsHibernateDao();</span><br><span class="line">        <span class="comment">//4、通过ReflectionTestUtils注入需要的非public字段数据</span></span><br><span class="line">        ReflectionTestUtils.setField(goodsDaoTemp, <span class="string">"entityClass"</span>, GoodsModel.<span class="keyword">class</span>);</span><br><span class="line">        <span class="comment">//5、注入mockHibernateTemplate对象</span></span><br><span class="line">        goodsDaoTemp.setHibernateTemplate(mockHibernateTemplate);</span><br><span class="line">        <span class="comment">//6、赋值给我们要使用的接口</span></span><br><span class="line">        goodsDao = goodsDaoTemp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> testSave () &#123;</span><br><span class="line">	    <span class="comment">//7、创建需要的Model数据</span></span><br><span class="line">	    <span class="keyword">final</span> GoodsModel expected = <span class="keyword">new</span> GoodsModel();</span><br><span class="line">	    <span class="comment">//8、定义预期行为，并在后边来验证预期行为是否正确</span></span><br><span class="line">	    context.checking(<span class="keyword">new</span> org.jmock.Expectations() &#123;</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//9、表示需要调用且只调用一次mockHibernateTemplate的get方法，</span></span><br><span class="line">	            <span class="comment">//且get方法参数为(GoodsModel.class, 1)，并将返回goods</span></span><br><span class="line">	            one(mockHibernateTemplate).get(GoodsModel.<span class="keyword">class</span>, <span class="number">1</span>);</span><br><span class="line">	            will(returnValue(expected));</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    <span class="comment">//10、调用goodsDao的get方法，在内部实现中将委托给</span></span><br><span class="line">	    <span class="comment">//getHibernateTemplate().get(this.entityClass, id);</span></span><br><span class="line">	    <span class="comment">//因此按照第8步定义的预期行为将返回goods</span></span><br><span class="line">	    GoodsModel actual = goodsDao.get(<span class="number">1</span>);</span><br><span class="line">	    <span class="comment">//11、来验证第8步定义的预期行为是否调用了</span></span><br><span class="line">	  context.assertIsSatisfied();</span><br><span class="line">	    <span class="comment">//12、验证goodsDao.get(1)返回结果是否正确</span></span><br><span class="line">	    Assert.assertEquals(goods, expected);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="业务层单元测试"><a class="markdownIt-Anchor" href="#业务层单元测试"></a> 业务层单元测试</h2>
-<p>业务层单元测试，目的是测试业务服务(Service)行为。通常使用Mock对象替代Service对象依赖的Dao对象，从而隔离与数据库交互，无需连接数据库即可测试业务逻辑是否正确。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">public class GoodsHibernateDaoUnitTest &#123;</span><br><span class="line">    &#x2F;&#x2F;1、Mock对象上下文，用于创建Mock对象</span><br><span class="line">    &#x2F;&#x2F; Mockery是JMock的核心类，其mock()方法可以创建接口或类的Mock对象</span><br><span class="line">    private final Mockery context &#x3D; new Mockery() &#123; &#123;</span><br><span class="line">        &#x2F;&#x2F;1.1、表示可以支持Mock非接口类，默认只支持Mock接口</span><br><span class="line">        setImposteriser(ClassImposteriser.INSTANCE);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">    &#x2F;&#x2F;2、Mock HibernateTemplate类</span><br><span class="line">    private final HibernateTemplate mockHibernateTemplate &#x3D; context.mock(HibernateTemplate.class);</span><br><span class="line">    private IGoodsDao goodsDao &#x3D; null;</span><br><span class="line"></span><br><span class="line">    @Before</span><br><span class="line">    public void setUp() &#123;</span><br><span class="line">        &#x2F;&#x2F;3、创建IGoodsDao实现</span><br><span class="line">        GoodsHibernateDao goodsDaoTemp &#x3D; new GoodsHibernateDao();</span><br><span class="line">        &#x2F;&#x2F;4、通过ReflectionTestUtils注入需要的非public字段数据</span><br><span class="line">        ReflectionTestUtils.setField(goodsDaoTemp, &quot;entityClass&quot;, GoodsModel.class);</span><br><span class="line">        &#x2F;&#x2F;5、注入mockHibernateTemplate对象</span><br><span class="line">        goodsDaoTemp.setHibernateTemplate(mockHibernateTemplate);</span><br><span class="line">        &#x2F;&#x2F;6、赋值给我们要使用的接口</span><br><span class="line">        goodsDao &#x3D; goodsDaoTemp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	public void testSave () &#123;</span><br><span class="line">	    &#x2F;&#x2F;7、创建需要的Model数据</span><br><span class="line">	    final GoodsModel expected &#x3D; new GoodsModel();</span><br><span class="line">	    &#x2F;&#x2F;8、定义预期行为，并在后边来验证预期行为是否正确</span><br><span class="line">	    context.checking(new org.jmock.Expectations() &#123;</span><br><span class="line">	        &#123;</span><br><span class="line">	            &#x2F;&#x2F;9、表示需要调用且只调用一次mockHibernateTemplate的get方法，</span><br><span class="line">	            &#x2F;&#x2F;且get方法参数为(GoodsModel.class, 1)，并将返回goods</span><br><span class="line">	            one(mockHibernateTemplate).get(GoodsModel.class, 1);</span><br><span class="line">	            will(returnValue(expected));</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    &#x2F;&#x2F;10、调用goodsDao的get方法，在内部实现中将委托给</span><br><span class="line">	    &#x2F;&#x2F;getHibernateTemplate().get(this.entityClass, id);</span><br><span class="line">	    &#x2F;&#x2F;因此按照第8步定义的预期行为将返回goods</span><br><span class="line">	    GoodsModel actual &#x3D; goodsDao.get(1);</span><br><span class="line">	    &#x2F;&#x2F;11、来验证第8步定义的预期行为是否调用了</span><br><span class="line">	  context.assertIsSatisfied();</span><br><span class="line">	    &#x2F;&#x2F;12、验证goodsDao.get(1)返回结果是否正确</span><br><span class="line">	    Assert.assertEquals(goods, expected);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="业务层单元测试"><a href="#业务层单元测试" class="headerlink" title="业务层单元测试"></a>业务层单元测试</h2><p>业务层单元测试，目的是测试业务服务(Service)行为。通常使用Mock对象替代Service对象依赖的Dao对象，从而隔离与数据库交互，无需连接数据库即可测试业务逻辑是否正确。</p>
 <p>测试业务逻辑时需要分别测试多种场景，即如在某种场景下成功或失败等等，即测试应该全面，每个功能点都应该测试到。</p>
 <p>下面是一个例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoodsCodeServiceImplUnitTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1、Mock对象上下文，用于创建Mock对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Mockery context = <span class="keyword">new</span> Mockery() &#123; &#123;</span><br><span class="line">        <span class="comment">//1.1、表示可以支持Mock非接口类，默认只支持Mock接口</span></span><br><span class="line">        setImposteriser(ClassImposteriser.INSTANCE);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2、Mock IGoodsCodeDao接口</span></span><br><span class="line">    <span class="keyword">private</span> IGoodsCodeDao goodsCodeDao = context.mock(IGoodsCodeDao.class);;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> IGoodsCodeService goodsCodeService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        GoodsCodeServiceImpl goodsCodeServiceTemp = <span class="keyword">new</span> GoodsCodeServiceImpl();</span><br><span class="line">        <span class="comment">//3、依赖注入</span></span><br><span class="line">        goodsCodeServiceTemp.setDao(goodsCodeDao);</span><br><span class="line">        goodsCodeService = goodsCodeServiceTemp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//测试购买失败的场景</span></span><br><span class="line">	<span class="meta">@Test</span>(expected = NotCodeException.class)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBuyFail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">final</span> <span class="keyword">int</span> goodsId = <span class="number">1</span>;</span><br><span class="line">	    <span class="comment">//4、定义预期行为，并在后边来验证预期行为是否正确</span></span><br><span class="line">	    context.checking(<span class="keyword">new</span> org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          <span class="comment">//5、表示需要调用goodsCodeDao对象的getOneNotExchanged一次且仅以此</span></span><br><span class="line">	          <span class="comment">//且返回值为null</span></span><br><span class="line">	          one(goodsCodeDao).getOneNotExchanged(goodsId);</span><br><span class="line">	          will(returnValue(<span class="keyword">null</span>));</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    goodsCodeService.buy(<span class="string">"test"</span>, goodsId);</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//测试购买成功的场景</span></span><br><span class="line">	<span class="meta">@Test</span>()</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBuySuccess</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">final</span> <span class="keyword">int</span> goodsId = <span class="number">1</span>;</span><br><span class="line">	    <span class="keyword">final</span> GoodsCodeModel goodsCode = <span class="keyword">new</span> GoodsCodeModel();</span><br><span class="line">	    <span class="comment">//6、定义预期行为，并在后边来验证预期行为是否正确</span></span><br><span class="line">	    context.checking(<span class="keyword">new</span> org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          <span class="comment">//7、表示需要调用goodsCodeDao对象的getOneNotExchanged一次且仅以此</span></span><br><span class="line">	          <span class="comment">//且返回值为null</span></span><br><span class="line">	          one(goodsCodeDao).getOneNotExchanged(goodsId);</span><br><span class="line">	          will(returnValue(goodsCode));</span><br><span class="line">	          <span class="comment">//8、表示需要调用goodsCodeDao对象的save方法一次且仅一次</span></span><br><span class="line">	          <span class="comment">//且参数为goodsCode</span></span><br><span class="line">	          one(goodsCodeDao).save(goodsCode);</span><br><span class="line">	        &#125;</span><br><span class="line">	      &#125;);</span><br><span class="line">	    goodsCodeService.buy(<span class="string">"test"</span>, goodsId);</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	    Assert.assertEquals(goodsCode.isExchanged(), <span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="展现层单元测试"><a class="markdownIt-Anchor" href="#展现层单元测试"></a> 展现层单元测试</h2>
-<p>展现层单元测试可能包括对Action、Filter、JSP等的单元测试。对于Web展现层，会涉及到Servlet API、ActionContext等。<br>
-为避免对Web容器的依赖，可以使用stub（桩）实现或mock对象来模拟HttpServletRequest等对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">public class GoodsCodeServiceImplUnitTest &#123;</span><br><span class="line">    &#x2F;&#x2F;1、Mock对象上下文，用于创建Mock对象</span><br><span class="line">    private final Mockery context &#x3D; new Mockery() &#123; &#123;</span><br><span class="line">        &#x2F;&#x2F;1.1、表示可以支持Mock非接口类，默认只支持Mock接口</span><br><span class="line">        setImposteriser(ClassImposteriser.INSTANCE);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;2、Mock IGoodsCodeDao接口</span><br><span class="line">    private IGoodsCodeDao goodsCodeDao &#x3D; context.mock(IGoodsCodeDao.class);;</span><br><span class="line"></span><br><span class="line">    private IGoodsCodeService goodsCodeService;</span><br><span class="line"></span><br><span class="line">    @Before</span><br><span class="line">    public void setUp() &#123;</span><br><span class="line">        GoodsCodeServiceImpl goodsCodeServiceTemp &#x3D; new GoodsCodeServiceImpl();</span><br><span class="line">        &#x2F;&#x2F;3、依赖注入</span><br><span class="line">        goodsCodeServiceTemp.setDao(goodsCodeDao);</span><br><span class="line">        goodsCodeService &#x3D; goodsCodeServiceTemp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;测试购买失败的场景</span><br><span class="line">	@Test(expected &#x3D; NotCodeException.class)</span><br><span class="line">	public void testBuyFail() &#123;</span><br><span class="line">	    final int goodsId &#x3D; 1;</span><br><span class="line">	    &#x2F;&#x2F;4、定义预期行为，并在后边来验证预期行为是否正确</span><br><span class="line">	    context.checking(new org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          &#x2F;&#x2F;5、表示需要调用goodsCodeDao对象的getOneNotExchanged一次且仅以此</span><br><span class="line">	          &#x2F;&#x2F;且返回值为null</span><br><span class="line">	          one(goodsCodeDao).getOneNotExchanged(goodsId);</span><br><span class="line">	          will(returnValue(null));</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    goodsCodeService.buy(&quot;test&quot;, goodsId);</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;测试购买成功的场景</span><br><span class="line">	@Test()</span><br><span class="line">	public void testBuySuccess () &#123;</span><br><span class="line">	    final int goodsId &#x3D; 1;</span><br><span class="line">	    final GoodsCodeModel goodsCode &#x3D; new GoodsCodeModel();</span><br><span class="line">	    &#x2F;&#x2F;6、定义预期行为，并在后边来验证预期行为是否正确</span><br><span class="line">	    context.checking(new org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          &#x2F;&#x2F;7、表示需要调用goodsCodeDao对象的getOneNotExchanged一次且仅以此</span><br><span class="line">	          &#x2F;&#x2F;且返回值为null</span><br><span class="line">	          one(goodsCodeDao).getOneNotExchanged(goodsId);</span><br><span class="line">	          will(returnValue(goodsCode));</span><br><span class="line">	          &#x2F;&#x2F;8、表示需要调用goodsCodeDao对象的save方法一次且仅一次</span><br><span class="line">	          &#x2F;&#x2F;且参数为goodsCode</span><br><span class="line">	          one(goodsCodeDao).save(goodsCode);</span><br><span class="line">	        &#125;</span><br><span class="line">	      &#125;);</span><br><span class="line">	    goodsCodeService.buy(&quot;test&quot;, goodsId);</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	    Assert.assertEquals(goodsCode.isExchanged(), true);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="展现层单元测试"><a href="#展现层单元测试" class="headerlink" title="展现层单元测试"></a>展现层单元测试</h2><p>展现层单元测试可能包括对Action、Filter、JSP等的单元测试。对于Web展现层，会涉及到Servlet API、ActionContext等。<br>为避免对Web容器的依赖，可以使用stub（桩）实现或mock对象来模拟HttpServletRequest等对象。</p>
 <p>类似于测试业务逻辑时需要分别测试多种场景，展现层单元测试同样需要分别测试多种场景。</p>
 <p>下面是一个Action单元测试的例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoodsActionUnitTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1、Mock对象上下文，用于创建Mock对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Mockery context = <span class="keyword">new</span> Mockery() &#123; &#123;</span><br><span class="line">        <span class="comment">//1.1、表示可以支持Mock非接口类，默认只支持Mock接口</span></span><br><span class="line">        setImposteriser(ClassImposteriser.INSTANCE);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">    <span class="comment">//2、Mock IGoodsCodeService接口</span></span><br><span class="line">    <span class="keyword">private</span> IGoodsCodeService goodsCodeService = context.mock(IGoodsCodeService.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> GoodsAction goodsAction;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        goodsAction = <span class="keyword">new</span> GoodsAction();</span><br><span class="line">        <span class="comment">//3、依赖注入</span></span><br><span class="line">        goodsAction.setGoodsCodeService(goodsCodeService);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//测试购买失败的场景</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBuyFail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">final</span> <span class="keyword">int</span> goodsId = <span class="number">1</span>;</span><br><span class="line">	    <span class="comment">//4、定义预期行为，并在后边来验证预期行为是否正确</span></span><br><span class="line">	    context.checking(<span class="keyword">new</span> org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          <span class="comment">//5、表示需要调用goodsCodeService对象的buy方法一次且仅一次</span></span><br><span class="line">	          <span class="comment">//且抛出NotCodeException异常</span></span><br><span class="line">	          one(goodsCodeService).buy(<span class="string">"test"</span>, goodsId);</span><br><span class="line">	      will(throwException(<span class="keyword">new</span> NotCodeException()));</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    <span class="comment">//6、模拟Struts注入请求参数</span></span><br><span class="line">	    goodsAction.setGoodsId(goodsId);</span><br><span class="line">	    String actualResultCode = goodsAction.buy();</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	    Assert.assertEquals(ReflectionTestUtils.getField(goodsAction, <span class="string">"BUY_RESULT"</span>), actualResultCode);</span><br><span class="line">	    Assert.assertTrue(goodsAction.getActionErrors().size() &gt; <span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//测试购买成功的场景：</span></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBuySuccess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">final</span> <span class="keyword">int</span> goodsId = <span class="number">1</span>;</span><br><span class="line">	    <span class="keyword">final</span> GoodsCodeModel goodsCode = <span class="keyword">new</span> GoodsCodeModel();</span><br><span class="line">	    <span class="comment">//7、定义预期行为，并在后边来验证预期行为是否正确</span></span><br><span class="line">	    context.checking(<span class="keyword">new</span> org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          <span class="comment">//8、表示需要调用goodsCodeService对象的buy方法一次且仅一次</span></span><br><span class="line">	          <span class="comment">//且返回goodsCode对象</span></span><br><span class="line">	          one(goodsCodeService).buy(<span class="string">"test"</span>, goodsId);</span><br><span class="line">	          will(returnValue(goodsCode));</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    <span class="comment">//9、模拟Struts注入请求参数</span></span><br><span class="line">	    goodsAction.setGoodsId(goodsId);</span><br><span class="line">	    String actualResultCode = goodsAction.buy();</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	    Assert.assertEquals(ReflectionTestUtils.getField(goodsAction, <span class="string">"BUY_RESULT"</span>), actualResultCode);</span><br><span class="line">	    Assert.assertTrue(goodsAction.getActionErrors().size() == <span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">public class GoodsActionUnitTest &#123;</span><br><span class="line">    &#x2F;&#x2F;1、Mock对象上下文，用于创建Mock对象</span><br><span class="line">    private final Mockery context &#x3D; new Mockery() &#123; &#123;</span><br><span class="line">        &#x2F;&#x2F;1.1、表示可以支持Mock非接口类，默认只支持Mock接口</span><br><span class="line">        setImposteriser(ClassImposteriser.INSTANCE);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">    &#x2F;&#x2F;2、Mock IGoodsCodeService接口</span><br><span class="line">    private IGoodsCodeService goodsCodeService &#x3D; context.mock(IGoodsCodeService.class);</span><br><span class="line"></span><br><span class="line">    private GoodsAction goodsAction;</span><br><span class="line"></span><br><span class="line">    @Before</span><br><span class="line">    public void setUp() &#123;</span><br><span class="line">        goodsAction &#x3D; new GoodsAction();</span><br><span class="line">        &#x2F;&#x2F;3、依赖注入</span><br><span class="line">        goodsAction.setGoodsCodeService(goodsCodeService);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;测试购买失败的场景</span><br><span class="line">	@Test</span><br><span class="line">	public void testBuyFail() &#123;</span><br><span class="line">	    final int goodsId &#x3D; 1;</span><br><span class="line">	    &#x2F;&#x2F;4、定义预期行为，并在后边来验证预期行为是否正确</span><br><span class="line">	    context.checking(new org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          &#x2F;&#x2F;5、表示需要调用goodsCodeService对象的buy方法一次且仅一次</span><br><span class="line">	          &#x2F;&#x2F;且抛出NotCodeException异常</span><br><span class="line">	          one(goodsCodeService).buy(&quot;test&quot;, goodsId);</span><br><span class="line">	      will(throwException(new NotCodeException()));</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    &#x2F;&#x2F;6、模拟Struts注入请求参数</span><br><span class="line">	    goodsAction.setGoodsId(goodsId);</span><br><span class="line">	    String actualResultCode &#x3D; goodsAction.buy();</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	    Assert.assertEquals(ReflectionTestUtils.getField(goodsAction, &quot;BUY_RESULT&quot;), actualResultCode);</span><br><span class="line">	    Assert.assertTrue(goodsAction.getActionErrors().size() &gt; 0);</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;测试购买成功的场景：</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	public void testBuySuccess() &#123;</span><br><span class="line">	    final int goodsId &#x3D; 1;</span><br><span class="line">	    final GoodsCodeModel goodsCode &#x3D; new GoodsCodeModel();</span><br><span class="line">	    &#x2F;&#x2F;7、定义预期行为，并在后边来验证预期行为是否正确</span><br><span class="line">	    context.checking(new org.jmock.Expectations() &#123;</span><br><span class="line">	      &#123;</span><br><span class="line">	          &#x2F;&#x2F;8、表示需要调用goodsCodeService对象的buy方法一次且仅一次</span><br><span class="line">	          &#x2F;&#x2F;且返回goodsCode对象</span><br><span class="line">	          one(goodsCodeService).buy(&quot;test&quot;, goodsId);</span><br><span class="line">	          will(returnValue(goodsCode));</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	    &#x2F;&#x2F;9、模拟Struts注入请求参数</span><br><span class="line">	    goodsAction.setGoodsId(goodsId);</span><br><span class="line">	    String actualResultCode &#x3D; goodsAction.buy();</span><br><span class="line">	    context.assertIsSatisfied();</span><br><span class="line">	    Assert.assertEquals(ReflectionTestUtils.getField(goodsAction, &quot;BUY_RESULT&quot;), actualResultCode);</span><br><span class="line">	    Assert.assertTrue(goodsAction.getActionErrors().size() &#x3D;&#x3D; 0);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>通过模拟ActionContext对象内容，从可以非常容易的测试Action中各种与http请求相关情况，无需依赖web服务器即可完成测试。</p>
 <p>但如果需要测试http请求相关的对象，需要使用ActionContext获取值栈数据等情况，就需要Struts提供的junit插件支持了。</p>
 <p>可以参考<a href="/2014/01/05/integration_tests_within_spring.html">Spring集成测试</a>中的内容。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/spring/" rel="tag"># spring</a>
-          
-            <a href="/tags/测试/" rel="tag"># 测试</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2014/01/01/spring_Java_based_container_configuration.html" rel="next" title="基于Java代码配置Spring容器">
-                <i class="fa fa-chevron-left"></i> 基于Java代码配置Spring容器
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spring/" rel="tag"># spring</a>
+              <a href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag"># 测试</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/01/05/spring_annotations.html" rel="prev" title="Sping中的注解">
-                Sping中的注解 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2014/01/05/spring_annotations.html" rel="prev" title="Sping中的注解">
+      <i class="fa fa-chevron-left"></i> Sping中的注解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2014/01/06/integration_tests_within_spring.html" rel="next" title="Spring对集成测试的支持">
+      Spring对集成测试的支持 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单元测试和集成测试"><span class="nav-number">1.</span> <span class="nav-text"> 单元测试和集成测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring对单元测试的支持"><span class="nav-number">2.</span> <span class="nav-text"> Spring对单元测试的支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring单元测试实例"><span class="nav-number">3.</span> <span class="nav-text"> Spring单元测试实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖库"><span class="nav-number">3.1.</span> <span class="nav-text"> 依赖库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久层单元测试"><span class="nav-number">3.2.</span> <span class="nav-text"> 持久层单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务层单元测试"><span class="nav-number">3.3.</span> <span class="nav-text"> 业务层单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#展现层单元测试"><span class="nav-number">3.4.</span> <span class="nav-text"> 展现层单元测试</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2014/01/05/unit_tests_within_spring.html';
-          this.page.identifier = '2014/01/05/unit_tests_within_spring.html';
-          this.page.title = 'Spring对单元测试的支持';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -839,24 +490,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '91fcac584d2c8177f1f41ce8c855cc9d',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

@@ -1,143 +1,62 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="统计学," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣  假设检验 证明一件事情比较难，证伪一件事情比较容易 科学研究的一个基本方法就是假设检验：  提出一个可以被推翻的假设； 如果还没有发现不符合该假设的实例，则该假设成为猜想； 如果该猜想能够从理论上推导证明，则该猜想也成为定理/定律  统计学中的假设检验方法也是一样，只不过关注点是统计量之间关系的假设 注意：假设不能">
-<meta name="keywords" content="统计学">
+  <meta name="description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 假设检验证明一件事情比较难，证伪一件事情比较容易 科学研究的一个基本方法就是假设检验：  提出一个可以被推翻的假设； 如果还没有发现不符合该假设的实例，则该假设成为猜想； 如果该猜想能够从理论上推导证明，则该猜想也成为定理&#x2F;定律  统计学中的假设检验方法也是一样，只不过关注点是统计量之间关系的假设 注意：假设不能被">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《统计学》读书笔记(6&#x2F;17:简单统计推断：总体参数的假设检验)">
 <meta property="og:url" content="http://holbrook.github.io/2013/08/02/statistics_intro_6.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣  假设检验 证明一件事情比较难，证伪一件事情比较容易 科学研究的一个基本方法就是假设检验：  提出一个可以被推翻的假设； 如果还没有发现不符合该假设的实例，则该假设成为猜想； 如果该猜想能够从理论上推导证明，则该猜想也成为定理/定律  统计学中的假设检验方法也是一样，只不过关注点是统计量之间关系的假设 注意：假设不能">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="og:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣 假设检验证明一件事情比较难，证伪一件事情比较容易 科学研究的一个基本方法就是假设检验：  提出一个可以被推翻的假设； 如果还没有发现不符合该假设的实例，则该假设成为猜想； 如果该猜想能够从理论上推导证明，则该猜想也成为定理&#x2F;定律  统计学中的假设检验方法也是一样，只不过关注点是统计量之间关系的假设 注意：假设不能被">
+<meta property="article:published_time" content="2013-08-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="统计学">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《统计学》读书笔记(6&#x2F;17:简单统计推断：总体参数的假设检验)">
-<meta name="twitter:description" content="统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @豆瓣  假设检验 证明一件事情比较难，证伪一件事情比较容易 科学研究的一个基本方法就是假设检验：  提出一个可以被推翻的假设； 如果还没有发现不符合该假设的实例，则该假设成为猜想； 如果该猜想能够从理论上推导证明，则该猜想也成为定理/定律  统计学中的假设检验方法也是一样，只不过关注点是统计量之间关系的假设 注意：假设不能">
+
+<link rel="canonical" href="http://holbrook.github.io/2013/08/02/statistics_intro_6.html">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2013/08/02/statistics_intro_6.html"/>
-
-
-
-
 
   <title>《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验) | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -146,213 +65,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#假设检验"><span class="nav-number">1.</span> <span class="nav-text">假设检验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-1-假设检验的过程和逻辑"><span class="nav-number">2.</span> <span class="nav-text">6.1 假设检验的过程和逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#提出假设"><span class="nav-number">2.1.</span> <span class="nav-text">提出假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断逻辑"><span class="nav-number">2.2.</span> <span class="nav-text">判断逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断结果"><span class="nav-number">2.3.</span> <span class="nav-text">判断结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#势-power）和临界值（critical-value-（TODO"><span class="nav-number">2.4.</span> <span class="nav-text">势(power）和临界值（critical value) （TODO)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-2-对于正态总体均值的检验"><span class="nav-number">3.</span> <span class="nav-text">6.2 对于正态总体均值的检验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-3-对于比例的检验"><span class="nav-number">4.</span> <span class="nav-text">6.3 对于比例的检验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-4-从一个例子说明“接受零假设”的说法不妥"><span class="nav-number">5.</span> <span class="nav-text">6.4 从一个例子说明“接受零假设”的说法不妥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-5-小结"><span class="nav-number">6.</span> <span class="nav-text">6.5 小结</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/08/02/statistics_intro_6.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验)</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验)
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-08-02T00:00:00+08:00">
-                2013-08-02
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2013-08-02 00:00:00" itemprop="dateCreated datePublished" datetime="2013-08-02T00:00:00+08:00">2013-08-02</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2013/08/02/statistics_intro_6.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/08/02/statistics_intro_6.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -360,12 +313,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @<a href="http://book.douban.com/subject/2193810/" target="_blank" rel="noopener">豆瓣</a></p>
-<h1 id="假设检验"><a class="markdownIt-Anchor" href="#假设检验"></a> 假设检验</h1>
-<p>证明一件事情比较难，证伪一件事情比较容易</p>
+        <p> 统计学：从数据到结论，ISBN：9787503749964，作者：吴喜之 @<a href="http://book.douban.com/subject/2193810/" target="_blank" rel="noopener">豆瓣</a></p>
+<h1 id="假设检验"><a href="#假设检验" class="headerlink" title="假设检验"></a>假设检验</h1><p>证明一件事情比较难，证伪一件事情比较容易</p>
 <p>科学研究的一个基本方法就是假设检验：</p>
 <ol>
 <li>提出一个可以被推翻的假设；</li>
@@ -374,457 +323,153 @@
 </ol>
 <p>统计学中的假设检验方法也是一样，只不过关注点是统计量之间关系的假设</p>
 <p>注意：假设不能被推翻，也仅仅是假设。因为无法证明其能覆盖所有的情况。对于统计学领域尤其如此</p>
-<h1 id="61-假设检验的过程和逻辑"><a class="markdownIt-Anchor" href="#61-假设检验的过程和逻辑"></a> 6.1 假设检验的过程和逻辑</h1>
-<p>比如检查商品的份量是否充足：进行抽样后检验。单个商品的称量结果有多有少，<br>
-如何判断总体的份量是否足够？仅用样本的平价重量进行评价是不科学的！</p>
-<h2 id="提出假设"><a class="markdownIt-Anchor" href="#提出假设"></a> 提出假设</h2>
-<ul>
+<h1 id="6-1-假设检验的过程和逻辑"><a href="#6-1-假设检验的过程和逻辑" class="headerlink" title="6.1 假设检验的过程和逻辑"></a>6.1 假设检验的过程和逻辑</h1><p>比如检查商品的份量是否充足：进行抽样后检验。单个商品的称量结果有多有少，<br>如何判断总体的份量是否足够？仅用样本的平价重量进行评价是不科学的！</p>
+<h2 id="提出假设"><a href="#提出假设" class="headerlink" title="提出假设"></a>提出假设</h2><ul>
 <li>首先提出假设，比如总体的平价质量充足（u&gt;=u0），称为零假设（null hypothesis)，记为<code>H0</code></li>
 <li>同时提出备选假设(alternative hypothesis)，总体的平价质量不充足（u&lt;u0)，记为<code>H1</code></li>
 <li>命题： <code>H0:u&gt;=u0 &lt;=&gt; H1:u&lt;u0</code> 。其中<code>&lt;=&gt;</code>相当于“versus”</li>
 <li>通常，选择更接近实际情况的假设作为备选假设，相反的作为零假设。检验的目地就是判断H1是否显著。所以假设检验也成为“显著性检验（significant test）”</li>
 </ul>
-<h2 id="判断逻辑"><a class="markdownIt-Anchor" href="#判断逻辑"></a> 判断逻辑</h2>
-<ul>
+<h2 id="判断逻辑"><a href="#判断逻辑" class="headerlink" title="判断逻辑"></a>判断逻辑</h2><ul>
 <li>被检验的统计量成为“检验统计量（test statistic）”</li>
 <li>根据 <em>H0(注意，不是H1)</em> 得到检验统计量的分布</li>
 <li>看看该统计量的数据实现值（realization)是否为小概率事件</li>
 <li>如果是小概率事件，则拒绝零假设（检验显著）</li>
 </ul>
 <p>该逻辑中，H0和H1的地位不对称：按照H0推导分布，只要不符合就可以推翻H0</p>
-<h2 id="判断结果"><a class="markdownIt-Anchor" href="#判断结果"></a> 判断结果</h2>
-<p>上面的逻辑并不严谨：</p>
+<h2 id="判断结果"><a href="#判断结果" class="headerlink" title="判断结果"></a>判断结果</h2><p>上面的逻辑并不严谨：</p>
 <p>小概率事件也有可能真实发生！</p>
 <p>所以统计结论也有可能犯错误。两种错误情况：</p>
 <ul>
-<li>
-<p>第一类错误（type I error)： 按照H0假设，样本数据为小概率事件，于是拒绝H0。但总体的真实情况是符合H0</p>
+<li><p>第一类错误（type I error)： 按照H0假设，样本数据为小概率事件，于是拒绝H0。但总体的真实情况是符合H0</p>
 </li>
-<li>
-<p>第二类错误（type II error）：按照H0假设，样本数据的概率很大，于是接受H0。但总体的真实情况是不符合H0</p>
+<li><p>第二类错误（type II error）：按照H0假设，样本数据的概率很大，于是接受H0。但总体的真实情况是不符合H0</p>
 </li>
 </ul>
-<h2 id="势power和临界值critical-value-todo"><a class="markdownIt-Anchor" href="#势power和临界值critical-value-todo"></a> 势(power）和临界值（critical value) （TODO)</h2>
-<h1 id="62-对于正态总体均值的检验"><a class="markdownIt-Anchor" href="#62-对于正态总体均值的检验"></a> 6.2 对于正态总体均值的检验</h1>
-<ul>
+<h2 id="势-power）和临界值（critical-value-（TODO"><a href="#势-power）和临界值（critical-value-（TODO" class="headerlink" title="势(power）和临界值（critical value) （TODO)"></a>势(power）和临界值（critical value) （TODO)</h2><h1 id="6-2-对于正态总体均值的检验"><a href="#6-2-对于正态总体均值的检验" class="headerlink" title="6.2 对于正态总体均值的检验"></a>6.2 对于正态总体均值的检验</h1><ul>
 <li>单个总体单个样本：单边检验</li>
 <li>两个总体两个样本：双边检验</li>
 <li>一个总体一对样本（如事件发生前后的对照）：单边、双边相结合</li>
 </ul>
-<h1 id="63-对于比例的检验"><a class="markdownIt-Anchor" href="#63-对于比例的检验"></a> 6.3 对于比例的检验</h1>
-<p>(略）</p>
-<h1 id="64-从一个例子说明接受零假设的说法不妥"><a class="markdownIt-Anchor" href="#64-从一个例子说明接受零假设的说法不妥"></a> 6.4 从一个例子说明“接受零假设”的说法不妥</h1>
-<p>结论：不能说“接受零假设”，更严谨的说法是“不拒绝零假设”</p>
-<h1 id="65-小结"><a class="markdownIt-Anchor" href="#65-小结"></a> 6.5 小结</h1>
-
-      
+<h1 id="6-3-对于比例的检验"><a href="#6-3-对于比例的检验" class="headerlink" title="6.3 对于比例的检验"></a>6.3 对于比例的检验</h1><p>(略）</p>
+<h1 id="6-4-从一个例子说明“接受零假设”的说法不妥"><a href="#6-4-从一个例子说明“接受零假设”的说法不妥" class="headerlink" title="6.4 从一个例子说明“接受零假设”的说法不妥"></a>6.4 从一个例子说明“接受零假设”的说法不妥</h1><p>  结论：不能说“接受零假设”，更严谨的说法是“不拒绝零假设”</p>
+<h1 id="6-5-小结"><a href="#6-5-小结" class="headerlink" title="6.5 小结"></a>6.5 小结</h1>
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/统计学/" rel="tag"># 统计学</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/08/02/moosefs.html" rel="next" title="MooseFS：屌丝的存储">
-                <i class="fa fa-chevron-left"></i> MooseFS：屌丝的存储
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/" rel="tag"># 统计学</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/08/05/statistics_intro_7.html" rel="prev" title="《统计学》读书笔记(7/17:相关和回归分析)">
-                《统计学》读书笔记(7/17:相关和回归分析) <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2013/07/30/ganglia.html" rel="prev" title="用Ganglia监控集群的性能">
+      <i class="fa fa-chevron-left"></i> 用Ganglia监控集群的性能
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2013/08/02/moosefs.html" rel="next" title="MooseFS：屌丝的存储">
+      MooseFS：屌丝的存储 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#假设检验"><span class="nav-number">1.</span> <span class="nav-text"> 假设检验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#61-假设检验的过程和逻辑"><span class="nav-number">2.</span> <span class="nav-text"> 6.1 假设检验的过程和逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#提出假设"><span class="nav-number">2.1.</span> <span class="nav-text"> 提出假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断逻辑"><span class="nav-number">2.2.</span> <span class="nav-text"> 判断逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断结果"><span class="nav-number">2.3.</span> <span class="nav-text"> 判断结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#势power和临界值critical-value-todo"><span class="nav-number">2.4.</span> <span class="nav-text"> 势(power）和临界值（critical value) （TODO)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#62-对于正态总体均值的检验"><span class="nav-number">3.</span> <span class="nav-text"> 6.2 对于正态总体均值的检验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#63-对于比例的检验"><span class="nav-number">4.</span> <span class="nav-text"> 6.3 对于比例的检验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#64-从一个例子说明接受零假设的说法不妥"><span class="nav-number">5.</span> <span class="nav-text"> 6.4 从一个例子说明“接受零假设”的说法不妥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#65-小结"><span class="nav-number">6.</span> <span class="nav-text"> 6.5 小结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2013/08/02/statistics_intro_6.html';
-          this.page.identifier = '2013/08/02/statistics_intro_6.html';
-          this.page.title = '《统计学》读书笔记(6/17:简单统计推断：总体参数的假设检验)';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -839,24 +484,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '5d67c297c4f2a3172529025c0bec233e',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

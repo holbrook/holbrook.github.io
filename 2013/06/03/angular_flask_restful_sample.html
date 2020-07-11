@@ -1,145 +1,66 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="angularjs,flask,scrum," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="用户故事  scrum的用户故事要有弹性，要能够容纳变化。要素：用户角色、功能需求、目的、测试要点。 一个有用的模板如下： 作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到…的结果】以便【业务价值】。 用户故事只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1－5天）  本文中的用户故事如下：  作为运维人员，我希望可以通过web界面管理salt-key，包">
-<meta name="keywords" content="angularjs,flask,scrum">
+  <meta name="description" content="用户故事 scrum的用户故事要有弹性，要能够容纳变化。要素：用户角色、功能需求、目的、测试要点。一个有用的模板如下：作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到…的结果】以便【业务价值】。用户故事只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1－5天）  本文中的用户故事如下：  作为运维人员，我希望可以通过web界面管理salt-key，包括查询、添">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AngularJS+Flask的例子">
 <meta property="og:url" content="http://holbrook.github.io/2013/06/03/angular_flask_restful_sample.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="用户故事  scrum的用户故事要有弹性，要能够容纳变化。要素：用户角色、功能需求、目的、测试要点。 一个有用的模板如下： 作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到…的结果】以便【业务价值】。 用户故事只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1－5天）  本文中的用户故事如下：  作为运维人员，我希望可以通过web界面管理salt-key，包">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="用户故事 scrum的用户故事要有弹性，要能够容纳变化。要素：用户角色、功能需求、目的、测试要点。一个有用的模板如下：作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到…的结果】以便【业务价值】。用户故事只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1－5天）  本文中的用户故事如下：  作为运维人员，我希望可以通过web界面管理salt-key，包括查询、添">
 <meta property="og:image" content="http://holbrook.github.io/2013/06/03/angular_flask_restful_sample/angular_flask_restful_sample1.png">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2013-06-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="angularjs">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="scrum">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AngularJS+Flask的例子">
-<meta name="twitter:description" content="用户故事  scrum的用户故事要有弹性，要能够容纳变化。要素：用户角色、功能需求、目的、测试要点。 一个有用的模板如下： 作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到…的结果】以便【业务价值】。 用户故事只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1－5天）  本文中的用户故事如下：  作为运维人员，我希望可以通过web界面管理salt-key，包">
 <meta name="twitter:image" content="http://holbrook.github.io/2013/06/03/angular_flask_restful_sample/angular_flask_restful_sample1.png">
 
+<link rel="canonical" href="http://holbrook.github.io/2013/06/03/angular_flask_restful_sample.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2013/06/03/angular_flask_restful_sample.html"/>
-
-
-
-
 
   <title>AngularJS+Flask的例子 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -148,213 +69,247 @@
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用户故事"><span class="nav-number">1.</span> <span class="nav-text">用户故事</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#领域模型"><span class="nav-number">2.</span> <span class="nav-text">领域模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发准备"><span class="nav-number">3.</span> <span class="nav-text">开发准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RESTfulAPI-与-前后端分离"><span class="nav-number">4.</span> <span class="nav-text">RESTfulAPI 与 前后端分离</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后端开发"><span class="nav-number">5.</span> <span class="nav-text">后端开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#models"><span class="nav-number">5.1.</span> <span class="nav-text">models</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#services"><span class="nav-number">5.2.</span> <span class="nav-text">services</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#views"><span class="nav-number">5.3.</span> <span class="nav-text">views</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端测试用例"><span class="nav-number">5.4.</span> <span class="nav-text">后端测试用例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端开发"><span class="nav-number">6.</span> <span class="nav-text">前端开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装需要的插件"><span class="nav-number">6.1.</span> <span class="nav-text">安装需要的插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置app-js"><span class="nav-number">6.2.</span> <span class="nav-text">配置app.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚手架"><span class="nav-number">6.3.</span> <span class="nav-text">脚手架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现RESTful-API调用"><span class="nav-number">6.4.</span> <span class="nav-text">实现RESTful API调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加测试数据"><span class="nav-number">6.5.</span> <span class="nav-text">添加测试数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写html模板"><span class="nav-number">6.6.</span> <span class="nav-text">编写html模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端测试"><span class="nav-number">6.7.</span> <span class="nav-text">前端测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集成测试"><span class="nav-number">7.</span> <span class="nav-text">集成测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2013/06/03/angular_flask_restful_sample.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">AngularJS+Flask的例子</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          AngularJS+Flask的例子
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-03T00:00:00+08:00">
-                2013-06-03
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件技术/" itemprop="url" rel="index">
-                    <span itemprop="name">软件技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2013-06-03 00:00:00" itemprop="dateCreated datePublished" datetime="2013-06-03T00:00:00+08:00">2013-06-03</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2013/06/03/angular_flask_restful_sample.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/06/03/angular_flask_restful_sample.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">软件技术</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -362,550 +317,218 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h1 id="用户故事"><a class="markdownIt-Anchor" href="#用户故事"></a> 用户故事</h1>
-<blockquote>
-<p>scrum的用户故事要有弹性，要能够容纳变化。要素：用户角色、功能需求、目的、测试要点。<br>
-一个有用的模板如下：<br>
-作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到…的结果】以便【业务价值】。<br>
-用户故事只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1－5天）</p>
+        <h1 id="用户故事"><a href="#用户故事" class="headerlink" title="用户故事"></a>用户故事</h1><blockquote>
+<p>scrum的用户故事要有弹性，要能够容纳变化。要素：用户角色、功能需求、目的、测试要点。<br>一个有用的模板如下：<br>作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到…的结果】以便【业务价值】。<br>用户故事只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1－5天）</p>
 </blockquote>
 <p>本文中的用户故事如下：</p>
 <blockquote>
-<p>作为运维人员，我希望可以通过web界面管理salt-key，包括查询、添加、删除等，<br>
-这样我就不用每次都登录到master服务器进行相应的操作。</p>
+<p>作为运维人员，我希望可以通过web界面管理salt-key，包括查询、添加、删除等，<br>这样我就不用每次都登录到master服务器进行相应的操作。</p>
 </blockquote>
-<h1 id="领域模型"><a class="markdownIt-Anchor" href="#领域模型"></a> 领域模型</h1>
-<p>敏捷方法并不排斥设计和建模。实际上，领域模型及可以对用户故事进行抽象，也可以帮助发现用户故事。</p>
-<p>本文中，salt master 管理 salt minion。而minion实际上是一个主机(Host,<br>
-包括虚拟机Virtual Host)。 Host 安装了 salt-minion 后，通过 minion-id 向<br>
-salt-master 注册自己，而 salt-master 决定是否 接受该minion的注册请求。</p>
-<p>如果从整个项目（运维操作平台）的视角来看，我们要管理的不仅仅是主机，甚至后续<br>
-grains 信息中的操作系统、IP地址等，<br>
-以及通过state安装的平台软件，都是需要管理的资源。资源还可能包括网络设备、子网等物理、虚拟资源。</p>
-<p>所以有必要抽象出一个【资源】的实体，【主机】是【资源】的一个子类，【主机】可以有=minion-id=属性。<br>
-salt master 维护了salt keys的清单，包括 =Accepted Keys=、=Unaccepted<br>
-Keys=、=Rejected Keys=。</p>
+<h1 id="领域模型"><a href="#领域模型" class="headerlink" title="领域模型"></a>领域模型</h1><p>敏捷方法并不排斥设计和建模。实际上，领域模型及可以对用户故事进行抽象，也可以帮助发现用户故事。</p>
+<p>本文中，salt master 管理 salt minion。而minion实际上是一个主机(Host,<br>包括虚拟机Virtual Host)。 Host 安装了 salt-minion 后，通过 minion-id 向<br>salt-master 注册自己，而 salt-master 决定是否 接受该minion的注册请求。</p>
+<p>如果从整个项目（运维操作平台）的视角来看，我们要管理的不仅仅是主机，甚至后续<br>grains 信息中的操作系统、IP地址等，<br>以及通过state安装的平台软件，都是需要管理的资源。资源还可能包括网络设备、子网等物理、虚拟资源。</p>
+<p>所以有必要抽象出一个【资源】的实体，【主机】是【资源】的一个子类，【主机】可以有=minion-id=属性。<br>salt master 维护了salt keys的清单，包括 =Accepted Keys=、=Unaccepted<br>Keys=、=Rejected Keys=。</p>
 <p>领域模型的设计如下：</p>
-<img src="/2013/06/03/angular_flask_restful_sample/angular_flask_restful_sample1.png">
+<img src="/2013/06/03/angular_flask_restful_sample/angular_flask_restful_sample1.png" class="">
+
 <p>其中=SaltKeyService=通过调用=salt-key=命令，执行list、accept、reject等操作，并根据操作结果更改=Host=实体。</p>
 <p>=list()=操作，后续可以加入到定时任务。</p>
-<h1 id="开发准备"><a class="markdownIt-Anchor" href="#开发准备"></a> 开发准备</h1>
-<p>这部分内容不属于本文，但作为<a href="">一系列开发培训</a>的一部分，这里再次强调一下版本管理：</p>
+<h1 id="开发准备"><a href="#开发准备" class="headerlink" title="开发准备"></a>开发准备</h1><p>这部分内容不属于本文，但作为<a href="">一系列开发培训</a>的一部分，这里再次强调一下版本管理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git pull  # 获取最新版本</span><br><span class="line">git checkout -b feature-admin_minion develop # 基于develop 分支创建 feature-admin_minion 分支</span><br><span class="line">git push origin feature-admin_minion #提交分支</span><br></pre></td></tr></table></figure>
-<h1 id="restfulapi-与-前后端分离"><a class="markdownIt-Anchor" href="#restfulapi-与-前后端分离"></a> RESTfulAPI 与 前后端分离</h1>
-<p>为了前后端分离，本项目中 Angular 和 Flask 通过 RESTful API<br>
-进行整合。所以有了领域模型之后，就要进行RESTful API设计。<br>
-具体Endpoint设计如下：</p>
+
+<h1 id="RESTfulAPI-与-前后端分离"><a href="#RESTfulAPI-与-前后端分离" class="headerlink" title="RESTfulAPI 与 前后端分离"></a>RESTfulAPI 与 前后端分离</h1><p>为了前后端分离，本项目中 Angular 和 Flask 通过 RESTful API<br>进行整合。所以有了领域模型之后，就要进行RESTful API设计。<br>具体Endpoint设计如下：</p>
 <ul>
-<li>/resource/hosts
-<ul>
-<li>GET:<br>
-查询所有的主机。允许的查询条件(query_params)：limit,offset,sortby,order,properties</li>
+<li>/resource/hosts<ul>
+<li>GET:<br>查询所有的主机。允许的查询条件(query_params)：limit,offset,sortby,order,properties</li>
 <li>POST: 增加新的主机</li>
 </ul>
 </li>
-<li><em>resource/hosts</em>
-<ul>
+<li><em>resource/hosts</em><ul>
 <li>PUT: 更新主机信息</li>
 <li>DELETE: 删除主机</li>
 </ul>
 </li>
 </ul>
 <p>基于API，前端开发人员可以在API_ROOT文件夹中增加静态json文件来调试，而后端开发人员可以通过对应的URL进行检验。</p>
-<h1 id="后端开发"><a class="markdownIt-Anchor" href="#后端开发"></a> 后端开发</h1>
-<h2 id="models"><a class="markdownIt-Anchor" href="#models"></a> models</h2>
-<p>本项目中使用了 Flask-SQLAlchemy<br>
-插件。模型的代码如下(由于Resource容易引起歧义，模型中使用=OpsResource=以便区分)：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from ops import db</span><br><span class="line">class OpsResource(db.Model):</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True)</span><br><span class="line">    comment = db.Column(db.Text)</span><br><span class="line"></span><br><span class="line">class Host(OpsResource):</span><br><span class="line">    id = db.Column(db.Integer, db.ForeignKey(&apos;ops_resource.id&apos;), primary_key=True)</span><br><span class="line">    hostname = db.Column(db.String(50))</span><br><span class="line">    virtual = db.Column(db.String(50))</span><br><span class="line">    minionid = db.Column(db.String(50))</span><br><span class="line">    keystate = db.Column(db.Enum(&apos;Accepted&apos;, &apos;Unaccepted&apos;,&apos;Rejected&apos;, name=&apos;SALT_KEY_STATE&apos;))</span><br></pre></td></tr></table></figure>
+<h1 id="后端开发"><a href="#后端开发" class="headerlink" title="后端开发"></a>后端开发</h1><h2 id="models"><a href="#models" class="headerlink" title="models"></a>models</h2><p>本项目中使用了 Flask-SQLAlchemy<br>插件。模型的代码如下(由于Resource容易引起歧义，模型中使用=OpsResource=以便区分)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from ops import db</span><br><span class="line">class OpsResource(db.Model):</span><br><span class="line">    id &#x3D; db.Column(db.Integer, primary_key&#x3D;True)</span><br><span class="line">    comment &#x3D; db.Column(db.Text)</span><br><span class="line"></span><br><span class="line">class Host(OpsResource):</span><br><span class="line">    id &#x3D; db.Column(db.Integer, db.ForeignKey(&#39;ops_resource.id&#39;), primary_key&#x3D;True)</span><br><span class="line">    hostname &#x3D; db.Column(db.String(50))</span><br><span class="line">    virtual &#x3D; db.Column(db.String(50))</span><br><span class="line">    minionid &#x3D; db.Column(db.String(50))</span><br><span class="line">    keystate &#x3D; db.Column(db.Enum(&#39;Accepted&#39;, &#39;Unaccepted&#39;,&#39;Rejected&#39;, name&#x3D;&#39;SALT_KEY_STATE&#39;))</span><br></pre></td></tr></table></figure>
+
 <p>创建数据库的脚本=createdb.py=如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import os,sys</span><br><span class="line">root = os.path.dirname(__file__)</span><br><span class="line">sys.path.insert(0, os.path.join(root, &apos;./&apos;))</span><br><span class="line"></span><br><span class="line">from ops import app,db</span><br><span class="line"></span><br><span class="line">import config</span><br><span class="line"></span><br><span class="line">app.config.from_object(&apos;config.DevelopmentConfig&apos;)</span><br><span class="line"></span><br><span class="line">db.create_all()</span><br></pre></td></tr></table></figure>
-<h2 id="services"><a class="markdownIt-Anchor" href="#services"></a> services</h2>
-<p>略</p>
-<h2 id="views"><a class="markdownIt-Anchor" href="#views"></a> views</h2>
-<p>本项目中使用了 Flask-RESTful 插件。注册view的代码为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from flask.ext.restful import Api</span><br><span class="line">from ops import app</span><br><span class="line"></span><br><span class="line">from resource import *</span><br><span class="line"></span><br><span class="line">API_ROOT = &apos;/api/&apos;</span><br><span class="line">api = Api(app)</span><br><span class="line"></span><br><span class="line">api.add_resource(HostResource, API_ROOT+&apos;resource/hosts&apos;, API_ROOT+&apos;resource/hosts/&lt;int:id&gt;&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import os,sys</span><br><span class="line">root &#x3D; os.path.dirname(__file__)</span><br><span class="line">sys.path.insert(0, os.path.join(root, &#39;.&#x2F;&#39;))</span><br><span class="line"></span><br><span class="line">from ops import app,db</span><br><span class="line"></span><br><span class="line">import config</span><br><span class="line"></span><br><span class="line">app.config.from_object(&#39;config.DevelopmentConfig&#39;)</span><br><span class="line"></span><br><span class="line">db.create_all()</span><br></pre></td></tr></table></figure>
+
+<h2 id="services"><a href="#services" class="headerlink" title="services"></a>services</h2><p>略</p>
+<h2 id="views"><a href="#views" class="headerlink" title="views"></a>views</h2><p>本项目中使用了 Flask-RESTful 插件。注册view的代码为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from flask.ext.restful import Api</span><br><span class="line">from ops import app</span><br><span class="line"></span><br><span class="line">from resource import *</span><br><span class="line"></span><br><span class="line">API_ROOT &#x3D; &#39;&#x2F;api&#x2F;&#39;</span><br><span class="line">api &#x3D; Api(app)</span><br><span class="line"></span><br><span class="line">api.add_resource(HostResource, API_ROOT+&#39;resource&#x2F;hosts&#39;, API_ROOT+&#39;resource&#x2F;hosts&#x2F;&lt;int:id&gt;&#39;)</span><br></pre></td></tr></table></figure>
+
 <p>实现view的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">from flask import request</span><br><span class="line">from flask.ext.restful import abort, Resource, fields, marshal_with, marshal</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">from ops.models import Host</span><br><span class="line">from ops.services import SaltService</span><br><span class="line"></span><br><span class="line">host_fields = &#123;</span><br><span class="line">        &apos;id&apos;: fields.Integer,</span><br><span class="line">        &apos;hostname&apos;: fields.String,</span><br><span class="line">        &apos;minionid&apos;: fields.String,</span><br><span class="line">        &apos;keystate&apos;: fields.String,</span><br><span class="line">        &apos;virtual&apos;: fields.String,</span><br><span class="line">        &apos;comment&apos;: fields.String,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">class HostResource(Resource):</span><br><span class="line">    @marshal_with(host_fields)</span><br><span class="line"></span><br><span class="line">    def get(self, id=None):</span><br><span class="line">        salt = SaltService()</span><br><span class="line">        salt.list()</span><br><span class="line"></span><br><span class="line">        if not id:</span><br><span class="line">            hosts = Host.query.all()</span><br><span class="line">        else:</span><br><span class="line">            hosts = Host.query.filter_by(id=id).first()</span><br><span class="line">        return hosts</span><br><span class="line"></span><br><span class="line">    def post(self):</span><br><span class="line">        host = marshal(request.data, host_fields)</span><br><span class="line">        db.session.add(host)</span><br><span class="line">        db.session.commit()</span><br><span class="line"></span><br><span class="line">        return &#123;&apos;msg&apos;:&apos;post successfully! &apos;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def delete(self, id):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def put(self, id):</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure>
-<h2 id="后端测试用例"><a class="markdownIt-Anchor" href="#后端测试用例"></a> 后端测试用例</h2>
-<p>(TODO)</p>
-<h1 id="前端开发"><a class="markdownIt-Anchor" href="#前端开发"></a> 前端开发</h1>
-<h2 id="安装需要的插件"><a class="markdownIt-Anchor" href="#安装需要的插件"></a> 安装需要的插件</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd PROJ_ROOT/web</span><br><span class="line">bower install angular-bootstrap -S</span><br><span class="line">bower install restangular -S</span><br></pre></td></tr></table></figure>
-<h2 id="配置appjs"><a class="markdownIt-Anchor" href="#配置appjs"></a> 配置app.js</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(&apos;webApp&apos;, [</span><br><span class="line">    ...</span><br><span class="line">    &apos;ui.bootstrap&apos;,</span><br><span class="line">    &apos;restangular&apos;,</span><br><span class="line">    ...</span><br><span class="line">  ])</span><br><span class="line">  .run(function ()&#123;</span><br><span class="line">    console.log(&apos;app run&apos;);</span><br><span class="line"></span><br><span class="line">  &#125;)</span><br><span class="line">  .config(function ($routeProvider,RestangularProvider) &#123;</span><br><span class="line">    console.log(&apos;app config&apos;);</span><br><span class="line">    RestangularProvider.setBaseUrl(&apos;/api/&apos;);</span><br><span class="line"></span><br><span class="line">   $routeProvider</span><br><span class="line">      .when(</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-<h2 id="脚手架"><a class="markdownIt-Anchor" href="#脚手架"></a> 脚手架</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yo angular:route host/list</span><br></pre></td></tr></table></figure>
-<p>会自动在=scripts/app.js=中增加路由，创建=scripts/host/list.js=、=views/host/list.html=文件，并在=index.html=<br>
-中增加=scripts/host/list.js=的引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">from flask import request</span><br><span class="line">from flask.ext.restful import abort, Resource, fields, marshal_with, marshal</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">from ops.models import Host</span><br><span class="line">from ops.services import SaltService</span><br><span class="line"></span><br><span class="line">host_fields &#x3D; &#123;</span><br><span class="line">        &#39;id&#39;: fields.Integer,</span><br><span class="line">        &#39;hostname&#39;: fields.String,</span><br><span class="line">        &#39;minionid&#39;: fields.String,</span><br><span class="line">        &#39;keystate&#39;: fields.String,</span><br><span class="line">        &#39;virtual&#39;: fields.String,</span><br><span class="line">        &#39;comment&#39;: fields.String,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">class HostResource(Resource):</span><br><span class="line">    @marshal_with(host_fields)</span><br><span class="line"></span><br><span class="line">    def get(self, id&#x3D;None):</span><br><span class="line">        salt &#x3D; SaltService()</span><br><span class="line">        salt.list()</span><br><span class="line"></span><br><span class="line">        if not id:</span><br><span class="line">            hosts &#x3D; Host.query.all()</span><br><span class="line">        else:</span><br><span class="line">            hosts &#x3D; Host.query.filter_by(id&#x3D;id).first()</span><br><span class="line">        return hosts</span><br><span class="line"></span><br><span class="line">    def post(self):</span><br><span class="line">        host &#x3D; marshal(request.data, host_fields)</span><br><span class="line">        db.session.add(host)</span><br><span class="line">        db.session.commit()</span><br><span class="line"></span><br><span class="line">        return &#123;&#39;msg&#39;:&#39;post successfully! &#39;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def delete(self, id):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def put(self, id):</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure>
+
+<h2 id="后端测试用例"><a href="#后端测试用例" class="headerlink" title="后端测试用例"></a>后端测试用例</h2><p>(TODO)</p>
+<h1 id="前端开发"><a href="#前端开发" class="headerlink" title="前端开发"></a>前端开发</h1><h2 id="安装需要的插件"><a href="#安装需要的插件" class="headerlink" title="安装需要的插件"></a>安装需要的插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd PROJ_ROOT&#x2F;web</span><br><span class="line">bower install angular-bootstrap -S</span><br><span class="line">bower install restangular -S</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置app-js"><a href="#配置app-js" class="headerlink" title="配置app.js"></a>配置app.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(&#39;webApp&#39;, [</span><br><span class="line">    ...</span><br><span class="line">    &#39;ui.bootstrap&#39;,</span><br><span class="line">    &#39;restangular&#39;,</span><br><span class="line">    ...</span><br><span class="line">  ])</span><br><span class="line">  .run(function ()&#123;</span><br><span class="line">    console.log(&#39;app run&#39;);</span><br><span class="line"></span><br><span class="line">  &#125;)</span><br><span class="line">  .config(function ($routeProvider,RestangularProvider) &#123;</span><br><span class="line">    console.log(&#39;app config&#39;);</span><br><span class="line">    RestangularProvider.setBaseUrl(&#39;&#x2F;api&#x2F;&#39;);</span><br><span class="line"></span><br><span class="line">   $routeProvider</span><br><span class="line">      .when(</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="脚手架"><a href="#脚手架" class="headerlink" title="脚手架"></a>脚手架</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yo angular:route host&#x2F;list</span><br></pre></td></tr></table></figure>
+
+<p>会自动在=scripts/app.js=中增加路由，创建=scripts/host/list.js=、=views/host/list.html=文件，并在=index.html=<br>中增加=scripts/host/list.js=的引用。</p>
 <p>此时已经可以访问 <a href="http://0.0.0.0:9000/#/host/list" target="_blank" rel="noopener">http://0.0.0.0:9000/#/host/list</a> 了。</p>
-<h2 id="实现restful-api调用"><a class="markdownIt-Anchor" href="#实现restful-api调用"></a> 实现RESTful API调用</h2>
-<p>PROJ<sub>ROOT</sub>/web/app/scripts/host/list.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">angular.module(&apos;webApp&apos;)</span><br><span class="line">  .controller(&apos;HostListCtrl&apos;, function ($scope,Restangular) &#123;</span><br><span class="line">    console.log(&apos;@HostListCtrl&apos;);</span><br><span class="line"></span><br><span class="line">    var url = Restangular.all(&apos;resource/hosts&apos;);</span><br><span class="line"></span><br><span class="line">    url.getList().then(function(hosts) &#123;</span><br><span class="line">       $scope.hosts = hosts;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="添加测试数据"><a class="markdownIt-Anchor" href="#添加测试数据"></a> 添加测试数据</h2>
-<p>根据前面的RESTful API约定，可以创建静态的json文件用于前端开发测试。</p>
+<h2 id="实现RESTful-API调用"><a href="#实现RESTful-API调用" class="headerlink" title="实现RESTful API调用"></a>实现RESTful API调用</h2><p>PROJ<del>ROOT</del>/web/app/scripts/host/list.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">angular.module(&#39;webApp&#39;)</span><br><span class="line">  .controller(&#39;HostListCtrl&#39;, function ($scope,Restangular) &#123;</span><br><span class="line">    console.log(&#39;@HostListCtrl&#39;);</span><br><span class="line"></span><br><span class="line">    var url &#x3D; Restangular.all(&#39;resource&#x2F;hosts&#39;);</span><br><span class="line"></span><br><span class="line">    url.getList().then(function(hosts) &#123;</span><br><span class="line">       $scope.hosts &#x3D; hosts;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加测试数据"><a href="#添加测试数据" class="headerlink" title="添加测试数据"></a>添加测试数据</h2><p>根据前面的RESTful API约定，可以创建静态的json文件用于前端开发测试。</p>
 <ul>
-<li>`PROJ<sub>ROOT</sub>/web/app/api/resource/hosts`</li>
+<li>`PROJ<del>ROOT</del>/web/app/api/resource/hosts`</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;comment&quot;: &quot;comment1&quot;,</span><br><span class="line">        &quot;hostname&quot;: &quot;host1&quot;,</span><br><span class="line">        &quot;id&quot;: 1,</span><br><span class="line">        &quot;keystate&quot;: null,</span><br><span class="line">        &quot;minionid&quot;: &quot;minion1&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;hostname&quot;: &quot;host2&quot;,</span><br><span class="line">        &quot;id&quot;: 2,</span><br><span class="line">        &quot;keystate&quot;: &quot;Accepted&quot;,</span><br><span class="line">        &quot;minionid&quot;: &quot;minion2&quot;,</span><br><span class="line">        &quot;virtual&quot;: &quot;vmware&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>`PROJ<sub>ROOT</sub>/web/app/api/resource/hosts/1`</li>
+<li>`PROJ<del>ROOT</del>/web/app/api/resource/hosts/1`</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TODO</span><br></pre></td></tr></table></figure>
-<h2 id="编写html模板"><a class="markdownIt-Anchor" href="#编写html模板"></a> 编写html模板</h2>
-<p>`PROJ<sub>ROOT</sub>/web/app/views/host/list.html`</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot; ng-controller=&quot;HostListCtrl&quot;&gt;</span><br><span class="line">    &lt;ol class=&quot;breadcrumb&quot;&gt;</span><br><span class="line">        &lt;li &gt;&lt;strong&gt;资源&lt;/strong&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;active&quot;&gt;&lt;strong&gt;主机&lt;/strong&gt;&lt;/li&gt;</span><br><span class="line">  &lt;/ol&gt;</span><br><span class="line">    &lt;table class=&quot;table table-striped&quot;&gt;</span><br><span class="line">        &lt;tr&gt;&lt;th width=&quot;20%&quot;&gt;主机名&lt;/th&gt;&lt;th width=&quot;20%&quot;&gt;minionid&lt;/th&gt;&lt;th&gt;key状态&lt;/th&gt;&lt;th&gt;虚拟化&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;</span><br><span class="line">        &lt;tr ng-repeat=&quot;host in hosts | orderBy: &apos;-id&apos;&quot;&gt;</span><br><span class="line">            &lt;td&gt;&lt;a ng-href=&quot;/#/&#123;&#123;host.id&#125;&#125;&quot;&gt;&#123;&#123;host.hostname&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;host.minionid&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;host.keystate&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;host.virtual&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;</span><br><span class="line">                &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-xs&quot;&gt;更新&lt;/button&gt;</span><br><span class="line">                &lt;button type=&quot;button&quot; class=&quot;btn btn-danger btn-xs&quot;&gt;删除&lt;/button&gt;</span><br><span class="line">            &lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-success&quot;&gt;增加主机&lt;/button&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="前端测试"><a class="markdownIt-Anchor" href="#前端测试"></a> 前端测试</h2>
-<p>此时，在 <a href="http://0.0.0.0:9000/#/host/list" target="_blank" rel="noopener">http://0.0.0.0:9000/#/host/list</a><br>
-已经可以看到json文件中的数据了。</p>
+
+<h2 id="编写html模板"><a href="#编写html模板" class="headerlink" title="编写html模板"></a>编写html模板</h2><p>`PROJ<del>ROOT</del>/web/app/views/host/list.html`</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;container&quot; ng-controller&#x3D;&quot;HostListCtrl&quot;&gt;</span><br><span class="line">    &lt;ol class&#x3D;&quot;breadcrumb&quot;&gt;</span><br><span class="line">        &lt;li &gt;&lt;strong&gt;资源&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;</span><br><span class="line">        &lt;li class&#x3D;&quot;active&quot;&gt;&lt;strong&gt;主机&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ol&gt;</span><br><span class="line">    &lt;table class&#x3D;&quot;table table-striped&quot;&gt;</span><br><span class="line">        &lt;tr&gt;&lt;th width&#x3D;&quot;20%&quot;&gt;主机名&lt;&#x2F;th&gt;&lt;th width&#x3D;&quot;20%&quot;&gt;minionid&lt;&#x2F;th&gt;&lt;th&gt;key状态&lt;&#x2F;th&gt;&lt;th&gt;虚拟化&lt;&#x2F;th&gt;&lt;th&gt;操作&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">        &lt;tr ng-repeat&#x3D;&quot;host in hosts | orderBy: &#39;-id&#39;&quot;&gt;</span><br><span class="line">            &lt;td&gt;&lt;a ng-href&#x3D;&quot;&#x2F;#&#x2F;&#123;&#123;host.id&#125;&#125;&quot;&gt;&#123;&#123;host.hostname&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;host.minionid&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;host.keystate&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;host.virtual&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">            &lt;td&gt;</span><br><span class="line">                &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary btn-xs&quot;&gt;更新&lt;&#x2F;button&gt;</span><br><span class="line">                &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-danger btn-xs&quot;&gt;删除&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;&#x2F;td&gt;</span><br><span class="line">        &lt;&#x2F;tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-success&quot;&gt;增加主机&lt;&#x2F;button&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;</span><br><span class="line">        &lt;&#x2F;tr&gt;</span><br><span class="line">    &lt;&#x2F;table&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="前端测试"><a href="#前端测试" class="headerlink" title="前端测试"></a>前端测试</h2><p>此时，在 <a href="http://0.0.0.0:9000/#/host/list" target="_blank" rel="noopener">http://0.0.0.0:9000/#/host/list</a><br>已经可以看到json文件中的数据了。</p>
 <p>但是，更严谨的做法是写单元测试。</p>
 <p>(TODO)</p>
-<h1 id="集成测试"><a class="markdownIt-Anchor" href="#集成测试"></a> 集成测试</h1>
-<p>实现集成测试最简单的方式是：前端开发完后，作为后端Flask的static。</p>
-<p>在<a href="http://holbrook.github.io/2015/05/04/modern_web_dev_env.html">搭建一个“现代化”的web开发环境</a>中，<br>
-我们已经修改了grunt配置的`dist`，所以只要修改Flask中的一些配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">app = Flask(**~name~\_**,static~urlpath~=&apos;&apos;)</span><br><span class="line"></span><br><span class="line">@app.route(&apos;/&apos;) def index(): return redirect(&apos;/index.html&apos;)</span><br></pre></td></tr></table></figure>
-<h1 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h1>
-<ol>
-<li>
-<p>白话SCRUM 之二：product backlog<br>
-<a href="http://blog.csdn.net/dylanren/article/details/7072734" target="_blank" rel="noopener">http://blog.csdn.net/dylanren/article/details/7072734</a></p>
+<h1 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h1><p>实现集成测试最简单的方式是：前端开发完后，作为后端Flask的static。</p>
+<p>在<a href="http://holbrook.github.io/2015/05/04/modern_web_dev_env.html">搭建一个“现代化”的web开发环境</a>中，<br>我们已经修改了grunt配置的`dist`，所以只要修改Flask中的一些配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">app &#x3D; Flask(**~name~\_**,static~urlpath~&#x3D;&#39;&#39;)</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;&#39;) def index(): return redirect(&#39;&#x2F;index.html&#39;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><p>白话SCRUM 之二：product backlog<br><a href="http://blog.csdn.net/dylanren/article/details/7072734" target="_blank" rel="noopener">http://blog.csdn.net/dylanren/article/details/7072734</a></p>
 </li>
-<li>
-<p>Scrum 之 product Backlog <a href="http://www.zhoujingen.cn/blog/2767.html" target="_blank" rel="noopener">http://www.zhoujingen.cn/blog/2767.html</a></p>
+<li><p>Scrum 之 product Backlog <a href="http://www.zhoujingen.cn/blog/2767.html" target="_blank" rel="noopener">http://www.zhoujingen.cn/blog/2767.html</a></p>
 </li>
-<li>
-<p>领域驱动设计(精简版)<br>
-<a href="http://www.infoq.com/cn/minibooks/domain-driven-design-quickly-new" target="_blank" rel="noopener">http://www.infoq.com/cn/minibooks/domain-driven-design-quickly-new</a></p>
+<li><p>领域驱动设计(精简版)<br><a href="http://www.infoq.com/cn/minibooks/domain-driven-design-quickly-new" target="_blank" rel="noopener">http://www.infoq.com/cn/minibooks/domain-driven-design-quickly-new</a></p>
 </li>
-<li>
-<p>scrum和分支管理策略<br>
-<a href="http://holbrook.github.io/2015/05/05/git_branch_within_scrum.html">http://holbrook.github.io/2015/05/05/git\_branch\_within\_scrum.html</a></p>
+<li><p>scrum和分支管理策略<br><a href="http://holbrook.github.io/2015/05/05/git_branch_within_scrum.html">http://holbrook.github.io/2015/05/05/git\_branch\_within\_scrum.html</a></p>
 </li>
-<li>
-<p>SQLAlchemy继承关系映射<br>
-<a href="http://docs.sqlalchemy.org/en/rel_1_0/orm/inheritance.html" target="_blank" rel="noopener">http://docs.sqlalchemy.org/en/rel\_1\_0/orm/inheritance.html</a></p>
+<li><p>SQLAlchemy继承关系映射<br><a href="http://docs.sqlalchemy.org/en/rel_1_0/orm/inheritance.html" target="_blank" rel="noopener">http://docs.sqlalchemy.org/en/rel\_1\_0/orm/inheritance.html</a></p>
 </li>
-<li>
-<p>【工具】bootstrap表单构造器<br>
-<a href="http://www.bootcss.com/p/bootstrap-form-builder/" target="_blank" rel="noopener">http://www.bootcss.com/p/bootstrap-form-builder/</a></p>
+<li><p>【工具】bootstrap表单构造器<br><a href="http://www.bootcss.com/p/bootstrap-form-builder/" target="_blank" rel="noopener">http://www.bootcss.com/p/bootstrap-form-builder/</a></p>
 </li>
 </ol>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/angularjs/" rel="tag"># angularjs</a>
-          
-            <a href="/tags/flask/" rel="tag"># flask</a>
-          
-            <a href="/tags/scrum/" rel="tag"># scrum</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/06/02/lvs_lb_strategy.html" rel="next" title="lvs的三种负载均衡机制">
-                <i class="fa fa-chevron-left"></i> lvs的三种负载均衡机制
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/angularjs/" rel="tag"># angularjs</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/scrum/" rel="tag"># scrum</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/06/03/lb_solutions_list.html" rel="prev" title="Web负载均衡的几种实现方式">
-                Web负载均衡的几种实现方式 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2013/06/02/lvs_lb_strategy.html" rel="prev" title="lvs的三种负载均衡机制">
+      <i class="fa fa-chevron-left"></i> lvs的三种负载均衡机制
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2013/06/03/lb_solutions_list.html" rel="next" title="Web负载均衡的几种实现方式">
+      Web负载均衡的几种实现方式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用户故事"><span class="nav-number">1.</span> <span class="nav-text"> 用户故事</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#领域模型"><span class="nav-number">2.</span> <span class="nav-text"> 领域模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发准备"><span class="nav-number">3.</span> <span class="nav-text"> 开发准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#restfulapi-与-前后端分离"><span class="nav-number">4.</span> <span class="nav-text"> RESTfulAPI 与 前后端分离</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后端开发"><span class="nav-number">5.</span> <span class="nav-text"> 后端开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#models"><span class="nav-number">5.1.</span> <span class="nav-text"> models</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#services"><span class="nav-number">5.2.</span> <span class="nav-text"> services</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#views"><span class="nav-number">5.3.</span> <span class="nav-text"> views</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端测试用例"><span class="nav-number">5.4.</span> <span class="nav-text"> 后端测试用例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端开发"><span class="nav-number">6.</span> <span class="nav-text"> 前端开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装需要的插件"><span class="nav-number">6.1.</span> <span class="nav-text"> 安装需要的插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置appjs"><span class="nav-number">6.2.</span> <span class="nav-text"> 配置app.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚手架"><span class="nav-number">6.3.</span> <span class="nav-text"> 脚手架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现restful-api调用"><span class="nav-number">6.4.</span> <span class="nav-text"> 实现RESTful API调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加测试数据"><span class="nav-number">6.5.</span> <span class="nav-text"> 添加测试数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写html模板"><span class="nav-number">6.6.</span> <span class="nav-text"> 编写html模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端测试"><span class="nav-number">6.7.</span> <span class="nav-text"> 前端测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集成测试"><span class="nav-number">7.</span> <span class="nav-text"> 集成测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2013/06/03/angular_flask_restful_sample.html';
-          this.page.identifier = '2013/06/03/angular_flask_restful_sample.html';
-          this.page.title = 'AngularJS+Flask的例子';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -920,24 +543,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '7bd8a22239ddd5c2e182c0fdd5218774',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

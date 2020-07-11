@@ -1,92 +1,34 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="qnMTU0bmBQ">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
 
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"holbrook.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
 
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="神经网络, 计算机视觉," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="本文主要参考74行代码实现手写数字识别， 但是没有采用Michael Nielsen的neural-networks-and-deep-learning代码，而是直接使用scikit-learn的MLPClassifier(Multi-layer Perceptron Classifier, 多层感知机分类器)。 数据来自著名的MNIST数据集。">
-<meta name="keywords" content="神经网络, 计算机视觉">
+  <meta name="description" content="本文主要参考74行代码实现手写数字识别，但是没有采用Michael Nielsen的neural-networks-and-deep-learning代码，而是直接使用scikit-learn的MLPClassifier(Multi-layer Perceptron Classifier, 多层感知机分类器)。数据来自著名的MNIST数据集。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用神经网络识别手写数字">
 <meta property="og:url" content="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition.html">
 <meta property="og:site_name" content="心内求法">
-<meta property="og:description" content="本文主要参考74行代码实现手写数字识别， 但是没有采用Michael Nielsen的neural-networks-and-deep-learning代码，而是直接使用scikit-learn的MLPClassifier(Multi-layer Perceptron Classifier, 多层感知机分类器)。 数据来自著名的MNIST数据集。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="本文主要参考74行代码实现手写数字识别，但是没有采用Michael Nielsen的neural-networks-and-deep-learning代码，而是直接使用scikit-learn的MLPClassifier(Multi-layer Perceptron Classifier, 多层感知机分类器)。数据来自著名的MNIST数据集。">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition/general_process_of_neural_networks.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition/gen_model.jpg">
 <meta property="og:image" content="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition/select_model.jpg">
@@ -1085,58 +1027,35 @@ oJOZ7QO+Q/0FJm/rFWYuH+s1Abgb2BQ6XwvwLaBng1w+1iucXD7WqxvwjJmlUl+Oi51zxb5/HsPM
 5eXnsTGxXC+9Q1VEJAnF82kZERG5Sip3EZEkpHIXEUlCKncRkSSkchcRSUIqdxGRJKRyFxFJQip3
 EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
 ">
-<meta property="og:updated_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:published_time" content="2018-02-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-04-16T03:04:21.000Z">
+<meta property="article:author" content="Holbrook">
+<meta property="article:tag" content="神经网络, 计算机视觉">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用神经网络识别手写数字">
-<meta name="twitter:description" content="本文主要参考74行代码实现手写数字识别， 但是没有采用Michael Nielsen的neural-networks-and-deep-learning代码，而是直接使用scikit-learn的MLPClassifier(Multi-layer Perceptron Classifier, 多层感知机分类器)。 数据来自著名的MNIST数据集。">
 <meta name="twitter:image" content="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition/general_process_of_neural_networks.jpg">
 
+<link rel="canonical" href="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition.html"/>
-
-
-
-
 
   <title>用神经网络识别手写数字 | 心内求法</title>
   
 
 
-
-
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?16d951e9b49ded5f2e821a0e61d77797";
+      hm.src = "https://hm.baidu.com/hm.js?8cdb29fdf281f4429a98d7b5d0e0d4a8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -1145,213 +1064,247 @@ EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">心内求法</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Holbrook的个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">心内求法</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Holbrook的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络建模的一般过程"><span class="nav-number">1.</span> <span class="nav-text">神经网络建模的一般过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成模型"><span class="nav-number">1.1.</span> <span class="nav-text">生成模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#筛选模型"><span class="nav-number">1.2.</span> <span class="nav-text">筛选模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题建模"><span class="nav-number">2.</span> <span class="nav-text">问题建模</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">3.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉验证"><span class="nav-number">3.2.</span> <span class="nav-text">交叉验证</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Holbrook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
       <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+        
 
-  <div id="posts" class="posts-expand">
+        <div class="content post posts-expand">
+          
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Holbrook">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="心内求法">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">用神经网络识别手写数字</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          用神经网络识别手写数字
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-23T00:00:00+08:00">
-                2018-02-23
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2018-02-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-23T00:00:00+08:00">2018-02-23</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/2018/02/23/Neural-Networks-digital-recognition.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/23/Neural-Networks-digital-recognition.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-04-16 11:04:21" itemprop="dateModified" datetime="2018-04-16T11:04:21+08:00">2018-04-16</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1359,13 +1312,9 @@ EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>本文主要参考<a href="http://www.cvvision.cn/1975.html" target="_blank" rel="noopener">74行代码实现手写数字识别</a>，<br>
-但是没有采用Michael Nielsen的<a href="https://github.com/mnielsen/neural-networks-and-deep-learning" target="_blank" rel="noopener">neural-networks-and-deep-learning</a>代码，而是直接使用scikit-learn的MLPClassifier(Multi-layer Perceptron Classifier, 多层感知机分类器)。<br>
-数据来自著名的MNIST数据集。</p>
+        <p>本文主要参考<a href="http://www.cvvision.cn/1975.html" target="_blank" rel="noopener">74行代码实现手写数字识别</a>，<br>但是没有采用Michael Nielsen的<a href="https://github.com/mnielsen/neural-networks-and-deep-learning" target="_blank" rel="noopener">neural-networks-and-deep-learning</a>代码，而是直接使用scikit-learn的MLPClassifier(Multi-layer Perceptron Classifier, 多层感知机分类器)。<br>数据来自著名的MNIST数据集。</p>
 <a id="more"></a>
+
 <p>本文的代码需要如下python模块：</p>
 <ul>
 <li>matplotlib</li>
@@ -1375,17 +1324,17 @@ EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
 <li>scipy</li>
 <li>Theano</li>
 </ul>
-<h1 id="神经网络建模的一般过程"><a class="markdownIt-Anchor" href="#神经网络建模的一般过程"></a> 神经网络建模的一般过程</h1>
-<p>神经网络分析的一般过程为：导入数据，训练模型，优化模型，启发式理解等。如下图:</p>
-<img src="/2018/02/23/Neural-Networks-digital-recognition/general_process_of_neural_networks.jpg" title="神经网络分析的一般过程">
+<h1 id="神经网络建模的一般过程"><a href="#神经网络建模的一般过程" class="headerlink" title="神经网络建模的一般过程"></a>神经网络建模的一般过程</h1><p>神经网络分析的一般过程为：导入数据，训练模型，优化模型，启发式理解等。如下图:</p>
+<img src="/2018/02/23/Neural-Networks-digital-recognition/general_process_of_neural_networks.jpg" class="" title="神经网络分析的一般过程">
+
 <p>用神经网络解决数字识别问题的思路就是：</p>
 <ol>
 <li>获取大量的手写数字的图像，并且已知它们表示的是哪个数字</li>
 <li>以此为训练样本集合，自动生成一套神经网络模型</li>
 <li>依靠它来识别新的手写数字</li>
 </ol>
-<h2 id="生成模型"><a class="markdownIt-Anchor" href="#生成模型"></a> 生成模型</h2>
-<img src="/2018/02/23/Neural-Networks-digital-recognition/gen_model.jpg" title="生成模型">
+<h2 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h2><img src="/2018/02/23/Neural-Networks-digital-recognition/gen_model.jpg" class="" title="生成模型">
+
 <p>生成模型是这样一个逐步确定未知参数的迭代过程：</p>
 <ol>
 <li>选定一个基础模型</li>
@@ -1396,32 +1345,24 @@ EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
 <li>重复3–5</li>
 </ol>
 <p>生成的模型只是对训练集表现较好，为了验证模型的有效性，还需要通过与训练集无关的测试集，对模型进行检验。</p>
-<h2 id="筛选模型"><a class="markdownIt-Anchor" href="#筛选模型"></a> 筛选模型</h2>
-<p>如果有多个模型，要从中选出最好的，很自然的思路就是让多个模型跑测试集，从中挑出误差最小的。<br>
-但这种思路有一个明显的问题：如果把模型编号作为一个参数，上述过程就相当于用测试集进行训练。</p>
-<p>如果从多个模型的角度来看，有一些“决定模型”的参数，比如训练次数、梯度下降过程的步长、规范化参数、学习回合数、minibatch 值等等，我们把他们叫做超参数。<br>
-超参数是更高层次的，模型框架的参数，可以理解成参数的参数。</p>
-<p>为了确定超参数，可以把数据再分出一部分，叫做“交叉验证集”。经过交叉验证的模型，依然不能保证在新的数据继续有效，<br>
-所以最后还是需要一个新的测试集对模型进行考核评价。</p>
+<h2 id="筛选模型"><a href="#筛选模型" class="headerlink" title="筛选模型"></a>筛选模型</h2><p>如果有多个模型，要从中选出最好的，很自然的思路就是让多个模型跑测试集，从中挑出误差最小的。<br>但这种思路有一个明显的问题：如果把模型编号作为一个参数，上述过程就相当于用测试集进行训练。</p>
+<p>如果从多个模型的角度来看，有一些“决定模型”的参数，比如训练次数、梯度下降过程的步长、规范化参数、学习回合数、minibatch 值等等，我们把他们叫做超参数。<br>超参数是更高层次的，模型框架的参数，可以理解成参数的参数。</p>
+<p>为了确定超参数，可以把数据再分出一部分，叫做“交叉验证集”。经过交叉验证的模型，依然不能保证在新的数据继续有效，<br>所以最后还是需要一个新的测试集对模型进行考核评价。</p>
 <p>筛选模型，就是确定“超参数”的过程。</p>
-<img src="/2018/02/23/Neural-Networks-digital-recognition/select_model.jpg" title="筛选模型">
-<p>至此，规范的方法的是将数据集拆分成三个集合：训练集、交叉验证集、测试集，<br>
-依次训练参数、超参数，最终得到最优的模型。</p>
+<img src="/2018/02/23/Neural-Networks-digital-recognition/select_model.jpg" class="" title="筛选模型">
+
+<p>至此，规范的方法的是将数据集拆分成三个集合：训练集、交叉验证集、测试集，<br>依次训练参数、超参数，最终得到最优的模型。</p>
 <p>这是一个反复迭代不断优化的过程。其中很大一部分工作是在调整参数和超参数。</p>
-<p>需要注意的是，在调优超参数时，一定要将多个模型用交叉验证集的结果来横向比较，<br>
-选出最优模型后再用一个新的测试集来最终评估该模型。<br>
-绝对不能直接用测试集进行调优，否则很容易发生<code>过拟合</code>.</p>
-<h1 id="问题建模"><a class="markdownIt-Anchor" href="#问题建模"></a> 问题建模</h1>
-<p>回到手写数字识别的问题。以三层(单隐层)神经网络为例：</p>
-<img src="/2018/02/23/Neural-Networks-digital-recognition/three_layer.jpg" title="三层神经网络">
+<p>需要注意的是，在调优超参数时，一定要将多个模型用交叉验证集的结果来横向比较，<br>选出最优模型后再用一个新的测试集来最终评估该模型。<br>绝对不能直接用测试集进行调优，否则很容易发生<code>过拟合</code>.</p>
+<h1 id="问题建模"><a href="#问题建模" class="headerlink" title="问题建模"></a>问题建模</h1><p>回到手写数字识别的问题。以三层(单隐层)神经网络为例：</p>
+<img src="/2018/02/23/Neural-Networks-digital-recognition/three_layer.jpg" class="" title="三层神经网络">
+
 <ul>
 <li>输入层：将每个图片规整到28*28=784个像素。 每个节点可以输入0–255（像素点的灰度）</li>
 <li>输出层：0-9这10个数字。每个节点可以输出0或1</li>
 <li>中间层：用n个节点进行处理，其中n是超参数</li>
 </ul>
-<h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1>
-<p>##数据探索</p>
-
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>##数据探索</p>
 <div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
@@ -1434,7 +1375,7 @@ EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 </pre></div>
 
 </div>
@@ -1601,7 +1542,8 @@ N1H+lyVtsv0l25+V9G1JxxrI8TG2VxcvxMj2aknf1OStPnxM0s7i8k5JzzSY5e9MysrNvVaWVsP3
 3cSteB0Rtf9IukuLr/j/n6QfNpGhR64bJP138fNW09kkPaXFh4F/0eJrI/dJ+pykE5JOSzou6ZoJ
 yvYfkt6Q9LoWi7ahoWy3a/Eh/euSThU/dzV935XkauR+4x1+QFK84AckRfmBpCg/kBTlB5Ki/EBS
 lB9IivIDSVF+IKn/B75f3aisdiBYAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -1614,9 +1556,8 @@ lB9IivIDSVF+IKn/B75f3aisdiBYAAAAAElFTkSuQmCC
   </div>
 </div>
 
-<h2 id="训练"><a class="markdownIt-Anchor" href="#训练"></a> 训练</h2>
-<p>这里省去了优化参数的过程。</p>
 
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>这里省去了优化参数的过程。</p>
 <div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
@@ -1629,8 +1570,8 @@ lB9IivIDSVF+IKn/B75f3aisdiBYAAAAAElFTkSuQmCC
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="k">import</span> <span class="n">MLPClassifier</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
 </pre></div>
 
 </div>
@@ -1807,7 +1748,7 @@ Iteration 10, loss = 0.04008910
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sklearn自带方法joblib</span>
-<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
+<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="kn">import</span> <span class="n">joblib</span>
 
 <span class="c1"># 保存模型</span>
 <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mlp</span><span class="p">,</span> <span class="s1">&#39;model1.pickle&#39;</span><span class="p">)</span>
@@ -1904,9 +1845,8 @@ Iteration 10, loss = 0.04008910
   </div>
 </div>
 
-<h2 id="交叉验证"><a class="markdownIt-Anchor" href="#交叉验证"></a> 交叉验证</h2>
-<p>用交叉验证工具，可以根据score，优化模型的各个参数。</p>
 
+<h2 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h2><p>用交叉验证工具，可以根据score，优化模型的各个参数。</p>
 <div class="notebook-border">
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div id="notebook-container">
@@ -1919,8 +1859,8 @@ Iteration 10, loss = 0.04008910
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pylab</span> inline
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">cross_validation</span>
-<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="kn">import</span> <span class="n">joblib</span>
 </pre></div>
 
 </div>
@@ -2250,7 +2190,7 @@ Iteration 10, loss = 0.06922819
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 优化训练次数</span>
-<span class="kn">from</span> <span class="nn">sklearn.learning_curve</span> <span class="k">import</span> <span class="n">learning_curve</span>
+<span class="kn">from</span> <span class="nn">sklearn.learning_curve</span> <span class="kn">import</span> <span class="n">learning_curve</span>
 <span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_loss</span><span class="p">,</span> <span class="n">test_loss</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
                                                     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">,</span>
                                                     <span class="n">train_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
@@ -3727,7 +3667,8 @@ vA/kNcALeB/gZW0i0MzMVgF/C7xeRs4VnHOZwI1418dNx/smn+0B4KHAAHTOC6p/AnQIDCwPLmC9
 nHoDy83sa7yplifmWn4r3mUn5wYGm59w3jUNrgNeMbPleCFxarHeAakSNEuqSBGYWTWgmnPuYOAb
 9kfAKc65LJ9LEylTGmgWKZrawJxAOBjwJwWCVEbaUxARkSCNKYiISJBCQUREghQKIiISpFAQEZEg
 hYKIiAQpFEREJOj/A9KccGWtzsGJAAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -3742,7 +3683,7 @@ hYKIiAQpFEREJOj/A9KccGWtzsGJAAAAAElFTkSuQmCC
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 优化节点数</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">validation_curve</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">validation_curve</span>
 <span class="n">train_score</span><span class="p">,</span> <span class="n">test_score</span> <span class="o">=</span> <span class="n">validation_curve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;hidden_layer_sizes&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),(</span><span class="mi">80</span><span class="p">,</span><span class="mi">80</span><span class="p">),(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">)],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
@@ -5221,7 +5162,8 @@ d85VmdmDwdcfAUoJXHHeDZwFvhkjue4A/s7MGoA64G4XvDweSWb2DIHJgB5mdhD4ZwIXmLztV4i5
 fOzXVODrwPbg+VqAfwIGNMvlY79CyeVjv/oCfzazZALl+Jxz7nXf/x5DzOXl32Nrorlf+g1VEZEE
 FMunZURE5DKp3EVEEpDKXUQkAancRUQSkMpdRCQBqdxFRBKQyl1EJAGp3EVEEtD/AXj3ORNfGa1D
 AAAAAElFTkSuQmCC
-">
+"
+>
 </div>
 
 </div>
@@ -5621,7 +5563,8 @@ fyjSnHN1ZjYPKKV+h8pTzrktZvZA6Pn5QAn1V5yrgTPAvXGS63bgQTOrA84Cd7jQ5fFoMrPfUr8z
 oJOZ7QO+Q/0FJm/rFWYuH+s1Abgb2BQ6XwvwLaBng1w+1iucXD7WqxvwjJmlUl+Oi51zxb5/HsPM
 5eXnsTGxXC+9Q1VEJAnF82kZERG5Sip3EZEkpHIXEUlCKncRkSSkchcRSUIqdxGRJKRyFxFJQip3
 EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
-">
+"
+>
 </div>
 
 </div>
@@ -5648,414 +5591,124 @@ EZEk9P/kQ31j33JtRQAAAABJRU5ErkJggg==
 </div>
 
 
-      
+
+
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/神经网络-计算机视觉/" rel="tag"># 神经网络, 计算机视觉</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/02/23/classify-and-neural-networks.html" rel="next" title="分类问题与神经网络">
-                <i class="fa fa-chevron-left"></i> 分类问题与神经网络
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 神经网络, 计算机视觉</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/28/linear_regression.html" rel="prev" title="线性回归">
-                线性回归 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/02/06/the_order.html" rel="prev" title="交易系统中的订单(Order)">
+      <i class="fa fa-chevron-left"></i> 交易系统中的订单(Order)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/02/23/classify-and-neural-networks.html" rel="next" title="分类问题与神经网络">
+      分类问题与神经网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+    <div class="comments" id="gitalk-container"></div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Holbrook</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">125</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络建模的一般过程"><span class="nav-number">1.</span> <span class="nav-text"> 神经网络建模的一般过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成模型"><span class="nav-number">1.1.</span> <span class="nav-text"> 生成模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#筛选模型"><span class="nav-number">1.2.</span> <span class="nav-text"> 筛选模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题建模"><span class="nav-number">2.</span> <span class="nav-text"> 问题建模</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text"> 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">3.1.</span> <span class="nav-text"> 训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉验证"><span class="nav-number">3.2.</span> <span class="nav-text"> 交叉验证</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Holbrook</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Holbrook</span>
+</div>
+
+        
 
 
 
 
 
 
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://holbrook.github.io/2018/02/23/Neural-Networks-digital-recognition.html';
-          this.page.identifier = '2018/02/23/Neural-Networks-digital-recognition.html';
-          this.page.title = '用神经网络识别手写数字';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -6070,24 +5723,27 @@ var jiathis_config={
 
   
 
-
-
-
-
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e6bfda915e630f4340f3',
+      clientSecret: '4fea976b7cca6c9ec4f67b0f86902e4afcf4a0be',
+      repo        : 'holbrook.github.io',
+      owner       : 'holbrook',
+      admin       : ['holbrook'],
+      id          : '062120fe93cb9243b1a61487cd19fdba',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
