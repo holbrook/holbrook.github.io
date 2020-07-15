@@ -8,3 +8,4 @@ public/
 
 **/.ipynb_checkpoints
 yarn.lock
+package-lock.json
