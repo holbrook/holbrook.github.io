@@ -1,5 +1,0 @@
-* SOAP and RESTful
-你可能注意到，上面的界面中分为“SOAP services” 和 “RESTful services”。也就是说，CXF同时支持SOAP风格和REST风格的WebService。配置起来也很简单，在前面的cxfdemo-beans.xml中增加jaxrs定义即可：
-
-当然，要在xml头增加namespace的声明：xmlns:jaxrs="http://cxf.apache.org/jaxrs" 和 xsi:schemaLocation="...http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd..."。
-新的cxfdemo-beans.xml如下：
